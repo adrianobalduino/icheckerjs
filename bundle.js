@@ -121805,6 +121805,7 @@ selection.addEventListener(
 dimension.addEventListener(
     "click", 
     async (clicked) => {
+        viewer.IFC.selector.unHighlightIfcItems();
         selection.className="btn btn-light";
         dimension.className="btn btn-dark";
         viewer.dimensions.active= true;
@@ -121828,8 +121829,61 @@ input.addEventListener(
         const ifcURL = URL.createObjectURL(changed.target.files[0]);
         const model = await viewer.IFC.loadIfcUrl(ifcURL);
         await viewer.shadowDropper.renderShadow(model.modelID);
-        window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
+        //window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
         window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+
+        window.ondblclick = async () => {
+            const result = await viewer.IFC.selector.highlightIfcItem();
+            if (!result) return;
+            const { modelID, id } = result;
+            const props = await viewer.IFC.getProperties(modelID, id, true, false);
+            createPropertiesMenu(props);
+        };
         },
     false
 );
+
+
+const propsGUI = document.getElementById("ifc-property-menu-root");
+
+function createPropertiesMenu(properties) {
+    console.log(properties);
+
+    removeAllChildren(propsGUI);
+
+    delete properties.psets;
+    delete properties.mats;
+    delete properties.type;
+
+    for (let key in properties) {
+        createPropertyEntry(key, properties[key]);
+    }
+
+}
+
+
+
+function createPropertyEntry(key, value) {
+    const propContainer = document.createElement("div");
+    propContainer.classList.add("ifc-property-item");
+
+    if(value === null || value === undefined) value = "undefined";
+    else if(value.value) value = value.value;
+
+    const keyElement = document.createElement("div");
+    keyElement.textContent = key;
+    propContainer.appendChild(keyElement);
+
+    const valueElement = document.createElement("div");
+    valueElement.classList.add("ifc-property-value");
+    valueElement.textContent = value;
+    propContainer.appendChild(valueElement);
+
+    propsGUI.appendChild(propContainer);
+}
+
+function removeAllChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
