@@ -20,6 +20,11 @@ let model;
 let reqPar;
 let scene;
 
+const pickable = viewer.context.items.pickableIfcModels;
+const index = pickable.indexOf(model);
+
+const propsGUI = document.getElementById("ifc-property-menu-root");
+
 // Set up the button logic
 inputRequirements.onchange = () => loadJson();
 inputIfc.onchange = () => loadIfc();
@@ -29,25 +34,50 @@ loadRequirements.onclick = () => inputRequirements.click();
 checkIfc.onclick = () => checkModel();
 
 async function loadJson(){
+  loadingStart();
   //Load the Requirements
   const requirements = inputRequirements.files[0];
   const urlRequirements = URL.createObjectURL(requirements);
 
   const rawRequirements = await fetch(urlRequirements);
   reqPar = await rawRequirements.json();
+  loadingEnd();
+  document.getElementById("save-success-message").classList.remove("invisible");
+  setTimeout(function(){
+    document.getElementById("save-success-message").classList.add("invisible")},2000);
 }
+
 
 async function loadIfc() {
-		// Load thpropprope model
-    const file = inputIfc.files[0];
-    const url = URL.createObjectURL(file);
-    model = await viewer.IFC.loadIfcUrl(url);
 
-		// Add dropped shadow and post-processing efect
-    await viewer.shadowDropper.renderShadow(model.modelID);   
+  loadingStart();
+  // Load thpropprope model
+  const file = inputIfc.files[0];
+  const url = URL.createObjectURL(file);
+  model = await viewer.IFC.loadIfcUrl(url);
+
+  // Add dropped shadow and post-processing efect
+  await viewer.shadowDropper.renderShadow(model.modelID);   
+  window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
+
+  loadingEnd();
+  document.getElementById("save-success-message").classList.remove("invisible");
+  setTimeout(function(){
+    document.getElementById("save-success-message").classList.add("invisible")},2000);
+
+  window.ondblclick = async () => {
+    const result = await viewer.IFC.selector.pickIfcItem();
+    if (!result) return;
+    const { modelID, id } = result;
+    const props = await viewer.IFC.getProperties(modelID, id, true, false);
+    createPropertiesMenu(props);
+  };
 }
 
+
 async function checkModel(){
+
+  loadingStart();
 
   scene = viewer.context.getScene();
 
@@ -104,11 +134,18 @@ async function checkModel(){
     }
   }
   let fail_set = [...new Set(fail)];
-  console.log(fail_set);
 
   model.removeFromParent();
+  pickable.splice(index, 1);
   const subset = await newSubsetOfType(fail_set);
   scene.add(subset);
+  pickable.push(subset);
+
+  loadingEnd();
+  document.getElementById("save-success-message").classList.remove("invisible");
+  setTimeout(function(){
+    document.getElementById("save-success-message").classList.add("invisible")},2000);
+
 }
 
 function decodeIFCString(ifcString) {
@@ -131,4 +168,53 @@ async function newSubsetOfType(list_ids){
     ids,
     removePrevious: true,
   });
+}
+
+function loadingStart(){
+  document.getElementById("loading").classList.remove("invisible");
+}
+
+function loadingEnd(){
+  document.getElementById("loading").classList.add("invisible");
+}
+
+function createPropertiesMenu(properties) {
+  // console.log(properties);
+
+  removeAllChildren(propsGUI);
+
+  delete properties.psets;
+  delete properties.mats;
+  delete properties.type;
+
+
+  for (let key in properties) {
+      createPropertyEntry(key, properties[key]);
+  }
+
+}
+
+function createPropertyEntry(key, value) {
+  const propContainer = document.createElement("div");
+  propContainer.classList.add("ifc-property-item");
+
+  if(value === null || value === undefined) value = "undefined";
+  else if(value.value) value = value.value;
+
+  const keyElement = document.createElement("div");
+  keyElement.textContent = key;
+  propContainer.appendChild(keyElement);
+
+  const valueElement = document.createElement("div");
+  valueElement.classList.add("ifc-property-value");
+  valueElement.textContent = value;
+  propContainer.appendChild(valueElement);
+
+  propsGUI.appendChild(propContainer);
+}
+
+function removeAllChildren(element) {
+  while (element.firstChild) {
+      element.removeChild(element.firstChild);
+  }
 }

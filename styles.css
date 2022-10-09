@@ -8,6 +8,16 @@ html, body {
     overflow: hidden;
 }
 
+#loading {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:10000;
+    width:100vw;
+    height:100vh;
+    background-color: rgba(255,255,255,0.9);
+}
+
 #viewer-container {
     position: fixed;
     top: 0;
@@ -24,14 +34,38 @@ html, body {
 .button-container {
     position: absolute;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .button-container button{
     margin: 0.5rem;
+    margin-right: 0.5rem;
     padding: 8px;
 }
 
 input {
     visibility: collapse;
+}
+
+
+.ifc-property-menu {
+    border: 1px solid gray;
+    width: 20rem;
+    position: relative;
+    background-color: white;
+    margin: 4.5rem;
+    padding: 8px;
+}
+
+.ifc-property-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: solid 1px gray;
+}
+
+.ifc-property-value {
+    width: 100%;
+    text-align: right;
 }
