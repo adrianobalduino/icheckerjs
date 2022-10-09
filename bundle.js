@@ -44168,12 +44168,12 @@ class IfcComponent {
     }
     update(_delta) { }
 }
-var dimension$1;
+var dimension;
 (function (dimension) {
     dimension["x"] = "x";
     dimension["y"] = "y";
     dimension["z"] = "z";
-})(dimension$1 || (dimension$1 = {}));
+})(dimension || (dimension = {}));
 
 const _raycaster$1 = new Raycaster();
 
@@ -46889,6 +46889,16813 @@ class LineSegments2 extends Mesh {
 }
 
 LineSegments2.prototype.isLineSegments2 = true;
+
+var __require$1 = (x) => {
+  if (typeof require !== "undefined")
+    return require(x);
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+};
+var __commonJS$1 = (cb, mod) => function __require2() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+
+// (disabled):crypto
+var require_crypto$1 = __commonJS$1({
+  "(disabled):crypto"() {
+  }
+});
+
+// dist/web-ifc-mt.js
+var require_web_ifc_mt$1 = __commonJS$1({
+  "dist/web-ifc-mt.js"(exports, module) {
+    var WebIFCWasm2 = function() {
+      var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
+      if (typeof __filename !== "undefined")
+        _scriptDir = _scriptDir || __filename;
+      return function(WebIFCWasm3) {
+        WebIFCWasm3 = WebIFCWasm3 || {};
+        function GROWABLE_HEAP_I8() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAP8;
+        }
+        function GROWABLE_HEAP_U8() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAPU8;
+        }
+        function GROWABLE_HEAP_I16() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAP16;
+        }
+        function GROWABLE_HEAP_U16() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAPU16;
+        }
+        function GROWABLE_HEAP_I32() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAP32;
+        }
+        function GROWABLE_HEAP_U32() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAPU32;
+        }
+        function GROWABLE_HEAP_F32() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAPF32;
+        }
+        function GROWABLE_HEAP_F64() {
+          if (wasmMemory.buffer != buffer) {
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+          }
+          return HEAPF64;
+        }
+        var Module = typeof WebIFCWasm3 !== "undefined" ? WebIFCWasm3 : {};
+        var readyPromiseResolve, readyPromiseReject;
+        Module["ready"] = new Promise(function(resolve, reject) {
+          readyPromiseResolve = resolve;
+          readyPromiseReject = reject;
+        });
+        var moduleOverrides = {};
+        var key;
+        for (key in Module) {
+          if (Module.hasOwnProperty(key)) {
+            moduleOverrides[key] = Module[key];
+          }
+        }
+        var thisProgram = "./this.program";
+        var quit_ = function(status, toThrow) {
+          throw toThrow;
+        };
+        var ENVIRONMENT_IS_WEB = typeof window === "object";
+        var ENVIRONMENT_IS_WORKER = typeof importScripts === "function";
+        var ENVIRONMENT_IS_NODE = typeof process === "object" && typeof process.versions === "object" && typeof process.versions.node === "string";
+        var ENVIRONMENT_IS_PTHREAD = Module["ENVIRONMENT_IS_PTHREAD"] || false;
+        var scriptDirectory = "";
+        function locateFile(path) {
+          if (Module["locateFile"]) {
+            return Module["locateFile"](path, scriptDirectory);
+          }
+          return scriptDirectory + path;
+        }
+        var read_, readAsync, readBinary;
+        var nodeFS;
+        var nodePath;
+        if (ENVIRONMENT_IS_NODE) {
+          if (ENVIRONMENT_IS_WORKER) {
+            scriptDirectory = __require$1("path").dirname(scriptDirectory) + "/";
+          } else {
+            scriptDirectory = __dirname + "/";
+          }
+          read_ = function shell_read(filename, binary) {
+            if (!nodeFS)
+              nodeFS = __require$1("fs");
+            if (!nodePath)
+              nodePath = __require$1("path");
+            filename = nodePath["normalize"](filename);
+            return nodeFS["readFileSync"](filename, binary ? null : "utf8");
+          };
+          readBinary = function readBinary2(filename) {
+            var ret = read_(filename, true);
+            if (!ret.buffer) {
+              ret = new Uint8Array(ret);
+            }
+            assert(ret.buffer);
+            return ret;
+          };
+          readAsync = function readAsync2(filename, onload, onerror) {
+            if (!nodeFS)
+              nodeFS = __require$1("fs");
+            if (!nodePath)
+              nodePath = __require$1("path");
+            filename = nodePath["normalize"](filename);
+            nodeFS["readFile"](filename, function(err2, data) {
+              if (err2)
+                onerror(err2);
+              else
+                onload(data.buffer);
+            });
+          };
+          if (process["argv"].length > 1) {
+            thisProgram = process["argv"][1].replace(/\\/g, "/");
+          }
+          process["argv"].slice(2);
+          process["on"]("uncaughtException", function(ex) {
+            if (!(ex instanceof ExitStatus)) {
+              throw ex;
+            }
+          });
+          process["on"]("unhandledRejection", abort);
+          quit_ = function(status, toThrow) {
+            if (keepRuntimeAlive()) {
+              process["exitCode"] = status;
+              throw toThrow;
+            }
+            process["exit"](status);
+          };
+          Module["inspect"] = function() {
+            return "[Emscripten Module object]";
+          };
+          var nodeWorkerThreads;
+          try {
+            nodeWorkerThreads = __require$1("worker_threads");
+          } catch (e) {
+            console.error('The "worker_threads" module is not supported in this node.js build - perhaps a newer version is needed?');
+            throw e;
+          }
+          global.Worker = nodeWorkerThreads.Worker;
+        } else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
+          if (ENVIRONMENT_IS_WORKER) {
+            scriptDirectory = self.location.href;
+          } else if (typeof document !== "undefined" && document.currentScript) {
+            scriptDirectory = document.currentScript.src;
+          }
+          if (_scriptDir) {
+            scriptDirectory = _scriptDir;
+          }
+          if (scriptDirectory.indexOf("blob:") !== 0) {
+            scriptDirectory = scriptDirectory.substr(0, scriptDirectory.lastIndexOf("/") + 1);
+          } else {
+            scriptDirectory = "";
+          }
+          if (ENVIRONMENT_IS_NODE) {
+            read_ = function shell_read(filename, binary) {
+              if (!nodeFS)
+                nodeFS = __require$1("fs");
+              if (!nodePath)
+                nodePath = __require$1("path");
+              filename = nodePath["normalize"](filename);
+              return nodeFS["readFileSync"](filename, binary ? null : "utf8");
+            };
+            readBinary = function readBinary2(filename) {
+              var ret = read_(filename, true);
+              if (!ret.buffer) {
+                ret = new Uint8Array(ret);
+              }
+              assert(ret.buffer);
+              return ret;
+            };
+            readAsync = function readAsync2(filename, onload, onerror) {
+              if (!nodeFS)
+                nodeFS = __require$1("fs");
+              if (!nodePath)
+                nodePath = __require$1("path");
+              filename = nodePath["normalize"](filename);
+              nodeFS["readFile"](filename, function(err2, data) {
+                if (err2)
+                  onerror(err2);
+                else
+                  onload(data.buffer);
+              });
+            };
+          } else {
+            read_ = function(url) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", url, false);
+              xhr.send(null);
+              return xhr.responseText;
+            };
+            if (ENVIRONMENT_IS_WORKER) {
+              readBinary = function(url) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, false);
+                xhr.responseType = "arraybuffer";
+                xhr.send(null);
+                return new Uint8Array(xhr.response);
+              };
+            }
+            readAsync = function(url, onload, onerror) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", url, true);
+              xhr.responseType = "arraybuffer";
+              xhr.onload = function() {
+                if (xhr.status == 200 || xhr.status == 0 && xhr.response) {
+                  onload(xhr.response);
+                  return;
+                }
+                onerror();
+              };
+              xhr.onerror = onerror;
+              xhr.send(null);
+            };
+          }
+        } else ;
+        if (ENVIRONMENT_IS_NODE) {
+          if (typeof performance === "undefined") {
+            global.performance = __require$1("perf_hooks").performance;
+          }
+        }
+        var out = Module["print"] || console.log.bind(console);
+        var err = Module["printErr"] || console.warn.bind(console);
+        for (key in moduleOverrides) {
+          if (moduleOverrides.hasOwnProperty(key)) {
+            Module[key] = moduleOverrides[key];
+          }
+        }
+        moduleOverrides = null;
+        if (Module["arguments"])
+          Module["arguments"];
+        if (Module["thisProgram"])
+          thisProgram = Module["thisProgram"];
+        if (Module["quit"])
+          quit_ = Module["quit"];
+        var STACK_ALIGN = 16;
+        function alignMemory(size, factor) {
+          if (!factor)
+            factor = STACK_ALIGN;
+          return Math.ceil(size / factor) * factor;
+        }
+        function warnOnce(text) {
+          if (!warnOnce.shown)
+            warnOnce.shown = {};
+          if (!warnOnce.shown[text]) {
+            warnOnce.shown[text] = 1;
+            err(text);
+          }
+        }
+        var wasmBinary;
+        if (Module["wasmBinary"])
+          wasmBinary = Module["wasmBinary"];
+        var noExitRuntime = Module["noExitRuntime"] || true;
+        if (typeof WebAssembly !== "object") {
+          abort("no native wasm support detected");
+        }
+        var wasmMemory;
+        var wasmModule;
+        var ABORT = false;
+        function assert(condition, text) {
+          if (!condition) {
+            abort("Assertion failed: " + text);
+          }
+        }
+        function TextDecoderWrapper(encoding) {
+          var textDecoder = new TextDecoder(encoding);
+          this.decode = function(data) {
+            if (data.buffer instanceof SharedArrayBuffer) {
+              data = new Uint8Array(data);
+            }
+            return textDecoder.decode.call(textDecoder, data);
+          };
+        }
+        var UTF8Decoder = typeof TextDecoder !== "undefined" ? new TextDecoderWrapper("utf8") : void 0;
+        function UTF8ArrayToString(heap, idx, maxBytesToRead) {
+          idx >>>= 0;
+          var endIdx = idx + maxBytesToRead;
+          var endPtr = idx;
+          while (heap[endPtr >>> 0] && !(endPtr >= endIdx))
+            ++endPtr;
+          if (endPtr - idx > 16 && heap.subarray && UTF8Decoder) {
+            return UTF8Decoder.decode(heap.subarray(idx >>> 0, endPtr >>> 0));
+          } else {
+            var str = "";
+            while (idx < endPtr) {
+              var u0 = heap[idx++ >>> 0];
+              if (!(u0 & 128)) {
+                str += String.fromCharCode(u0);
+                continue;
+              }
+              var u1 = heap[idx++ >>> 0] & 63;
+              if ((u0 & 224) == 192) {
+                str += String.fromCharCode((u0 & 31) << 6 | u1);
+                continue;
+              }
+              var u2 = heap[idx++ >>> 0] & 63;
+              if ((u0 & 240) == 224) {
+                u0 = (u0 & 15) << 12 | u1 << 6 | u2;
+              } else {
+                u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | heap[idx++ >>> 0] & 63;
+              }
+              if (u0 < 65536) {
+                str += String.fromCharCode(u0);
+              } else {
+                var ch = u0 - 65536;
+                str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+              }
+            }
+          }
+          return str;
+        }
+        function UTF8ToString(ptr, maxBytesToRead) {
+          ptr >>>= 0;
+          return ptr ? UTF8ArrayToString(GROWABLE_HEAP_U8(), ptr, maxBytesToRead) : "";
+        }
+        function stringToUTF8Array(str, heap, outIdx, maxBytesToWrite) {
+          outIdx >>>= 0;
+          if (!(maxBytesToWrite > 0))
+            return 0;
+          var startIdx = outIdx;
+          var endIdx = outIdx + maxBytesToWrite - 1;
+          for (var i = 0; i < str.length; ++i) {
+            var u = str.charCodeAt(i);
+            if (u >= 55296 && u <= 57343) {
+              var u1 = str.charCodeAt(++i);
+              u = 65536 + ((u & 1023) << 10) | u1 & 1023;
+            }
+            if (u <= 127) {
+              if (outIdx >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = u;
+            } else if (u <= 2047) {
+              if (outIdx + 1 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 192 | u >> 6;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            } else if (u <= 65535) {
+              if (outIdx + 2 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 224 | u >> 12;
+              heap[outIdx++ >>> 0] = 128 | u >> 6 & 63;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            } else {
+              if (outIdx + 3 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 240 | u >> 18;
+              heap[outIdx++ >>> 0] = 128 | u >> 12 & 63;
+              heap[outIdx++ >>> 0] = 128 | u >> 6 & 63;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            }
+          }
+          heap[outIdx >>> 0] = 0;
+          return outIdx - startIdx;
+        }
+        function stringToUTF8(str, outPtr, maxBytesToWrite) {
+          return stringToUTF8Array(str, GROWABLE_HEAP_U8(), outPtr, maxBytesToWrite);
+        }
+        function lengthBytesUTF8(str) {
+          var len = 0;
+          for (var i = 0; i < str.length; ++i) {
+            var u = str.charCodeAt(i);
+            if (u >= 55296 && u <= 57343)
+              u = 65536 + ((u & 1023) << 10) | str.charCodeAt(++i) & 1023;
+            if (u <= 127)
+              ++len;
+            else if (u <= 2047)
+              len += 2;
+            else if (u <= 65535)
+              len += 3;
+            else
+              len += 4;
+          }
+          return len;
+        }
+        var UTF16Decoder = typeof TextDecoder !== "undefined" ? new TextDecoderWrapper("utf-16le") : void 0;
+        function UTF16ToString(ptr, maxBytesToRead) {
+          var endPtr = ptr;
+          var idx = endPtr >> 1;
+          var maxIdx = idx + maxBytesToRead / 2;
+          while (!(idx >= maxIdx) && GROWABLE_HEAP_U16()[idx >>> 0])
+            ++idx;
+          endPtr = idx << 1;
+          if (endPtr - ptr > 32 && UTF16Decoder) {
+            return UTF16Decoder.decode(GROWABLE_HEAP_U8().subarray(ptr >>> 0, endPtr >>> 0));
+          } else {
+            var str = "";
+            for (var i = 0; !(i >= maxBytesToRead / 2); ++i) {
+              var codeUnit = GROWABLE_HEAP_I16()[ptr + i * 2 >>> 1];
+              if (codeUnit == 0)
+                break;
+              str += String.fromCharCode(codeUnit);
+            }
+            return str;
+          }
+        }
+        function stringToUTF16(str, outPtr, maxBytesToWrite) {
+          if (maxBytesToWrite === void 0) {
+            maxBytesToWrite = 2147483647;
+          }
+          if (maxBytesToWrite < 2)
+            return 0;
+          maxBytesToWrite -= 2;
+          var startPtr = outPtr;
+          var numCharsToWrite = maxBytesToWrite < str.length * 2 ? maxBytesToWrite / 2 : str.length;
+          for (var i = 0; i < numCharsToWrite; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            GROWABLE_HEAP_I16()[outPtr >>> 1] = codeUnit;
+            outPtr += 2;
+          }
+          GROWABLE_HEAP_I16()[outPtr >>> 1] = 0;
+          return outPtr - startPtr;
+        }
+        function lengthBytesUTF16(str) {
+          return str.length * 2;
+        }
+        function UTF32ToString(ptr, maxBytesToRead) {
+          var i = 0;
+          var str = "";
+          while (!(i >= maxBytesToRead / 4)) {
+            var utf32 = GROWABLE_HEAP_I32()[ptr + i * 4 >>> 2];
+            if (utf32 == 0)
+              break;
+            ++i;
+            if (utf32 >= 65536) {
+              var ch = utf32 - 65536;
+              str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+            } else {
+              str += String.fromCharCode(utf32);
+            }
+          }
+          return str;
+        }
+        function stringToUTF32(str, outPtr, maxBytesToWrite) {
+          outPtr >>>= 0;
+          if (maxBytesToWrite === void 0) {
+            maxBytesToWrite = 2147483647;
+          }
+          if (maxBytesToWrite < 4)
+            return 0;
+          var startPtr = outPtr;
+          var endPtr = startPtr + maxBytesToWrite - 4;
+          for (var i = 0; i < str.length; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            if (codeUnit >= 55296 && codeUnit <= 57343) {
+              var trailSurrogate = str.charCodeAt(++i);
+              codeUnit = 65536 + ((codeUnit & 1023) << 10) | trailSurrogate & 1023;
+            }
+            GROWABLE_HEAP_I32()[outPtr >>> 2] = codeUnit;
+            outPtr += 4;
+            if (outPtr + 4 > endPtr)
+              break;
+          }
+          GROWABLE_HEAP_I32()[outPtr >>> 2] = 0;
+          return outPtr - startPtr;
+        }
+        function lengthBytesUTF32(str) {
+          var len = 0;
+          for (var i = 0; i < str.length; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            if (codeUnit >= 55296 && codeUnit <= 57343)
+              ++i;
+            len += 4;
+          }
+          return len;
+        }
+        function writeArrayToMemory(array, buffer2) {
+          GROWABLE_HEAP_I8().set(array, buffer2 >>> 0);
+        }
+        function writeAsciiToMemory(str, buffer2, dontAddNull) {
+          for (var i = 0; i < str.length; ++i) {
+            GROWABLE_HEAP_I8()[buffer2++ >>> 0] = str.charCodeAt(i);
+          }
+          if (!dontAddNull)
+            GROWABLE_HEAP_I8()[buffer2 >>> 0] = 0;
+        }
+        function alignUp(x, multiple) {
+          if (x % multiple > 0) {
+            x += multiple - x % multiple;
+          }
+          return x;
+        }
+        var buffer, HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;
+        if (ENVIRONMENT_IS_PTHREAD) {
+          buffer = Module["buffer"];
+        }
+        function updateGlobalBufferAndViews(buf) {
+          buffer = buf;
+          Module["HEAP8"] = HEAP8 = new Int8Array(buf);
+          Module["HEAP16"] = HEAP16 = new Int16Array(buf);
+          Module["HEAP32"] = HEAP32 = new Int32Array(buf);
+          Module["HEAPU8"] = HEAPU8 = new Uint8Array(buf);
+          Module["HEAPU16"] = HEAPU16 = new Uint16Array(buf);
+          Module["HEAPU32"] = HEAPU32 = new Uint32Array(buf);
+          Module["HEAPF32"] = HEAPF32 = new Float32Array(buf);
+          Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
+        }
+        var INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
+        if (ENVIRONMENT_IS_PTHREAD) {
+          wasmMemory = Module["wasmMemory"];
+          buffer = Module["buffer"];
+        } else {
+          if (Module["wasmMemory"]) {
+            wasmMemory = Module["wasmMemory"];
+          } else {
+            wasmMemory = new WebAssembly.Memory({ "initial": INITIAL_MEMORY / 65536, "maximum": 4294967296 / 65536, "shared": true });
+            if (!(wasmMemory.buffer instanceof SharedArrayBuffer)) {
+              err("requested a shared WebAssembly.Memory but the returned buffer is not a SharedArrayBuffer, indicating that while the browser has SharedArrayBuffer it does not have WebAssembly threads support - you may need to set a flag");
+              if (ENVIRONMENT_IS_NODE) {
+                console.log("(on node you may need: --experimental-wasm-threads --experimental-wasm-bulk-memory and also use a recent version)");
+              }
+              throw Error("bad memory");
+            }
+          }
+        }
+        if (wasmMemory) {
+          buffer = wasmMemory.buffer;
+        }
+        INITIAL_MEMORY = buffer.byteLength;
+        updateGlobalBufferAndViews(buffer);
+        var wasmTable;
+        var __ATPRERUN__ = [];
+        var __ATINIT__ = [];
+        var __ATMAIN__ = [];
+        var __ATPOSTRUN__ = [];
+        var runtimeKeepaliveCounter = 0;
+        function keepRuntimeAlive() {
+          return noExitRuntime || runtimeKeepaliveCounter > 0;
+        }
+        function preRun() {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return;
+          if (Module["preRun"]) {
+            if (typeof Module["preRun"] == "function")
+              Module["preRun"] = [Module["preRun"]];
+            while (Module["preRun"].length) {
+              addOnPreRun(Module["preRun"].shift());
+            }
+          }
+          callRuntimeCallbacks(__ATPRERUN__);
+        }
+        function initRuntime() {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return;
+          if (!Module["noFSInit"] && !FS.init.initialized)
+            FS.init();
+          FS.ignorePermissions = false;
+          callRuntimeCallbacks(__ATINIT__);
+        }
+        function preMain() {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return;
+          callRuntimeCallbacks(__ATMAIN__);
+        }
+        function postRun() {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return;
+          if (Module["postRun"]) {
+            if (typeof Module["postRun"] == "function")
+              Module["postRun"] = [Module["postRun"]];
+            while (Module["postRun"].length) {
+              addOnPostRun(Module["postRun"].shift());
+            }
+          }
+          callRuntimeCallbacks(__ATPOSTRUN__);
+        }
+        function addOnPreRun(cb) {
+          __ATPRERUN__.unshift(cb);
+        }
+        function addOnInit(cb) {
+          __ATINIT__.unshift(cb);
+        }
+        function addOnPostRun(cb) {
+          __ATPOSTRUN__.unshift(cb);
+        }
+        var runDependencies = 0;
+        var dependenciesFulfilled = null;
+        function getUniqueRunDependency(id) {
+          return id;
+        }
+        function addRunDependency(id) {
+          runDependencies++;
+          if (Module["monitorRunDependencies"]) {
+            Module["monitorRunDependencies"](runDependencies);
+          }
+        }
+        function removeRunDependency(id) {
+          runDependencies--;
+          if (Module["monitorRunDependencies"]) {
+            Module["monitorRunDependencies"](runDependencies);
+          }
+          if (runDependencies == 0) {
+            if (dependenciesFulfilled) {
+              var callback = dependenciesFulfilled;
+              dependenciesFulfilled = null;
+              callback();
+            }
+          }
+        }
+        Module["preloadedImages"] = {};
+        Module["preloadedAudios"] = {};
+        function abort(what) {
+          if (Module["onAbort"]) {
+            Module["onAbort"](what);
+          }
+          if (ENVIRONMENT_IS_PTHREAD)
+            console.error("Pthread aborting at " + new Error().stack);
+          what += "";
+          err(what);
+          ABORT = true;
+          what = "abort(" + what + "). Build with -s ASSERTIONS=1 for more info.";
+          var e = new WebAssembly.RuntimeError(what);
+          readyPromiseReject(e);
+          throw e;
+        }
+        var dataURIPrefix = "data:application/octet-stream;base64,";
+        function isDataURI(filename) {
+          return filename.startsWith(dataURIPrefix);
+        }
+        function isFileURI(filename) {
+          return filename.startsWith("file://");
+        }
+        var wasmBinaryFile;
+        wasmBinaryFile = "web-ifc-mt.wasm";
+        if (!isDataURI(wasmBinaryFile)) {
+          wasmBinaryFile = locateFile(wasmBinaryFile);
+        }
+        function getBinary(file) {
+          try {
+            if (file == wasmBinaryFile && wasmBinary) {
+              return new Uint8Array(wasmBinary);
+            }
+            if (readBinary) {
+              return readBinary(file);
+            } else {
+              throw "both async and sync fetching of the wasm failed";
+            }
+          } catch (err2) {
+            abort(err2);
+          }
+        }
+        function getBinaryPromise() {
+          if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+            if (typeof fetch === "function" && !isFileURI(wasmBinaryFile)) {
+              return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+                if (!response["ok"]) {
+                  throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
+                }
+                return response["arrayBuffer"]();
+              }).catch(function() {
+                return getBinary(wasmBinaryFile);
+              });
+            } else {
+              if (readAsync) {
+                return new Promise(function(resolve, reject) {
+                  readAsync(wasmBinaryFile, function(response) {
+                    resolve(new Uint8Array(response));
+                  }, reject);
+                });
+              }
+            }
+          }
+          return Promise.resolve().then(function() {
+            return getBinary(wasmBinaryFile);
+          });
+        }
+        function createWasm() {
+          var info = { "a": asmLibraryArg };
+          function receiveInstance(instance, module2) {
+            var exports3 = instance.exports;
+            Module["asm"] = exports3;
+            wasmTable = Module["asm"]["ta"];
+            addOnInit(Module["asm"]["oa"]);
+            PThread.tlsInitFunctions.push(Module["asm"]["sa"]);
+            wasmModule = module2;
+            if (!ENVIRONMENT_IS_PTHREAD) {
+              var numWorkersToLoad = PThread.unusedWorkers.length;
+              PThread.unusedWorkers.forEach(function(w) {
+                PThread.loadWasmModuleToWorker(w, function() {
+                  if (!--numWorkersToLoad)
+                    removeRunDependency();
+                });
+              });
+            }
+          }
+          if (!ENVIRONMENT_IS_PTHREAD) {
+            addRunDependency();
+          }
+          function receiveInstantiationResult(result) {
+            receiveInstance(result["instance"], result["module"]);
+          }
+          function instantiateArrayBuffer(receiver) {
+            return getBinaryPromise().then(function(binary) {
+              var result = WebAssembly.instantiate(binary, info);
+              return result;
+            }).then(receiver, function(reason) {
+              err("failed to asynchronously prepare wasm: " + reason);
+              abort(reason);
+            });
+          }
+          function instantiateAsync() {
+            if (!wasmBinary && typeof WebAssembly.instantiateStreaming === "function" && !isDataURI(wasmBinaryFile) && !isFileURI(wasmBinaryFile) && typeof fetch === "function") {
+              return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+                var result = WebAssembly.instantiateStreaming(response, info);
+                return result.then(receiveInstantiationResult, function(reason) {
+                  err("wasm streaming compile failed: " + reason);
+                  err("falling back to ArrayBuffer instantiation");
+                  return instantiateArrayBuffer(receiveInstantiationResult);
+                });
+              });
+            } else {
+              return instantiateArrayBuffer(receiveInstantiationResult);
+            }
+          }
+          if (Module["instantiateWasm"]) {
+            try {
+              var exports2 = Module["instantiateWasm"](info, receiveInstance);
+              return exports2;
+            } catch (e) {
+              err("Module.instantiateWasm callback failed with error: " + e);
+              return false;
+            }
+          }
+          instantiateAsync().catch(readyPromiseReject);
+          return {};
+        }
+        var tempDouble;
+        var tempI64;
+        var ASM_CONSTS = { 44848: function() {
+          throw "Canceled!";
+        }, 44866: function($0, $1) {
+          setTimeout(function() {
+            __emscripten_do_dispatch_to_thread($0, $1);
+          }, 0);
+        } };
+        function initPthreadsJS() {
+          PThread.initRuntime();
+        }
+        function callRuntimeCallbacks(callbacks) {
+          while (callbacks.length > 0) {
+            var callback = callbacks.shift();
+            if (typeof callback == "function") {
+              callback(Module);
+              continue;
+            }
+            var func = callback.func;
+            if (typeof func === "number") {
+              if (callback.arg === void 0) {
+                wasmTable.get(func)();
+              } else {
+                wasmTable.get(func)(callback.arg);
+              }
+            } else {
+              func(callback.arg === void 0 ? null : callback.arg);
+            }
+          }
+        }
+        function _emscripten_futex_wake(addr, count) {
+          if (addr <= 0 || addr > GROWABLE_HEAP_I8().length || addr & true || count < 0)
+            return -28;
+          if (count == 0)
+            return 0;
+          if (count >= 2147483647)
+            count = Infinity;
+          var mainThreadWaitAddress = Atomics.load(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2);
+          var mainThreadWoken = 0;
+          if (mainThreadWaitAddress == addr) {
+            var loadedAddr = Atomics.compareExchange(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2, mainThreadWaitAddress, 0);
+            if (loadedAddr == mainThreadWaitAddress) {
+              --count;
+              mainThreadWoken = 1;
+              if (count <= 0)
+                return 1;
+            }
+          }
+          var ret = Atomics.notify(GROWABLE_HEAP_I32(), addr >> 2, count);
+          if (ret >= 0)
+            return ret + mainThreadWoken;
+          throw "Atomics.notify returned an unexpected value " + ret;
+        }
+        Module["_emscripten_futex_wake"] = _emscripten_futex_wake;
+        function killThread(pthread_ptr) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            throw "Internal Error! killThread() can only ever be called from main application thread!";
+          if (!pthread_ptr)
+            throw "Internal Error! Null pthread_ptr in killThread!";
+          GROWABLE_HEAP_I32()[pthread_ptr + 12 >>> 2] = 0;
+          var pthread = PThread.pthreads[pthread_ptr];
+          pthread.worker.terminate();
+          PThread.freeThreadData(pthread);
+          PThread.runningWorkers.splice(PThread.runningWorkers.indexOf(pthread.worker), 1);
+          pthread.worker.pthread = void 0;
+        }
+        function cancelThread(pthread_ptr) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            throw "Internal Error! cancelThread() can only ever be called from main application thread!";
+          if (!pthread_ptr)
+            throw "Internal Error! Null pthread_ptr in cancelThread!";
+          var pthread = PThread.pthreads[pthread_ptr];
+          pthread.worker.postMessage({ "cmd": "cancel" });
+        }
+        function cleanupThread(pthread_ptr) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            throw "Internal Error! cleanupThread() can only ever be called from main application thread!";
+          if (!pthread_ptr)
+            throw "Internal Error! Null pthread_ptr in cleanupThread!";
+          var pthread = PThread.pthreads[pthread_ptr];
+          if (pthread) {
+            GROWABLE_HEAP_I32()[pthread_ptr + 12 >>> 2] = 0;
+            var worker = pthread.worker;
+            PThread.returnWorkerToPool(worker);
+          }
+        }
+        var PThread = { unusedWorkers: [], runningWorkers: [], tlsInitFunctions: [], initMainThreadBlock: function() {
+          var pthreadPoolSize = navigator.hardwareConcurrency;
+          for (var i = 0; i < pthreadPoolSize; ++i) {
+            PThread.allocateUnusedWorker();
+          }
+        }, initRuntime: function() {
+          var tb = _malloc(228);
+          for (var i = 0; i < 228 / 4; ++i)
+            GROWABLE_HEAP_U32()[tb / 4 + i >>> 0] = 0;
+          GROWABLE_HEAP_I32()[tb + 12 >>> 2] = tb;
+          var headPtr = tb + 152;
+          GROWABLE_HEAP_I32()[headPtr >>> 2] = headPtr;
+          var tlsMemory = _malloc(512);
+          for (var i = 0; i < 128; ++i)
+            GROWABLE_HEAP_U32()[tlsMemory / 4 + i >>> 0] = 0;
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 100 >> 2, tlsMemory);
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 40 >> 2, tb);
+          __emscripten_thread_init(tb, !ENVIRONMENT_IS_WORKER, 1);
+          _emscripten_register_main_browser_thread_id(tb);
+        }, initWorker: function() {
+        }, pthreads: {}, threadExitHandlers: [], runExitHandlers: function() {
+          while (PThread.threadExitHandlers.length > 0) {
+            PThread.threadExitHandlers.pop()();
+          }
+          ___pthread_tsd_run_dtors();
+        }, runExitHandlersAndDeinitThread: function(tb, exitCode) {
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 56 >> 2, 1);
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 60 >> 2, 0);
+          PThread.runExitHandlers();
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 4 >> 2, exitCode);
+          Atomics.store(GROWABLE_HEAP_U32(), tb + 0 >> 2, 1);
+          _emscripten_futex_wake(tb + 0, 2147483647);
+          __emscripten_thread_init(0, 0, 0);
+        }, setExitStatus: function(status) {
+        }, threadExit: function(exitCode) {
+          var tb = _pthread_self();
+          if (tb) {
+            PThread.runExitHandlersAndDeinitThread(tb, exitCode);
+            if (ENVIRONMENT_IS_PTHREAD) {
+              postMessage({ "cmd": "exit" });
+            }
+          }
+        }, threadCancel: function() {
+          PThread.runExitHandlersAndDeinitThread(_pthread_self(), -1);
+          postMessage({ "cmd": "cancelDone" });
+        }, terminateAllThreads: function() {
+          for (var t in PThread.pthreads) {
+            var pthread = PThread.pthreads[t];
+            if (pthread && pthread.worker) {
+              PThread.returnWorkerToPool(pthread.worker);
+            }
+          }
+          PThread.pthreads = {};
+          for (var i = 0; i < PThread.unusedWorkers.length; ++i) {
+            var worker = PThread.unusedWorkers[i];
+            worker.terminate();
+          }
+          PThread.unusedWorkers = [];
+          for (var i = 0; i < PThread.runningWorkers.length; ++i) {
+            var worker = PThread.runningWorkers[i];
+            var pthread = worker.pthread;
+            PThread.freeThreadData(pthread);
+            worker.terminate();
+          }
+          PThread.runningWorkers = [];
+        }, freeThreadData: function(pthread) {
+          if (!pthread)
+            return;
+          if (pthread.threadInfoStruct) {
+            var tlsMemory = GROWABLE_HEAP_I32()[pthread.threadInfoStruct + 100 >>> 2];
+            GROWABLE_HEAP_I32()[pthread.threadInfoStruct + 100 >>> 2] = 0;
+            _free(tlsMemory);
+            _free(pthread.threadInfoStruct);
+          }
+          pthread.threadInfoStruct = 0;
+          if (pthread.allocatedOwnStack && pthread.stackBase)
+            _free(pthread.stackBase);
+          pthread.stackBase = 0;
+          if (pthread.worker)
+            pthread.worker.pthread = null;
+        }, returnWorkerToPool: function(worker) {
+          PThread.runWithoutMainThreadQueuedCalls(function() {
+            delete PThread.pthreads[worker.pthread.threadInfoStruct];
+            PThread.unusedWorkers.push(worker);
+            PThread.runningWorkers.splice(PThread.runningWorkers.indexOf(worker), 1);
+            PThread.freeThreadData(worker.pthread);
+            worker.pthread = void 0;
+          });
+        }, runWithoutMainThreadQueuedCalls: function(func) {
+          GROWABLE_HEAP_I32()[__emscripten_allow_main_runtime_queued_calls >>> 2] = 0;
+          try {
+            func();
+          } finally {
+            GROWABLE_HEAP_I32()[__emscripten_allow_main_runtime_queued_calls >>> 2] = 1;
+          }
+        }, receiveObjectTransfer: function(data) {
+        }, threadInit: function() {
+          for (var i in PThread.tlsInitFunctions) {
+            PThread.tlsInitFunctions[i]();
+          }
+        }, loadWasmModuleToWorker: function(worker, onFinishedLoading) {
+          worker.onmessage = function(e) {
+            var d = e["data"];
+            var cmd = d["cmd"];
+            if (worker.pthread)
+              PThread.currentProxiedOperationCallerThread = worker.pthread.threadInfoStruct;
+            if (d["targetThread"] && d["targetThread"] != _pthread_self()) {
+              var thread = PThread.pthreads[d.targetThread];
+              if (thread) {
+                thread.worker.postMessage(e.data, d["transferList"]);
+              } else {
+                console.error('Internal error! Worker sent a message "' + cmd + '" to target pthread ' + d["targetThread"] + ", but that thread no longer exists!");
+              }
+              PThread.currentProxiedOperationCallerThread = void 0;
+              return;
+            }
+            if (cmd === "processQueuedMainThreadWork") {
+              _emscripten_main_thread_process_queued_calls();
+            } else if (cmd === "spawnThread") {
+              spawnThread(e.data);
+            } else if (cmd === "cleanupThread") {
+              cleanupThread(d["thread"]);
+            } else if (cmd === "killThread") {
+              killThread(d["thread"]);
+            } else if (cmd === "cancelThread") {
+              cancelThread(d["thread"]);
+            } else if (cmd === "loaded") {
+              worker.loaded = true;
+              if (onFinishedLoading)
+                onFinishedLoading(worker);
+              if (worker.runPthread) {
+                worker.runPthread();
+                delete worker.runPthread;
+              }
+            } else if (cmd === "print") {
+              out("Thread " + d["threadId"] + ": " + d["text"]);
+            } else if (cmd === "printErr") {
+              err("Thread " + d["threadId"] + ": " + d["text"]);
+            } else if (cmd === "alert") {
+              alert("Thread " + d["threadId"] + ": " + d["text"]);
+            } else if (cmd === "exit") {
+              var detached = worker.pthread && Atomics.load(GROWABLE_HEAP_U32(), worker.pthread.threadInfoStruct + 64 >> 2);
+              if (detached) {
+                PThread.returnWorkerToPool(worker);
+              }
+            } else if (cmd === "exitProcess") {
+              try {
+                exit(d["returnCode"]);
+              } catch (e2) {
+                if (e2 instanceof ExitStatus)
+                  return;
+                throw e2;
+              }
+            } else if (cmd === "cancelDone") {
+              PThread.returnWorkerToPool(worker);
+            } else if (cmd === "objectTransfer") {
+              PThread.receiveObjectTransfer(e.data);
+            } else if (e.data.target === "setimmediate") {
+              worker.postMessage(e.data);
+            } else {
+              err("worker sent an unknown command " + cmd);
+            }
+            PThread.currentProxiedOperationCallerThread = void 0;
+          };
+          worker.onerror = function(e) {
+            err("pthread sent an error! " + e.filename + ":" + e.lineno + ": " + e.message);
+          };
+          if (ENVIRONMENT_IS_NODE) {
+            worker.on("message", function(data) {
+              worker.onmessage({ data });
+            });
+            worker.on("error", function(data) {
+              worker.onerror(data);
+            });
+            worker.on("exit", function(data) {
+            });
+          }
+          worker.postMessage({ "cmd": "load", "urlOrBlob": Module["mainScriptUrlOrBlob"] || _scriptDir, "wasmMemory": wasmMemory, "wasmModule": wasmModule });
+        }, allocateUnusedWorker: function() {
+          var pthreadMainJs = locateFile("web-ifc-mt.worker.js");
+          PThread.unusedWorkers.push(new Worker(pthreadMainJs));
+        }, getNewWorker: function() {
+          if (PThread.unusedWorkers.length == 0) {
+            PThread.allocateUnusedWorker();
+            PThread.loadWasmModuleToWorker(PThread.unusedWorkers[0]);
+          }
+          return PThread.unusedWorkers.pop();
+        }, busySpinWait: function(msecs) {
+          var t = performance.now() + msecs;
+          while (performance.now() < t) {
+          }
+        } };
+        function establishStackSpace(stackTop, stackMax) {
+          _emscripten_stack_set_limits(stackTop, stackMax);
+          stackRestore(stackTop);
+        }
+        Module["establishStackSpace"] = establishStackSpace;
+        function invokeEntryPoint(ptr, arg) {
+          return wasmTable.get(ptr)(arg);
+        }
+        Module["invokeEntryPoint"] = invokeEntryPoint;
+        function ___assert_fail(condition, filename, line, func) {
+          abort("Assertion failed: " + UTF8ToString(condition) + ", at: " + [filename ? UTF8ToString(filename) : "unknown filename", line, func ? UTF8ToString(func) : "unknown function"]);
+        }
+        var _emscripten_get_now;
+        if (ENVIRONMENT_IS_NODE) {
+          _emscripten_get_now = function() {
+            var t = process["hrtime"]();
+            return t[0] * 1e3 + t[1] / 1e6;
+          };
+        } else if (ENVIRONMENT_IS_PTHREAD) {
+          _emscripten_get_now = function() {
+            return performance.now() - Module["__performance_now_clock_drift"];
+          };
+        } else
+          _emscripten_get_now = function() {
+            return performance.now();
+          };
+        var _emscripten_get_now_is_monotonic = true;
+        function setErrNo(value) {
+          GROWABLE_HEAP_I32()[___errno_location() >>> 2] = value;
+          return value;
+        }
+        function _clock_gettime(clk_id, tp) {
+          var now;
+          if (clk_id === 0) {
+            now = Date.now();
+          } else if ((clk_id === 1 || clk_id === 4) && _emscripten_get_now_is_monotonic) {
+            now = _emscripten_get_now();
+          } else {
+            setErrNo(28);
+            return -1;
+          }
+          GROWABLE_HEAP_I32()[tp >>> 2] = now / 1e3 | 0;
+          GROWABLE_HEAP_I32()[tp + 4 >>> 2] = now % 1e3 * 1e3 * 1e3 | 0;
+          return 0;
+        }
+        function ___cxa_allocate_exception(size) {
+          return _malloc(size + 16) + 16;
+        }
+        function _atexit(func, arg) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(1, 1, func, arg);
+        }
+        function ___cxa_thread_atexit(routine, arg) {
+          PThread.threadExitHandlers.push(function() {
+            wasmTable.get(routine)(arg);
+          });
+        }
+        function ExceptionInfo(excPtr) {
+          this.excPtr = excPtr;
+          this.ptr = excPtr - 16;
+          this.set_type = function(type) {
+            GROWABLE_HEAP_I32()[this.ptr + 4 >>> 2] = type;
+          };
+          this.get_type = function() {
+            return GROWABLE_HEAP_I32()[this.ptr + 4 >>> 2];
+          };
+          this.set_destructor = function(destructor) {
+            GROWABLE_HEAP_I32()[this.ptr + 8 >>> 2] = destructor;
+          };
+          this.get_destructor = function() {
+            return GROWABLE_HEAP_I32()[this.ptr + 8 >>> 2];
+          };
+          this.set_refcount = function(refcount) {
+            GROWABLE_HEAP_I32()[this.ptr >>> 2] = refcount;
+          };
+          this.set_caught = function(caught) {
+            caught = caught ? 1 : 0;
+            GROWABLE_HEAP_I8()[this.ptr + 12 >>> 0] = caught;
+          };
+          this.get_caught = function() {
+            return GROWABLE_HEAP_I8()[this.ptr + 12 >>> 0] != 0;
+          };
+          this.set_rethrown = function(rethrown) {
+            rethrown = rethrown ? 1 : 0;
+            GROWABLE_HEAP_I8()[this.ptr + 13 >>> 0] = rethrown;
+          };
+          this.get_rethrown = function() {
+            return GROWABLE_HEAP_I8()[this.ptr + 13 >>> 0] != 0;
+          };
+          this.init = function(type, destructor) {
+            this.set_type(type);
+            this.set_destructor(destructor);
+            this.set_refcount(0);
+            this.set_caught(false);
+            this.set_rethrown(false);
+          };
+          this.add_ref = function() {
+            Atomics.add(GROWABLE_HEAP_I32(), this.ptr + 0 >> 2, 1);
+          };
+          this.release_ref = function() {
+            var prev = Atomics.sub(GROWABLE_HEAP_I32(), this.ptr + 0 >> 2, 1);
+            return prev === 1;
+          };
+        }
+        function ___cxa_throw(ptr, type, destructor) {
+          var info = new ExceptionInfo(ptr);
+          info.init(type, destructor);
+          throw ptr;
+        }
+        var PATH = { splitPath: function(filename) {
+          var splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+          return splitPathRe.exec(filename).slice(1);
+        }, normalizeArray: function(parts, allowAboveRoot) {
+          var up = 0;
+          for (var i = parts.length - 1; i >= 0; i--) {
+            var last = parts[i];
+            if (last === ".") {
+              parts.splice(i, 1);
+            } else if (last === "..") {
+              parts.splice(i, 1);
+              up++;
+            } else if (up) {
+              parts.splice(i, 1);
+              up--;
+            }
+          }
+          if (allowAboveRoot) {
+            for (; up; up--) {
+              parts.unshift("..");
+            }
+          }
+          return parts;
+        }, normalize: function(path) {
+          var isAbsolute = path.charAt(0) === "/", trailingSlash = path.substr(-1) === "/";
+          path = PATH.normalizeArray(path.split("/").filter(function(p) {
+            return !!p;
+          }), !isAbsolute).join("/");
+          if (!path && !isAbsolute) {
+            path = ".";
+          }
+          if (path && trailingSlash) {
+            path += "/";
+          }
+          return (isAbsolute ? "/" : "") + path;
+        }, dirname: function(path) {
+          var result = PATH.splitPath(path), root = result[0], dir = result[1];
+          if (!root && !dir) {
+            return ".";
+          }
+          if (dir) {
+            dir = dir.substr(0, dir.length - 1);
+          }
+          return root + dir;
+        }, basename: function(path) {
+          if (path === "/")
+            return "/";
+          path = PATH.normalize(path);
+          path = path.replace(/\/$/, "");
+          var lastSlash = path.lastIndexOf("/");
+          if (lastSlash === -1)
+            return path;
+          return path.substr(lastSlash + 1);
+        }, extname: function(path) {
+          return PATH.splitPath(path)[3];
+        }, join: function() {
+          var paths = Array.prototype.slice.call(arguments, 0);
+          return PATH.normalize(paths.join("/"));
+        }, join2: function(l, r) {
+          return PATH.normalize(l + "/" + r);
+        } };
+        function getRandomDevice() {
+          if (typeof crypto === "object" && typeof crypto["getRandomValues"] === "function") {
+            var randomBuffer = new Uint8Array(1);
+            return function() {
+              crypto.getRandomValues(randomBuffer);
+              return randomBuffer[0];
+            };
+          } else if (ENVIRONMENT_IS_NODE) {
+            try {
+              var crypto_module = require_crypto$1();
+              return function() {
+                return crypto_module["randomBytes"](1)[0];
+              };
+            } catch (e) {
+            }
+          }
+          return function() {
+            abort("randomDevice");
+          };
+        }
+        var PATH_FS = { resolve: function() {
+          var resolvedPath = "", resolvedAbsolute = false;
+          for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+            var path = i >= 0 ? arguments[i] : FS.cwd();
+            if (typeof path !== "string") {
+              throw new TypeError("Arguments to path.resolve must be strings");
+            } else if (!path) {
+              return "";
+            }
+            resolvedPath = path + "/" + resolvedPath;
+            resolvedAbsolute = path.charAt(0) === "/";
+          }
+          resolvedPath = PATH.normalizeArray(resolvedPath.split("/").filter(function(p) {
+            return !!p;
+          }), !resolvedAbsolute).join("/");
+          return (resolvedAbsolute ? "/" : "") + resolvedPath || ".";
+        }, relative: function(from, to) {
+          from = PATH_FS.resolve(from).substr(1);
+          to = PATH_FS.resolve(to).substr(1);
+          function trim(arr) {
+            var start = 0;
+            for (; start < arr.length; start++) {
+              if (arr[start] !== "")
+                break;
+            }
+            var end = arr.length - 1;
+            for (; end >= 0; end--) {
+              if (arr[end] !== "")
+                break;
+            }
+            if (start > end)
+              return [];
+            return arr.slice(start, end - start + 1);
+          }
+          var fromParts = trim(from.split("/"));
+          var toParts = trim(to.split("/"));
+          var length = Math.min(fromParts.length, toParts.length);
+          var samePartsLength = length;
+          for (var i = 0; i < length; i++) {
+            if (fromParts[i] !== toParts[i]) {
+              samePartsLength = i;
+              break;
+            }
+          }
+          var outputParts = [];
+          for (var i = samePartsLength; i < fromParts.length; i++) {
+            outputParts.push("..");
+          }
+          outputParts = outputParts.concat(toParts.slice(samePartsLength));
+          return outputParts.join("/");
+        } };
+        var TTY = { ttys: [], init: function() {
+        }, shutdown: function() {
+        }, register: function(dev, ops) {
+          TTY.ttys[dev] = { input: [], output: [], ops };
+          FS.registerDevice(dev, TTY.stream_ops);
+        }, stream_ops: { open: function(stream) {
+          var tty = TTY.ttys[stream.node.rdev];
+          if (!tty) {
+            throw new FS.ErrnoError(43);
+          }
+          stream.tty = tty;
+          stream.seekable = false;
+        }, close: function(stream) {
+          stream.tty.ops.flush(stream.tty);
+        }, flush: function(stream) {
+          stream.tty.ops.flush(stream.tty);
+        }, read: function(stream, buffer2, offset, length, pos) {
+          if (!stream.tty || !stream.tty.ops.get_char) {
+            throw new FS.ErrnoError(60);
+          }
+          var bytesRead = 0;
+          for (var i = 0; i < length; i++) {
+            var result;
+            try {
+              result = stream.tty.ops.get_char(stream.tty);
+            } catch (e) {
+              throw new FS.ErrnoError(29);
+            }
+            if (result === void 0 && bytesRead === 0) {
+              throw new FS.ErrnoError(6);
+            }
+            if (result === null || result === void 0)
+              break;
+            bytesRead++;
+            buffer2[offset + i] = result;
+          }
+          if (bytesRead) {
+            stream.node.timestamp = Date.now();
+          }
+          return bytesRead;
+        }, write: function(stream, buffer2, offset, length, pos) {
+          if (!stream.tty || !stream.tty.ops.put_char) {
+            throw new FS.ErrnoError(60);
+          }
+          try {
+            for (var i = 0; i < length; i++) {
+              stream.tty.ops.put_char(stream.tty, buffer2[offset + i]);
+            }
+          } catch (e) {
+            throw new FS.ErrnoError(29);
+          }
+          if (length) {
+            stream.node.timestamp = Date.now();
+          }
+          return i;
+        } }, default_tty_ops: { get_char: function(tty) {
+          if (!tty.input.length) {
+            var result = null;
+            if (ENVIRONMENT_IS_NODE) {
+              var BUFSIZE = 256;
+              var buf = Buffer.alloc(BUFSIZE);
+              var bytesRead = 0;
+              try {
+                bytesRead = nodeFS.readSync(process.stdin.fd, buf, 0, BUFSIZE, null);
+              } catch (e) {
+                if (e.toString().includes("EOF"))
+                  bytesRead = 0;
+                else
+                  throw e;
+              }
+              if (bytesRead > 0) {
+                result = buf.slice(0, bytesRead).toString("utf-8");
+              } else {
+                result = null;
+              }
+            } else if (typeof window != "undefined" && typeof window.prompt == "function") {
+              result = window.prompt("Input: ");
+              if (result !== null) {
+                result += "\n";
+              }
+            } else if (typeof readline == "function") {
+              result = readline();
+              if (result !== null) {
+                result += "\n";
+              }
+            }
+            if (!result) {
+              return null;
+            }
+            tty.input = intArrayFromString(result, true);
+          }
+          return tty.input.shift();
+        }, put_char: function(tty, val) {
+          if (val === null || val === 10) {
+            out(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          } else {
+            if (val != 0)
+              tty.output.push(val);
+          }
+        }, flush: function(tty) {
+          if (tty.output && tty.output.length > 0) {
+            out(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          }
+        } }, default_tty1_ops: { put_char: function(tty, val) {
+          if (val === null || val === 10) {
+            err(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          } else {
+            if (val != 0)
+              tty.output.push(val);
+          }
+        }, flush: function(tty) {
+          if (tty.output && tty.output.length > 0) {
+            err(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          }
+        } } };
+        function zeroMemory(address, size) {
+          GROWABLE_HEAP_U8().fill(0, address, address + size);
+        }
+        function mmapAlloc(size) {
+          size = alignMemory(size, 65536);
+          var ptr = _memalign(65536, size);
+          if (!ptr)
+            return 0;
+          zeroMemory(ptr, size);
+          return ptr;
+        }
+        var MEMFS = { ops_table: null, mount: function(mount) {
+          return MEMFS.createNode(null, "/", 16384 | 511, 0);
+        }, createNode: function(parent, name2, mode, dev) {
+          if (FS.isBlkdev(mode) || FS.isFIFO(mode)) {
+            throw new FS.ErrnoError(63);
+          }
+          if (!MEMFS.ops_table) {
+            MEMFS.ops_table = { dir: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr, lookup: MEMFS.node_ops.lookup, mknod: MEMFS.node_ops.mknod, rename: MEMFS.node_ops.rename, unlink: MEMFS.node_ops.unlink, rmdir: MEMFS.node_ops.rmdir, readdir: MEMFS.node_ops.readdir, symlink: MEMFS.node_ops.symlink }, stream: { llseek: MEMFS.stream_ops.llseek } }, file: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr }, stream: { llseek: MEMFS.stream_ops.llseek, read: MEMFS.stream_ops.read, write: MEMFS.stream_ops.write, allocate: MEMFS.stream_ops.allocate, mmap: MEMFS.stream_ops.mmap, msync: MEMFS.stream_ops.msync } }, link: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr, readlink: MEMFS.node_ops.readlink }, stream: {} }, chrdev: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr }, stream: FS.chrdev_stream_ops } };
+          }
+          var node = FS.createNode(parent, name2, mode, dev);
+          if (FS.isDir(node.mode)) {
+            node.node_ops = MEMFS.ops_table.dir.node;
+            node.stream_ops = MEMFS.ops_table.dir.stream;
+            node.contents = {};
+          } else if (FS.isFile(node.mode)) {
+            node.node_ops = MEMFS.ops_table.file.node;
+            node.stream_ops = MEMFS.ops_table.file.stream;
+            node.usedBytes = 0;
+            node.contents = null;
+          } else if (FS.isLink(node.mode)) {
+            node.node_ops = MEMFS.ops_table.link.node;
+            node.stream_ops = MEMFS.ops_table.link.stream;
+          } else if (FS.isChrdev(node.mode)) {
+            node.node_ops = MEMFS.ops_table.chrdev.node;
+            node.stream_ops = MEMFS.ops_table.chrdev.stream;
+          }
+          node.timestamp = Date.now();
+          if (parent) {
+            parent.contents[name2] = node;
+            parent.timestamp = node.timestamp;
+          }
+          return node;
+        }, getFileDataAsTypedArray: function(node) {
+          if (!node.contents)
+            return new Uint8Array(0);
+          if (node.contents.subarray)
+            return node.contents.subarray(0, node.usedBytes);
+          return new Uint8Array(node.contents);
+        }, expandFileStorage: function(node, newCapacity) {
+          newCapacity >>>= 0;
+          var prevCapacity = node.contents ? node.contents.length : 0;
+          if (prevCapacity >= newCapacity)
+            return;
+          var CAPACITY_DOUBLING_MAX = 1024 * 1024;
+          newCapacity = Math.max(newCapacity, prevCapacity * (prevCapacity < CAPACITY_DOUBLING_MAX ? 2 : 1.125) >>> 0);
+          if (prevCapacity != 0)
+            newCapacity = Math.max(newCapacity, 256);
+          var oldContents = node.contents;
+          node.contents = new Uint8Array(newCapacity);
+          if (node.usedBytes > 0)
+            node.contents.set(oldContents.subarray(0, node.usedBytes), 0);
+        }, resizeFileStorage: function(node, newSize) {
+          newSize >>>= 0;
+          if (node.usedBytes == newSize)
+            return;
+          if (newSize == 0) {
+            node.contents = null;
+            node.usedBytes = 0;
+          } else {
+            var oldContents = node.contents;
+            node.contents = new Uint8Array(newSize);
+            if (oldContents) {
+              node.contents.set(oldContents.subarray(0, Math.min(newSize, node.usedBytes)));
+            }
+            node.usedBytes = newSize;
+          }
+        }, node_ops: { getattr: function(node) {
+          var attr = {};
+          attr.dev = FS.isChrdev(node.mode) ? node.id : 1;
+          attr.ino = node.id;
+          attr.mode = node.mode;
+          attr.nlink = 1;
+          attr.uid = 0;
+          attr.gid = 0;
+          attr.rdev = node.rdev;
+          if (FS.isDir(node.mode)) {
+            attr.size = 4096;
+          } else if (FS.isFile(node.mode)) {
+            attr.size = node.usedBytes;
+          } else if (FS.isLink(node.mode)) {
+            attr.size = node.link.length;
+          } else {
+            attr.size = 0;
+          }
+          attr.atime = new Date(node.timestamp);
+          attr.mtime = new Date(node.timestamp);
+          attr.ctime = new Date(node.timestamp);
+          attr.blksize = 4096;
+          attr.blocks = Math.ceil(attr.size / attr.blksize);
+          return attr;
+        }, setattr: function(node, attr) {
+          if (attr.mode !== void 0) {
+            node.mode = attr.mode;
+          }
+          if (attr.timestamp !== void 0) {
+            node.timestamp = attr.timestamp;
+          }
+          if (attr.size !== void 0) {
+            MEMFS.resizeFileStorage(node, attr.size);
+          }
+        }, lookup: function(parent, name2) {
+          throw FS.genericErrors[44];
+        }, mknod: function(parent, name2, mode, dev) {
+          return MEMFS.createNode(parent, name2, mode, dev);
+        }, rename: function(old_node, new_dir, new_name) {
+          if (FS.isDir(old_node.mode)) {
+            var new_node;
+            try {
+              new_node = FS.lookupNode(new_dir, new_name);
+            } catch (e) {
+            }
+            if (new_node) {
+              for (var i in new_node.contents) {
+                throw new FS.ErrnoError(55);
+              }
+            }
+          }
+          delete old_node.parent.contents[old_node.name];
+          old_node.parent.timestamp = Date.now();
+          old_node.name = new_name;
+          new_dir.contents[new_name] = old_node;
+          new_dir.timestamp = old_node.parent.timestamp;
+          old_node.parent = new_dir;
+        }, unlink: function(parent, name2) {
+          delete parent.contents[name2];
+          parent.timestamp = Date.now();
+        }, rmdir: function(parent, name2) {
+          var node = FS.lookupNode(parent, name2);
+          for (var i in node.contents) {
+            throw new FS.ErrnoError(55);
+          }
+          delete parent.contents[name2];
+          parent.timestamp = Date.now();
+        }, readdir: function(node) {
+          var entries = [".", ".."];
+          for (var key2 in node.contents) {
+            if (!node.contents.hasOwnProperty(key2)) {
+              continue;
+            }
+            entries.push(key2);
+          }
+          return entries;
+        }, symlink: function(parent, newname, oldpath) {
+          var node = MEMFS.createNode(parent, newname, 511 | 40960, 0);
+          node.link = oldpath;
+          return node;
+        }, readlink: function(node) {
+          if (!FS.isLink(node.mode)) {
+            throw new FS.ErrnoError(28);
+          }
+          return node.link;
+        } }, stream_ops: { read: function(stream, buffer2, offset, length, position) {
+          var contents = stream.node.contents;
+          if (position >= stream.node.usedBytes)
+            return 0;
+          var size = Math.min(stream.node.usedBytes - position, length);
+          if (size > 8 && contents.subarray) {
+            buffer2.set(contents.subarray(position, position + size), offset);
+          } else {
+            for (var i = 0; i < size; i++)
+              buffer2[offset + i] = contents[position + i];
+          }
+          return size;
+        }, write: function(stream, buffer2, offset, length, position, canOwn) {
+          if (buffer2.buffer === GROWABLE_HEAP_I8().buffer) {
+            canOwn = false;
+          }
+          if (!length)
+            return 0;
+          var node = stream.node;
+          node.timestamp = Date.now();
+          if (buffer2.subarray && (!node.contents || node.contents.subarray)) {
+            if (canOwn) {
+              node.contents = buffer2.subarray(offset, offset + length);
+              node.usedBytes = length;
+              return length;
+            } else if (node.usedBytes === 0 && position === 0) {
+              node.contents = buffer2.slice(offset, offset + length);
+              node.usedBytes = length;
+              return length;
+            } else if (position + length <= node.usedBytes) {
+              node.contents.set(buffer2.subarray(offset, offset + length), position);
+              return length;
+            }
+          }
+          MEMFS.expandFileStorage(node, position + length);
+          if (node.contents.subarray && buffer2.subarray) {
+            node.contents.set(buffer2.subarray(offset, offset + length), position);
+          } else {
+            for (var i = 0; i < length; i++) {
+              node.contents[position + i] = buffer2[offset + i];
+            }
+          }
+          node.usedBytes = Math.max(node.usedBytes, position + length);
+          return length;
+        }, llseek: function(stream, offset, whence) {
+          var position = offset;
+          if (whence === 1) {
+            position += stream.position;
+          } else if (whence === 2) {
+            if (FS.isFile(stream.node.mode)) {
+              position += stream.node.usedBytes;
+            }
+          }
+          if (position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          return position;
+        }, allocate: function(stream, offset, length) {
+          MEMFS.expandFileStorage(stream.node, offset + length);
+          stream.node.usedBytes = Math.max(stream.node.usedBytes, offset + length);
+        }, mmap: function(stream, address, length, position, prot, flags) {
+          if (address !== 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (!FS.isFile(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          var ptr;
+          var allocated;
+          var contents = stream.node.contents;
+          if (!(flags & 2) && contents.buffer === buffer) {
+            allocated = false;
+            ptr = contents.byteOffset;
+          } else {
+            if (position > 0 || position + length < contents.length) {
+              if (contents.subarray) {
+                contents = contents.subarray(position, position + length);
+              } else {
+                contents = Array.prototype.slice.call(contents, position, position + length);
+              }
+            }
+            allocated = true;
+            ptr = mmapAlloc(length);
+            if (!ptr) {
+              throw new FS.ErrnoError(48);
+            }
+            ptr >>>= 0;
+            GROWABLE_HEAP_I8().set(contents, ptr >>> 0);
+          }
+          return { ptr, allocated };
+        }, msync: function(stream, buffer2, offset, length, mmapFlags) {
+          if (!FS.isFile(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          if (mmapFlags & 2) {
+            return 0;
+          }
+          MEMFS.stream_ops.write(stream, buffer2, 0, length, offset, false);
+          return 0;
+        } } };
+        function asyncLoad(url, onload, onerror, noRunDep) {
+          var dep = !noRunDep ? getUniqueRunDependency("al " + url) : "";
+          readAsync(url, function(arrayBuffer) {
+            assert(arrayBuffer, 'Loading data file "' + url + '" failed (no arrayBuffer).');
+            onload(new Uint8Array(arrayBuffer));
+            if (dep)
+              removeRunDependency();
+          }, function(event) {
+            if (onerror) {
+              onerror();
+            } else {
+              throw 'Loading data file "' + url + '" failed.';
+            }
+          });
+          if (dep)
+            addRunDependency();
+        }
+        var FS = { root: null, mounts: [], devices: {}, streams: [], nextInode: 1, nameTable: null, currentPath: "/", initialized: false, ignorePermissions: true, trackingDelegate: {}, tracking: { openFlags: { READ: 1, WRITE: 2 } }, ErrnoError: null, genericErrors: {}, filesystems: null, syncFSRequests: 0, lookupPath: function(path, opts) {
+          path = PATH_FS.resolve(FS.cwd(), path);
+          opts = opts || {};
+          if (!path)
+            return { path: "", node: null };
+          var defaults = { follow_mount: true, recurse_count: 0 };
+          for (var key2 in defaults) {
+            if (opts[key2] === void 0) {
+              opts[key2] = defaults[key2];
+            }
+          }
+          if (opts.recurse_count > 8) {
+            throw new FS.ErrnoError(32);
+          }
+          var parts = PATH.normalizeArray(path.split("/").filter(function(p) {
+            return !!p;
+          }), false);
+          var current = FS.root;
+          var current_path = "/";
+          for (var i = 0; i < parts.length; i++) {
+            var islast = i === parts.length - 1;
+            if (islast && opts.parent) {
+              break;
+            }
+            current = FS.lookupNode(current, parts[i]);
+            current_path = PATH.join2(current_path, parts[i]);
+            if (FS.isMountpoint(current)) {
+              if (!islast || islast && opts.follow_mount) {
+                current = current.mounted.root;
+              }
+            }
+            if (!islast || opts.follow) {
+              var count = 0;
+              while (FS.isLink(current.mode)) {
+                var link = FS.readlink(current_path);
+                current_path = PATH_FS.resolve(PATH.dirname(current_path), link);
+                var lookup = FS.lookupPath(current_path, { recurse_count: opts.recurse_count });
+                current = lookup.node;
+                if (count++ > 40) {
+                  throw new FS.ErrnoError(32);
+                }
+              }
+            }
+          }
+          return { path: current_path, node: current };
+        }, getPath: function(node) {
+          var path;
+          while (true) {
+            if (FS.isRoot(node)) {
+              var mount = node.mount.mountpoint;
+              if (!path)
+                return mount;
+              return mount[mount.length - 1] !== "/" ? mount + "/" + path : mount + path;
+            }
+            path = path ? node.name + "/" + path : node.name;
+            node = node.parent;
+          }
+        }, hashName: function(parentid, name2) {
+          var hash = 0;
+          for (var i = 0; i < name2.length; i++) {
+            hash = (hash << 5) - hash + name2.charCodeAt(i) | 0;
+          }
+          return (parentid + hash >>> 0) % FS.nameTable.length;
+        }, hashAddNode: function(node) {
+          var hash = FS.hashName(node.parent.id, node.name);
+          node.name_next = FS.nameTable[hash];
+          FS.nameTable[hash] = node;
+        }, hashRemoveNode: function(node) {
+          var hash = FS.hashName(node.parent.id, node.name);
+          if (FS.nameTable[hash] === node) {
+            FS.nameTable[hash] = node.name_next;
+          } else {
+            var current = FS.nameTable[hash];
+            while (current) {
+              if (current.name_next === node) {
+                current.name_next = node.name_next;
+                break;
+              }
+              current = current.name_next;
+            }
+          }
+        }, lookupNode: function(parent, name2) {
+          var errCode = FS.mayLookup(parent);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode, parent);
+          }
+          var hash = FS.hashName(parent.id, name2);
+          for (var node = FS.nameTable[hash]; node; node = node.name_next) {
+            var nodeName = node.name;
+            if (node.parent.id === parent.id && nodeName === name2) {
+              return node;
+            }
+          }
+          return FS.lookup(parent, name2);
+        }, createNode: function(parent, name2, mode, rdev) {
+          var node = new FS.FSNode(parent, name2, mode, rdev);
+          FS.hashAddNode(node);
+          return node;
+        }, destroyNode: function(node) {
+          FS.hashRemoveNode(node);
+        }, isRoot: function(node) {
+          return node === node.parent;
+        }, isMountpoint: function(node) {
+          return !!node.mounted;
+        }, isFile: function(mode) {
+          return (mode & 61440) === 32768;
+        }, isDir: function(mode) {
+          return (mode & 61440) === 16384;
+        }, isLink: function(mode) {
+          return (mode & 61440) === 40960;
+        }, isChrdev: function(mode) {
+          return (mode & 61440) === 8192;
+        }, isBlkdev: function(mode) {
+          return (mode & 61440) === 24576;
+        }, isFIFO: function(mode) {
+          return (mode & 61440) === 4096;
+        }, isSocket: function(mode) {
+          return (mode & 49152) === 49152;
+        }, flagModes: { "r": 0, "r+": 2, "w": 577, "w+": 578, "a": 1089, "a+": 1090 }, modeStringToFlags: function(str) {
+          var flags = FS.flagModes[str];
+          if (typeof flags === "undefined") {
+            throw new Error("Unknown file open mode: " + str);
+          }
+          return flags;
+        }, flagsToPermissionString: function(flag) {
+          var perms = ["r", "w", "rw"][flag & 3];
+          if (flag & 512) {
+            perms += "w";
+          }
+          return perms;
+        }, nodePermissions: function(node, perms) {
+          if (FS.ignorePermissions) {
+            return 0;
+          }
+          if (perms.includes("r") && !(node.mode & 292)) {
+            return 2;
+          } else if (perms.includes("w") && !(node.mode & 146)) {
+            return 2;
+          } else if (perms.includes("x") && !(node.mode & 73)) {
+            return 2;
+          }
+          return 0;
+        }, mayLookup: function(dir) {
+          var errCode = FS.nodePermissions(dir, "x");
+          if (errCode)
+            return errCode;
+          if (!dir.node_ops.lookup)
+            return 2;
+          return 0;
+        }, mayCreate: function(dir, name2) {
+          try {
+            var node = FS.lookupNode(dir, name2);
+            return 20;
+          } catch (e) {
+          }
+          return FS.nodePermissions(dir, "wx");
+        }, mayDelete: function(dir, name2, isdir) {
+          var node;
+          try {
+            node = FS.lookupNode(dir, name2);
+          } catch (e) {
+            return e.errno;
+          }
+          var errCode = FS.nodePermissions(dir, "wx");
+          if (errCode) {
+            return errCode;
+          }
+          if (isdir) {
+            if (!FS.isDir(node.mode)) {
+              return 54;
+            }
+            if (FS.isRoot(node) || FS.getPath(node) === FS.cwd()) {
+              return 10;
+            }
+          } else {
+            if (FS.isDir(node.mode)) {
+              return 31;
+            }
+          }
+          return 0;
+        }, mayOpen: function(node, flags) {
+          if (!node) {
+            return 44;
+          }
+          if (FS.isLink(node.mode)) {
+            return 32;
+          } else if (FS.isDir(node.mode)) {
+            if (FS.flagsToPermissionString(flags) !== "r" || flags & 512) {
+              return 31;
+            }
+          }
+          return FS.nodePermissions(node, FS.flagsToPermissionString(flags));
+        }, MAX_OPEN_FDS: 4096, nextfd: function(fd_start, fd_end) {
+          fd_start = fd_start || 0;
+          fd_end = fd_end || FS.MAX_OPEN_FDS;
+          for (var fd = fd_start; fd <= fd_end; fd++) {
+            if (!FS.streams[fd]) {
+              return fd;
+            }
+          }
+          throw new FS.ErrnoError(33);
+        }, getStream: function(fd) {
+          return FS.streams[fd];
+        }, createStream: function(stream, fd_start, fd_end) {
+          if (!FS.FSStream) {
+            FS.FSStream = function() {
+            };
+            FS.FSStream.prototype = { object: { get: function() {
+              return this.node;
+            }, set: function(val) {
+              this.node = val;
+            } }, isRead: { get: function() {
+              return (this.flags & 2097155) !== 1;
+            } }, isWrite: { get: function() {
+              return (this.flags & 2097155) !== 0;
+            } }, isAppend: { get: function() {
+              return this.flags & 1024;
+            } } };
+          }
+          var newStream = new FS.FSStream();
+          for (var p in stream) {
+            newStream[p] = stream[p];
+          }
+          stream = newStream;
+          var fd = FS.nextfd(fd_start, fd_end);
+          stream.fd = fd;
+          FS.streams[fd] = stream;
+          return stream;
+        }, closeStream: function(fd) {
+          FS.streams[fd] = null;
+        }, chrdev_stream_ops: { open: function(stream) {
+          var device = FS.getDevice(stream.node.rdev);
+          stream.stream_ops = device.stream_ops;
+          if (stream.stream_ops.open) {
+            stream.stream_ops.open(stream);
+          }
+        }, llseek: function() {
+          throw new FS.ErrnoError(70);
+        } }, major: function(dev) {
+          return dev >> 8;
+        }, minor: function(dev) {
+          return dev & 255;
+        }, makedev: function(ma, mi) {
+          return ma << 8 | mi;
+        }, registerDevice: function(dev, ops) {
+          FS.devices[dev] = { stream_ops: ops };
+        }, getDevice: function(dev) {
+          return FS.devices[dev];
+        }, getMounts: function(mount) {
+          var mounts = [];
+          var check = [mount];
+          while (check.length) {
+            var m = check.pop();
+            mounts.push(m);
+            check.push.apply(check, m.mounts);
+          }
+          return mounts;
+        }, syncfs: function(populate, callback) {
+          if (typeof populate === "function") {
+            callback = populate;
+            populate = false;
+          }
+          FS.syncFSRequests++;
+          if (FS.syncFSRequests > 1) {
+            err("warning: " + FS.syncFSRequests + " FS.syncfs operations in flight at once, probably just doing extra work");
+          }
+          var mounts = FS.getMounts(FS.root.mount);
+          var completed = 0;
+          function doCallback(errCode) {
+            FS.syncFSRequests--;
+            return callback(errCode);
+          }
+          function done(errCode) {
+            if (errCode) {
+              if (!done.errored) {
+                done.errored = true;
+                return doCallback(errCode);
+              }
+              return;
+            }
+            if (++completed >= mounts.length) {
+              doCallback(null);
+            }
+          }
+          mounts.forEach(function(mount) {
+            if (!mount.type.syncfs) {
+              return done(null);
+            }
+            mount.type.syncfs(mount, populate, done);
+          });
+        }, mount: function(type, opts, mountpoint) {
+          var root = mountpoint === "/";
+          var pseudo = !mountpoint;
+          var node;
+          if (root && FS.root) {
+            throw new FS.ErrnoError(10);
+          } else if (!root && !pseudo) {
+            var lookup = FS.lookupPath(mountpoint, { follow_mount: false });
+            mountpoint = lookup.path;
+            node = lookup.node;
+            if (FS.isMountpoint(node)) {
+              throw new FS.ErrnoError(10);
+            }
+            if (!FS.isDir(node.mode)) {
+              throw new FS.ErrnoError(54);
+            }
+          }
+          var mount = { type, opts, mountpoint, mounts: [] };
+          var mountRoot = type.mount(mount);
+          mountRoot.mount = mount;
+          mount.root = mountRoot;
+          if (root) {
+            FS.root = mountRoot;
+          } else if (node) {
+            node.mounted = mount;
+            if (node.mount) {
+              node.mount.mounts.push(mount);
+            }
+          }
+          return mountRoot;
+        }, unmount: function(mountpoint) {
+          var lookup = FS.lookupPath(mountpoint, { follow_mount: false });
+          if (!FS.isMountpoint(lookup.node)) {
+            throw new FS.ErrnoError(28);
+          }
+          var node = lookup.node;
+          var mount = node.mounted;
+          var mounts = FS.getMounts(mount);
+          Object.keys(FS.nameTable).forEach(function(hash) {
+            var current = FS.nameTable[hash];
+            while (current) {
+              var next = current.name_next;
+              if (mounts.includes(current.mount)) {
+                FS.destroyNode(current);
+              }
+              current = next;
+            }
+          });
+          node.mounted = null;
+          var idx = node.mount.mounts.indexOf(mount);
+          node.mount.mounts.splice(idx, 1);
+        }, lookup: function(parent, name2) {
+          return parent.node_ops.lookup(parent, name2);
+        }, mknod: function(path, mode, dev) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          if (!name2 || name2 === "." || name2 === "..") {
+            throw new FS.ErrnoError(28);
+          }
+          var errCode = FS.mayCreate(parent, name2);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.mknod) {
+            throw new FS.ErrnoError(63);
+          }
+          return parent.node_ops.mknod(parent, name2, mode, dev);
+        }, create: function(path, mode) {
+          mode = mode !== void 0 ? mode : 438;
+          mode &= 4095;
+          mode |= 32768;
+          return FS.mknod(path, mode, 0);
+        }, mkdir: function(path, mode) {
+          mode = mode !== void 0 ? mode : 511;
+          mode &= 511 | 512;
+          mode |= 16384;
+          return FS.mknod(path, mode, 0);
+        }, mkdirTree: function(path, mode) {
+          var dirs = path.split("/");
+          var d = "";
+          for (var i = 0; i < dirs.length; ++i) {
+            if (!dirs[i])
+              continue;
+            d += "/" + dirs[i];
+            try {
+              FS.mkdir(d, mode);
+            } catch (e) {
+              if (e.errno != 20)
+                throw e;
+            }
+          }
+        }, mkdev: function(path, mode, dev) {
+          if (typeof dev === "undefined") {
+            dev = mode;
+            mode = 438;
+          }
+          mode |= 8192;
+          return FS.mknod(path, mode, dev);
+        }, symlink: function(oldpath, newpath) {
+          if (!PATH_FS.resolve(oldpath)) {
+            throw new FS.ErrnoError(44);
+          }
+          var lookup = FS.lookupPath(newpath, { parent: true });
+          var parent = lookup.node;
+          if (!parent) {
+            throw new FS.ErrnoError(44);
+          }
+          var newname = PATH.basename(newpath);
+          var errCode = FS.mayCreate(parent, newname);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.symlink) {
+            throw new FS.ErrnoError(63);
+          }
+          return parent.node_ops.symlink(parent, newname, oldpath);
+        }, rename: function(old_path, new_path) {
+          var old_dirname = PATH.dirname(old_path);
+          var new_dirname = PATH.dirname(new_path);
+          var old_name = PATH.basename(old_path);
+          var new_name = PATH.basename(new_path);
+          var lookup, old_dir, new_dir;
+          lookup = FS.lookupPath(old_path, { parent: true });
+          old_dir = lookup.node;
+          lookup = FS.lookupPath(new_path, { parent: true });
+          new_dir = lookup.node;
+          if (!old_dir || !new_dir)
+            throw new FS.ErrnoError(44);
+          if (old_dir.mount !== new_dir.mount) {
+            throw new FS.ErrnoError(75);
+          }
+          var old_node = FS.lookupNode(old_dir, old_name);
+          var relative = PATH_FS.relative(old_path, new_dirname);
+          if (relative.charAt(0) !== ".") {
+            throw new FS.ErrnoError(28);
+          }
+          relative = PATH_FS.relative(new_path, old_dirname);
+          if (relative.charAt(0) !== ".") {
+            throw new FS.ErrnoError(55);
+          }
+          var new_node;
+          try {
+            new_node = FS.lookupNode(new_dir, new_name);
+          } catch (e) {
+          }
+          if (old_node === new_node) {
+            return;
+          }
+          var isdir = FS.isDir(old_node.mode);
+          var errCode = FS.mayDelete(old_dir, old_name, isdir);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          errCode = new_node ? FS.mayDelete(new_dir, new_name, isdir) : FS.mayCreate(new_dir, new_name);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!old_dir.node_ops.rename) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(old_node) || new_node && FS.isMountpoint(new_node)) {
+            throw new FS.ErrnoError(10);
+          }
+          if (new_dir !== old_dir) {
+            errCode = FS.nodePermissions(old_dir, "w");
+            if (errCode) {
+              throw new FS.ErrnoError(errCode);
+            }
+          }
+          try {
+            if (FS.trackingDelegate["willMovePath"]) {
+              FS.trackingDelegate["willMovePath"](old_path, new_path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willMovePath']('" + old_path + "', '" + new_path + "') threw an exception: " + e.message);
+          }
+          FS.hashRemoveNode(old_node);
+          try {
+            old_dir.node_ops.rename(old_node, new_dir, new_name);
+          } catch (e) {
+            throw e;
+          } finally {
+            FS.hashAddNode(old_node);
+          }
+          try {
+            if (FS.trackingDelegate["onMovePath"])
+              FS.trackingDelegate["onMovePath"](old_path, new_path);
+          } catch (e) {
+            err("FS.trackingDelegate['onMovePath']('" + old_path + "', '" + new_path + "') threw an exception: " + e.message);
+          }
+        }, rmdir: function(path) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          var node = FS.lookupNode(parent, name2);
+          var errCode = FS.mayDelete(parent, name2, true);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.rmdir) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(node)) {
+            throw new FS.ErrnoError(10);
+          }
+          try {
+            if (FS.trackingDelegate["willDeletePath"]) {
+              FS.trackingDelegate["willDeletePath"](path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+          parent.node_ops.rmdir(parent, name2);
+          FS.destroyNode(node);
+          try {
+            if (FS.trackingDelegate["onDeletePath"])
+              FS.trackingDelegate["onDeletePath"](path);
+          } catch (e) {
+            err("FS.trackingDelegate['onDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+        }, readdir: function(path) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          var node = lookup.node;
+          if (!node.node_ops.readdir) {
+            throw new FS.ErrnoError(54);
+          }
+          return node.node_ops.readdir(node);
+        }, unlink: function(path) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          var node = FS.lookupNode(parent, name2);
+          var errCode = FS.mayDelete(parent, name2, false);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.unlink) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(node)) {
+            throw new FS.ErrnoError(10);
+          }
+          try {
+            if (FS.trackingDelegate["willDeletePath"]) {
+              FS.trackingDelegate["willDeletePath"](path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+          parent.node_ops.unlink(parent, name2);
+          FS.destroyNode(node);
+          try {
+            if (FS.trackingDelegate["onDeletePath"])
+              FS.trackingDelegate["onDeletePath"](path);
+          } catch (e) {
+            err("FS.trackingDelegate['onDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+        }, readlink: function(path) {
+          var lookup = FS.lookupPath(path);
+          var link = lookup.node;
+          if (!link) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!link.node_ops.readlink) {
+            throw new FS.ErrnoError(28);
+          }
+          return PATH_FS.resolve(FS.getPath(link.parent), link.node_ops.readlink(link));
+        }, stat: function(path, dontFollow) {
+          var lookup = FS.lookupPath(path, { follow: !dontFollow });
+          var node = lookup.node;
+          if (!node) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!node.node_ops.getattr) {
+            throw new FS.ErrnoError(63);
+          }
+          return node.node_ops.getattr(node);
+        }, lstat: function(path) {
+          return FS.stat(path, true);
+        }, chmod: function(path, mode, dontFollow) {
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: !dontFollow });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          node.node_ops.setattr(node, { mode: mode & 4095 | node.mode & ~4095, timestamp: Date.now() });
+        }, lchmod: function(path, mode) {
+          FS.chmod(path, mode, true);
+        }, fchmod: function(fd, mode) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          FS.chmod(stream.node, mode);
+        }, chown: function(path, uid, gid, dontFollow) {
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: !dontFollow });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          node.node_ops.setattr(node, { timestamp: Date.now() });
+        }, lchown: function(path, uid, gid) {
+          FS.chown(path, uid, gid, true);
+        }, fchown: function(fd, uid, gid) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          FS.chown(stream.node, uid, gid);
+        }, truncate: function(path, len) {
+          if (len < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: true });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isDir(node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!FS.isFile(node.mode)) {
+            throw new FS.ErrnoError(28);
+          }
+          var errCode = FS.nodePermissions(node, "w");
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          node.node_ops.setattr(node, { size: len, timestamp: Date.now() });
+        }, ftruncate: function(fd, len) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(28);
+          }
+          FS.truncate(stream.node, len);
+        }, utime: function(path, atime, mtime) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          var node = lookup.node;
+          node.node_ops.setattr(node, { timestamp: Math.max(atime, mtime) });
+        }, open: function(path, flags, mode, fd_start, fd_end) {
+          if (path === "") {
+            throw new FS.ErrnoError(44);
+          }
+          flags = typeof flags === "string" ? FS.modeStringToFlags(flags) : flags;
+          mode = typeof mode === "undefined" ? 438 : mode;
+          if (flags & 64) {
+            mode = mode & 4095 | 32768;
+          } else {
+            mode = 0;
+          }
+          var node;
+          if (typeof path === "object") {
+            node = path;
+          } else {
+            path = PATH.normalize(path);
+            try {
+              var lookup = FS.lookupPath(path, { follow: !(flags & 131072) });
+              node = lookup.node;
+            } catch (e) {
+            }
+          }
+          var created = false;
+          if (flags & 64) {
+            if (node) {
+              if (flags & 128) {
+                throw new FS.ErrnoError(20);
+              }
+            } else {
+              node = FS.mknod(path, mode, 0);
+              created = true;
+            }
+          }
+          if (!node) {
+            throw new FS.ErrnoError(44);
+          }
+          if (FS.isChrdev(node.mode)) {
+            flags &= ~512;
+          }
+          if (flags & 65536 && !FS.isDir(node.mode)) {
+            throw new FS.ErrnoError(54);
+          }
+          if (!created) {
+            var errCode = FS.mayOpen(node, flags);
+            if (errCode) {
+              throw new FS.ErrnoError(errCode);
+            }
+          }
+          if (flags & 512) {
+            FS.truncate(node, 0);
+          }
+          flags &= ~(128 | 512 | 131072);
+          var stream = FS.createStream({ node, path: FS.getPath(node), flags, seekable: true, position: 0, stream_ops: node.stream_ops, ungotten: [], error: false }, fd_start, fd_end);
+          if (stream.stream_ops.open) {
+            stream.stream_ops.open(stream);
+          }
+          if (Module["logReadFiles"] && !(flags & 1)) {
+            if (!FS.readFiles)
+              FS.readFiles = {};
+            if (!(path in FS.readFiles)) {
+              FS.readFiles[path] = 1;
+              err("FS.trackingDelegate error on read file: " + path);
+            }
+          }
+          try {
+            if (FS.trackingDelegate["onOpenFile"]) {
+              var trackingFlags = 0;
+              if ((flags & 2097155) !== 1) {
+                trackingFlags |= FS.tracking.openFlags.READ;
+              }
+              if ((flags & 2097155) !== 0) {
+                trackingFlags |= FS.tracking.openFlags.WRITE;
+              }
+              FS.trackingDelegate["onOpenFile"](path, trackingFlags);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['onOpenFile']('" + path + "', flags) threw an exception: " + e.message);
+          }
+          return stream;
+        }, close: function(stream) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (stream.getdents)
+            stream.getdents = null;
+          try {
+            if (stream.stream_ops.close) {
+              stream.stream_ops.close(stream);
+            }
+          } catch (e) {
+            throw e;
+          } finally {
+            FS.closeStream(stream.fd);
+          }
+          stream.fd = null;
+        }, isClosed: function(stream) {
+          return stream.fd === null;
+        }, llseek: function(stream, offset, whence) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (!stream.seekable || !stream.stream_ops.llseek) {
+            throw new FS.ErrnoError(70);
+          }
+          if (whence != 0 && whence != 1 && whence != 2) {
+            throw new FS.ErrnoError(28);
+          }
+          stream.position = stream.stream_ops.llseek(stream, offset, whence);
+          stream.ungotten = [];
+          return stream.position;
+        }, read: function(stream, buffer2, offset, length, position) {
+          offset >>>= 0;
+          if (length < 0 || position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 1) {
+            throw new FS.ErrnoError(8);
+          }
+          if (FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!stream.stream_ops.read) {
+            throw new FS.ErrnoError(28);
+          }
+          var seeking = typeof position !== "undefined";
+          if (!seeking) {
+            position = stream.position;
+          } else if (!stream.seekable) {
+            throw new FS.ErrnoError(70);
+          }
+          var bytesRead = stream.stream_ops.read(stream, buffer2, offset, length, position);
+          if (!seeking)
+            stream.position += bytesRead;
+          return bytesRead;
+        }, write: function(stream, buffer2, offset, length, position, canOwn) {
+          offset >>>= 0;
+          if (length < 0 || position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(8);
+          }
+          if (FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!stream.stream_ops.write) {
+            throw new FS.ErrnoError(28);
+          }
+          if (stream.seekable && stream.flags & 1024) {
+            FS.llseek(stream, 0, 2);
+          }
+          var seeking = typeof position !== "undefined";
+          if (!seeking) {
+            position = stream.position;
+          } else if (!stream.seekable) {
+            throw new FS.ErrnoError(70);
+          }
+          var bytesWritten = stream.stream_ops.write(stream, buffer2, offset, length, position, canOwn);
+          if (!seeking)
+            stream.position += bytesWritten;
+          try {
+            if (stream.path && FS.trackingDelegate["onWriteToFile"])
+              FS.trackingDelegate["onWriteToFile"](stream.path);
+          } catch (e) {
+            err("FS.trackingDelegate['onWriteToFile']('" + stream.path + "') threw an exception: " + e.message);
+          }
+          return bytesWritten;
+        }, allocate: function(stream, offset, length) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (offset < 0 || length <= 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(8);
+          }
+          if (!FS.isFile(stream.node.mode) && !FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          if (!stream.stream_ops.allocate) {
+            throw new FS.ErrnoError(138);
+          }
+          stream.stream_ops.allocate(stream, offset, length);
+        }, mmap: function(stream, address, length, position, prot, flags) {
+          address >>>= 0;
+          if ((prot & 2) !== 0 && (flags & 2) === 0 && (stream.flags & 2097155) !== 2) {
+            throw new FS.ErrnoError(2);
+          }
+          if ((stream.flags & 2097155) === 1) {
+            throw new FS.ErrnoError(2);
+          }
+          if (!stream.stream_ops.mmap) {
+            throw new FS.ErrnoError(43);
+          }
+          return stream.stream_ops.mmap(stream, address, length, position, prot, flags);
+        }, msync: function(stream, buffer2, offset, length, mmapFlags) {
+          offset >>>= 0;
+          if (!stream || !stream.stream_ops.msync) {
+            return 0;
+          }
+          return stream.stream_ops.msync(stream, buffer2, offset, length, mmapFlags);
+        }, munmap: function(stream) {
+          return 0;
+        }, ioctl: function(stream, cmd, arg) {
+          if (!stream.stream_ops.ioctl) {
+            throw new FS.ErrnoError(59);
+          }
+          return stream.stream_ops.ioctl(stream, cmd, arg);
+        }, readFile: function(path, opts) {
+          opts = opts || {};
+          opts.flags = opts.flags || 0;
+          opts.encoding = opts.encoding || "binary";
+          if (opts.encoding !== "utf8" && opts.encoding !== "binary") {
+            throw new Error('Invalid encoding type "' + opts.encoding + '"');
+          }
+          var ret;
+          var stream = FS.open(path, opts.flags);
+          var stat = FS.stat(path);
+          var length = stat.size;
+          var buf = new Uint8Array(length);
+          FS.read(stream, buf, 0, length, 0);
+          if (opts.encoding === "utf8") {
+            ret = UTF8ArrayToString(buf, 0);
+          } else if (opts.encoding === "binary") {
+            ret = buf;
+          }
+          FS.close(stream);
+          return ret;
+        }, writeFile: function(path, data, opts) {
+          opts = opts || {};
+          opts.flags = opts.flags || 577;
+          var stream = FS.open(path, opts.flags, opts.mode);
+          if (typeof data === "string") {
+            var buf = new Uint8Array(lengthBytesUTF8(data) + 1);
+            var actualNumBytes = stringToUTF8Array(data, buf, 0, buf.length);
+            FS.write(stream, buf, 0, actualNumBytes, void 0, opts.canOwn);
+          } else if (ArrayBuffer.isView(data)) {
+            FS.write(stream, data, 0, data.byteLength, void 0, opts.canOwn);
+          } else {
+            throw new Error("Unsupported data type");
+          }
+          FS.close(stream);
+        }, cwd: function() {
+          return FS.currentPath;
+        }, chdir: function(path) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          if (lookup.node === null) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!FS.isDir(lookup.node.mode)) {
+            throw new FS.ErrnoError(54);
+          }
+          var errCode = FS.nodePermissions(lookup.node, "x");
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          FS.currentPath = lookup.path;
+        }, createDefaultDirectories: function() {
+          FS.mkdir("/tmp");
+          FS.mkdir("/home");
+          FS.mkdir("/home/web_user");
+        }, createDefaultDevices: function() {
+          FS.mkdir("/dev");
+          FS.registerDevice(FS.makedev(1, 3), { read: function() {
+            return 0;
+          }, write: function(stream, buffer2, offset, length, pos) {
+            return length;
+          } });
+          FS.mkdev("/dev/null", FS.makedev(1, 3));
+          TTY.register(FS.makedev(5, 0), TTY.default_tty_ops);
+          TTY.register(FS.makedev(6, 0), TTY.default_tty1_ops);
+          FS.mkdev("/dev/tty", FS.makedev(5, 0));
+          FS.mkdev("/dev/tty1", FS.makedev(6, 0));
+          var random_device = getRandomDevice();
+          FS.createDevice("/dev", "random", random_device);
+          FS.createDevice("/dev", "urandom", random_device);
+          FS.mkdir("/dev/shm");
+          FS.mkdir("/dev/shm/tmp");
+        }, createSpecialDirectories: function() {
+          FS.mkdir("/proc");
+          var proc_self = FS.mkdir("/proc/self");
+          FS.mkdir("/proc/self/fd");
+          FS.mount({ mount: function() {
+            var node = FS.createNode(proc_self, "fd", 16384 | 511, 73);
+            node.node_ops = { lookup: function(parent, name2) {
+              var fd = +name2;
+              var stream = FS.getStream(fd);
+              if (!stream)
+                throw new FS.ErrnoError(8);
+              var ret = { parent: null, mount: { mountpoint: "fake" }, node_ops: { readlink: function() {
+                return stream.path;
+              } } };
+              ret.parent = ret;
+              return ret;
+            } };
+            return node;
+          } }, {}, "/proc/self/fd");
+        }, createStandardStreams: function() {
+          if (Module["stdin"]) {
+            FS.createDevice("/dev", "stdin", Module["stdin"]);
+          } else {
+            FS.symlink("/dev/tty", "/dev/stdin");
+          }
+          if (Module["stdout"]) {
+            FS.createDevice("/dev", "stdout", null, Module["stdout"]);
+          } else {
+            FS.symlink("/dev/tty", "/dev/stdout");
+          }
+          if (Module["stderr"]) {
+            FS.createDevice("/dev", "stderr", null, Module["stderr"]);
+          } else {
+            FS.symlink("/dev/tty1", "/dev/stderr");
+          }
+          FS.open("/dev/stdin", 0);
+          FS.open("/dev/stdout", 1);
+          FS.open("/dev/stderr", 1);
+        }, ensureErrnoError: function() {
+          if (FS.ErrnoError)
+            return;
+          FS.ErrnoError = function ErrnoError(errno, node) {
+            this.node = node;
+            this.setErrno = function(errno2) {
+              this.errno = errno2;
+            };
+            this.setErrno(errno);
+            this.message = "FS error";
+          };
+          FS.ErrnoError.prototype = new Error();
+          FS.ErrnoError.prototype.constructor = FS.ErrnoError;
+          [44].forEach(function(code) {
+            FS.genericErrors[code] = new FS.ErrnoError(code);
+            FS.genericErrors[code].stack = "<generic error, no stack>";
+          });
+        }, staticInit: function() {
+          FS.ensureErrnoError();
+          FS.nameTable = new Array(4096);
+          FS.mount(MEMFS, {}, "/");
+          FS.createDefaultDirectories();
+          FS.createDefaultDevices();
+          FS.createSpecialDirectories();
+          FS.filesystems = { "MEMFS": MEMFS };
+        }, init: function(input, output, error) {
+          FS.init.initialized = true;
+          FS.ensureErrnoError();
+          Module["stdin"] = input || Module["stdin"];
+          Module["stdout"] = output || Module["stdout"];
+          Module["stderr"] = error || Module["stderr"];
+          FS.createStandardStreams();
+        }, quit: function() {
+          FS.init.initialized = false;
+          var fflush = Module["_fflush"];
+          if (fflush)
+            fflush(0);
+          for (var i = 0; i < FS.streams.length; i++) {
+            var stream = FS.streams[i];
+            if (!stream) {
+              continue;
+            }
+            FS.close(stream);
+          }
+        }, getMode: function(canRead, canWrite) {
+          var mode = 0;
+          if (canRead)
+            mode |= 292 | 73;
+          if (canWrite)
+            mode |= 146;
+          return mode;
+        }, findObject: function(path, dontResolveLastLink) {
+          var ret = FS.analyzePath(path, dontResolveLastLink);
+          if (ret.exists) {
+            return ret.object;
+          } else {
+            return null;
+          }
+        }, analyzePath: function(path, dontResolveLastLink) {
+          try {
+            var lookup = FS.lookupPath(path, { follow: !dontResolveLastLink });
+            path = lookup.path;
+          } catch (e) {
+          }
+          var ret = { isRoot: false, exists: false, error: 0, name: null, path: null, object: null, parentExists: false, parentPath: null, parentObject: null };
+          try {
+            var lookup = FS.lookupPath(path, { parent: true });
+            ret.parentExists = true;
+            ret.parentPath = lookup.path;
+            ret.parentObject = lookup.node;
+            ret.name = PATH.basename(path);
+            lookup = FS.lookupPath(path, { follow: !dontResolveLastLink });
+            ret.exists = true;
+            ret.path = lookup.path;
+            ret.object = lookup.node;
+            ret.name = lookup.node.name;
+            ret.isRoot = lookup.path === "/";
+          } catch (e) {
+            ret.error = e.errno;
+          }
+          return ret;
+        }, createPath: function(parent, path, canRead, canWrite) {
+          parent = typeof parent === "string" ? parent : FS.getPath(parent);
+          var parts = path.split("/").reverse();
+          while (parts.length) {
+            var part = parts.pop();
+            if (!part)
+              continue;
+            var current = PATH.join2(parent, part);
+            try {
+              FS.mkdir(current);
+            } catch (e) {
+            }
+            parent = current;
+          }
+          return current;
+        }, createFile: function(parent, name2, properties, canRead, canWrite) {
+          var path = PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2);
+          var mode = FS.getMode(canRead, canWrite);
+          return FS.create(path, mode);
+        }, createDataFile: function(parent, name2, data, canRead, canWrite, canOwn) {
+          var path = name2 ? PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2) : parent;
+          var mode = FS.getMode(canRead, canWrite);
+          var node = FS.create(path, mode);
+          if (data) {
+            if (typeof data === "string") {
+              var arr = new Array(data.length);
+              for (var i = 0, len = data.length; i < len; ++i)
+                arr[i] = data.charCodeAt(i);
+              data = arr;
+            }
+            FS.chmod(node, mode | 146);
+            var stream = FS.open(node, 577);
+            FS.write(stream, data, 0, data.length, 0, canOwn);
+            FS.close(stream);
+            FS.chmod(node, mode);
+          }
+          return node;
+        }, createDevice: function(parent, name2, input, output) {
+          var path = PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2);
+          var mode = FS.getMode(!!input, !!output);
+          if (!FS.createDevice.major)
+            FS.createDevice.major = 64;
+          var dev = FS.makedev(FS.createDevice.major++, 0);
+          FS.registerDevice(dev, { open: function(stream) {
+            stream.seekable = false;
+          }, close: function(stream) {
+            if (output && output.buffer && output.buffer.length) {
+              output(10);
+            }
+          }, read: function(stream, buffer2, offset, length, pos) {
+            var bytesRead = 0;
+            for (var i = 0; i < length; i++) {
+              var result;
+              try {
+                result = input();
+              } catch (e) {
+                throw new FS.ErrnoError(29);
+              }
+              if (result === void 0 && bytesRead === 0) {
+                throw new FS.ErrnoError(6);
+              }
+              if (result === null || result === void 0)
+                break;
+              bytesRead++;
+              buffer2[offset + i] = result;
+            }
+            if (bytesRead) {
+              stream.node.timestamp = Date.now();
+            }
+            return bytesRead;
+          }, write: function(stream, buffer2, offset, length, pos) {
+            for (var i = 0; i < length; i++) {
+              try {
+                output(buffer2[offset + i]);
+              } catch (e) {
+                throw new FS.ErrnoError(29);
+              }
+            }
+            if (length) {
+              stream.node.timestamp = Date.now();
+            }
+            return i;
+          } });
+          return FS.mkdev(path, mode, dev);
+        }, forceLoadFile: function(obj) {
+          if (obj.isDevice || obj.isFolder || obj.link || obj.contents)
+            return true;
+          if (typeof XMLHttpRequest !== "undefined") {
+            throw new Error("Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.");
+          } else if (read_) {
+            try {
+              obj.contents = intArrayFromString(read_(obj.url), true);
+              obj.usedBytes = obj.contents.length;
+            } catch (e) {
+              throw new FS.ErrnoError(29);
+            }
+          } else {
+            throw new Error("Cannot load without read() or XMLHttpRequest.");
+          }
+        }, createLazyFile: function(parent, name2, url, canRead, canWrite) {
+          function LazyUint8Array() {
+            this.lengthKnown = false;
+            this.chunks = [];
+          }
+          LazyUint8Array.prototype.get = function LazyUint8Array_get(idx) {
+            if (idx > this.length - 1 || idx < 0) {
+              return void 0;
+            }
+            var chunkOffset = idx % this.chunkSize;
+            var chunkNum = idx / this.chunkSize | 0;
+            return this.getter(chunkNum)[chunkOffset];
+          };
+          LazyUint8Array.prototype.setDataGetter = function LazyUint8Array_setDataGetter(getter) {
+            this.getter = getter;
+          };
+          LazyUint8Array.prototype.cacheLength = function LazyUint8Array_cacheLength() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("HEAD", url, false);
+            xhr.send(null);
+            if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304))
+              throw new Error("Couldn't load " + url + ". Status: " + xhr.status);
+            var datalength = Number(xhr.getResponseHeader("Content-length"));
+            var header;
+            var hasByteServing = (header = xhr.getResponseHeader("Accept-Ranges")) && header === "bytes";
+            var usesGzip = (header = xhr.getResponseHeader("Content-Encoding")) && header === "gzip";
+            var chunkSize = 1024 * 1024;
+            if (!hasByteServing)
+              chunkSize = datalength;
+            var doXHR = function(from, to) {
+              if (from > to)
+                throw new Error("invalid range (" + from + ", " + to + ") or no bytes requested!");
+              if (to > datalength - 1)
+                throw new Error("only " + datalength + " bytes available! programmer error!");
+              var xhr2 = new XMLHttpRequest();
+              xhr2.open("GET", url, false);
+              if (datalength !== chunkSize)
+                xhr2.setRequestHeader("Range", "bytes=" + from + "-" + to);
+              if (typeof Uint8Array != "undefined")
+                xhr2.responseType = "arraybuffer";
+              if (xhr2.overrideMimeType) {
+                xhr2.overrideMimeType("text/plain; charset=x-user-defined");
+              }
+              xhr2.send(null);
+              if (!(xhr2.status >= 200 && xhr2.status < 300 || xhr2.status === 304))
+                throw new Error("Couldn't load " + url + ". Status: " + xhr2.status);
+              if (xhr2.response !== void 0) {
+                return new Uint8Array(xhr2.response || []);
+              } else {
+                return intArrayFromString(xhr2.responseText || "", true);
+              }
+            };
+            var lazyArray2 = this;
+            lazyArray2.setDataGetter(function(chunkNum) {
+              var start = chunkNum * chunkSize;
+              var end = (chunkNum + 1) * chunkSize - 1;
+              end = Math.min(end, datalength - 1);
+              if (typeof lazyArray2.chunks[chunkNum] === "undefined") {
+                lazyArray2.chunks[chunkNum] = doXHR(start, end);
+              }
+              if (typeof lazyArray2.chunks[chunkNum] === "undefined")
+                throw new Error("doXHR failed!");
+              return lazyArray2.chunks[chunkNum];
+            });
+            if (usesGzip || !datalength) {
+              chunkSize = datalength = 1;
+              datalength = this.getter(0).length;
+              chunkSize = datalength;
+              out("LazyFiles on gzip forces download of the whole file when length is accessed");
+            }
+            this._length = datalength;
+            this._chunkSize = chunkSize;
+            this.lengthKnown = true;
+          };
+          if (typeof XMLHttpRequest !== "undefined") {
+            if (!ENVIRONMENT_IS_WORKER)
+              throw "Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc";
+            var lazyArray = new LazyUint8Array();
+            Object.defineProperties(lazyArray, { length: { get: function() {
+              if (!this.lengthKnown) {
+                this.cacheLength();
+              }
+              return this._length;
+            } }, chunkSize: { get: function() {
+              if (!this.lengthKnown) {
+                this.cacheLength();
+              }
+              return this._chunkSize;
+            } } });
+            var properties = { isDevice: false, contents: lazyArray };
+          } else {
+            var properties = { isDevice: false, url };
+          }
+          var node = FS.createFile(parent, name2, properties, canRead, canWrite);
+          if (properties.contents) {
+            node.contents = properties.contents;
+          } else if (properties.url) {
+            node.contents = null;
+            node.url = properties.url;
+          }
+          Object.defineProperties(node, { usedBytes: { get: function() {
+            return this.contents.length;
+          } } });
+          var stream_ops = {};
+          var keys = Object.keys(node.stream_ops);
+          keys.forEach(function(key2) {
+            var fn = node.stream_ops[key2];
+            stream_ops[key2] = function forceLoadLazyFile() {
+              FS.forceLoadFile(node);
+              return fn.apply(null, arguments);
+            };
+          });
+          stream_ops.read = function stream_ops_read(stream, buffer2, offset, length, position) {
+            FS.forceLoadFile(node);
+            var contents = stream.node.contents;
+            if (position >= contents.length)
+              return 0;
+            var size = Math.min(contents.length - position, length);
+            if (contents.slice) {
+              for (var i = 0; i < size; i++) {
+                buffer2[offset + i] = contents[position + i];
+              }
+            } else {
+              for (var i = 0; i < size; i++) {
+                buffer2[offset + i] = contents.get(position + i);
+              }
+            }
+            return size;
+          };
+          node.stream_ops = stream_ops;
+          return node;
+        }, createPreloadedFile: function(parent, name2, url, canRead, canWrite, onload, onerror, dontCreateFile, canOwn, preFinish) {
+          Browser.init();
+          var fullname = name2 ? PATH_FS.resolve(PATH.join2(parent, name2)) : parent;
+          function processData(byteArray) {
+            function finish(byteArray2) {
+              if (preFinish)
+                preFinish();
+              if (!dontCreateFile) {
+                FS.createDataFile(parent, name2, byteArray2, canRead, canWrite, canOwn);
+              }
+              if (onload)
+                onload();
+              removeRunDependency();
+            }
+            var handled = false;
+            Module["preloadPlugins"].forEach(function(plugin) {
+              if (handled)
+                return;
+              if (plugin["canHandle"](fullname)) {
+                plugin["handle"](byteArray, fullname, finish, function() {
+                  if (onerror)
+                    onerror();
+                  removeRunDependency();
+                });
+                handled = true;
+              }
+            });
+            if (!handled)
+              finish(byteArray);
+          }
+          addRunDependency();
+          if (typeof url == "string") {
+            asyncLoad(url, function(byteArray) {
+              processData(byteArray);
+            }, onerror);
+          } else {
+            processData(url);
+          }
+        }, indexedDB: function() {
+          return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        }, DB_NAME: function() {
+          return "EM_FS_" + window.location.pathname;
+        }, DB_VERSION: 20, DB_STORE_NAME: "FILE_DATA", saveFilesToDB: function(paths, onload, onerror) {
+          onload = onload || function() {
+          };
+          onerror = onerror || function() {
+          };
+          var indexedDB = FS.indexedDB();
+          try {
+            var openRequest = indexedDB.open(FS.DB_NAME(), FS.DB_VERSION);
+          } catch (e) {
+            return onerror(e);
+          }
+          openRequest.onupgradeneeded = function openRequest_onupgradeneeded() {
+            out("creating db");
+            var db = openRequest.result;
+            db.createObjectStore(FS.DB_STORE_NAME);
+          };
+          openRequest.onsuccess = function openRequest_onsuccess() {
+            var db = openRequest.result;
+            var transaction = db.transaction([FS.DB_STORE_NAME], "readwrite");
+            var files = transaction.objectStore(FS.DB_STORE_NAME);
+            var ok = 0, fail = 0, total = paths.length;
+            function finish() {
+              if (fail == 0)
+                onload();
+              else
+                onerror();
+            }
+            paths.forEach(function(path) {
+              var putRequest = files.put(FS.analyzePath(path).object.contents, path);
+              putRequest.onsuccess = function putRequest_onsuccess() {
+                ok++;
+                if (ok + fail == total)
+                  finish();
+              };
+              putRequest.onerror = function putRequest_onerror() {
+                fail++;
+                if (ok + fail == total)
+                  finish();
+              };
+            });
+            transaction.onerror = onerror;
+          };
+          openRequest.onerror = onerror;
+        }, loadFilesFromDB: function(paths, onload, onerror) {
+          onload = onload || function() {
+          };
+          onerror = onerror || function() {
+          };
+          var indexedDB = FS.indexedDB();
+          try {
+            var openRequest = indexedDB.open(FS.DB_NAME(), FS.DB_VERSION);
+          } catch (e) {
+            return onerror(e);
+          }
+          openRequest.onupgradeneeded = onerror;
+          openRequest.onsuccess = function openRequest_onsuccess() {
+            var db = openRequest.result;
+            try {
+              var transaction = db.transaction([FS.DB_STORE_NAME], "readonly");
+            } catch (e) {
+              onerror(e);
+              return;
+            }
+            var files = transaction.objectStore(FS.DB_STORE_NAME);
+            var ok = 0, fail = 0, total = paths.length;
+            function finish() {
+              if (fail == 0)
+                onload();
+              else
+                onerror();
+            }
+            paths.forEach(function(path) {
+              var getRequest = files.get(path);
+              getRequest.onsuccess = function getRequest_onsuccess() {
+                if (FS.analyzePath(path).exists) {
+                  FS.unlink(path);
+                }
+                FS.createDataFile(PATH.dirname(path), PATH.basename(path), getRequest.result, true, true, true);
+                ok++;
+                if (ok + fail == total)
+                  finish();
+              };
+              getRequest.onerror = function getRequest_onerror() {
+                fail++;
+                if (ok + fail == total)
+                  finish();
+              };
+            });
+            transaction.onerror = onerror;
+          };
+          openRequest.onerror = onerror;
+        } };
+        var SYSCALLS = { mappings: {}, DEFAULT_POLLMASK: 5, umask: 511, calculateAt: function(dirfd, path, allowEmpty) {
+          if (path[0] === "/") {
+            return path;
+          }
+          var dir;
+          if (dirfd === -100) {
+            dir = FS.cwd();
+          } else {
+            var dirstream = FS.getStream(dirfd);
+            if (!dirstream)
+              throw new FS.ErrnoError(8);
+            dir = dirstream.path;
+          }
+          if (path.length == 0) {
+            if (!allowEmpty) {
+              throw new FS.ErrnoError(44);
+            }
+            return dir;
+          }
+          return PATH.join2(dir, path);
+        }, doStat: function(func, path, buf) {
+          try {
+            var stat = func(path);
+          } catch (e) {
+            if (e && e.node && PATH.normalize(path) !== PATH.normalize(FS.getPath(e.node))) {
+              return -54;
+            }
+            throw e;
+          }
+          GROWABLE_HEAP_I32()[buf >>> 2] = stat.dev;
+          GROWABLE_HEAP_I32()[buf + 4 >>> 2] = 0;
+          GROWABLE_HEAP_I32()[buf + 8 >>> 2] = stat.ino;
+          GROWABLE_HEAP_I32()[buf + 12 >>> 2] = stat.mode;
+          GROWABLE_HEAP_I32()[buf + 16 >>> 2] = stat.nlink;
+          GROWABLE_HEAP_I32()[buf + 20 >>> 2] = stat.uid;
+          GROWABLE_HEAP_I32()[buf + 24 >>> 2] = stat.gid;
+          GROWABLE_HEAP_I32()[buf + 28 >>> 2] = stat.rdev;
+          GROWABLE_HEAP_I32()[buf + 32 >>> 2] = 0;
+          tempI64 = [stat.size >>> 0, (tempDouble = stat.size, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], GROWABLE_HEAP_I32()[buf + 40 >>> 2] = tempI64[0], GROWABLE_HEAP_I32()[buf + 44 >>> 2] = tempI64[1];
+          GROWABLE_HEAP_I32()[buf + 48 >>> 2] = 4096;
+          GROWABLE_HEAP_I32()[buf + 52 >>> 2] = stat.blocks;
+          GROWABLE_HEAP_I32()[buf + 56 >>> 2] = stat.atime.getTime() / 1e3 | 0;
+          GROWABLE_HEAP_I32()[buf + 60 >>> 2] = 0;
+          GROWABLE_HEAP_I32()[buf + 64 >>> 2] = stat.mtime.getTime() / 1e3 | 0;
+          GROWABLE_HEAP_I32()[buf + 68 >>> 2] = 0;
+          GROWABLE_HEAP_I32()[buf + 72 >>> 2] = stat.ctime.getTime() / 1e3 | 0;
+          GROWABLE_HEAP_I32()[buf + 76 >>> 2] = 0;
+          tempI64 = [stat.ino >>> 0, (tempDouble = stat.ino, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], GROWABLE_HEAP_I32()[buf + 80 >>> 2] = tempI64[0], GROWABLE_HEAP_I32()[buf + 84 >>> 2] = tempI64[1];
+          return 0;
+        }, doMsync: function(addr, stream, len, flags, offset) {
+          var buffer2 = GROWABLE_HEAP_U8().slice(addr, addr + len);
+          FS.msync(stream, buffer2, offset, len, flags);
+        }, doMkdir: function(path, mode) {
+          path = PATH.normalize(path);
+          if (path[path.length - 1] === "/")
+            path = path.substr(0, path.length - 1);
+          FS.mkdir(path, mode, 0);
+          return 0;
+        }, doMknod: function(path, mode, dev) {
+          switch (mode & 61440) {
+            case 32768:
+            case 8192:
+            case 24576:
+            case 4096:
+            case 49152:
+              break;
+            default:
+              return -28;
+          }
+          FS.mknod(path, mode, dev);
+          return 0;
+        }, doReadlink: function(path, buf, bufsize) {
+          if (bufsize <= 0)
+            return -28;
+          var ret = FS.readlink(path);
+          var len = Math.min(bufsize, lengthBytesUTF8(ret));
+          var endChar = GROWABLE_HEAP_I8()[buf + len >>> 0];
+          stringToUTF8(ret, buf, bufsize + 1);
+          GROWABLE_HEAP_I8()[buf + len >>> 0] = endChar;
+          return len;
+        }, doAccess: function(path, amode) {
+          if (amode & ~7) {
+            return -28;
+          }
+          var node;
+          var lookup = FS.lookupPath(path, { follow: true });
+          node = lookup.node;
+          if (!node) {
+            return -44;
+          }
+          var perms = "";
+          if (amode & 4)
+            perms += "r";
+          if (amode & 2)
+            perms += "w";
+          if (amode & 1)
+            perms += "x";
+          if (perms && FS.nodePermissions(node, perms)) {
+            return -2;
+          }
+          return 0;
+        }, doDup: function(path, flags, suggestFD) {
+          var suggest = FS.getStream(suggestFD);
+          if (suggest)
+            FS.close(suggest);
+          return FS.open(path, flags, 0, suggestFD, suggestFD).fd;
+        }, doReadv: function(stream, iov, iovcnt, offset) {
+          var ret = 0;
+          for (var i = 0; i < iovcnt; i++) {
+            var ptr = GROWABLE_HEAP_I32()[iov + i * 8 >>> 2];
+            var len = GROWABLE_HEAP_I32()[iov + (i * 8 + 4) >>> 2];
+            var curr = FS.read(stream, GROWABLE_HEAP_I8(), ptr, len, offset);
+            if (curr < 0)
+              return -1;
+            ret += curr;
+            if (curr < len)
+              break;
+          }
+          return ret;
+        }, doWritev: function(stream, iov, iovcnt, offset) {
+          var ret = 0;
+          for (var i = 0; i < iovcnt; i++) {
+            var ptr = GROWABLE_HEAP_I32()[iov + i * 8 >>> 2];
+            var len = GROWABLE_HEAP_I32()[iov + (i * 8 + 4) >>> 2];
+            var curr = FS.write(stream, GROWABLE_HEAP_I8(), ptr, len, offset);
+            if (curr < 0)
+              return -1;
+            ret += curr;
+          }
+          return ret;
+        }, varargs: void 0, get: function() {
+          SYSCALLS.varargs += 4;
+          var ret = GROWABLE_HEAP_I32()[SYSCALLS.varargs - 4 >>> 2];
+          return ret;
+        }, getStr: function(ptr) {
+          var ret = UTF8ToString(ptr);
+          return ret;
+        }, getStreamFromFD: function(fd) {
+          var stream = FS.getStream(fd);
+          if (!stream)
+            throw new FS.ErrnoError(8);
+          return stream;
+        }, get64: function(low, high) {
+          return low;
+        } };
+        function ___sys_fcntl64(fd, cmd, varargs) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(2, 1, fd, cmd, varargs);
+          SYSCALLS.varargs = varargs;
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            switch (cmd) {
+              case 0: {
+                var arg = SYSCALLS.get();
+                if (arg < 0) {
+                  return -28;
+                }
+                var newStream;
+                newStream = FS.open(stream.path, stream.flags, 0, arg);
+                return newStream.fd;
+              }
+              case 1:
+              case 2:
+                return 0;
+              case 3:
+                return stream.flags;
+              case 4: {
+                var arg = SYSCALLS.get();
+                stream.flags |= arg;
+                return 0;
+              }
+              case 12: {
+                var arg = SYSCALLS.get();
+                var offset = 0;
+                GROWABLE_HEAP_I16()[arg + offset >>> 1] = 2;
+                return 0;
+              }
+              case 13:
+              case 14:
+                return 0;
+              case 16:
+              case 8:
+                return -28;
+              case 9:
+                setErrNo(28);
+                return -1;
+              default: {
+                return -28;
+              }
+            }
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        function ___sys_ioctl(fd, op, varargs) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(3, 1, fd, op, varargs);
+          SYSCALLS.varargs = varargs;
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            switch (op) {
+              case 21509:
+              case 21505: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21510:
+              case 21511:
+              case 21512:
+              case 21506:
+              case 21507:
+              case 21508: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21519: {
+                if (!stream.tty)
+                  return -59;
+                var argp = SYSCALLS.get();
+                GROWABLE_HEAP_I32()[argp >>> 2] = 0;
+                return 0;
+              }
+              case 21520: {
+                if (!stream.tty)
+                  return -59;
+                return -28;
+              }
+              case 21531: {
+                var argp = SYSCALLS.get();
+                return FS.ioctl(stream, op, argp);
+              }
+              case 21523: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21524: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              default:
+                abort("bad ioctl syscall " + op);
+            }
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        function ___sys_open(path, flags, varargs) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(4, 1, path, flags, varargs);
+          SYSCALLS.varargs = varargs;
+          try {
+            var pathname = SYSCALLS.getStr(path);
+            var mode = varargs ? SYSCALLS.get() : 0;
+            var stream = FS.open(pathname, flags, mode);
+            return stream.fd;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        var tupleRegistrations = {};
+        function runDestructors(destructors) {
+          while (destructors.length) {
+            var ptr = destructors.pop();
+            var del = destructors.pop();
+            del(ptr);
+          }
+        }
+        function simpleReadValueFromPointer(pointer) {
+          return this["fromWireType"](GROWABLE_HEAP_U32()[pointer >>> 2]);
+        }
+        var awaitingDependencies = {};
+        var registeredTypes = {};
+        var typeDependencies = {};
+        var char_0 = 48;
+        var char_9 = 57;
+        function makeLegalFunctionName(name2) {
+          if (name2 === void 0) {
+            return "_unknown";
+          }
+          name2 = name2.replace(/[^a-zA-Z0-9_]/g, "$");
+          var f = name2.charCodeAt(0);
+          if (f >= char_0 && f <= char_9) {
+            return "_" + name2;
+          } else {
+            return name2;
+          }
+        }
+        function createNamedFunction(name2, body) {
+          name2 = makeLegalFunctionName(name2);
+          return new Function("body", "return function " + name2 + '() {\n    "use strict";    return body.apply(this, arguments);\n};\n')(body);
+        }
+        function extendError(baseErrorType, errorName) {
+          var errorClass = createNamedFunction(errorName, function(message) {
+            this.name = errorName;
+            this.message = message;
+            var stack = new Error(message).stack;
+            if (stack !== void 0) {
+              this.stack = this.toString() + "\n" + stack.replace(/^Error(:[^\n]*)?\n/, "");
+            }
+          });
+          errorClass.prototype = Object.create(baseErrorType.prototype);
+          errorClass.prototype.constructor = errorClass;
+          errorClass.prototype.toString = function() {
+            if (this.message === void 0) {
+              return this.name;
+            } else {
+              return this.name + ": " + this.message;
+            }
+          };
+          return errorClass;
+        }
+        var InternalError = void 0;
+        function throwInternalError(message) {
+          throw new InternalError(message);
+        }
+        function whenDependentTypesAreResolved(myTypes, dependentTypes, getTypeConverters) {
+          myTypes.forEach(function(type) {
+            typeDependencies[type] = dependentTypes;
+          });
+          function onComplete(typeConverters2) {
+            var myTypeConverters = getTypeConverters(typeConverters2);
+            if (myTypeConverters.length !== myTypes.length) {
+              throwInternalError("Mismatched type converter count");
+            }
+            for (var i = 0; i < myTypes.length; ++i) {
+              registerType(myTypes[i], myTypeConverters[i]);
+            }
+          }
+          var typeConverters = new Array(dependentTypes.length);
+          var unregisteredTypes = [];
+          var registered = 0;
+          dependentTypes.forEach(function(dt, i) {
+            if (registeredTypes.hasOwnProperty(dt)) {
+              typeConverters[i] = registeredTypes[dt];
+            } else {
+              unregisteredTypes.push(dt);
+              if (!awaitingDependencies.hasOwnProperty(dt)) {
+                awaitingDependencies[dt] = [];
+              }
+              awaitingDependencies[dt].push(function() {
+                typeConverters[i] = registeredTypes[dt];
+                ++registered;
+                if (registered === unregisteredTypes.length) {
+                  onComplete(typeConverters);
+                }
+              });
+            }
+          });
+          if (unregisteredTypes.length === 0) {
+            onComplete(typeConverters);
+          }
+        }
+        function __embind_finalize_value_array(rawTupleType) {
+          var reg = tupleRegistrations[rawTupleType];
+          delete tupleRegistrations[rawTupleType];
+          var elements = reg.elements;
+          var elementsLength = elements.length;
+          var elementTypes = elements.map(function(elt) {
+            return elt.getterReturnType;
+          }).concat(elements.map(function(elt) {
+            return elt.setterArgumentType;
+          }));
+          var rawConstructor = reg.rawConstructor;
+          var rawDestructor = reg.rawDestructor;
+          whenDependentTypesAreResolved([rawTupleType], elementTypes, function(elementTypes2) {
+            elements.forEach(function(elt, i) {
+              var getterReturnType = elementTypes2[i];
+              var getter = elt.getter;
+              var getterContext = elt.getterContext;
+              var setterArgumentType = elementTypes2[i + elementsLength];
+              var setter = elt.setter;
+              var setterContext = elt.setterContext;
+              elt.read = function(ptr) {
+                return getterReturnType["fromWireType"](getter(getterContext, ptr));
+              };
+              elt.write = function(ptr, o) {
+                var destructors = [];
+                setter(setterContext, ptr, setterArgumentType["toWireType"](destructors, o));
+                runDestructors(destructors);
+              };
+            });
+            return [{ name: reg.name, "fromWireType": function(ptr) {
+              var rv = new Array(elementsLength);
+              for (var i = 0; i < elementsLength; ++i) {
+                rv[i] = elements[i].read(ptr);
+              }
+              rawDestructor(ptr);
+              return rv;
+            }, "toWireType": function(destructors, o) {
+              if (elementsLength !== o.length) {
+                throw new TypeError("Incorrect number of tuple elements for " + reg.name + ": expected=" + elementsLength + ", actual=" + o.length);
+              }
+              var ptr = rawConstructor();
+              for (var i = 0; i < elementsLength; ++i) {
+                elements[i].write(ptr, o[i]);
+              }
+              if (destructors !== null) {
+                destructors.push(rawDestructor, ptr);
+              }
+              return ptr;
+            }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: rawDestructor }];
+          });
+        }
+        var structRegistrations = {};
+        function __embind_finalize_value_object(structType) {
+          var reg = structRegistrations[structType];
+          delete structRegistrations[structType];
+          var rawConstructor = reg.rawConstructor;
+          var rawDestructor = reg.rawDestructor;
+          var fieldRecords = reg.fields;
+          var fieldTypes = fieldRecords.map(function(field) {
+            return field.getterReturnType;
+          }).concat(fieldRecords.map(function(field) {
+            return field.setterArgumentType;
+          }));
+          whenDependentTypesAreResolved([structType], fieldTypes, function(fieldTypes2) {
+            var fields = {};
+            fieldRecords.forEach(function(field, i) {
+              var fieldName = field.fieldName;
+              var getterReturnType = fieldTypes2[i];
+              var getter = field.getter;
+              var getterContext = field.getterContext;
+              var setterArgumentType = fieldTypes2[i + fieldRecords.length];
+              var setter = field.setter;
+              var setterContext = field.setterContext;
+              fields[fieldName] = { read: function(ptr) {
+                return getterReturnType["fromWireType"](getter(getterContext, ptr));
+              }, write: function(ptr, o) {
+                var destructors = [];
+                setter(setterContext, ptr, setterArgumentType["toWireType"](destructors, o));
+                runDestructors(destructors);
+              } };
+            });
+            return [{ name: reg.name, "fromWireType": function(ptr) {
+              var rv = {};
+              for (var i in fields) {
+                rv[i] = fields[i].read(ptr);
+              }
+              rawDestructor(ptr);
+              return rv;
+            }, "toWireType": function(destructors, o) {
+              for (var fieldName in fields) {
+                if (!(fieldName in o)) {
+                  throw new TypeError('Missing field:  "' + fieldName + '"');
+                }
+              }
+              var ptr = rawConstructor();
+              for (fieldName in fields) {
+                fields[fieldName].write(ptr, o[fieldName]);
+              }
+              if (destructors !== null) {
+                destructors.push(rawDestructor, ptr);
+              }
+              return ptr;
+            }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: rawDestructor }];
+          });
+        }
+        function __embind_register_bigint(primitiveType, name2, size, minRange, maxRange) {
+        }
+        function getShiftFromSize(size) {
+          switch (size) {
+            case 1:
+              return 0;
+            case 2:
+              return 1;
+            case 4:
+              return 2;
+            case 8:
+              return 3;
+            default:
+              throw new TypeError("Unknown type size: " + size);
+          }
+        }
+        function embind_init_charCodes() {
+          var codes = new Array(256);
+          for (var i = 0; i < 256; ++i) {
+            codes[i] = String.fromCharCode(i);
+          }
+          embind_charCodes = codes;
+        }
+        var embind_charCodes = void 0;
+        function readLatin1String(ptr) {
+          var ret = "";
+          var c = ptr;
+          while (GROWABLE_HEAP_U8()[c >>> 0]) {
+            ret += embind_charCodes[GROWABLE_HEAP_U8()[c++ >>> 0]];
+          }
+          return ret;
+        }
+        var BindingError = void 0;
+        function throwBindingError(message) {
+          throw new BindingError(message);
+        }
+        function registerType(rawType, registeredInstance, options) {
+          options = options || {};
+          if (!("argPackAdvance" in registeredInstance)) {
+            throw new TypeError("registerType registeredInstance requires argPackAdvance");
+          }
+          var name2 = registeredInstance.name;
+          if (!rawType) {
+            throwBindingError('type "' + name2 + '" must have a positive integer typeid pointer');
+          }
+          if (registeredTypes.hasOwnProperty(rawType)) {
+            if (options.ignoreDuplicateRegistrations) {
+              return;
+            } else {
+              throwBindingError("Cannot register type '" + name2 + "' twice");
+            }
+          }
+          registeredTypes[rawType] = registeredInstance;
+          delete typeDependencies[rawType];
+          if (awaitingDependencies.hasOwnProperty(rawType)) {
+            var callbacks = awaitingDependencies[rawType];
+            delete awaitingDependencies[rawType];
+            callbacks.forEach(function(cb) {
+              cb();
+            });
+          }
+        }
+        function __embind_register_bool(rawType, name2, size, trueValue, falseValue) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(wt) {
+            return !!wt;
+          }, "toWireType": function(destructors, o) {
+            return o ? trueValue : falseValue;
+          }, "argPackAdvance": 8, "readValueFromPointer": function(pointer) {
+            var heap;
+            if (size === 1) {
+              heap = GROWABLE_HEAP_I8();
+            } else if (size === 2) {
+              heap = GROWABLE_HEAP_I16();
+            } else if (size === 4) {
+              heap = GROWABLE_HEAP_I32();
+            } else {
+              throw new TypeError("Unknown boolean type size: " + name2);
+            }
+            return this["fromWireType"](heap[pointer >>> shift]);
+          }, destructorFunction: null });
+        }
+        function ClassHandle_isAliasOf(other) {
+          if (!(this instanceof ClassHandle)) {
+            return false;
+          }
+          if (!(other instanceof ClassHandle)) {
+            return false;
+          }
+          var leftClass = this.$$.ptrType.registeredClass;
+          var left = this.$$.ptr;
+          var rightClass = other.$$.ptrType.registeredClass;
+          var right = other.$$.ptr;
+          while (leftClass.baseClass) {
+            left = leftClass.upcast(left);
+            leftClass = leftClass.baseClass;
+          }
+          while (rightClass.baseClass) {
+            right = rightClass.upcast(right);
+            rightClass = rightClass.baseClass;
+          }
+          return leftClass === rightClass && left === right;
+        }
+        function shallowCopyInternalPointer(o) {
+          return { count: o.count, deleteScheduled: o.deleteScheduled, preservePointerOnDelete: o.preservePointerOnDelete, ptr: o.ptr, ptrType: o.ptrType, smartPtr: o.smartPtr, smartPtrType: o.smartPtrType };
+        }
+        function throwInstanceAlreadyDeleted(obj) {
+          function getInstanceTypeName(handle) {
+            return handle.$$.ptrType.registeredClass.name;
+          }
+          throwBindingError(getInstanceTypeName(obj) + " instance already deleted");
+        }
+        var finalizationGroup = false;
+        function detachFinalizer(handle) {
+        }
+        function runDestructor($$) {
+          if ($$.smartPtr) {
+            $$.smartPtrType.rawDestructor($$.smartPtr);
+          } else {
+            $$.ptrType.registeredClass.rawDestructor($$.ptr);
+          }
+        }
+        function releaseClassHandle($$) {
+          $$.count.value -= 1;
+          var toDelete = $$.count.value === 0;
+          if (toDelete) {
+            runDestructor($$);
+          }
+        }
+        function attachFinalizer(handle) {
+          if (typeof FinalizationGroup === "undefined") {
+            attachFinalizer = function(handle2) {
+              return handle2;
+            };
+            return handle;
+          }
+          finalizationGroup = new FinalizationGroup(function(iter) {
+            for (var result = iter.next(); !result.done; result = iter.next()) {
+              var $$ = result.value;
+              if (!$$.ptr) {
+                console.warn("object already deleted: " + $$.ptr);
+              } else {
+                releaseClassHandle($$);
+              }
+            }
+          });
+          attachFinalizer = function(handle2) {
+            finalizationGroup.register(handle2, handle2.$$, handle2.$$);
+            return handle2;
+          };
+          detachFinalizer = function(handle2) {
+            finalizationGroup.unregister(handle2.$$);
+          };
+          return attachFinalizer(handle);
+        }
+        function ClassHandle_clone() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.preservePointerOnDelete) {
+            this.$$.count.value += 1;
+            return this;
+          } else {
+            var clone = attachFinalizer(Object.create(Object.getPrototypeOf(this), { $$: { value: shallowCopyInternalPointer(this.$$) } }));
+            clone.$$.count.value += 1;
+            clone.$$.deleteScheduled = false;
+            return clone;
+          }
+        }
+        function ClassHandle_delete() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.deleteScheduled && !this.$$.preservePointerOnDelete) {
+            throwBindingError("Object already scheduled for deletion");
+          }
+          detachFinalizer(this);
+          releaseClassHandle(this.$$);
+          if (!this.$$.preservePointerOnDelete) {
+            this.$$.smartPtr = void 0;
+            this.$$.ptr = void 0;
+          }
+        }
+        function ClassHandle_isDeleted() {
+          return !this.$$.ptr;
+        }
+        var delayFunction = void 0;
+        var deletionQueue = [];
+        function flushPendingDeletes() {
+          while (deletionQueue.length) {
+            var obj = deletionQueue.pop();
+            obj.$$.deleteScheduled = false;
+            obj["delete"]();
+          }
+        }
+        function ClassHandle_deleteLater() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.deleteScheduled && !this.$$.preservePointerOnDelete) {
+            throwBindingError("Object already scheduled for deletion");
+          }
+          deletionQueue.push(this);
+          if (deletionQueue.length === 1 && delayFunction) {
+            delayFunction(flushPendingDeletes);
+          }
+          this.$$.deleteScheduled = true;
+          return this;
+        }
+        function init_ClassHandle() {
+          ClassHandle.prototype["isAliasOf"] = ClassHandle_isAliasOf;
+          ClassHandle.prototype["clone"] = ClassHandle_clone;
+          ClassHandle.prototype["delete"] = ClassHandle_delete;
+          ClassHandle.prototype["isDeleted"] = ClassHandle_isDeleted;
+          ClassHandle.prototype["deleteLater"] = ClassHandle_deleteLater;
+        }
+        function ClassHandle() {
+        }
+        var registeredPointers = {};
+        function ensureOverloadTable(proto, methodName, humanName) {
+          if (proto[methodName].overloadTable === void 0) {
+            var prevFunc = proto[methodName];
+            proto[methodName] = function() {
+              if (!proto[methodName].overloadTable.hasOwnProperty(arguments.length)) {
+                throwBindingError("Function '" + humanName + "' called with an invalid number of arguments (" + arguments.length + ") - expects one of (" + proto[methodName].overloadTable + ")!");
+              }
+              return proto[methodName].overloadTable[arguments.length].apply(this, arguments);
+            };
+            proto[methodName].overloadTable = [];
+            proto[methodName].overloadTable[prevFunc.argCount] = prevFunc;
+          }
+        }
+        function exposePublicSymbol(name2, value, numArguments) {
+          if (Module.hasOwnProperty(name2)) {
+            if (numArguments === void 0 || Module[name2].overloadTable !== void 0 && Module[name2].overloadTable[numArguments] !== void 0) {
+              throwBindingError("Cannot register public name '" + name2 + "' twice");
+            }
+            ensureOverloadTable(Module, name2, name2);
+            if (Module.hasOwnProperty(numArguments)) {
+              throwBindingError("Cannot register multiple overloads of a function with the same number of arguments (" + numArguments + ")!");
+            }
+            Module[name2].overloadTable[numArguments] = value;
+          } else {
+            Module[name2] = value;
+            if (numArguments !== void 0) {
+              Module[name2].numArguments = numArguments;
+            }
+          }
+        }
+        function RegisteredClass(name2, constructor, instancePrototype, rawDestructor, baseClass, getActualType, upcast, downcast) {
+          this.name = name2;
+          this.constructor = constructor;
+          this.instancePrototype = instancePrototype;
+          this.rawDestructor = rawDestructor;
+          this.baseClass = baseClass;
+          this.getActualType = getActualType;
+          this.upcast = upcast;
+          this.downcast = downcast;
+          this.pureVirtualFunctions = [];
+        }
+        function upcastPointer(ptr, ptrClass, desiredClass) {
+          while (ptrClass !== desiredClass) {
+            if (!ptrClass.upcast) {
+              throwBindingError("Expected null or instance of " + desiredClass.name + ", got an instance of " + ptrClass.name);
+            }
+            ptr = ptrClass.upcast(ptr);
+            ptrClass = ptrClass.baseClass;
+          }
+          return ptr;
+        }
+        function constNoSmartPtrRawPointerToWireType(destructors, handle) {
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            return 0;
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          var ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          return ptr;
+        }
+        function genericPointerToWireType(destructors, handle) {
+          var ptr;
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            if (this.isSmartPointer) {
+              ptr = this.rawConstructor();
+              if (destructors !== null) {
+                destructors.push(this.rawDestructor, ptr);
+              }
+              return ptr;
+            } else {
+              return 0;
+            }
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          if (!this.isConst && handle.$$.ptrType.isConst) {
+            throwBindingError("Cannot convert argument of type " + (handle.$$.smartPtrType ? handle.$$.smartPtrType.name : handle.$$.ptrType.name) + " to parameter type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          if (this.isSmartPointer) {
+            if (handle.$$.smartPtr === void 0) {
+              throwBindingError("Passing raw pointer to smart pointer is illegal");
+            }
+            switch (this.sharingPolicy) {
+              case 0:
+                if (handle.$$.smartPtrType === this) {
+                  ptr = handle.$$.smartPtr;
+                } else {
+                  throwBindingError("Cannot convert argument of type " + (handle.$$.smartPtrType ? handle.$$.smartPtrType.name : handle.$$.ptrType.name) + " to parameter type " + this.name);
+                }
+                break;
+              case 1:
+                ptr = handle.$$.smartPtr;
+                break;
+              case 2:
+                if (handle.$$.smartPtrType === this) {
+                  ptr = handle.$$.smartPtr;
+                } else {
+                  var clonedHandle = handle["clone"]();
+                  ptr = this.rawShare(ptr, __emval_register(function() {
+                    clonedHandle["delete"]();
+                  }));
+                  if (destructors !== null) {
+                    destructors.push(this.rawDestructor, ptr);
+                  }
+                }
+                break;
+              default:
+                throwBindingError("Unsupporting sharing policy");
+            }
+          }
+          return ptr;
+        }
+        function nonConstNoSmartPtrRawPointerToWireType(destructors, handle) {
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            return 0;
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          if (handle.$$.ptrType.isConst) {
+            throwBindingError("Cannot convert argument of type " + handle.$$.ptrType.name + " to parameter type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          var ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          return ptr;
+        }
+        function RegisteredPointer_getPointee(ptr) {
+          if (this.rawGetPointee) {
+            ptr = this.rawGetPointee(ptr);
+          }
+          return ptr;
+        }
+        function RegisteredPointer_destructor(ptr) {
+          if (this.rawDestructor) {
+            this.rawDestructor(ptr);
+          }
+        }
+        function RegisteredPointer_deleteObject(handle) {
+          if (handle !== null) {
+            handle["delete"]();
+          }
+        }
+        function downcastPointer(ptr, ptrClass, desiredClass) {
+          if (ptrClass === desiredClass) {
+            return ptr;
+          }
+          if (desiredClass.baseClass === void 0) {
+            return null;
+          }
+          var rv = downcastPointer(ptr, ptrClass, desiredClass.baseClass);
+          if (rv === null) {
+            return null;
+          }
+          return desiredClass.downcast(rv);
+        }
+        function getInheritedInstanceCount() {
+          return Object.keys(registeredInstances).length;
+        }
+        function getLiveInheritedInstances() {
+          var rv = [];
+          for (var k in registeredInstances) {
+            if (registeredInstances.hasOwnProperty(k)) {
+              rv.push(registeredInstances[k]);
+            }
+          }
+          return rv;
+        }
+        function setDelayFunction(fn) {
+          delayFunction = fn;
+          if (deletionQueue.length && delayFunction) {
+            delayFunction(flushPendingDeletes);
+          }
+        }
+        function init_embind() {
+          Module["getInheritedInstanceCount"] = getInheritedInstanceCount;
+          Module["getLiveInheritedInstances"] = getLiveInheritedInstances;
+          Module["flushPendingDeletes"] = flushPendingDeletes;
+          Module["setDelayFunction"] = setDelayFunction;
+        }
+        var registeredInstances = {};
+        function getBasestPointer(class_, ptr) {
+          if (ptr === void 0) {
+            throwBindingError("ptr should not be undefined");
+          }
+          while (class_.baseClass) {
+            ptr = class_.upcast(ptr);
+            class_ = class_.baseClass;
+          }
+          return ptr;
+        }
+        function getInheritedInstance(class_, ptr) {
+          ptr = getBasestPointer(class_, ptr);
+          return registeredInstances[ptr];
+        }
+        function makeClassHandle(prototype, record) {
+          if (!record.ptrType || !record.ptr) {
+            throwInternalError("makeClassHandle requires ptr and ptrType");
+          }
+          var hasSmartPtrType = !!record.smartPtrType;
+          var hasSmartPtr = !!record.smartPtr;
+          if (hasSmartPtrType !== hasSmartPtr) {
+            throwInternalError("Both smartPtrType and smartPtr must be specified");
+          }
+          record.count = { value: 1 };
+          return attachFinalizer(Object.create(prototype, { $$: { value: record } }));
+        }
+        function RegisteredPointer_fromWireType(ptr) {
+          var rawPointer = this.getPointee(ptr);
+          if (!rawPointer) {
+            this.destructor(ptr);
+            return null;
+          }
+          var registeredInstance = getInheritedInstance(this.registeredClass, rawPointer);
+          if (registeredInstance !== void 0) {
+            if (registeredInstance.$$.count.value === 0) {
+              registeredInstance.$$.ptr = rawPointer;
+              registeredInstance.$$.smartPtr = ptr;
+              return registeredInstance["clone"]();
+            } else {
+              var rv = registeredInstance["clone"]();
+              this.destructor(ptr);
+              return rv;
+            }
+          }
+          function makeDefaultHandle() {
+            if (this.isSmartPointer) {
+              return makeClassHandle(this.registeredClass.instancePrototype, { ptrType: this.pointeeType, ptr: rawPointer, smartPtrType: this, smartPtr: ptr });
+            } else {
+              return makeClassHandle(this.registeredClass.instancePrototype, { ptrType: this, ptr });
+            }
+          }
+          var actualType = this.registeredClass.getActualType(rawPointer);
+          var registeredPointerRecord = registeredPointers[actualType];
+          if (!registeredPointerRecord) {
+            return makeDefaultHandle.call(this);
+          }
+          var toType;
+          if (this.isConst) {
+            toType = registeredPointerRecord.constPointerType;
+          } else {
+            toType = registeredPointerRecord.pointerType;
+          }
+          var dp = downcastPointer(rawPointer, this.registeredClass, toType.registeredClass);
+          if (dp === null) {
+            return makeDefaultHandle.call(this);
+          }
+          if (this.isSmartPointer) {
+            return makeClassHandle(toType.registeredClass.instancePrototype, { ptrType: toType, ptr: dp, smartPtrType: this, smartPtr: ptr });
+          } else {
+            return makeClassHandle(toType.registeredClass.instancePrototype, { ptrType: toType, ptr: dp });
+          }
+        }
+        function init_RegisteredPointer() {
+          RegisteredPointer.prototype.getPointee = RegisteredPointer_getPointee;
+          RegisteredPointer.prototype.destructor = RegisteredPointer_destructor;
+          RegisteredPointer.prototype["argPackAdvance"] = 8;
+          RegisteredPointer.prototype["readValueFromPointer"] = simpleReadValueFromPointer;
+          RegisteredPointer.prototype["deleteObject"] = RegisteredPointer_deleteObject;
+          RegisteredPointer.prototype["fromWireType"] = RegisteredPointer_fromWireType;
+        }
+        function RegisteredPointer(name2, registeredClass, isReference, isConst, isSmartPointer, pointeeType, sharingPolicy, rawGetPointee, rawConstructor, rawShare, rawDestructor) {
+          this.name = name2;
+          this.registeredClass = registeredClass;
+          this.isReference = isReference;
+          this.isConst = isConst;
+          this.isSmartPointer = isSmartPointer;
+          this.pointeeType = pointeeType;
+          this.sharingPolicy = sharingPolicy;
+          this.rawGetPointee = rawGetPointee;
+          this.rawConstructor = rawConstructor;
+          this.rawShare = rawShare;
+          this.rawDestructor = rawDestructor;
+          if (!isSmartPointer && registeredClass.baseClass === void 0) {
+            if (isConst) {
+              this["toWireType"] = constNoSmartPtrRawPointerToWireType;
+              this.destructorFunction = null;
+            } else {
+              this["toWireType"] = nonConstNoSmartPtrRawPointerToWireType;
+              this.destructorFunction = null;
+            }
+          } else {
+            this["toWireType"] = genericPointerToWireType;
+          }
+        }
+        function replacePublicSymbol(name2, value, numArguments) {
+          if (!Module.hasOwnProperty(name2)) {
+            throwInternalError("Replacing nonexistant public symbol");
+          }
+          if (Module[name2].overloadTable !== void 0 && numArguments !== void 0) {
+            Module[name2].overloadTable[numArguments] = value;
+          } else {
+            Module[name2] = value;
+            Module[name2].argCount = numArguments;
+          }
+        }
+        function dynCallLegacy(sig, ptr, args) {
+          var f = Module["dynCall_" + sig];
+          return args && args.length ? f.apply(null, [ptr].concat(args)) : f.call(null, ptr);
+        }
+        function dynCall(sig, ptr, args) {
+          if (sig.includes("j")) {
+            return dynCallLegacy(sig, ptr, args);
+          }
+          return wasmTable.get(ptr).apply(null, args);
+        }
+        function getDynCaller(sig, ptr) {
+          var argCache = [];
+          return function() {
+            argCache.length = arguments.length;
+            for (var i = 0; i < arguments.length; i++) {
+              argCache[i] = arguments[i];
+            }
+            return dynCall(sig, ptr, argCache);
+          };
+        }
+        function embind__requireFunction(signature, rawFunction) {
+          signature = readLatin1String(signature);
+          function makeDynCaller() {
+            if (signature.includes("j")) {
+              return getDynCaller(signature, rawFunction);
+            }
+            return wasmTable.get(rawFunction);
+          }
+          var fp = makeDynCaller();
+          if (typeof fp !== "function") {
+            throwBindingError("unknown function pointer with signature " + signature + ": " + rawFunction);
+          }
+          return fp;
+        }
+        var UnboundTypeError = void 0;
+        function getTypeName(type) {
+          var ptr = ___getTypeName(type);
+          var rv = readLatin1String(ptr);
+          _free(ptr);
+          return rv;
+        }
+        function throwUnboundTypeError(message, types) {
+          var unboundTypes = [];
+          var seen = {};
+          function visit(type) {
+            if (seen[type]) {
+              return;
+            }
+            if (registeredTypes[type]) {
+              return;
+            }
+            if (typeDependencies[type]) {
+              typeDependencies[type].forEach(visit);
+              return;
+            }
+            unboundTypes.push(type);
+            seen[type] = true;
+          }
+          types.forEach(visit);
+          throw new UnboundTypeError(message + ": " + unboundTypes.map(getTypeName).join([", "]));
+        }
+        function __embind_register_class(rawType, rawPointerType, rawConstPointerType, baseClassRawType, getActualTypeSignature, getActualType, upcastSignature, upcast, downcastSignature, downcast, name2, destructorSignature, rawDestructor) {
+          name2 = readLatin1String(name2);
+          getActualType = embind__requireFunction(getActualTypeSignature, getActualType);
+          if (upcast) {
+            upcast = embind__requireFunction(upcastSignature, upcast);
+          }
+          if (downcast) {
+            downcast = embind__requireFunction(downcastSignature, downcast);
+          }
+          rawDestructor = embind__requireFunction(destructorSignature, rawDestructor);
+          var legalFunctionName = makeLegalFunctionName(name2);
+          exposePublicSymbol(legalFunctionName, function() {
+            throwUnboundTypeError("Cannot construct " + name2 + " due to unbound types", [baseClassRawType]);
+          });
+          whenDependentTypesAreResolved([rawType, rawPointerType, rawConstPointerType], baseClassRawType ? [baseClassRawType] : [], function(base) {
+            base = base[0];
+            var baseClass;
+            var basePrototype;
+            if (baseClassRawType) {
+              baseClass = base.registeredClass;
+              basePrototype = baseClass.instancePrototype;
+            } else {
+              basePrototype = ClassHandle.prototype;
+            }
+            var constructor = createNamedFunction(legalFunctionName, function() {
+              if (Object.getPrototypeOf(this) !== instancePrototype) {
+                throw new BindingError("Use 'new' to construct " + name2);
+              }
+              if (registeredClass.constructor_body === void 0) {
+                throw new BindingError(name2 + " has no accessible constructor");
+              }
+              var body = registeredClass.constructor_body[arguments.length];
+              if (body === void 0) {
+                throw new BindingError("Tried to invoke ctor of " + name2 + " with invalid number of parameters (" + arguments.length + ") - expected (" + Object.keys(registeredClass.constructor_body).toString() + ") parameters instead!");
+              }
+              return body.apply(this, arguments);
+            });
+            var instancePrototype = Object.create(basePrototype, { constructor: { value: constructor } });
+            constructor.prototype = instancePrototype;
+            var registeredClass = new RegisteredClass(name2, constructor, instancePrototype, rawDestructor, baseClass, getActualType, upcast, downcast);
+            var referenceConverter = new RegisteredPointer(name2, registeredClass, true, false, false);
+            var pointerConverter = new RegisteredPointer(name2 + "*", registeredClass, false, false, false);
+            var constPointerConverter = new RegisteredPointer(name2 + " const*", registeredClass, false, true, false);
+            registeredPointers[rawType] = { pointerType: pointerConverter, constPointerType: constPointerConverter };
+            replacePublicSymbol(legalFunctionName, constructor);
+            return [referenceConverter, pointerConverter, constPointerConverter];
+          });
+        }
+        function heap32VectorToArray(count, firstElement) {
+          var array = [];
+          for (var i = 0; i < count; i++) {
+            array.push(GROWABLE_HEAP_I32()[(firstElement >> 2) + i >>> 0]);
+          }
+          return array;
+        }
+        function __embind_register_class_constructor(rawClassType, argCount, rawArgTypesAddr, invokerSignature, invoker, rawConstructor) {
+          assert(argCount > 0);
+          var rawArgTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          invoker = embind__requireFunction(invokerSignature, invoker);
+          var args = [rawConstructor];
+          var destructors = [];
+          whenDependentTypesAreResolved([], [rawClassType], function(classType) {
+            classType = classType[0];
+            var humanName = "constructor " + classType.name;
+            if (classType.registeredClass.constructor_body === void 0) {
+              classType.registeredClass.constructor_body = [];
+            }
+            if (classType.registeredClass.constructor_body[argCount - 1] !== void 0) {
+              throw new BindingError("Cannot register multiple constructors with identical number of parameters (" + (argCount - 1) + ") for class '" + classType.name + "'! Overload resolution is currently only performed using the parameter count, not actual type info!");
+            }
+            classType.registeredClass.constructor_body[argCount - 1] = function unboundTypeHandler() {
+              throwUnboundTypeError("Cannot construct " + classType.name + " due to unbound types", rawArgTypes);
+            };
+            whenDependentTypesAreResolved([], rawArgTypes, function(argTypes) {
+              classType.registeredClass.constructor_body[argCount - 1] = function constructor_body() {
+                if (arguments.length !== argCount - 1) {
+                  throwBindingError(humanName + " called with " + arguments.length + " arguments, expected " + (argCount - 1));
+                }
+                destructors.length = 0;
+                args.length = argCount;
+                for (var i = 1; i < argCount; ++i) {
+                  args[i] = argTypes[i]["toWireType"](destructors, arguments[i - 1]);
+                }
+                var ptr = invoker.apply(null, args);
+                runDestructors(destructors);
+                return argTypes[0]["fromWireType"](ptr);
+              };
+              return [];
+            });
+            return [];
+          });
+        }
+        function new_(constructor, argumentList) {
+          if (!(constructor instanceof Function)) {
+            throw new TypeError("new_ called with constructor type " + typeof constructor + " which is not a function");
+          }
+          var dummy = createNamedFunction(constructor.name || "unknownFunctionName", function() {
+          });
+          dummy.prototype = constructor.prototype;
+          var obj = new dummy();
+          var r = constructor.apply(obj, argumentList);
+          return r instanceof Object ? r : obj;
+        }
+        function craftInvokerFunction(humanName, argTypes, classType, cppInvokerFunc, cppTargetFunc) {
+          var argCount = argTypes.length;
+          if (argCount < 2) {
+            throwBindingError("argTypes array size mismatch! Must at least get return value and 'this' types!");
+          }
+          var isClassMethodFunc = argTypes[1] !== null && classType !== null;
+          var needsDestructorStack = false;
+          for (var i = 1; i < argTypes.length; ++i) {
+            if (argTypes[i] !== null && argTypes[i].destructorFunction === void 0) {
+              needsDestructorStack = true;
+              break;
+            }
+          }
+          var returns = argTypes[0].name !== "void";
+          var argsList = "";
+          var argsListWired = "";
+          for (var i = 0; i < argCount - 2; ++i) {
+            argsList += (i !== 0 ? ", " : "") + "arg" + i;
+            argsListWired += (i !== 0 ? ", " : "") + "arg" + i + "Wired";
+          }
+          var invokerFnBody = "return function " + makeLegalFunctionName(humanName) + "(" + argsList + ") {\nif (arguments.length !== " + (argCount - 2) + ") {\nthrowBindingError('function " + humanName + " called with ' + arguments.length + ' arguments, expected " + (argCount - 2) + " args!');\n}\n";
+          if (needsDestructorStack) {
+            invokerFnBody += "var destructors = [];\n";
+          }
+          var dtorStack = needsDestructorStack ? "destructors" : "null";
+          var args1 = ["throwBindingError", "invoker", "fn", "runDestructors", "retType", "classParam"];
+          var args2 = [throwBindingError, cppInvokerFunc, cppTargetFunc, runDestructors, argTypes[0], argTypes[1]];
+          if (isClassMethodFunc) {
+            invokerFnBody += "var thisWired = classParam.toWireType(" + dtorStack + ", this);\n";
+          }
+          for (var i = 0; i < argCount - 2; ++i) {
+            invokerFnBody += "var arg" + i + "Wired = argType" + i + ".toWireType(" + dtorStack + ", arg" + i + "); // " + argTypes[i + 2].name + "\n";
+            args1.push("argType" + i);
+            args2.push(argTypes[i + 2]);
+          }
+          if (isClassMethodFunc) {
+            argsListWired = "thisWired" + (argsListWired.length > 0 ? ", " : "") + argsListWired;
+          }
+          invokerFnBody += (returns ? "var rv = " : "") + "invoker(fn" + (argsListWired.length > 0 ? ", " : "") + argsListWired + ");\n";
+          if (needsDestructorStack) {
+            invokerFnBody += "runDestructors(destructors);\n";
+          } else {
+            for (var i = isClassMethodFunc ? 1 : 2; i < argTypes.length; ++i) {
+              var paramName = i === 1 ? "thisWired" : "arg" + (i - 2) + "Wired";
+              if (argTypes[i].destructorFunction !== null) {
+                invokerFnBody += paramName + "_dtor(" + paramName + "); // " + argTypes[i].name + "\n";
+                args1.push(paramName + "_dtor");
+                args2.push(argTypes[i].destructorFunction);
+              }
+            }
+          }
+          if (returns) {
+            invokerFnBody += "var ret = retType.fromWireType(rv);\nreturn ret;\n";
+          }
+          invokerFnBody += "}\n";
+          args1.push(invokerFnBody);
+          var invokerFunction = new_(Function, args1).apply(null, args2);
+          return invokerFunction;
+        }
+        function __embind_register_class_function(rawClassType, methodName, argCount, rawArgTypesAddr, invokerSignature, rawInvoker, context, isPureVirtual) {
+          var rawArgTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          methodName = readLatin1String(methodName);
+          rawInvoker = embind__requireFunction(invokerSignature, rawInvoker);
+          whenDependentTypesAreResolved([], [rawClassType], function(classType) {
+            classType = classType[0];
+            var humanName = classType.name + "." + methodName;
+            if (methodName.startsWith("@@")) {
+              methodName = Symbol[methodName.substring(2)];
+            }
+            if (isPureVirtual) {
+              classType.registeredClass.pureVirtualFunctions.push(methodName);
+            }
+            function unboundTypesHandler() {
+              throwUnboundTypeError("Cannot call " + humanName + " due to unbound types", rawArgTypes);
+            }
+            var proto = classType.registeredClass.instancePrototype;
+            var method = proto[methodName];
+            if (method === void 0 || method.overloadTable === void 0 && method.className !== classType.name && method.argCount === argCount - 2) {
+              unboundTypesHandler.argCount = argCount - 2;
+              unboundTypesHandler.className = classType.name;
+              proto[methodName] = unboundTypesHandler;
+            } else {
+              ensureOverloadTable(proto, methodName, humanName);
+              proto[methodName].overloadTable[argCount - 2] = unboundTypesHandler;
+            }
+            whenDependentTypesAreResolved([], rawArgTypes, function(argTypes) {
+              var memberFunction = craftInvokerFunction(humanName, argTypes, classType, rawInvoker, context);
+              if (proto[methodName].overloadTable === void 0) {
+                memberFunction.argCount = argCount - 2;
+                proto[methodName] = memberFunction;
+              } else {
+                proto[methodName].overloadTable[argCount - 2] = memberFunction;
+              }
+              return [];
+            });
+            return [];
+          });
+        }
+        var emval_free_list = [];
+        var emval_handle_array = [{}, { value: void 0 }, { value: null }, { value: true }, { value: false }];
+        function __emval_decref(handle) {
+          if (handle > 4 && --emval_handle_array[handle].refcount === 0) {
+            emval_handle_array[handle] = void 0;
+            emval_free_list.push(handle);
+          }
+        }
+        function count_emval_handles() {
+          var count = 0;
+          for (var i = 5; i < emval_handle_array.length; ++i) {
+            if (emval_handle_array[i] !== void 0) {
+              ++count;
+            }
+          }
+          return count;
+        }
+        function get_first_emval() {
+          for (var i = 5; i < emval_handle_array.length; ++i) {
+            if (emval_handle_array[i] !== void 0) {
+              return emval_handle_array[i];
+            }
+          }
+          return null;
+        }
+        function init_emval() {
+          Module["count_emval_handles"] = count_emval_handles;
+          Module["get_first_emval"] = get_first_emval;
+        }
+        function __emval_register(value) {
+          switch (value) {
+            case void 0: {
+              return 1;
+            }
+            case null: {
+              return 2;
+            }
+            case true: {
+              return 3;
+            }
+            case false: {
+              return 4;
+            }
+            default: {
+              var handle = emval_free_list.length ? emval_free_list.pop() : emval_handle_array.length;
+              emval_handle_array[handle] = { refcount: 1, value };
+              return handle;
+            }
+          }
+        }
+        function __embind_register_emval(rawType, name2) {
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(handle) {
+            var rv = emval_handle_array[handle].value;
+            __emval_decref(handle);
+            return rv;
+          }, "toWireType": function(destructors, value) {
+            return __emval_register(value);
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: null });
+        }
+        function enumReadValueFromPointer(name2, shift, signed) {
+          switch (shift) {
+            case 0:
+              return function(pointer) {
+                var heap = signed ? GROWABLE_HEAP_I8() : GROWABLE_HEAP_U8();
+                return this["fromWireType"](heap[pointer >>> 0]);
+              };
+            case 1:
+              return function(pointer) {
+                var heap = signed ? GROWABLE_HEAP_I16() : GROWABLE_HEAP_U16();
+                return this["fromWireType"](heap[pointer >>> 1]);
+              };
+            case 2:
+              return function(pointer) {
+                var heap = signed ? GROWABLE_HEAP_I32() : GROWABLE_HEAP_U32();
+                return this["fromWireType"](heap[pointer >>> 2]);
+              };
+            default:
+              throw new TypeError("Unknown integer type: " + name2);
+          }
+        }
+        function __embind_register_enum(rawType, name2, size, isSigned) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          function ctor() {
+          }
+          ctor.values = {};
+          registerType(rawType, { name: name2, constructor: ctor, "fromWireType": function(c) {
+            return this.constructor.values[c];
+          }, "toWireType": function(destructors, c) {
+            return c.value;
+          }, "argPackAdvance": 8, "readValueFromPointer": enumReadValueFromPointer(name2, shift, isSigned), destructorFunction: null });
+          exposePublicSymbol(name2, ctor);
+        }
+        function requireRegisteredType(rawType, humanName) {
+          var impl = registeredTypes[rawType];
+          if (impl === void 0) {
+            throwBindingError(humanName + " has unknown type " + getTypeName(rawType));
+          }
+          return impl;
+        }
+        function __embind_register_enum_value(rawEnumType, name2, enumValue) {
+          var enumType = requireRegisteredType(rawEnumType, "enum");
+          name2 = readLatin1String(name2);
+          var Enum = enumType.constructor;
+          var Value2 = Object.create(enumType.constructor.prototype, { value: { value: enumValue }, constructor: { value: createNamedFunction(enumType.name + "_" + name2, function() {
+          }) } });
+          Enum.values[enumValue] = Value2;
+          Enum[name2] = Value2;
+        }
+        function _embind_repr(v) {
+          if (v === null) {
+            return "null";
+          }
+          var t = typeof v;
+          if (t === "object" || t === "array" || t === "function") {
+            return v.toString();
+          } else {
+            return "" + v;
+          }
+        }
+        function floatReadValueFromPointer(name2, shift) {
+          switch (shift) {
+            case 2:
+              return function(pointer) {
+                return this["fromWireType"](GROWABLE_HEAP_F32()[pointer >>> 2]);
+              };
+            case 3:
+              return function(pointer) {
+                return this["fromWireType"](GROWABLE_HEAP_F64()[pointer >>> 3]);
+              };
+            default:
+              throw new TypeError("Unknown float type: " + name2);
+          }
+        }
+        function __embind_register_float(rawType, name2, size) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            return value;
+          }, "toWireType": function(destructors, value) {
+            if (typeof value !== "number" && typeof value !== "boolean") {
+              throw new TypeError('Cannot convert "' + _embind_repr(value) + '" to ' + this.name);
+            }
+            return value;
+          }, "argPackAdvance": 8, "readValueFromPointer": floatReadValueFromPointer(name2, shift), destructorFunction: null });
+        }
+        function __embind_register_function(name2, argCount, rawArgTypesAddr, signature, rawInvoker, fn) {
+          var argTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          name2 = readLatin1String(name2);
+          rawInvoker = embind__requireFunction(signature, rawInvoker);
+          exposePublicSymbol(name2, function() {
+            throwUnboundTypeError("Cannot call " + name2 + " due to unbound types", argTypes);
+          }, argCount - 1);
+          whenDependentTypesAreResolved([], argTypes, function(argTypes2) {
+            var invokerArgsArray = [argTypes2[0], null].concat(argTypes2.slice(1));
+            replacePublicSymbol(name2, craftInvokerFunction(name2, invokerArgsArray, null, rawInvoker, fn), argCount - 1);
+            return [];
+          });
+        }
+        function integerReadValueFromPointer(name2, shift, signed) {
+          switch (shift) {
+            case 0:
+              return signed ? function readS8FromPointer(pointer) {
+                return GROWABLE_HEAP_I8()[pointer >>> 0];
+              } : function readU8FromPointer(pointer) {
+                return GROWABLE_HEAP_U8()[pointer >>> 0];
+              };
+            case 1:
+              return signed ? function readS16FromPointer(pointer) {
+                return GROWABLE_HEAP_I16()[pointer >>> 1];
+              } : function readU16FromPointer(pointer) {
+                return GROWABLE_HEAP_U16()[pointer >>> 1];
+              };
+            case 2:
+              return signed ? function readS32FromPointer(pointer) {
+                return GROWABLE_HEAP_I32()[pointer >>> 2];
+              } : function readU32FromPointer(pointer) {
+                return GROWABLE_HEAP_U32()[pointer >>> 2];
+              };
+            default:
+              throw new TypeError("Unknown integer type: " + name2);
+          }
+        }
+        function __embind_register_integer(primitiveType, name2, size, minRange, maxRange) {
+          name2 = readLatin1String(name2);
+          if (maxRange === -1) {
+            maxRange = 4294967295;
+          }
+          var shift = getShiftFromSize(size);
+          var fromWireType = function(value) {
+            return value;
+          };
+          if (minRange === 0) {
+            var bitshift = 32 - 8 * size;
+            fromWireType = function(value) {
+              return value << bitshift >>> bitshift;
+            };
+          }
+          var isUnsignedType = name2.includes("unsigned");
+          registerType(primitiveType, { name: name2, "fromWireType": fromWireType, "toWireType": function(destructors, value) {
+            if (typeof value !== "number" && typeof value !== "boolean") {
+              throw new TypeError('Cannot convert "' + _embind_repr(value) + '" to ' + this.name);
+            }
+            if (value < minRange || value > maxRange) {
+              throw new TypeError('Passing a number "' + _embind_repr(value) + '" from JS side to C/C++ side to an argument of type "' + name2 + '", which is outside the valid range [' + minRange + ", " + maxRange + "]!");
+            }
+            return isUnsignedType ? value >>> 0 : value | 0;
+          }, "argPackAdvance": 8, "readValueFromPointer": integerReadValueFromPointer(name2, shift, minRange !== 0), destructorFunction: null });
+        }
+        function __embind_register_memory_view(rawType, dataTypeIndex, name2) {
+          var typeMapping = [Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array];
+          var TA = typeMapping[dataTypeIndex];
+          function decodeMemoryView(handle) {
+            handle = handle >> 2;
+            var heap = GROWABLE_HEAP_U32();
+            var size = heap[handle >>> 0];
+            var data = heap[handle + 1 >>> 0];
+            return new TA(buffer, data, size);
+          }
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": decodeMemoryView, "argPackAdvance": 8, "readValueFromPointer": decodeMemoryView }, { ignoreDuplicateRegistrations: true });
+        }
+        function __embind_register_std_string(rawType, name2) {
+          name2 = readLatin1String(name2);
+          var stdStringIsUTF8 = name2 === "std::string";
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            var length = GROWABLE_HEAP_U32()[value >>> 2];
+            var str;
+            if (stdStringIsUTF8) {
+              var decodeStartPtr = value + 4;
+              for (var i = 0; i <= length; ++i) {
+                var currentBytePtr = value + 4 + i;
+                if (i == length || GROWABLE_HEAP_U8()[currentBytePtr >>> 0] == 0) {
+                  var maxRead = currentBytePtr - decodeStartPtr;
+                  var stringSegment = UTF8ToString(decodeStartPtr, maxRead);
+                  if (str === void 0) {
+                    str = stringSegment;
+                  } else {
+                    str += String.fromCharCode(0);
+                    str += stringSegment;
+                  }
+                  decodeStartPtr = currentBytePtr + 1;
+                }
+              }
+            } else {
+              var a = new Array(length);
+              for (var i = 0; i < length; ++i) {
+                a[i] = String.fromCharCode(GROWABLE_HEAP_U8()[value + 4 + i >>> 0]);
+              }
+              str = a.join("");
+            }
+            _free(value);
+            return str;
+          }, "toWireType": function(destructors, value) {
+            if (value instanceof ArrayBuffer) {
+              value = new Uint8Array(value);
+            }
+            var getLength;
+            var valueIsOfTypeString = typeof value === "string";
+            if (!(valueIsOfTypeString || value instanceof Uint8Array || value instanceof Uint8ClampedArray || value instanceof Int8Array)) {
+              throwBindingError("Cannot pass non-string to std::string");
+            }
+            if (stdStringIsUTF8 && valueIsOfTypeString) {
+              getLength = function() {
+                return lengthBytesUTF8(value);
+              };
+            } else {
+              getLength = function() {
+                return value.length;
+              };
+            }
+            var length = getLength();
+            var ptr = _malloc(4 + length + 1);
+            ptr >>>= 0;
+            GROWABLE_HEAP_U32()[ptr >>> 2] = length;
+            if (stdStringIsUTF8 && valueIsOfTypeString) {
+              stringToUTF8(value, ptr + 4, length + 1);
+            } else {
+              if (valueIsOfTypeString) {
+                for (var i = 0; i < length; ++i) {
+                  var charCode = value.charCodeAt(i);
+                  if (charCode > 255) {
+                    _free(ptr);
+                    throwBindingError("String has UTF-16 code units that do not fit in 8 bits");
+                  }
+                  GROWABLE_HEAP_U8()[ptr + 4 + i >>> 0] = charCode;
+                }
+              } else {
+                for (var i = 0; i < length; ++i) {
+                  GROWABLE_HEAP_U8()[ptr + 4 + i >>> 0] = value[i];
+                }
+              }
+            }
+            if (destructors !== null) {
+              destructors.push(_free, ptr);
+            }
+            return ptr;
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: function(ptr) {
+            _free(ptr);
+          } });
+        }
+        function __embind_register_std_wstring(rawType, charSize, name2) {
+          name2 = readLatin1String(name2);
+          var decodeString, encodeString, getHeap, lengthBytesUTF, shift;
+          if (charSize === 2) {
+            decodeString = UTF16ToString;
+            encodeString = stringToUTF16;
+            lengthBytesUTF = lengthBytesUTF16;
+            getHeap = function() {
+              return GROWABLE_HEAP_U16();
+            };
+            shift = 1;
+          } else if (charSize === 4) {
+            decodeString = UTF32ToString;
+            encodeString = stringToUTF32;
+            lengthBytesUTF = lengthBytesUTF32;
+            getHeap = function() {
+              return GROWABLE_HEAP_U32();
+            };
+            shift = 2;
+          }
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            var length = GROWABLE_HEAP_U32()[value >>> 2];
+            var HEAP = getHeap();
+            var str;
+            var decodeStartPtr = value + 4;
+            for (var i = 0; i <= length; ++i) {
+              var currentBytePtr = value + 4 + i * charSize;
+              if (i == length || HEAP[currentBytePtr >>> shift] == 0) {
+                var maxReadBytes = currentBytePtr - decodeStartPtr;
+                var stringSegment = decodeString(decodeStartPtr, maxReadBytes);
+                if (str === void 0) {
+                  str = stringSegment;
+                } else {
+                  str += String.fromCharCode(0);
+                  str += stringSegment;
+                }
+                decodeStartPtr = currentBytePtr + charSize;
+              }
+            }
+            _free(value);
+            return str;
+          }, "toWireType": function(destructors, value) {
+            if (!(typeof value === "string")) {
+              throwBindingError("Cannot pass non-string to C++ string type " + name2);
+            }
+            var length = lengthBytesUTF(value);
+            var ptr = _malloc(4 + length + charSize);
+            ptr >>>= 0;
+            GROWABLE_HEAP_U32()[ptr >>> 2] = length >> shift;
+            encodeString(value, ptr + 4, length + charSize);
+            if (destructors !== null) {
+              destructors.push(_free, ptr);
+            }
+            return ptr;
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: function(ptr) {
+            _free(ptr);
+          } });
+        }
+        function __embind_register_value_array(rawType, name2, constructorSignature, rawConstructor, destructorSignature, rawDestructor) {
+          tupleRegistrations[rawType] = { name: readLatin1String(name2), rawConstructor: embind__requireFunction(constructorSignature, rawConstructor), rawDestructor: embind__requireFunction(destructorSignature, rawDestructor), elements: [] };
+        }
+        function __embind_register_value_array_element(rawTupleType, getterReturnType, getterSignature, getter, getterContext, setterArgumentType, setterSignature, setter, setterContext) {
+          tupleRegistrations[rawTupleType].elements.push({ getterReturnType, getter: embind__requireFunction(getterSignature, getter), getterContext, setterArgumentType, setter: embind__requireFunction(setterSignature, setter), setterContext });
+        }
+        function __embind_register_value_object(rawType, name2, constructorSignature, rawConstructor, destructorSignature, rawDestructor) {
+          structRegistrations[rawType] = { name: readLatin1String(name2), rawConstructor: embind__requireFunction(constructorSignature, rawConstructor), rawDestructor: embind__requireFunction(destructorSignature, rawDestructor), fields: [] };
+        }
+        function __embind_register_value_object_field(structType, fieldName, getterReturnType, getterSignature, getter, getterContext, setterArgumentType, setterSignature, setter, setterContext) {
+          structRegistrations[structType].fields.push({ fieldName: readLatin1String(fieldName), getterReturnType, getter: embind__requireFunction(getterSignature, getter), getterContext, setterArgumentType, setter: embind__requireFunction(setterSignature, setter), setterContext });
+        }
+        function __embind_register_void(rawType, name2) {
+          name2 = readLatin1String(name2);
+          registerType(rawType, { isVoid: true, name: name2, "argPackAdvance": 0, "fromWireType": function() {
+            return void 0;
+          }, "toWireType": function(destructors, o) {
+            return void 0;
+          } });
+        }
+        function __emscripten_notify_thread_queue(targetThreadId, mainThreadId) {
+          if (targetThreadId == mainThreadId) {
+            postMessage({ "cmd": "processQueuedMainThreadWork" });
+          } else if (ENVIRONMENT_IS_PTHREAD) {
+            postMessage({ "targetThread": targetThreadId, "cmd": "processThreadQueue" });
+          } else {
+            var pthread = PThread.pthreads[targetThreadId];
+            var worker = pthread && pthread.worker;
+            if (!worker) {
+              return;
+            }
+            worker.postMessage({ "cmd": "processThreadQueue" });
+          }
+          return 1;
+        }
+        function requireHandle(handle) {
+          if (!handle) {
+            throwBindingError("Cannot use deleted val. handle = " + handle);
+          }
+          return emval_handle_array[handle].value;
+        }
+        function __emval_as(handle, returnType, destructorsRef) {
+          handle = requireHandle(handle);
+          returnType = requireRegisteredType(returnType, "emval::as");
+          var destructors = [];
+          var rd = __emval_register(destructors);
+          GROWABLE_HEAP_I32()[destructorsRef >>> 2] = rd;
+          return returnType["toWireType"](destructors, handle);
+        }
+        function __emval_lookupTypes(argCount, argTypes) {
+          var a = new Array(argCount);
+          for (var i = 0; i < argCount; ++i) {
+            a[i] = requireRegisteredType(GROWABLE_HEAP_I32()[(argTypes >> 2) + i >>> 0], "parameter " + i);
+          }
+          return a;
+        }
+        function __emval_call(handle, argCount, argTypes, argv) {
+          handle = requireHandle(handle);
+          var types = __emval_lookupTypes(argCount, argTypes);
+          var args = new Array(argCount);
+          for (var i = 0; i < argCount; ++i) {
+            var type = types[i];
+            args[i] = type["readValueFromPointer"](argv);
+            argv += type["argPackAdvance"];
+          }
+          var rv = handle.apply(void 0, args);
+          return __emval_register(rv);
+        }
+        var emval_symbols = {};
+        function getStringOrSymbol(address) {
+          var symbol = emval_symbols[address];
+          if (symbol === void 0) {
+            return readLatin1String(address);
+          } else {
+            return symbol;
+          }
+        }
+        function emval_get_global() {
+          if (typeof globalThis === "object") {
+            return globalThis;
+          }
+          return function() {
+            return Function;
+          }()("return this")();
+        }
+        function __emval_get_global(name2) {
+          if (name2 === 0) {
+            return __emval_register(emval_get_global());
+          } else {
+            name2 = getStringOrSymbol(name2);
+            return __emval_register(emval_get_global()[name2]);
+          }
+        }
+        function __emval_get_property(handle, key2) {
+          handle = requireHandle(handle);
+          key2 = requireHandle(key2);
+          return __emval_register(handle[key2]);
+        }
+        function __emval_incref(handle) {
+          if (handle > 4) {
+            emval_handle_array[handle].refcount += 1;
+          }
+        }
+        function __emval_instanceof(object, constructor) {
+          object = requireHandle(object);
+          constructor = requireHandle(constructor);
+          return object instanceof constructor;
+        }
+        function __emval_is_number(handle) {
+          handle = requireHandle(handle);
+          return typeof handle === "number";
+        }
+        function __emval_new_array() {
+          return __emval_register([]);
+        }
+        function __emval_new_cstring(v) {
+          return __emval_register(getStringOrSymbol(v));
+        }
+        function __emval_new_object() {
+          return __emval_register({});
+        }
+        function __emval_run_destructors(handle) {
+          var destructors = emval_handle_array[handle].value;
+          runDestructors(destructors);
+          __emval_decref(handle);
+        }
+        function __emval_set_property(handle, key2, value) {
+          handle = requireHandle(handle);
+          key2 = requireHandle(key2);
+          value = requireHandle(value);
+          handle[key2] = value;
+        }
+        function __emval_take_value(type, argv) {
+          type = requireRegisteredType(type, "_emval_take_value");
+          var v = type["readValueFromPointer"](argv);
+          return __emval_register(v);
+        }
+        function _abort() {
+          abort();
+        }
+        var readAsmConstArgsArray = [];
+        function readAsmConstArgs(sigPtr, buf) {
+          readAsmConstArgsArray.length = 0;
+          var ch;
+          buf >>= 2;
+          while (ch = GROWABLE_HEAP_U8()[sigPtr++ >>> 0]) {
+            var double = ch < 105;
+            if (double && buf & 1)
+              buf++;
+            readAsmConstArgsArray.push(double ? GROWABLE_HEAP_F64()[buf++ >>> 1] : GROWABLE_HEAP_I32()[buf >>> 0]);
+            ++buf;
+          }
+          return readAsmConstArgsArray;
+        }
+        function _emscripten_asm_const_int(code, sigPtr, argbuf) {
+          var args = readAsmConstArgs(sigPtr, argbuf);
+          return ASM_CONSTS[code].apply(null, args);
+        }
+        function _emscripten_check_blocking_allowed() {
+          if (ENVIRONMENT_IS_NODE)
+            return;
+          if (ENVIRONMENT_IS_WORKER)
+            return;
+          warnOnce("Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread");
+        }
+        function _emscripten_conditional_set_current_thread_status(expectedStatus, newStatus) {
+        }
+        function _emscripten_futex_wait(addr, val, timeout) {
+          if (addr <= 0 || addr > GROWABLE_HEAP_I8().length || addr & true)
+            return -28;
+          if (!ENVIRONMENT_IS_WEB) {
+            var ret = Atomics.wait(GROWABLE_HEAP_I32(), addr >> 2, val, timeout);
+            if (ret === "timed-out")
+              return -73;
+            if (ret === "not-equal")
+              return -6;
+            if (ret === "ok")
+              return 0;
+            throw "Atomics.wait returned an unexpected value " + ret;
+          } else {
+            if (Atomics.load(GROWABLE_HEAP_I32(), addr >> 2) != val) {
+              return -6;
+            }
+            var tNow = performance.now();
+            var tEnd = tNow + timeout;
+            var lastAddr = Atomics.exchange(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2, addr);
+            while (1) {
+              tNow = performance.now();
+              if (tNow > tEnd) {
+                lastAddr = Atomics.exchange(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2, 0);
+                return -73;
+              }
+              lastAddr = Atomics.exchange(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2, 0);
+              if (lastAddr == 0) {
+                break;
+              }
+              _emscripten_main_thread_process_queued_calls();
+              if (Atomics.load(GROWABLE_HEAP_I32(), addr >> 2) != val) {
+                return -6;
+              }
+              lastAddr = Atomics.exchange(GROWABLE_HEAP_I32(), __emscripten_main_thread_futex >> 2, addr);
+            }
+            return 0;
+          }
+        }
+        function _emscripten_memcpy_big(dest, src, num) {
+          GROWABLE_HEAP_U8().copyWithin(dest >>> 0, src >>> 0, src + num >>> 0);
+        }
+        function _emscripten_proxy_to_main_thread_js(index, sync) {
+          var numCallArgs = arguments.length - 2;
+          var stack = stackSave();
+          var serializedNumCallArgs = numCallArgs;
+          var args = stackAlloc(serializedNumCallArgs * 8);
+          var b = args >> 3;
+          for (var i = 0; i < numCallArgs; i++) {
+            var arg = arguments[2 + i];
+            GROWABLE_HEAP_F64()[b + i >>> 0] = arg;
+          }
+          var ret = _emscripten_run_in_main_runtime_thread_js(index, serializedNumCallArgs, args, sync);
+          stackRestore(stack);
+          return ret;
+        }
+        var _emscripten_receive_on_main_thread_js_callArgs = [];
+        function _emscripten_receive_on_main_thread_js(index, numCallArgs, args) {
+          _emscripten_receive_on_main_thread_js_callArgs.length = numCallArgs;
+          var b = args >> 3;
+          for (var i = 0; i < numCallArgs; i++) {
+            _emscripten_receive_on_main_thread_js_callArgs[i] = GROWABLE_HEAP_F64()[b + i >>> 0];
+          }
+          var isEmAsmConst = index < 0;
+          var func = !isEmAsmConst ? proxiedFunctionTable[index] : ASM_CONSTS[-index - 1];
+          return func.apply(null, _emscripten_receive_on_main_thread_js_callArgs);
+        }
+        function emscripten_realloc_buffer(size) {
+          try {
+            wasmMemory.grow(size - buffer.byteLength + 65535 >>> 16);
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+            return 1;
+          } catch (e) {
+          }
+        }
+        function _emscripten_resize_heap(requestedSize) {
+          var oldSize = GROWABLE_HEAP_U8().length;
+          requestedSize = requestedSize >>> 0;
+          if (requestedSize <= oldSize) {
+            return false;
+          }
+          var maxHeapSize = 4294901760;
+          if (requestedSize > maxHeapSize) {
+            return false;
+          }
+          for (var cutDown = 1; cutDown <= 4; cutDown *= 2) {
+            var overGrownHeapSize = oldSize * (1 + 0.2 / cutDown);
+            overGrownHeapSize = Math.min(overGrownHeapSize, requestedSize + 100663296);
+            var newSize = Math.min(maxHeapSize, alignUp(Math.max(requestedSize, overGrownHeapSize), 65536));
+            var replacement = emscripten_realloc_buffer(newSize);
+            if (replacement) {
+              return true;
+            }
+          }
+          return false;
+        }
+        var JSEvents = { inEventHandler: 0, removeAllEventListeners: function() {
+          for (var i = JSEvents.eventHandlers.length - 1; i >= 0; --i) {
+            JSEvents._removeHandler(i);
+          }
+          JSEvents.eventHandlers = [];
+          JSEvents.deferredCalls = [];
+        }, registerRemoveEventListeners: function() {
+          if (!JSEvents.removeEventListenersRegistered) {
+            JSEvents.removeEventListenersRegistered = true;
+          }
+        }, deferredCalls: [], deferCall: function(targetFunction, precedence, argsList) {
+          function arraysHaveEqualContent(arrA, arrB) {
+            if (arrA.length != arrB.length)
+              return false;
+            for (var i2 in arrA) {
+              if (arrA[i2] != arrB[i2])
+                return false;
+            }
+            return true;
+          }
+          for (var i in JSEvents.deferredCalls) {
+            var call = JSEvents.deferredCalls[i];
+            if (call.targetFunction == targetFunction && arraysHaveEqualContent(call.argsList, argsList)) {
+              return;
+            }
+          }
+          JSEvents.deferredCalls.push({ targetFunction, precedence, argsList });
+          JSEvents.deferredCalls.sort(function(x, y) {
+            return x.precedence < y.precedence;
+          });
+        }, removeDeferredCalls: function(targetFunction) {
+          for (var i = 0; i < JSEvents.deferredCalls.length; ++i) {
+            if (JSEvents.deferredCalls[i].targetFunction == targetFunction) {
+              JSEvents.deferredCalls.splice(i, 1);
+              --i;
+            }
+          }
+        }, canPerformEventHandlerRequests: function() {
+          return JSEvents.inEventHandler && JSEvents.currentEventHandler.allowsDeferredCalls;
+        }, runDeferredCalls: function() {
+          if (!JSEvents.canPerformEventHandlerRequests()) {
+            return;
+          }
+          for (var i = 0; i < JSEvents.deferredCalls.length; ++i) {
+            var call = JSEvents.deferredCalls[i];
+            JSEvents.deferredCalls.splice(i, 1);
+            --i;
+            call.targetFunction.apply(null, call.argsList);
+          }
+        }, eventHandlers: [], removeAllHandlersOnTarget: function(target, eventTypeString) {
+          for (var i = 0; i < JSEvents.eventHandlers.length; ++i) {
+            if (JSEvents.eventHandlers[i].target == target && (!eventTypeString || eventTypeString == JSEvents.eventHandlers[i].eventTypeString)) {
+              JSEvents._removeHandler(i--);
+            }
+          }
+        }, _removeHandler: function(i) {
+          var h = JSEvents.eventHandlers[i];
+          h.target.removeEventListener(h.eventTypeString, h.eventListenerFunc, h.useCapture);
+          JSEvents.eventHandlers.splice(i, 1);
+        }, registerOrRemoveHandler: function(eventHandler) {
+          var jsEventHandler = function jsEventHandler2(event) {
+            ++JSEvents.inEventHandler;
+            JSEvents.currentEventHandler = eventHandler;
+            JSEvents.runDeferredCalls();
+            eventHandler.handlerFunc(event);
+            JSEvents.runDeferredCalls();
+            --JSEvents.inEventHandler;
+          };
+          if (eventHandler.callbackfunc) {
+            eventHandler.eventListenerFunc = jsEventHandler;
+            eventHandler.target.addEventListener(eventHandler.eventTypeString, jsEventHandler, eventHandler.useCapture);
+            JSEvents.eventHandlers.push(eventHandler);
+            JSEvents.registerRemoveEventListeners();
+          } else {
+            for (var i = 0; i < JSEvents.eventHandlers.length; ++i) {
+              if (JSEvents.eventHandlers[i].target == eventHandler.target && JSEvents.eventHandlers[i].eventTypeString == eventHandler.eventTypeString) {
+                JSEvents._removeHandler(i--);
+              }
+            }
+          }
+        }, queueEventHandlerOnThread_iiii: function(targetThread, eventHandlerFunc, eventTypeId, eventData, userData) {
+          var stackTop = stackSave();
+          var varargs = stackAlloc(12);
+          GROWABLE_HEAP_I32()[varargs >>> 2] = eventTypeId;
+          GROWABLE_HEAP_I32()[varargs + 4 >>> 2] = eventData;
+          GROWABLE_HEAP_I32()[varargs + 8 >>> 2] = userData;
+          __emscripten_call_on_thread(0, targetThread, 637534208, eventHandlerFunc, eventData, varargs);
+          stackRestore(stackTop);
+        }, getTargetThreadForEventCallback: function(targetThread) {
+          switch (targetThread) {
+            case 1:
+              return 0;
+            case 2:
+              return PThread.currentProxiedOperationCallerThread;
+            default:
+              return targetThread;
+          }
+        }, getNodeNameForTarget: function(target) {
+          if (!target)
+            return "";
+          if (target == window)
+            return "#window";
+          if (target == screen)
+            return "#screen";
+          return target && target.nodeName ? target.nodeName : "";
+        }, fullscreenEnabled: function() {
+          return document.fullscreenEnabled || document.webkitFullscreenEnabled;
+        } };
+        function stringToNewUTF8(jsString) {
+          var length = lengthBytesUTF8(jsString) + 1;
+          var cString = _malloc(length);
+          stringToUTF8(jsString, cString, length);
+          return cString;
+        }
+        function _emscripten_set_offscreencanvas_size_on_target_thread_js(targetThread, targetCanvas, width, height) {
+          var stackTop = stackSave();
+          var varargs = stackAlloc(12);
+          var targetCanvasPtr = 0;
+          if (targetCanvas) {
+            targetCanvasPtr = stringToNewUTF8(targetCanvas);
+          }
+          GROWABLE_HEAP_I32()[varargs >>> 2] = targetCanvasPtr;
+          GROWABLE_HEAP_I32()[varargs + 4 >>> 2] = width;
+          GROWABLE_HEAP_I32()[varargs + 8 >>> 2] = height;
+          __emscripten_call_on_thread(0, targetThread, 657457152, 0, targetCanvasPtr, varargs);
+          stackRestore(stackTop);
+        }
+        function _emscripten_set_offscreencanvas_size_on_target_thread(targetThread, targetCanvas, width, height) {
+          targetCanvas = targetCanvas ? UTF8ToString(targetCanvas) : "";
+          _emscripten_set_offscreencanvas_size_on_target_thread_js(targetThread, targetCanvas, width, height);
+        }
+        function maybeCStringToJsString(cString) {
+          return cString > 2 ? UTF8ToString(cString) : cString;
+        }
+        var specialHTMLTargets = [0, typeof document !== "undefined" ? document : 0, typeof window !== "undefined" ? window : 0];
+        function findEventTarget(target) {
+          target = maybeCStringToJsString(target);
+          var domElement = specialHTMLTargets[target] || (typeof document !== "undefined" ? document.querySelector(target) : void 0);
+          return domElement;
+        }
+        function findCanvasEventTarget(target) {
+          return findEventTarget(target);
+        }
+        function _emscripten_set_canvas_element_size_calling_thread(target, width, height) {
+          var canvas = findCanvasEventTarget(target);
+          if (!canvas)
+            return -4;
+          if (canvas.canvasSharedPtr) {
+            GROWABLE_HEAP_I32()[canvas.canvasSharedPtr >>> 2] = width;
+            GROWABLE_HEAP_I32()[canvas.canvasSharedPtr + 4 >>> 2] = height;
+          }
+          if (canvas.offscreenCanvas || !canvas.controlTransferredOffscreen) {
+            if (canvas.offscreenCanvas)
+              canvas = canvas.offscreenCanvas;
+            var autoResizeViewport = false;
+            if (canvas.GLctxObject && canvas.GLctxObject.GLctx) {
+              var prevViewport = canvas.GLctxObject.GLctx.getParameter(2978);
+              autoResizeViewport = prevViewport[0] === 0 && prevViewport[1] === 0 && prevViewport[2] === canvas.width && prevViewport[3] === canvas.height;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            if (autoResizeViewport) {
+              canvas.GLctxObject.GLctx.viewport(0, 0, width, height);
+            }
+          } else if (canvas.canvasSharedPtr) {
+            var targetThread = GROWABLE_HEAP_I32()[canvas.canvasSharedPtr + 8 >>> 2];
+            _emscripten_set_offscreencanvas_size_on_target_thread(targetThread, target, width, height);
+            return 1;
+          } else {
+            return -4;
+          }
+          return 0;
+        }
+        function _emscripten_set_canvas_element_size_main_thread(target, width, height) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(5, 1, target, width, height);
+          return _emscripten_set_canvas_element_size_calling_thread(target, width, height);
+        }
+        function _emscripten_set_canvas_element_size(target, width, height) {
+          var canvas = findCanvasEventTarget(target);
+          if (canvas) {
+            return _emscripten_set_canvas_element_size_calling_thread(target, width, height);
+          } else {
+            return _emscripten_set_canvas_element_size_main_thread(target, width, height);
+          }
+        }
+        function _emscripten_set_current_thread_status(newStatus) {
+        }
+        function __webgl_enable_ANGLE_instanced_arrays(ctx) {
+          var ext = ctx.getExtension("ANGLE_instanced_arrays");
+          if (ext) {
+            ctx["vertexAttribDivisor"] = function(index, divisor) {
+              ext["vertexAttribDivisorANGLE"](index, divisor);
+            };
+            ctx["drawArraysInstanced"] = function(mode, first, count, primcount) {
+              ext["drawArraysInstancedANGLE"](mode, first, count, primcount);
+            };
+            ctx["drawElementsInstanced"] = function(mode, count, type, indices, primcount) {
+              ext["drawElementsInstancedANGLE"](mode, count, type, indices, primcount);
+            };
+            return 1;
+          }
+        }
+        function __webgl_enable_OES_vertex_array_object(ctx) {
+          var ext = ctx.getExtension("OES_vertex_array_object");
+          if (ext) {
+            ctx["createVertexArray"] = function() {
+              return ext["createVertexArrayOES"]();
+            };
+            ctx["deleteVertexArray"] = function(vao) {
+              ext["deleteVertexArrayOES"](vao);
+            };
+            ctx["bindVertexArray"] = function(vao) {
+              ext["bindVertexArrayOES"](vao);
+            };
+            ctx["isVertexArray"] = function(vao) {
+              return ext["isVertexArrayOES"](vao);
+            };
+            return 1;
+          }
+        }
+        function __webgl_enable_WEBGL_draw_buffers(ctx) {
+          var ext = ctx.getExtension("WEBGL_draw_buffers");
+          if (ext) {
+            ctx["drawBuffers"] = function(n, bufs) {
+              ext["drawBuffersWEBGL"](n, bufs);
+            };
+            return 1;
+          }
+        }
+        function __webgl_enable_WEBGL_multi_draw(ctx) {
+          return !!(ctx.multiDrawWebgl = ctx.getExtension("WEBGL_multi_draw"));
+        }
+        var GL = { counter: 1, buffers: [], programs: [], framebuffers: [], renderbuffers: [], textures: [], shaders: [], vaos: [], contexts: {}, offscreenCanvases: {}, queries: [], stringCache: {}, unpackAlignment: 4, recordError: function recordError(errorCode) {
+          if (!GL.lastError) {
+            GL.lastError = errorCode;
+          }
+        }, getNewId: function(table) {
+          var ret = GL.counter++;
+          for (var i = table.length; i < ret; i++) {
+            table[i] = null;
+          }
+          return ret;
+        }, getSource: function(shader, count, string, length) {
+          var source = "";
+          for (var i = 0; i < count; ++i) {
+            var len = length ? GROWABLE_HEAP_I32()[length + i * 4 >>> 2] : -1;
+            source += UTF8ToString(GROWABLE_HEAP_I32()[string + i * 4 >>> 2], len < 0 ? void 0 : len);
+          }
+          return source;
+        }, createContext: function(canvas, webGLContextAttributes) {
+          if (!canvas.getContextSafariWebGL2Fixed) {
+            canvas.getContextSafariWebGL2Fixed = canvas.getContext;
+            canvas.getContext = function(ver, attrs) {
+              var gl = canvas.getContextSafariWebGL2Fixed(ver, attrs);
+              return ver == "webgl" == gl instanceof WebGLRenderingContext ? gl : null;
+            };
+          }
+          var ctx = canvas.getContext("webgl", webGLContextAttributes);
+          if (!ctx)
+            return 0;
+          var handle = GL.registerContext(ctx, webGLContextAttributes);
+          return handle;
+        }, registerContext: function(ctx, webGLContextAttributes) {
+          var handle = _malloc(8);
+          GROWABLE_HEAP_I32()[handle + 4 >>> 2] = _pthread_self();
+          var context = { handle, attributes: webGLContextAttributes, version: webGLContextAttributes.majorVersion, GLctx: ctx };
+          if (ctx.canvas)
+            ctx.canvas.GLctxObject = context;
+          GL.contexts[handle] = context;
+          if (typeof webGLContextAttributes.enableExtensionsByDefault === "undefined" || webGLContextAttributes.enableExtensionsByDefault) {
+            GL.initExtensions(context);
+          }
+          return handle;
+        }, makeContextCurrent: function(contextHandle) {
+          GL.currentContext = GL.contexts[contextHandle];
+          Module.ctx = GLctx = GL.currentContext && GL.currentContext.GLctx;
+          return !(contextHandle && !GLctx);
+        }, getContext: function(contextHandle) {
+          return GL.contexts[contextHandle];
+        }, deleteContext: function(contextHandle) {
+          if (GL.currentContext === GL.contexts[contextHandle])
+            GL.currentContext = null;
+          if (typeof JSEvents === "object")
+            JSEvents.removeAllHandlersOnTarget(GL.contexts[contextHandle].GLctx.canvas);
+          if (GL.contexts[contextHandle] && GL.contexts[contextHandle].GLctx.canvas)
+            GL.contexts[contextHandle].GLctx.canvas.GLctxObject = void 0;
+          _free(GL.contexts[contextHandle].handle);
+          GL.contexts[contextHandle] = null;
+        }, initExtensions: function(context) {
+          if (!context)
+            context = GL.currentContext;
+          if (context.initExtensionsDone)
+            return;
+          context.initExtensionsDone = true;
+          var GLctx2 = context.GLctx;
+          __webgl_enable_ANGLE_instanced_arrays(GLctx2);
+          __webgl_enable_OES_vertex_array_object(GLctx2);
+          __webgl_enable_WEBGL_draw_buffers(GLctx2);
+          {
+            GLctx2.disjointTimerQueryExt = GLctx2.getExtension("EXT_disjoint_timer_query");
+          }
+          __webgl_enable_WEBGL_multi_draw(GLctx2);
+          var exts = GLctx2.getSupportedExtensions() || [];
+          exts.forEach(function(ext) {
+            if (!ext.includes("lose_context") && !ext.includes("debug")) {
+              GLctx2.getExtension(ext);
+            }
+          });
+        } };
+        var __emscripten_webgl_power_preferences = ["default", "low-power", "high-performance"];
+        function _emscripten_webgl_do_create_context(target, attributes) {
+          var a = attributes >> 2;
+          var powerPreference = GROWABLE_HEAP_I32()[a + (24 >> 2) >>> 0];
+          var contextAttributes = { "alpha": !!GROWABLE_HEAP_I32()[a + (0 >> 2) >>> 0], "depth": !!GROWABLE_HEAP_I32()[a + (4 >> 2) >>> 0], "stencil": !!GROWABLE_HEAP_I32()[a + (8 >> 2) >>> 0], "antialias": !!GROWABLE_HEAP_I32()[a + (12 >> 2) >>> 0], "premultipliedAlpha": !!GROWABLE_HEAP_I32()[a + (16 >> 2) >>> 0], "preserveDrawingBuffer": !!GROWABLE_HEAP_I32()[a + (20 >> 2) >>> 0], "powerPreference": __emscripten_webgl_power_preferences[powerPreference], "failIfMajorPerformanceCaveat": !!GROWABLE_HEAP_I32()[a + (28 >> 2) >>> 0], majorVersion: GROWABLE_HEAP_I32()[a + (32 >> 2) >>> 0], minorVersion: GROWABLE_HEAP_I32()[a + (36 >> 2) >>> 0], enableExtensionsByDefault: GROWABLE_HEAP_I32()[a + (40 >> 2) >>> 0], explicitSwapControl: GROWABLE_HEAP_I32()[a + (44 >> 2) >>> 0], proxyContextToMainThread: GROWABLE_HEAP_I32()[a + (48 >> 2) >>> 0], renderViaOffscreenBackBuffer: GROWABLE_HEAP_I32()[a + (52 >> 2) >>> 0] };
+          var canvas = findCanvasEventTarget(target);
+          if (!canvas) {
+            return 0;
+          }
+          if (contextAttributes.explicitSwapControl) {
+            return 0;
+          }
+          var contextHandle = GL.createContext(canvas, contextAttributes);
+          return contextHandle;
+        }
+        function _emscripten_webgl_create_context(a0, a1) {
+          return _emscripten_webgl_do_create_context(a0, a1);
+        }
+        var ENV = {};
+        function getExecutableName() {
+          return thisProgram || "./this.program";
+        }
+        function getEnvStrings() {
+          if (!getEnvStrings.strings) {
+            var lang = (typeof navigator === "object" && navigator.languages && navigator.languages[0] || "C").replace("-", "_") + ".UTF-8";
+            var env = { "USER": "web_user", "LOGNAME": "web_user", "PATH": "/", "PWD": "/", "HOME": "/home/web_user", "LANG": lang, "_": getExecutableName() };
+            for (var x in ENV) {
+              if (ENV[x] === void 0)
+                delete env[x];
+              else
+                env[x] = ENV[x];
+            }
+            var strings = [];
+            for (var x in env) {
+              strings.push(x + "=" + env[x]);
+            }
+            getEnvStrings.strings = strings;
+          }
+          return getEnvStrings.strings;
+        }
+        function _environ_get(__environ, environ_buf) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(6, 1, __environ, environ_buf);
+          try {
+            var bufSize = 0;
+            getEnvStrings().forEach(function(string, i) {
+              var ptr = environ_buf + bufSize;
+              GROWABLE_HEAP_I32()[__environ + i * 4 >>> 2] = ptr;
+              writeAsciiToMemory(string, ptr);
+              bufSize += string.length + 1;
+            });
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _environ_sizes_get(penviron_count, penviron_buf_size) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(7, 1, penviron_count, penviron_buf_size);
+          try {
+            var strings = getEnvStrings();
+            GROWABLE_HEAP_I32()[penviron_count >>> 2] = strings.length;
+            var bufSize = 0;
+            strings.forEach(function(string) {
+              bufSize += string.length + 1;
+            });
+            GROWABLE_HEAP_I32()[penviron_buf_size >>> 2] = bufSize;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_close(fd) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(8, 1, fd);
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            FS.close(stream);
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_read(fd, iov, iovcnt, pnum) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(9, 1, fd, iov, iovcnt, pnum);
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var num = SYSCALLS.doReadv(stream, iov, iovcnt);
+            GROWABLE_HEAP_I32()[pnum >>> 2] = num;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(10, 1, fd, offset_low, offset_high, whence, newOffset);
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var HIGH_OFFSET = 4294967296;
+            var offset = offset_high * HIGH_OFFSET + (offset_low >>> 0);
+            var DOUBLE_LIMIT = 9007199254740992;
+            if (offset <= -DOUBLE_LIMIT || offset >= DOUBLE_LIMIT) {
+              return -61;
+            }
+            FS.llseek(stream, offset, whence);
+            tempI64 = [stream.position >>> 0, (tempDouble = stream.position, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], GROWABLE_HEAP_I32()[newOffset >>> 2] = tempI64[0], GROWABLE_HEAP_I32()[newOffset + 4 >>> 2] = tempI64[1];
+            if (stream.getdents && offset === 0 && whence === 0)
+              stream.getdents = null;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_write(fd, iov, iovcnt, pnum) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            return _emscripten_proxy_to_main_thread_js(11, 1, fd, iov, iovcnt, pnum);
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var num = SYSCALLS.doWritev(stream, iov, iovcnt);
+            GROWABLE_HEAP_I32()[pnum >>> 2] = num;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function spawnThread(threadParams) {
+          if (ENVIRONMENT_IS_PTHREAD)
+            throw "Internal Error! spawnThread() can only ever be called from main application thread!";
+          var worker = PThread.getNewWorker();
+          if (!worker) {
+            return 6;
+          }
+          if (worker.pthread !== void 0)
+            throw "Internal error!";
+          if (!threadParams.pthread_ptr)
+            throw "Internal error, no pthread ptr!";
+          PThread.runningWorkers.push(worker);
+          var tlsMemory = _malloc(128 * 4);
+          for (var i = 0; i < 128; ++i) {
+            GROWABLE_HEAP_I32()[tlsMemory + i * 4 >>> 2] = 0;
+          }
+          var stackHigh = threadParams.stackBase + threadParams.stackSize;
+          var pthread = PThread.pthreads[threadParams.pthread_ptr] = { worker, stackBase: threadParams.stackBase, stackSize: threadParams.stackSize, allocatedOwnStack: threadParams.allocatedOwnStack, threadInfoStruct: threadParams.pthread_ptr };
+          var tis = pthread.threadInfoStruct >> 2;
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (64 >> 2), threadParams.detached);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (100 >> 2), tlsMemory);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (40 >> 2), pthread.threadInfoStruct);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (80 >> 2), threadParams.stackSize);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (76 >> 2), stackHigh);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (104 >> 2), threadParams.stackSize);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (104 + 8 >> 2), stackHigh);
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (104 + 12 >> 2), threadParams.detached);
+          var global_libc = _emscripten_get_global_libc();
+          var global_locale = global_libc + 40;
+          Atomics.store(GROWABLE_HEAP_U32(), tis + (172 >> 2), global_locale);
+          worker.pthread = pthread;
+          var msg = { "cmd": "run", "start_routine": threadParams.startRoutine, "arg": threadParams.arg, "threadInfoStruct": threadParams.pthread_ptr, "stackBase": threadParams.stackBase, "stackSize": threadParams.stackSize };
+          worker.runPthread = function() {
+            msg.time = performance.now();
+            worker.postMessage(msg, threadParams.transferList);
+          };
+          if (worker.loaded) {
+            worker.runPthread();
+            delete worker.runPthread;
+          }
+          return 0;
+        }
+        function _pthread_create(pthread_ptr, attr, start_routine, arg) {
+          if (typeof SharedArrayBuffer === "undefined") {
+            err("Current environment does not support SharedArrayBuffer, pthreads are not available!");
+            return 6;
+          }
+          if (!pthread_ptr) {
+            err("pthread_create called with a null thread pointer!");
+            return 28;
+          }
+          var transferList = [];
+          var error = 0;
+          if (ENVIRONMENT_IS_PTHREAD && (transferList.length === 0 || error)) {
+            return _emscripten_sync_run_in_main_thread_4(687865856, pthread_ptr, attr, start_routine, arg);
+          }
+          var stackSize = 0;
+          var stackBase = 0;
+          var detached = 0;
+          if (attr && attr != -1) {
+            stackSize = GROWABLE_HEAP_I32()[attr >>> 2];
+            stackSize += 81920;
+            stackBase = GROWABLE_HEAP_I32()[attr + 8 >>> 2];
+            detached = GROWABLE_HEAP_I32()[attr + 12 >>> 2] !== 0;
+          } else {
+            stackSize = 2097152;
+          }
+          var allocatedOwnStack = stackBase == 0;
+          if (allocatedOwnStack) {
+            stackBase = _memalign(16, stackSize);
+          } else {
+            stackBase -= stackSize;
+            assert(stackBase > 0);
+          }
+          var threadInfoStruct = _malloc(228);
+          for (var i = 0; i < 228 >> 2; ++i)
+            GROWABLE_HEAP_U32()[(threadInfoStruct >> 2) + i >>> 0] = 0;
+          GROWABLE_HEAP_I32()[pthread_ptr >>> 2] = threadInfoStruct;
+          GROWABLE_HEAP_I32()[threadInfoStruct + 12 >>> 2] = threadInfoStruct;
+          var headPtr = threadInfoStruct + 152;
+          GROWABLE_HEAP_I32()[headPtr >>> 2] = headPtr;
+          var threadParams = { stackBase, stackSize, allocatedOwnStack, detached, startRoutine: start_routine, pthread_ptr: threadInfoStruct, arg, transferList };
+          if (ENVIRONMENT_IS_PTHREAD) {
+            threadParams.cmd = "spawnThread";
+            postMessage(threadParams, transferList);
+            return 0;
+          }
+          return spawnThread(threadParams);
+        }
+        function _setTempRet0(val) {
+        }
+        function __isLeapYear(year) {
+          return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+        }
+        function __arraySum(array, index) {
+          var sum = 0;
+          for (var i = 0; i <= index; sum += array[i++]) {
+          }
+          return sum;
+        }
+        var __MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var __MONTH_DAYS_REGULAR = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        function __addDays(date, days) {
+          var newDate = new Date(date.getTime());
+          while (days > 0) {
+            var leap = __isLeapYear(newDate.getFullYear());
+            var currentMonth = newDate.getMonth();
+            var daysInCurrentMonth = (leap ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR)[currentMonth];
+            if (days > daysInCurrentMonth - newDate.getDate()) {
+              days -= daysInCurrentMonth - newDate.getDate() + 1;
+              newDate.setDate(1);
+              if (currentMonth < 11) {
+                newDate.setMonth(currentMonth + 1);
+              } else {
+                newDate.setMonth(0);
+                newDate.setFullYear(newDate.getFullYear() + 1);
+              }
+            } else {
+              newDate.setDate(newDate.getDate() + days);
+              return newDate;
+            }
+          }
+          return newDate;
+        }
+        function _strftime(s, maxsize, format, tm) {
+          var tm_zone = GROWABLE_HEAP_I32()[tm + 40 >>> 2];
+          var date = { tm_sec: GROWABLE_HEAP_I32()[tm >>> 2], tm_min: GROWABLE_HEAP_I32()[tm + 4 >>> 2], tm_hour: GROWABLE_HEAP_I32()[tm + 8 >>> 2], tm_mday: GROWABLE_HEAP_I32()[tm + 12 >>> 2], tm_mon: GROWABLE_HEAP_I32()[tm + 16 >>> 2], tm_year: GROWABLE_HEAP_I32()[tm + 20 >>> 2], tm_wday: GROWABLE_HEAP_I32()[tm + 24 >>> 2], tm_yday: GROWABLE_HEAP_I32()[tm + 28 >>> 2], tm_isdst: GROWABLE_HEAP_I32()[tm + 32 >>> 2], tm_gmtoff: GROWABLE_HEAP_I32()[tm + 36 >>> 2], tm_zone: tm_zone ? UTF8ToString(tm_zone) : "" };
+          var pattern = UTF8ToString(format);
+          var EXPANSION_RULES_1 = { "%c": "%a %b %d %H:%M:%S %Y", "%D": "%m/%d/%y", "%F": "%Y-%m-%d", "%h": "%b", "%r": "%I:%M:%S %p", "%R": "%H:%M", "%T": "%H:%M:%S", "%x": "%m/%d/%y", "%X": "%H:%M:%S", "%Ec": "%c", "%EC": "%C", "%Ex": "%m/%d/%y", "%EX": "%H:%M:%S", "%Ey": "%y", "%EY": "%Y", "%Od": "%d", "%Oe": "%e", "%OH": "%H", "%OI": "%I", "%Om": "%m", "%OM": "%M", "%OS": "%S", "%Ou": "%u", "%OU": "%U", "%OV": "%V", "%Ow": "%w", "%OW": "%W", "%Oy": "%y" };
+          for (var rule in EXPANSION_RULES_1) {
+            pattern = pattern.replace(new RegExp(rule, "g"), EXPANSION_RULES_1[rule]);
+          }
+          var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          function leadingSomething(value, digits, character) {
+            var str = typeof value === "number" ? value.toString() : value || "";
+            while (str.length < digits) {
+              str = character[0] + str;
+            }
+            return str;
+          }
+          function leadingNulls(value, digits) {
+            return leadingSomething(value, digits, "0");
+          }
+          function compareByDay(date1, date2) {
+            function sgn(value) {
+              return value < 0 ? -1 : value > 0 ? 1 : 0;
+            }
+            var compare;
+            if ((compare = sgn(date1.getFullYear() - date2.getFullYear())) === 0) {
+              if ((compare = sgn(date1.getMonth() - date2.getMonth())) === 0) {
+                compare = sgn(date1.getDate() - date2.getDate());
+              }
+            }
+            return compare;
+          }
+          function getFirstWeekStartDate(janFourth) {
+            switch (janFourth.getDay()) {
+              case 0:
+                return new Date(janFourth.getFullYear() - 1, 11, 29);
+              case 1:
+                return janFourth;
+              case 2:
+                return new Date(janFourth.getFullYear(), 0, 3);
+              case 3:
+                return new Date(janFourth.getFullYear(), 0, 2);
+              case 4:
+                return new Date(janFourth.getFullYear(), 0, 1);
+              case 5:
+                return new Date(janFourth.getFullYear() - 1, 11, 31);
+              case 6:
+                return new Date(janFourth.getFullYear() - 1, 11, 30);
+            }
+          }
+          function getWeekBasedYear(date2) {
+            var thisDate = __addDays(new Date(date2.tm_year + 1900, 0, 1), date2.tm_yday);
+            var janFourthThisYear = new Date(thisDate.getFullYear(), 0, 4);
+            var janFourthNextYear = new Date(thisDate.getFullYear() + 1, 0, 4);
+            var firstWeekStartThisYear = getFirstWeekStartDate(janFourthThisYear);
+            var firstWeekStartNextYear = getFirstWeekStartDate(janFourthNextYear);
+            if (compareByDay(firstWeekStartThisYear, thisDate) <= 0) {
+              if (compareByDay(firstWeekStartNextYear, thisDate) <= 0) {
+                return thisDate.getFullYear() + 1;
+              } else {
+                return thisDate.getFullYear();
+              }
+            } else {
+              return thisDate.getFullYear() - 1;
+            }
+          }
+          var EXPANSION_RULES_2 = { "%a": function(date2) {
+            return WEEKDAYS[date2.tm_wday].substring(0, 3);
+          }, "%A": function(date2) {
+            return WEEKDAYS[date2.tm_wday];
+          }, "%b": function(date2) {
+            return MONTHS[date2.tm_mon].substring(0, 3);
+          }, "%B": function(date2) {
+            return MONTHS[date2.tm_mon];
+          }, "%C": function(date2) {
+            var year = date2.tm_year + 1900;
+            return leadingNulls(year / 100 | 0, 2);
+          }, "%d": function(date2) {
+            return leadingNulls(date2.tm_mday, 2);
+          }, "%e": function(date2) {
+            return leadingSomething(date2.tm_mday, 2, " ");
+          }, "%g": function(date2) {
+            return getWeekBasedYear(date2).toString().substring(2);
+          }, "%G": function(date2) {
+            return getWeekBasedYear(date2);
+          }, "%H": function(date2) {
+            return leadingNulls(date2.tm_hour, 2);
+          }, "%I": function(date2) {
+            var twelveHour = date2.tm_hour;
+            if (twelveHour == 0)
+              twelveHour = 12;
+            else if (twelveHour > 12)
+              twelveHour -= 12;
+            return leadingNulls(twelveHour, 2);
+          }, "%j": function(date2) {
+            return leadingNulls(date2.tm_mday + __arraySum(__isLeapYear(date2.tm_year + 1900) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, date2.tm_mon - 1), 3);
+          }, "%m": function(date2) {
+            return leadingNulls(date2.tm_mon + 1, 2);
+          }, "%M": function(date2) {
+            return leadingNulls(date2.tm_min, 2);
+          }, "%n": function() {
+            return "\n";
+          }, "%p": function(date2) {
+            if (date2.tm_hour >= 0 && date2.tm_hour < 12) {
+              return "AM";
+            } else {
+              return "PM";
+            }
+          }, "%S": function(date2) {
+            return leadingNulls(date2.tm_sec, 2);
+          }, "%t": function() {
+            return "	";
+          }, "%u": function(date2) {
+            return date2.tm_wday || 7;
+          }, "%U": function(date2) {
+            var janFirst = new Date(date2.tm_year + 1900, 0, 1);
+            var firstSunday = janFirst.getDay() === 0 ? janFirst : __addDays(janFirst, 7 - janFirst.getDay());
+            var endDate = new Date(date2.tm_year + 1900, date2.tm_mon, date2.tm_mday);
+            if (compareByDay(firstSunday, endDate) < 0) {
+              var februaryFirstUntilEndMonth = __arraySum(__isLeapYear(endDate.getFullYear()) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, endDate.getMonth() - 1) - 31;
+              var firstSundayUntilEndJanuary = 31 - firstSunday.getDate();
+              var days = firstSundayUntilEndJanuary + februaryFirstUntilEndMonth + endDate.getDate();
+              return leadingNulls(Math.ceil(days / 7), 2);
+            }
+            return compareByDay(firstSunday, janFirst) === 0 ? "01" : "00";
+          }, "%V": function(date2) {
+            var janFourthThisYear = new Date(date2.tm_year + 1900, 0, 4);
+            var janFourthNextYear = new Date(date2.tm_year + 1901, 0, 4);
+            var firstWeekStartThisYear = getFirstWeekStartDate(janFourthThisYear);
+            var firstWeekStartNextYear = getFirstWeekStartDate(janFourthNextYear);
+            var endDate = __addDays(new Date(date2.tm_year + 1900, 0, 1), date2.tm_yday);
+            if (compareByDay(endDate, firstWeekStartThisYear) < 0) {
+              return "53";
+            }
+            if (compareByDay(firstWeekStartNextYear, endDate) <= 0) {
+              return "01";
+            }
+            var daysDifference;
+            if (firstWeekStartThisYear.getFullYear() < date2.tm_year + 1900) {
+              daysDifference = date2.tm_yday + 32 - firstWeekStartThisYear.getDate();
+            } else {
+              daysDifference = date2.tm_yday + 1 - firstWeekStartThisYear.getDate();
+            }
+            return leadingNulls(Math.ceil(daysDifference / 7), 2);
+          }, "%w": function(date2) {
+            return date2.tm_wday;
+          }, "%W": function(date2) {
+            var janFirst = new Date(date2.tm_year, 0, 1);
+            var firstMonday = janFirst.getDay() === 1 ? janFirst : __addDays(janFirst, janFirst.getDay() === 0 ? 1 : 7 - janFirst.getDay() + 1);
+            var endDate = new Date(date2.tm_year + 1900, date2.tm_mon, date2.tm_mday);
+            if (compareByDay(firstMonday, endDate) < 0) {
+              var februaryFirstUntilEndMonth = __arraySum(__isLeapYear(endDate.getFullYear()) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, endDate.getMonth() - 1) - 31;
+              var firstMondayUntilEndJanuary = 31 - firstMonday.getDate();
+              var days = firstMondayUntilEndJanuary + februaryFirstUntilEndMonth + endDate.getDate();
+              return leadingNulls(Math.ceil(days / 7), 2);
+            }
+            return compareByDay(firstMonday, janFirst) === 0 ? "01" : "00";
+          }, "%y": function(date2) {
+            return (date2.tm_year + 1900).toString().substring(2);
+          }, "%Y": function(date2) {
+            return date2.tm_year + 1900;
+          }, "%z": function(date2) {
+            var off = date2.tm_gmtoff;
+            var ahead = off >= 0;
+            off = Math.abs(off) / 60;
+            off = off / 60 * 100 + off % 60;
+            return (ahead ? "+" : "-") + String("0000" + off).slice(-4);
+          }, "%Z": function(date2) {
+            return date2.tm_zone;
+          }, "%%": function() {
+            return "%";
+          } };
+          for (var rule in EXPANSION_RULES_2) {
+            if (pattern.includes(rule)) {
+              pattern = pattern.replace(new RegExp(rule, "g"), EXPANSION_RULES_2[rule](date));
+            }
+          }
+          var bytes = intArrayFromString(pattern, false);
+          if (bytes.length > maxsize) {
+            return 0;
+          }
+          writeArrayToMemory(bytes, s);
+          return bytes.length - 1;
+        }
+        function _strftime_l(s, maxsize, format, tm) {
+          return _strftime(s, maxsize, format, tm);
+        }
+        if (!ENVIRONMENT_IS_PTHREAD)
+          PThread.initMainThreadBlock();
+        var FSNode = function(parent, name2, mode, rdev) {
+          if (!parent) {
+            parent = this;
+          }
+          this.parent = parent;
+          this.mount = parent.mount;
+          this.mounted = null;
+          this.id = FS.nextInode++;
+          this.name = name2;
+          this.mode = mode;
+          this.node_ops = {};
+          this.stream_ops = {};
+          this.rdev = rdev;
+        };
+        var readMode = 292 | 73;
+        var writeMode = 146;
+        Object.defineProperties(FSNode.prototype, { read: { get: function() {
+          return (this.mode & readMode) === readMode;
+        }, set: function(val) {
+          val ? this.mode |= readMode : this.mode &= ~readMode;
+        } }, write: { get: function() {
+          return (this.mode & writeMode) === writeMode;
+        }, set: function(val) {
+          val ? this.mode |= writeMode : this.mode &= ~writeMode;
+        } }, isFolder: { get: function() {
+          return FS.isDir(this.mode);
+        } }, isDevice: { get: function() {
+          return FS.isChrdev(this.mode);
+        } } });
+        FS.FSNode = FSNode;
+        FS.staticInit();
+        Module["FS_createPath"] = FS.createPath;
+        Module["FS_createDataFile"] = FS.createDataFile;
+        Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
+        Module["FS_createLazyFile"] = FS.createLazyFile;
+        Module["FS_createDevice"] = FS.createDevice;
+        Module["FS_unlink"] = FS.unlink;
+        InternalError = Module["InternalError"] = extendError(Error, "InternalError");
+        embind_init_charCodes();
+        BindingError = Module["BindingError"] = extendError(Error, "BindingError");
+        init_ClassHandle();
+        init_RegisteredPointer();
+        init_embind();
+        UnboundTypeError = Module["UnboundTypeError"] = extendError(Error, "UnboundTypeError");
+        init_emval();
+        var GLctx;
+        var proxiedFunctionTable = [null, _atexit, ___sys_fcntl64, ___sys_ioctl, ___sys_open, _emscripten_set_canvas_element_size_main_thread, _environ_get, _environ_sizes_get, _fd_close, _fd_read, _fd_seek, _fd_write];
+        function intArrayFromString(stringy, dontAddNull, length) {
+          var len = length > 0 ? length : lengthBytesUTF8(stringy) + 1;
+          var u8array = new Array(len);
+          var numBytesWritten = stringToUTF8Array(stringy, u8array, 0, u8array.length);
+          if (dontAddNull)
+            u8array.length = numBytesWritten;
+          return u8array;
+        }
+        var asmLibraryArg = { "l": ___assert_fail, "B": ___cxa_allocate_exception, "ka": ___cxa_thread_atexit, "A": ___cxa_throw, "D": ___sys_fcntl64, "V": ___sys_ioctl, "W": ___sys_open, "ma": __embind_finalize_value_array, "s": __embind_finalize_value_object, "O": __embind_register_bigint, "ia": __embind_register_bool, "v": __embind_register_class, "u": __embind_register_class_constructor, "c": __embind_register_class_function, "ha": __embind_register_emval, "la": __embind_register_enum, "y": __embind_register_enum_value, "J": __embind_register_float, "f": __embind_register_function, "p": __embind_register_integer, "k": __embind_register_memory_view, "K": __embind_register_std_string, "z": __embind_register_std_wstring, "na": __embind_register_value_array, "h": __embind_register_value_array_element, "t": __embind_register_value_object, "e": __embind_register_value_object_field, "ja": __embind_register_void, "ea": __emscripten_notify_thread_queue, "n": __emval_as, "L": __emval_call, "b": __emval_decref, "U": __emval_get_global, "o": __emval_get_property, "j": __emval_incref, "ca": __emval_instanceof, "M": __emval_is_number, "C": __emval_new_array, "g": __emval_new_cstring, "w": __emval_new_object, "m": __emval_run_destructors, "i": __emval_set_property, "d": __emval_take_value, "I": _abort, "T": _clock_gettime, "G": _emscripten_asm_const_int, "_": _emscripten_check_blocking_allowed, "F": _emscripten_conditional_set_current_thread_status, "r": _emscripten_futex_wait, "q": _emscripten_futex_wake, "x": _emscripten_get_now, "R": _emscripten_memcpy_big, "$": _emscripten_receive_on_main_thread_js, "S": _emscripten_resize_heap, "aa": _emscripten_set_canvas_element_size, "E": _emscripten_set_current_thread_status, "ba": _emscripten_webgl_create_context, "Y": _environ_get, "Z": _environ_sizes_get, "H": _fd_close, "ga": _fd_read, "N": _fd_seek, "fa": _fd_write, "Q": initPthreadsJS, "a": wasmMemory || Module["wasmMemory"], "da": _pthread_create, "P": _setTempRet0, "X": _strftime_l };
+        createWasm();
+        Module["___wasm_call_ctors"] = function() {
+          return (Module["___wasm_call_ctors"] = Module["asm"]["oa"]).apply(null, arguments);
+        };
+        Module["_main"] = function() {
+          return (Module["_main"] = Module["asm"]["pa"]).apply(null, arguments);
+        };
+        var _malloc = Module["_malloc"] = function() {
+          return (_malloc = Module["_malloc"] = Module["asm"]["qa"]).apply(null, arguments);
+        };
+        var _free = Module["_free"] = function() {
+          return (_free = Module["_free"] = Module["asm"]["ra"]).apply(null, arguments);
+        };
+        Module["_emscripten_tls_init"] = function() {
+          return (Module["_emscripten_tls_init"] = Module["asm"]["sa"]).apply(null, arguments);
+        };
+        var ___getTypeName = Module["___getTypeName"] = function() {
+          return (___getTypeName = Module["___getTypeName"] = Module["asm"]["ua"]).apply(null, arguments);
+        };
+        Module["___embind_register_native_and_builtin_types"] = function() {
+          return (Module["___embind_register_native_and_builtin_types"] = Module["asm"]["va"]).apply(null, arguments);
+        };
+        Module["_emscripten_current_thread_process_queued_calls"] = function() {
+          return (Module["_emscripten_current_thread_process_queued_calls"] = Module["asm"]["wa"]).apply(null, arguments);
+        };
+        var _emscripten_register_main_browser_thread_id = Module["_emscripten_register_main_browser_thread_id"] = function() {
+          return (_emscripten_register_main_browser_thread_id = Module["_emscripten_register_main_browser_thread_id"] = Module["asm"]["xa"]).apply(null, arguments);
+        };
+        var __emscripten_do_dispatch_to_thread = Module["__emscripten_do_dispatch_to_thread"] = function() {
+          return (__emscripten_do_dispatch_to_thread = Module["__emscripten_do_dispatch_to_thread"] = Module["asm"]["ya"]).apply(null, arguments);
+        };
+        var _emscripten_sync_run_in_main_thread_4 = Module["_emscripten_sync_run_in_main_thread_4"] = function() {
+          return (_emscripten_sync_run_in_main_thread_4 = Module["_emscripten_sync_run_in_main_thread_4"] = Module["asm"]["za"]).apply(null, arguments);
+        };
+        var _emscripten_main_thread_process_queued_calls = Module["_emscripten_main_thread_process_queued_calls"] = function() {
+          return (_emscripten_main_thread_process_queued_calls = Module["_emscripten_main_thread_process_queued_calls"] = Module["asm"]["Aa"]).apply(null, arguments);
+        };
+        var _emscripten_run_in_main_runtime_thread_js = Module["_emscripten_run_in_main_runtime_thread_js"] = function() {
+          return (_emscripten_run_in_main_runtime_thread_js = Module["_emscripten_run_in_main_runtime_thread_js"] = Module["asm"]["Ba"]).apply(null, arguments);
+        };
+        var __emscripten_call_on_thread = Module["__emscripten_call_on_thread"] = function() {
+          return (__emscripten_call_on_thread = Module["__emscripten_call_on_thread"] = Module["asm"]["Ca"]).apply(null, arguments);
+        };
+        var __emscripten_thread_init = Module["__emscripten_thread_init"] = function() {
+          return (__emscripten_thread_init = Module["__emscripten_thread_init"] = Module["asm"]["Da"]).apply(null, arguments);
+        };
+        var _emscripten_get_global_libc = Module["_emscripten_get_global_libc"] = function() {
+          return (_emscripten_get_global_libc = Module["_emscripten_get_global_libc"] = Module["asm"]["Ea"]).apply(null, arguments);
+        };
+        var ___errno_location = Module["___errno_location"] = function() {
+          return (___errno_location = Module["___errno_location"] = Module["asm"]["Fa"]).apply(null, arguments);
+        };
+        var _pthread_self = Module["_pthread_self"] = function() {
+          return (_pthread_self = Module["_pthread_self"] = Module["asm"]["Ga"]).apply(null, arguments);
+        };
+        var ___pthread_tsd_run_dtors = Module["___pthread_tsd_run_dtors"] = function() {
+          return (___pthread_tsd_run_dtors = Module["___pthread_tsd_run_dtors"] = Module["asm"]["Ha"]).apply(null, arguments);
+        };
+        var stackSave = Module["stackSave"] = function() {
+          return (stackSave = Module["stackSave"] = Module["asm"]["Ia"]).apply(null, arguments);
+        };
+        var stackRestore = Module["stackRestore"] = function() {
+          return (stackRestore = Module["stackRestore"] = Module["asm"]["Ja"]).apply(null, arguments);
+        };
+        var stackAlloc = Module["stackAlloc"] = function() {
+          return (stackAlloc = Module["stackAlloc"] = Module["asm"]["Ka"]).apply(null, arguments);
+        };
+        var _emscripten_stack_set_limits = Module["_emscripten_stack_set_limits"] = function() {
+          return (_emscripten_stack_set_limits = Module["_emscripten_stack_set_limits"] = Module["asm"]["La"]).apply(null, arguments);
+        };
+        var _memalign = Module["_memalign"] = function() {
+          return (_memalign = Module["_memalign"] = Module["asm"]["Ma"]).apply(null, arguments);
+        };
+        Module["dynCall_jiji"] = function() {
+          return (Module["dynCall_jiji"] = Module["asm"]["Na"]).apply(null, arguments);
+        };
+        Module["dynCall_viijii"] = function() {
+          return (Module["dynCall_viijii"] = Module["asm"]["Oa"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiij"] = function() {
+          return (Module["dynCall_iiiiij"] = Module["asm"]["Pa"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiijj"] = function() {
+          return (Module["dynCall_iiiiijj"] = Module["asm"]["Qa"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiiijj"] = function() {
+          return (Module["dynCall_iiiiiijj"] = Module["asm"]["Ra"]).apply(null, arguments);
+        };
+        var __emscripten_allow_main_runtime_queued_calls = Module["__emscripten_allow_main_runtime_queued_calls"] = 44840;
+        var __emscripten_main_thread_futex = Module["__emscripten_main_thread_futex"] = 48292;
+        Module["addRunDependency"] = addRunDependency;
+        Module["removeRunDependency"] = removeRunDependency;
+        Module["FS_createPath"] = FS.createPath;
+        Module["FS_createDataFile"] = FS.createDataFile;
+        Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
+        Module["FS_createLazyFile"] = FS.createLazyFile;
+        Module["FS_createDevice"] = FS.createDevice;
+        Module["FS_unlink"] = FS.unlink;
+        Module["keepRuntimeAlive"] = keepRuntimeAlive;
+        Module["FS"] = FS;
+        Module["PThread"] = PThread;
+        Module["PThread"] = PThread;
+        Module["wasmMemory"] = wasmMemory;
+        Module["ExitStatus"] = ExitStatus;
+        var calledRun;
+        function ExitStatus(status) {
+          this.name = "ExitStatus";
+          this.message = "Program terminated with exit(" + status + ")";
+          this.status = status;
+        }
+        dependenciesFulfilled = function runCaller() {
+          if (!calledRun)
+            run();
+          if (!calledRun)
+            dependenciesFulfilled = runCaller;
+        };
+        function callMain(args) {
+          var entryFunction = Module["_main"];
+          var argc = 0;
+          var argv = 0;
+          try {
+            var ret = entryFunction(argc, argv);
+            exit(ret, true);
+          } catch (e) {
+            if (e instanceof ExitStatus || e == "unwind") {
+              return;
+            }
+            var toLog = e;
+            if (e && typeof e === "object" && e.stack) {
+              toLog = [e, e.stack];
+            }
+            err("exception thrown: " + toLog);
+            quit_(1, e);
+          } finally {
+          }
+        }
+        function run(args) {
+          if (runDependencies > 0) {
+            return;
+          }
+          if (ENVIRONMENT_IS_PTHREAD) {
+            readyPromiseResolve(Module);
+            initRuntime();
+            postMessage({ "cmd": "loaded" });
+            return;
+          }
+          preRun();
+          if (runDependencies > 0) {
+            return;
+          }
+          function doRun() {
+            if (calledRun)
+              return;
+            calledRun = true;
+            Module["calledRun"] = true;
+            if (ABORT)
+              return;
+            initRuntime();
+            preMain();
+            readyPromiseResolve(Module);
+            if (Module["onRuntimeInitialized"])
+              Module["onRuntimeInitialized"]();
+            if (shouldRunNow)
+              callMain();
+            postRun();
+          }
+          if (Module["setStatus"]) {
+            Module["setStatus"]("Running...");
+            setTimeout(function() {
+              setTimeout(function() {
+                Module["setStatus"]("");
+              }, 1);
+              doRun();
+            }, 1);
+          } else {
+            doRun();
+          }
+        }
+        Module["run"] = run;
+        function exit(status, implicit) {
+          if (!implicit) {
+            if (ENVIRONMENT_IS_PTHREAD) {
+              postMessage({ "cmd": "exitProcess", "returnCode": status });
+              throw new ExitStatus(status);
+            }
+          }
+          if (keepRuntimeAlive()) ; else {
+            PThread.terminateAllThreads();
+            if (Module["onExit"])
+              Module["onExit"](status);
+            ABORT = true;
+          }
+          quit_(status, new ExitStatus(status));
+        }
+        if (Module["preInit"]) {
+          if (typeof Module["preInit"] == "function")
+            Module["preInit"] = [Module["preInit"]];
+          while (Module["preInit"].length > 0) {
+            Module["preInit"].pop()();
+          }
+        }
+        var shouldRunNow = true;
+        if (Module["noInitialRun"])
+          shouldRunNow = false;
+        if (ENVIRONMENT_IS_PTHREAD) {
+          noExitRuntime = false;
+          PThread.initWorker();
+        }
+        run();
+        return WebIFCWasm3.ready;
+      };
+    }();
+    if (typeof exports === "object" && typeof module === "object")
+      module.exports = WebIFCWasm2;
+    else if (typeof define === "function" && define["amd"])
+      define([], function() {
+        return WebIFCWasm2;
+      });
+    else if (typeof exports === "object")
+      exports["WebIFCWasm"] = WebIFCWasm2;
+  }
+});
+
+// dist/web-ifc.js
+var require_web_ifc$1 = __commonJS$1({
+  "dist/web-ifc.js"(exports, module) {
+    var WebIFCWasm2 = function() {
+      var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
+      if (typeof __filename !== "undefined")
+        _scriptDir = _scriptDir || __filename;
+      return function(WebIFCWasm3) {
+        WebIFCWasm3 = WebIFCWasm3 || {};
+        var Module = typeof WebIFCWasm3 !== "undefined" ? WebIFCWasm3 : {};
+        var readyPromiseResolve, readyPromiseReject;
+        Module["ready"] = new Promise(function(resolve, reject) {
+          readyPromiseResolve = resolve;
+          readyPromiseReject = reject;
+        });
+        var moduleOverrides = {};
+        var key;
+        for (key in Module) {
+          if (Module.hasOwnProperty(key)) {
+            moduleOverrides[key] = Module[key];
+          }
+        }
+        var thisProgram = "./this.program";
+        var quit_ = function(status, toThrow) {
+          throw toThrow;
+        };
+        var ENVIRONMENT_IS_WEB = typeof window === "object";
+        var ENVIRONMENT_IS_WORKER = typeof importScripts === "function";
+        var ENVIRONMENT_IS_NODE = typeof process === "object" && typeof process.versions === "object" && typeof process.versions.node === "string";
+        var scriptDirectory = "";
+        function locateFile(path) {
+          if (Module["locateFile"]) {
+            return Module["locateFile"](path, scriptDirectory);
+          }
+          return scriptDirectory + path;
+        }
+        var read_, readAsync, readBinary;
+        var nodeFS;
+        var nodePath;
+        if (ENVIRONMENT_IS_NODE) {
+          if (ENVIRONMENT_IS_WORKER) {
+            scriptDirectory = __require$1("path").dirname(scriptDirectory) + "/";
+          } else {
+            scriptDirectory = __dirname + "/";
+          }
+          read_ = function shell_read(filename, binary) {
+            if (!nodeFS)
+              nodeFS = __require$1("fs");
+            if (!nodePath)
+              nodePath = __require$1("path");
+            filename = nodePath["normalize"](filename);
+            return nodeFS["readFileSync"](filename, binary ? null : "utf8");
+          };
+          readBinary = function readBinary2(filename) {
+            var ret = read_(filename, true);
+            if (!ret.buffer) {
+              ret = new Uint8Array(ret);
+            }
+            assert(ret.buffer);
+            return ret;
+          };
+          readAsync = function readAsync2(filename, onload, onerror) {
+            if (!nodeFS)
+              nodeFS = __require$1("fs");
+            if (!nodePath)
+              nodePath = __require$1("path");
+            filename = nodePath["normalize"](filename);
+            nodeFS["readFile"](filename, function(err2, data) {
+              if (err2)
+                onerror(err2);
+              else
+                onload(data.buffer);
+            });
+          };
+          if (process["argv"].length > 1) {
+            thisProgram = process["argv"][1].replace(/\\/g, "/");
+          }
+          process["argv"].slice(2);
+          process["on"]("uncaughtException", function(ex) {
+            if (!(ex instanceof ExitStatus)) {
+              throw ex;
+            }
+          });
+          process["on"]("unhandledRejection", abort);
+          quit_ = function(status, toThrow) {
+            if (keepRuntimeAlive()) {
+              process["exitCode"] = status;
+              throw toThrow;
+            }
+            process["exit"](status);
+          };
+          Module["inspect"] = function() {
+            return "[Emscripten Module object]";
+          };
+        } else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
+          if (ENVIRONMENT_IS_WORKER) {
+            scriptDirectory = self.location.href;
+          } else if (typeof document !== "undefined" && document.currentScript) {
+            scriptDirectory = document.currentScript.src;
+          }
+          if (_scriptDir) {
+            scriptDirectory = _scriptDir;
+          }
+          if (scriptDirectory.indexOf("blob:") !== 0) {
+            scriptDirectory = scriptDirectory.substr(0, scriptDirectory.lastIndexOf("/") + 1);
+          } else {
+            scriptDirectory = "";
+          }
+          {
+            read_ = function(url) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", url, false);
+              xhr.send(null);
+              return xhr.responseText;
+            };
+            if (ENVIRONMENT_IS_WORKER) {
+              readBinary = function(url) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, false);
+                xhr.responseType = "arraybuffer";
+                xhr.send(null);
+                return new Uint8Array(xhr.response);
+              };
+            }
+            readAsync = function(url, onload, onerror) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", url, true);
+              xhr.responseType = "arraybuffer";
+              xhr.onload = function() {
+                if (xhr.status == 200 || xhr.status == 0 && xhr.response) {
+                  onload(xhr.response);
+                  return;
+                }
+                onerror();
+              };
+              xhr.onerror = onerror;
+              xhr.send(null);
+            };
+          }
+        } else ;
+        var out = Module["print"] || console.log.bind(console);
+        var err = Module["printErr"] || console.warn.bind(console);
+        for (key in moduleOverrides) {
+          if (moduleOverrides.hasOwnProperty(key)) {
+            Module[key] = moduleOverrides[key];
+          }
+        }
+        moduleOverrides = null;
+        if (Module["arguments"])
+          Module["arguments"];
+        if (Module["thisProgram"])
+          thisProgram = Module["thisProgram"];
+        if (Module["quit"])
+          quit_ = Module["quit"];
+        var wasmBinary;
+        if (Module["wasmBinary"])
+          wasmBinary = Module["wasmBinary"];
+        var noExitRuntime = Module["noExitRuntime"] || true;
+        if (typeof WebAssembly !== "object") {
+          abort("no native wasm support detected");
+        }
+        var wasmMemory;
+        var ABORT = false;
+        function assert(condition, text) {
+          if (!condition) {
+            abort("Assertion failed: " + text);
+          }
+        }
+        var UTF8Decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf8") : void 0;
+        function UTF8ArrayToString(heap, idx, maxBytesToRead) {
+          idx >>>= 0;
+          var endIdx = idx + maxBytesToRead;
+          var endPtr = idx;
+          while (heap[endPtr >>> 0] && !(endPtr >= endIdx))
+            ++endPtr;
+          if (endPtr - idx > 16 && heap.subarray && UTF8Decoder) {
+            return UTF8Decoder.decode(heap.subarray(idx >>> 0, endPtr >>> 0));
+          } else {
+            var str = "";
+            while (idx < endPtr) {
+              var u0 = heap[idx++ >>> 0];
+              if (!(u0 & 128)) {
+                str += String.fromCharCode(u0);
+                continue;
+              }
+              var u1 = heap[idx++ >>> 0] & 63;
+              if ((u0 & 224) == 192) {
+                str += String.fromCharCode((u0 & 31) << 6 | u1);
+                continue;
+              }
+              var u2 = heap[idx++ >>> 0] & 63;
+              if ((u0 & 240) == 224) {
+                u0 = (u0 & 15) << 12 | u1 << 6 | u2;
+              } else {
+                u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | heap[idx++ >>> 0] & 63;
+              }
+              if (u0 < 65536) {
+                str += String.fromCharCode(u0);
+              } else {
+                var ch = u0 - 65536;
+                str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+              }
+            }
+          }
+          return str;
+        }
+        function UTF8ToString(ptr, maxBytesToRead) {
+          ptr >>>= 0;
+          return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : "";
+        }
+        function stringToUTF8Array(str, heap, outIdx, maxBytesToWrite) {
+          outIdx >>>= 0;
+          if (!(maxBytesToWrite > 0))
+            return 0;
+          var startIdx = outIdx;
+          var endIdx = outIdx + maxBytesToWrite - 1;
+          for (var i = 0; i < str.length; ++i) {
+            var u = str.charCodeAt(i);
+            if (u >= 55296 && u <= 57343) {
+              var u1 = str.charCodeAt(++i);
+              u = 65536 + ((u & 1023) << 10) | u1 & 1023;
+            }
+            if (u <= 127) {
+              if (outIdx >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = u;
+            } else if (u <= 2047) {
+              if (outIdx + 1 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 192 | u >> 6;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            } else if (u <= 65535) {
+              if (outIdx + 2 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 224 | u >> 12;
+              heap[outIdx++ >>> 0] = 128 | u >> 6 & 63;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            } else {
+              if (outIdx + 3 >= endIdx)
+                break;
+              heap[outIdx++ >>> 0] = 240 | u >> 18;
+              heap[outIdx++ >>> 0] = 128 | u >> 12 & 63;
+              heap[outIdx++ >>> 0] = 128 | u >> 6 & 63;
+              heap[outIdx++ >>> 0] = 128 | u & 63;
+            }
+          }
+          heap[outIdx >>> 0] = 0;
+          return outIdx - startIdx;
+        }
+        function stringToUTF8(str, outPtr, maxBytesToWrite) {
+          return stringToUTF8Array(str, HEAPU8, outPtr, maxBytesToWrite);
+        }
+        function lengthBytesUTF8(str) {
+          var len = 0;
+          for (var i = 0; i < str.length; ++i) {
+            var u = str.charCodeAt(i);
+            if (u >= 55296 && u <= 57343)
+              u = 65536 + ((u & 1023) << 10) | str.charCodeAt(++i) & 1023;
+            if (u <= 127)
+              ++len;
+            else if (u <= 2047)
+              len += 2;
+            else if (u <= 65535)
+              len += 3;
+            else
+              len += 4;
+          }
+          return len;
+        }
+        var UTF16Decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf-16le") : void 0;
+        function UTF16ToString(ptr, maxBytesToRead) {
+          var endPtr = ptr;
+          var idx = endPtr >> 1;
+          var maxIdx = idx + maxBytesToRead / 2;
+          while (!(idx >= maxIdx) && HEAPU16[idx >>> 0])
+            ++idx;
+          endPtr = idx << 1;
+          if (endPtr - ptr > 32 && UTF16Decoder) {
+            return UTF16Decoder.decode(HEAPU8.subarray(ptr >>> 0, endPtr >>> 0));
+          } else {
+            var str = "";
+            for (var i = 0; !(i >= maxBytesToRead / 2); ++i) {
+              var codeUnit = HEAP16[ptr + i * 2 >>> 1];
+              if (codeUnit == 0)
+                break;
+              str += String.fromCharCode(codeUnit);
+            }
+            return str;
+          }
+        }
+        function stringToUTF16(str, outPtr, maxBytesToWrite) {
+          if (maxBytesToWrite === void 0) {
+            maxBytesToWrite = 2147483647;
+          }
+          if (maxBytesToWrite < 2)
+            return 0;
+          maxBytesToWrite -= 2;
+          var startPtr = outPtr;
+          var numCharsToWrite = maxBytesToWrite < str.length * 2 ? maxBytesToWrite / 2 : str.length;
+          for (var i = 0; i < numCharsToWrite; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            HEAP16[outPtr >>> 1] = codeUnit;
+            outPtr += 2;
+          }
+          HEAP16[outPtr >>> 1] = 0;
+          return outPtr - startPtr;
+        }
+        function lengthBytesUTF16(str) {
+          return str.length * 2;
+        }
+        function UTF32ToString(ptr, maxBytesToRead) {
+          var i = 0;
+          var str = "";
+          while (!(i >= maxBytesToRead / 4)) {
+            var utf32 = HEAP32[ptr + i * 4 >>> 2];
+            if (utf32 == 0)
+              break;
+            ++i;
+            if (utf32 >= 65536) {
+              var ch = utf32 - 65536;
+              str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+            } else {
+              str += String.fromCharCode(utf32);
+            }
+          }
+          return str;
+        }
+        function stringToUTF32(str, outPtr, maxBytesToWrite) {
+          outPtr >>>= 0;
+          if (maxBytesToWrite === void 0) {
+            maxBytesToWrite = 2147483647;
+          }
+          if (maxBytesToWrite < 4)
+            return 0;
+          var startPtr = outPtr;
+          var endPtr = startPtr + maxBytesToWrite - 4;
+          for (var i = 0; i < str.length; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            if (codeUnit >= 55296 && codeUnit <= 57343) {
+              var trailSurrogate = str.charCodeAt(++i);
+              codeUnit = 65536 + ((codeUnit & 1023) << 10) | trailSurrogate & 1023;
+            }
+            HEAP32[outPtr >>> 2] = codeUnit;
+            outPtr += 4;
+            if (outPtr + 4 > endPtr)
+              break;
+          }
+          HEAP32[outPtr >>> 2] = 0;
+          return outPtr - startPtr;
+        }
+        function lengthBytesUTF32(str) {
+          var len = 0;
+          for (var i = 0; i < str.length; ++i) {
+            var codeUnit = str.charCodeAt(i);
+            if (codeUnit >= 55296 && codeUnit <= 57343)
+              ++i;
+            len += 4;
+          }
+          return len;
+        }
+        function writeArrayToMemory(array, buffer2) {
+          HEAP8.set(array, buffer2 >>> 0);
+        }
+        function writeAsciiToMemory(str, buffer2, dontAddNull) {
+          for (var i = 0; i < str.length; ++i) {
+            HEAP8[buffer2++ >>> 0] = str.charCodeAt(i);
+          }
+          if (!dontAddNull)
+            HEAP8[buffer2 >>> 0] = 0;
+        }
+        function alignUp(x, multiple) {
+          if (x % multiple > 0) {
+            x += multiple - x % multiple;
+          }
+          return x;
+        }
+        var buffer, HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;
+        function updateGlobalBufferAndViews(buf) {
+          buffer = buf;
+          Module["HEAP8"] = HEAP8 = new Int8Array(buf);
+          Module["HEAP16"] = HEAP16 = new Int16Array(buf);
+          Module["HEAP32"] = HEAP32 = new Int32Array(buf);
+          Module["HEAPU8"] = HEAPU8 = new Uint8Array(buf);
+          Module["HEAPU16"] = HEAPU16 = new Uint16Array(buf);
+          Module["HEAPU32"] = HEAPU32 = new Uint32Array(buf);
+          Module["HEAPF32"] = HEAPF32 = new Float32Array(buf);
+          Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
+        }
+        Module["INITIAL_MEMORY"] || 16777216;
+        var wasmTable;
+        var __ATPRERUN__ = [];
+        var __ATINIT__ = [];
+        var __ATMAIN__ = [];
+        var __ATPOSTRUN__ = [];
+        var runtimeKeepaliveCounter = 0;
+        function keepRuntimeAlive() {
+          return noExitRuntime || runtimeKeepaliveCounter > 0;
+        }
+        function preRun() {
+          if (Module["preRun"]) {
+            if (typeof Module["preRun"] == "function")
+              Module["preRun"] = [Module["preRun"]];
+            while (Module["preRun"].length) {
+              addOnPreRun(Module["preRun"].shift());
+            }
+          }
+          callRuntimeCallbacks(__ATPRERUN__);
+        }
+        function initRuntime() {
+          if (!Module["noFSInit"] && !FS.init.initialized)
+            FS.init();
+          FS.ignorePermissions = false;
+          callRuntimeCallbacks(__ATINIT__);
+        }
+        function preMain() {
+          callRuntimeCallbacks(__ATMAIN__);
+        }
+        function postRun() {
+          if (Module["postRun"]) {
+            if (typeof Module["postRun"] == "function")
+              Module["postRun"] = [Module["postRun"]];
+            while (Module["postRun"].length) {
+              addOnPostRun(Module["postRun"].shift());
+            }
+          }
+          callRuntimeCallbacks(__ATPOSTRUN__);
+        }
+        function addOnPreRun(cb) {
+          __ATPRERUN__.unshift(cb);
+        }
+        function addOnInit(cb) {
+          __ATINIT__.unshift(cb);
+        }
+        function addOnPostRun(cb) {
+          __ATPOSTRUN__.unshift(cb);
+        }
+        var runDependencies = 0;
+        var dependenciesFulfilled = null;
+        function getUniqueRunDependency(id) {
+          return id;
+        }
+        function addRunDependency(id) {
+          runDependencies++;
+          if (Module["monitorRunDependencies"]) {
+            Module["monitorRunDependencies"](runDependencies);
+          }
+        }
+        function removeRunDependency(id) {
+          runDependencies--;
+          if (Module["monitorRunDependencies"]) {
+            Module["monitorRunDependencies"](runDependencies);
+          }
+          if (runDependencies == 0) {
+            if (dependenciesFulfilled) {
+              var callback = dependenciesFulfilled;
+              dependenciesFulfilled = null;
+              callback();
+            }
+          }
+        }
+        Module["preloadedImages"] = {};
+        Module["preloadedAudios"] = {};
+        function abort(what) {
+          if (Module["onAbort"]) {
+            Module["onAbort"](what);
+          }
+          what += "";
+          err(what);
+          ABORT = true;
+          what = "abort(" + what + "). Build with -s ASSERTIONS=1 for more info.";
+          var e = new WebAssembly.RuntimeError(what);
+          readyPromiseReject(e);
+          throw e;
+        }
+        var dataURIPrefix = "data:application/octet-stream;base64,";
+        function isDataURI(filename) {
+          return filename.startsWith(dataURIPrefix);
+        }
+        function isFileURI(filename) {
+          return filename.startsWith("file://");
+        }
+        var wasmBinaryFile;
+        wasmBinaryFile = "web-ifc.wasm";
+        if (!isDataURI(wasmBinaryFile)) {
+          wasmBinaryFile = locateFile(wasmBinaryFile);
+        }
+        function getBinary(file) {
+          try {
+            if (file == wasmBinaryFile && wasmBinary) {
+              return new Uint8Array(wasmBinary);
+            }
+            if (readBinary) {
+              return readBinary(file);
+            } else {
+              throw "both async and sync fetching of the wasm failed";
+            }
+          } catch (err2) {
+            abort(err2);
+          }
+        }
+        function getBinaryPromise() {
+          if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+            if (typeof fetch === "function" && !isFileURI(wasmBinaryFile)) {
+              return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+                if (!response["ok"]) {
+                  throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
+                }
+                return response["arrayBuffer"]();
+              }).catch(function() {
+                return getBinary(wasmBinaryFile);
+              });
+            } else {
+              if (readAsync) {
+                return new Promise(function(resolve, reject) {
+                  readAsync(wasmBinaryFile, function(response) {
+                    resolve(new Uint8Array(response));
+                  }, reject);
+                });
+              }
+            }
+          }
+          return Promise.resolve().then(function() {
+            return getBinary(wasmBinaryFile);
+          });
+        }
+        function createWasm() {
+          var info = { "a": asmLibraryArg };
+          function receiveInstance(instance, module2) {
+            var exports3 = instance.exports;
+            Module["asm"] = exports3;
+            wasmMemory = Module["asm"]["$"];
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+            wasmTable = Module["asm"]["ha"];
+            addOnInit(Module["asm"]["aa"]);
+            removeRunDependency();
+          }
+          addRunDependency();
+          function receiveInstantiationResult(result) {
+            receiveInstance(result["instance"]);
+          }
+          function instantiateArrayBuffer(receiver) {
+            return getBinaryPromise().then(function(binary) {
+              var result = WebAssembly.instantiate(binary, info);
+              return result;
+            }).then(receiver, function(reason) {
+              err("failed to asynchronously prepare wasm: " + reason);
+              abort(reason);
+            });
+          }
+          function instantiateAsync() {
+            if (!wasmBinary && typeof WebAssembly.instantiateStreaming === "function" && !isDataURI(wasmBinaryFile) && !isFileURI(wasmBinaryFile) && typeof fetch === "function") {
+              return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+                var result = WebAssembly.instantiateStreaming(response, info);
+                return result.then(receiveInstantiationResult, function(reason) {
+                  err("wasm streaming compile failed: " + reason);
+                  err("falling back to ArrayBuffer instantiation");
+                  return instantiateArrayBuffer(receiveInstantiationResult);
+                });
+              });
+            } else {
+              return instantiateArrayBuffer(receiveInstantiationResult);
+            }
+          }
+          if (Module["instantiateWasm"]) {
+            try {
+              var exports2 = Module["instantiateWasm"](info, receiveInstance);
+              return exports2;
+            } catch (e) {
+              err("Module.instantiateWasm callback failed with error: " + e);
+              return false;
+            }
+          }
+          instantiateAsync().catch(readyPromiseReject);
+          return {};
+        }
+        var tempDouble;
+        var tempI64;
+        function callRuntimeCallbacks(callbacks) {
+          while (callbacks.length > 0) {
+            var callback = callbacks.shift();
+            if (typeof callback == "function") {
+              callback(Module);
+              continue;
+            }
+            var func = callback.func;
+            if (typeof func === "number") {
+              if (callback.arg === void 0) {
+                wasmTable.get(func)();
+              } else {
+                wasmTable.get(func)(callback.arg);
+              }
+            } else {
+              func(callback.arg === void 0 ? null : callback.arg);
+            }
+          }
+        }
+        function ___assert_fail(condition, filename, line, func) {
+          abort("Assertion failed: " + UTF8ToString(condition) + ", at: " + [filename ? UTF8ToString(filename) : "unknown filename", line, func ? UTF8ToString(func) : "unknown function"]);
+        }
+        function ___cxa_allocate_exception(size) {
+          return _malloc(size + 16) + 16;
+        }
+        function ExceptionInfo(excPtr) {
+          this.excPtr = excPtr;
+          this.ptr = excPtr - 16;
+          this.set_type = function(type) {
+            HEAP32[this.ptr + 4 >>> 2] = type;
+          };
+          this.get_type = function() {
+            return HEAP32[this.ptr + 4 >>> 2];
+          };
+          this.set_destructor = function(destructor) {
+            HEAP32[this.ptr + 8 >>> 2] = destructor;
+          };
+          this.get_destructor = function() {
+            return HEAP32[this.ptr + 8 >>> 2];
+          };
+          this.set_refcount = function(refcount) {
+            HEAP32[this.ptr >>> 2] = refcount;
+          };
+          this.set_caught = function(caught) {
+            caught = caught ? 1 : 0;
+            HEAP8[this.ptr + 12 >>> 0] = caught;
+          };
+          this.get_caught = function() {
+            return HEAP8[this.ptr + 12 >>> 0] != 0;
+          };
+          this.set_rethrown = function(rethrown) {
+            rethrown = rethrown ? 1 : 0;
+            HEAP8[this.ptr + 13 >>> 0] = rethrown;
+          };
+          this.get_rethrown = function() {
+            return HEAP8[this.ptr + 13 >>> 0] != 0;
+          };
+          this.init = function(type, destructor) {
+            this.set_type(type);
+            this.set_destructor(destructor);
+            this.set_refcount(0);
+            this.set_caught(false);
+            this.set_rethrown(false);
+          };
+          this.add_ref = function() {
+            var value = HEAP32[this.ptr >>> 2];
+            HEAP32[this.ptr >>> 2] = value + 1;
+          };
+          this.release_ref = function() {
+            var prev = HEAP32[this.ptr >>> 2];
+            HEAP32[this.ptr >>> 2] = prev - 1;
+            return prev === 1;
+          };
+        }
+        function ___cxa_throw(ptr, type, destructor) {
+          var info = new ExceptionInfo(ptr);
+          info.init(type, destructor);
+          throw ptr;
+        }
+        function setErrNo(value) {
+          HEAP32[___errno_location() >>> 2] = value;
+          return value;
+        }
+        var PATH = { splitPath: function(filename) {
+          var splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+          return splitPathRe.exec(filename).slice(1);
+        }, normalizeArray: function(parts, allowAboveRoot) {
+          var up = 0;
+          for (var i = parts.length - 1; i >= 0; i--) {
+            var last = parts[i];
+            if (last === ".") {
+              parts.splice(i, 1);
+            } else if (last === "..") {
+              parts.splice(i, 1);
+              up++;
+            } else if (up) {
+              parts.splice(i, 1);
+              up--;
+            }
+          }
+          if (allowAboveRoot) {
+            for (; up; up--) {
+              parts.unshift("..");
+            }
+          }
+          return parts;
+        }, normalize: function(path) {
+          var isAbsolute = path.charAt(0) === "/", trailingSlash = path.substr(-1) === "/";
+          path = PATH.normalizeArray(path.split("/").filter(function(p) {
+            return !!p;
+          }), !isAbsolute).join("/");
+          if (!path && !isAbsolute) {
+            path = ".";
+          }
+          if (path && trailingSlash) {
+            path += "/";
+          }
+          return (isAbsolute ? "/" : "") + path;
+        }, dirname: function(path) {
+          var result = PATH.splitPath(path), root = result[0], dir = result[1];
+          if (!root && !dir) {
+            return ".";
+          }
+          if (dir) {
+            dir = dir.substr(0, dir.length - 1);
+          }
+          return root + dir;
+        }, basename: function(path) {
+          if (path === "/")
+            return "/";
+          path = PATH.normalize(path);
+          path = path.replace(/\/$/, "");
+          var lastSlash = path.lastIndexOf("/");
+          if (lastSlash === -1)
+            return path;
+          return path.substr(lastSlash + 1);
+        }, extname: function(path) {
+          return PATH.splitPath(path)[3];
+        }, join: function() {
+          var paths = Array.prototype.slice.call(arguments, 0);
+          return PATH.normalize(paths.join("/"));
+        }, join2: function(l, r) {
+          return PATH.normalize(l + "/" + r);
+        } };
+        function getRandomDevice() {
+          if (typeof crypto === "object" && typeof crypto["getRandomValues"] === "function") {
+            var randomBuffer = new Uint8Array(1);
+            return function() {
+              crypto.getRandomValues(randomBuffer);
+              return randomBuffer[0];
+            };
+          } else if (ENVIRONMENT_IS_NODE) {
+            try {
+              var crypto_module = require_crypto$1();
+              return function() {
+                return crypto_module["randomBytes"](1)[0];
+              };
+            } catch (e) {
+            }
+          }
+          return function() {
+            abort("randomDevice");
+          };
+        }
+        var PATH_FS = { resolve: function() {
+          var resolvedPath = "", resolvedAbsolute = false;
+          for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+            var path = i >= 0 ? arguments[i] : FS.cwd();
+            if (typeof path !== "string") {
+              throw new TypeError("Arguments to path.resolve must be strings");
+            } else if (!path) {
+              return "";
+            }
+            resolvedPath = path + "/" + resolvedPath;
+            resolvedAbsolute = path.charAt(0) === "/";
+          }
+          resolvedPath = PATH.normalizeArray(resolvedPath.split("/").filter(function(p) {
+            return !!p;
+          }), !resolvedAbsolute).join("/");
+          return (resolvedAbsolute ? "/" : "") + resolvedPath || ".";
+        }, relative: function(from, to) {
+          from = PATH_FS.resolve(from).substr(1);
+          to = PATH_FS.resolve(to).substr(1);
+          function trim(arr) {
+            var start = 0;
+            for (; start < arr.length; start++) {
+              if (arr[start] !== "")
+                break;
+            }
+            var end = arr.length - 1;
+            for (; end >= 0; end--) {
+              if (arr[end] !== "")
+                break;
+            }
+            if (start > end)
+              return [];
+            return arr.slice(start, end - start + 1);
+          }
+          var fromParts = trim(from.split("/"));
+          var toParts = trim(to.split("/"));
+          var length = Math.min(fromParts.length, toParts.length);
+          var samePartsLength = length;
+          for (var i = 0; i < length; i++) {
+            if (fromParts[i] !== toParts[i]) {
+              samePartsLength = i;
+              break;
+            }
+          }
+          var outputParts = [];
+          for (var i = samePartsLength; i < fromParts.length; i++) {
+            outputParts.push("..");
+          }
+          outputParts = outputParts.concat(toParts.slice(samePartsLength));
+          return outputParts.join("/");
+        } };
+        var TTY = { ttys: [], init: function() {
+        }, shutdown: function() {
+        }, register: function(dev, ops) {
+          TTY.ttys[dev] = { input: [], output: [], ops };
+          FS.registerDevice(dev, TTY.stream_ops);
+        }, stream_ops: { open: function(stream) {
+          var tty = TTY.ttys[stream.node.rdev];
+          if (!tty) {
+            throw new FS.ErrnoError(43);
+          }
+          stream.tty = tty;
+          stream.seekable = false;
+        }, close: function(stream) {
+          stream.tty.ops.flush(stream.tty);
+        }, flush: function(stream) {
+          stream.tty.ops.flush(stream.tty);
+        }, read: function(stream, buffer2, offset, length, pos) {
+          if (!stream.tty || !stream.tty.ops.get_char) {
+            throw new FS.ErrnoError(60);
+          }
+          var bytesRead = 0;
+          for (var i = 0; i < length; i++) {
+            var result;
+            try {
+              result = stream.tty.ops.get_char(stream.tty);
+            } catch (e) {
+              throw new FS.ErrnoError(29);
+            }
+            if (result === void 0 && bytesRead === 0) {
+              throw new FS.ErrnoError(6);
+            }
+            if (result === null || result === void 0)
+              break;
+            bytesRead++;
+            buffer2[offset + i] = result;
+          }
+          if (bytesRead) {
+            stream.node.timestamp = Date.now();
+          }
+          return bytesRead;
+        }, write: function(stream, buffer2, offset, length, pos) {
+          if (!stream.tty || !stream.tty.ops.put_char) {
+            throw new FS.ErrnoError(60);
+          }
+          try {
+            for (var i = 0; i < length; i++) {
+              stream.tty.ops.put_char(stream.tty, buffer2[offset + i]);
+            }
+          } catch (e) {
+            throw new FS.ErrnoError(29);
+          }
+          if (length) {
+            stream.node.timestamp = Date.now();
+          }
+          return i;
+        } }, default_tty_ops: { get_char: function(tty) {
+          if (!tty.input.length) {
+            var result = null;
+            if (ENVIRONMENT_IS_NODE) {
+              var BUFSIZE = 256;
+              var buf = Buffer.alloc(BUFSIZE);
+              var bytesRead = 0;
+              try {
+                bytesRead = nodeFS.readSync(process.stdin.fd, buf, 0, BUFSIZE, null);
+              } catch (e) {
+                if (e.toString().includes("EOF"))
+                  bytesRead = 0;
+                else
+                  throw e;
+              }
+              if (bytesRead > 0) {
+                result = buf.slice(0, bytesRead).toString("utf-8");
+              } else {
+                result = null;
+              }
+            } else if (typeof window != "undefined" && typeof window.prompt == "function") {
+              result = window.prompt("Input: ");
+              if (result !== null) {
+                result += "\n";
+              }
+            } else if (typeof readline == "function") {
+              result = readline();
+              if (result !== null) {
+                result += "\n";
+              }
+            }
+            if (!result) {
+              return null;
+            }
+            tty.input = intArrayFromString(result, true);
+          }
+          return tty.input.shift();
+        }, put_char: function(tty, val) {
+          if (val === null || val === 10) {
+            out(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          } else {
+            if (val != 0)
+              tty.output.push(val);
+          }
+        }, flush: function(tty) {
+          if (tty.output && tty.output.length > 0) {
+            out(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          }
+        } }, default_tty1_ops: { put_char: function(tty, val) {
+          if (val === null || val === 10) {
+            err(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          } else {
+            if (val != 0)
+              tty.output.push(val);
+          }
+        }, flush: function(tty) {
+          if (tty.output && tty.output.length > 0) {
+            err(UTF8ArrayToString(tty.output, 0));
+            tty.output = [];
+          }
+        } } };
+        function mmapAlloc(size) {
+          abort();
+        }
+        var MEMFS = { ops_table: null, mount: function(mount) {
+          return MEMFS.createNode(null, "/", 16384 | 511, 0);
+        }, createNode: function(parent, name2, mode, dev) {
+          if (FS.isBlkdev(mode) || FS.isFIFO(mode)) {
+            throw new FS.ErrnoError(63);
+          }
+          if (!MEMFS.ops_table) {
+            MEMFS.ops_table = { dir: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr, lookup: MEMFS.node_ops.lookup, mknod: MEMFS.node_ops.mknod, rename: MEMFS.node_ops.rename, unlink: MEMFS.node_ops.unlink, rmdir: MEMFS.node_ops.rmdir, readdir: MEMFS.node_ops.readdir, symlink: MEMFS.node_ops.symlink }, stream: { llseek: MEMFS.stream_ops.llseek } }, file: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr }, stream: { llseek: MEMFS.stream_ops.llseek, read: MEMFS.stream_ops.read, write: MEMFS.stream_ops.write, allocate: MEMFS.stream_ops.allocate, mmap: MEMFS.stream_ops.mmap, msync: MEMFS.stream_ops.msync } }, link: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr, readlink: MEMFS.node_ops.readlink }, stream: {} }, chrdev: { node: { getattr: MEMFS.node_ops.getattr, setattr: MEMFS.node_ops.setattr }, stream: FS.chrdev_stream_ops } };
+          }
+          var node = FS.createNode(parent, name2, mode, dev);
+          if (FS.isDir(node.mode)) {
+            node.node_ops = MEMFS.ops_table.dir.node;
+            node.stream_ops = MEMFS.ops_table.dir.stream;
+            node.contents = {};
+          } else if (FS.isFile(node.mode)) {
+            node.node_ops = MEMFS.ops_table.file.node;
+            node.stream_ops = MEMFS.ops_table.file.stream;
+            node.usedBytes = 0;
+            node.contents = null;
+          } else if (FS.isLink(node.mode)) {
+            node.node_ops = MEMFS.ops_table.link.node;
+            node.stream_ops = MEMFS.ops_table.link.stream;
+          } else if (FS.isChrdev(node.mode)) {
+            node.node_ops = MEMFS.ops_table.chrdev.node;
+            node.stream_ops = MEMFS.ops_table.chrdev.stream;
+          }
+          node.timestamp = Date.now();
+          if (parent) {
+            parent.contents[name2] = node;
+            parent.timestamp = node.timestamp;
+          }
+          return node;
+        }, getFileDataAsTypedArray: function(node) {
+          if (!node.contents)
+            return new Uint8Array(0);
+          if (node.contents.subarray)
+            return node.contents.subarray(0, node.usedBytes);
+          return new Uint8Array(node.contents);
+        }, expandFileStorage: function(node, newCapacity) {
+          newCapacity >>>= 0;
+          var prevCapacity = node.contents ? node.contents.length : 0;
+          if (prevCapacity >= newCapacity)
+            return;
+          var CAPACITY_DOUBLING_MAX = 1024 * 1024;
+          newCapacity = Math.max(newCapacity, prevCapacity * (prevCapacity < CAPACITY_DOUBLING_MAX ? 2 : 1.125) >>> 0);
+          if (prevCapacity != 0)
+            newCapacity = Math.max(newCapacity, 256);
+          var oldContents = node.contents;
+          node.contents = new Uint8Array(newCapacity);
+          if (node.usedBytes > 0)
+            node.contents.set(oldContents.subarray(0, node.usedBytes), 0);
+        }, resizeFileStorage: function(node, newSize) {
+          newSize >>>= 0;
+          if (node.usedBytes == newSize)
+            return;
+          if (newSize == 0) {
+            node.contents = null;
+            node.usedBytes = 0;
+          } else {
+            var oldContents = node.contents;
+            node.contents = new Uint8Array(newSize);
+            if (oldContents) {
+              node.contents.set(oldContents.subarray(0, Math.min(newSize, node.usedBytes)));
+            }
+            node.usedBytes = newSize;
+          }
+        }, node_ops: { getattr: function(node) {
+          var attr = {};
+          attr.dev = FS.isChrdev(node.mode) ? node.id : 1;
+          attr.ino = node.id;
+          attr.mode = node.mode;
+          attr.nlink = 1;
+          attr.uid = 0;
+          attr.gid = 0;
+          attr.rdev = node.rdev;
+          if (FS.isDir(node.mode)) {
+            attr.size = 4096;
+          } else if (FS.isFile(node.mode)) {
+            attr.size = node.usedBytes;
+          } else if (FS.isLink(node.mode)) {
+            attr.size = node.link.length;
+          } else {
+            attr.size = 0;
+          }
+          attr.atime = new Date(node.timestamp);
+          attr.mtime = new Date(node.timestamp);
+          attr.ctime = new Date(node.timestamp);
+          attr.blksize = 4096;
+          attr.blocks = Math.ceil(attr.size / attr.blksize);
+          return attr;
+        }, setattr: function(node, attr) {
+          if (attr.mode !== void 0) {
+            node.mode = attr.mode;
+          }
+          if (attr.timestamp !== void 0) {
+            node.timestamp = attr.timestamp;
+          }
+          if (attr.size !== void 0) {
+            MEMFS.resizeFileStorage(node, attr.size);
+          }
+        }, lookup: function(parent, name2) {
+          throw FS.genericErrors[44];
+        }, mknod: function(parent, name2, mode, dev) {
+          return MEMFS.createNode(parent, name2, mode, dev);
+        }, rename: function(old_node, new_dir, new_name) {
+          if (FS.isDir(old_node.mode)) {
+            var new_node;
+            try {
+              new_node = FS.lookupNode(new_dir, new_name);
+            } catch (e) {
+            }
+            if (new_node) {
+              for (var i in new_node.contents) {
+                throw new FS.ErrnoError(55);
+              }
+            }
+          }
+          delete old_node.parent.contents[old_node.name];
+          old_node.parent.timestamp = Date.now();
+          old_node.name = new_name;
+          new_dir.contents[new_name] = old_node;
+          new_dir.timestamp = old_node.parent.timestamp;
+          old_node.parent = new_dir;
+        }, unlink: function(parent, name2) {
+          delete parent.contents[name2];
+          parent.timestamp = Date.now();
+        }, rmdir: function(parent, name2) {
+          var node = FS.lookupNode(parent, name2);
+          for (var i in node.contents) {
+            throw new FS.ErrnoError(55);
+          }
+          delete parent.contents[name2];
+          parent.timestamp = Date.now();
+        }, readdir: function(node) {
+          var entries = [".", ".."];
+          for (var key2 in node.contents) {
+            if (!node.contents.hasOwnProperty(key2)) {
+              continue;
+            }
+            entries.push(key2);
+          }
+          return entries;
+        }, symlink: function(parent, newname, oldpath) {
+          var node = MEMFS.createNode(parent, newname, 511 | 40960, 0);
+          node.link = oldpath;
+          return node;
+        }, readlink: function(node) {
+          if (!FS.isLink(node.mode)) {
+            throw new FS.ErrnoError(28);
+          }
+          return node.link;
+        } }, stream_ops: { read: function(stream, buffer2, offset, length, position) {
+          var contents = stream.node.contents;
+          if (position >= stream.node.usedBytes)
+            return 0;
+          var size = Math.min(stream.node.usedBytes - position, length);
+          if (size > 8 && contents.subarray) {
+            buffer2.set(contents.subarray(position, position + size), offset);
+          } else {
+            for (var i = 0; i < size; i++)
+              buffer2[offset + i] = contents[position + i];
+          }
+          return size;
+        }, write: function(stream, buffer2, offset, length, position, canOwn) {
+          if (buffer2.buffer === HEAP8.buffer) {
+            canOwn = false;
+          }
+          if (!length)
+            return 0;
+          var node = stream.node;
+          node.timestamp = Date.now();
+          if (buffer2.subarray && (!node.contents || node.contents.subarray)) {
+            if (canOwn) {
+              node.contents = buffer2.subarray(offset, offset + length);
+              node.usedBytes = length;
+              return length;
+            } else if (node.usedBytes === 0 && position === 0) {
+              node.contents = buffer2.slice(offset, offset + length);
+              node.usedBytes = length;
+              return length;
+            } else if (position + length <= node.usedBytes) {
+              node.contents.set(buffer2.subarray(offset, offset + length), position);
+              return length;
+            }
+          }
+          MEMFS.expandFileStorage(node, position + length);
+          if (node.contents.subarray && buffer2.subarray) {
+            node.contents.set(buffer2.subarray(offset, offset + length), position);
+          } else {
+            for (var i = 0; i < length; i++) {
+              node.contents[position + i] = buffer2[offset + i];
+            }
+          }
+          node.usedBytes = Math.max(node.usedBytes, position + length);
+          return length;
+        }, llseek: function(stream, offset, whence) {
+          var position = offset;
+          if (whence === 1) {
+            position += stream.position;
+          } else if (whence === 2) {
+            if (FS.isFile(stream.node.mode)) {
+              position += stream.node.usedBytes;
+            }
+          }
+          if (position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          return position;
+        }, allocate: function(stream, offset, length) {
+          MEMFS.expandFileStorage(stream.node, offset + length);
+          stream.node.usedBytes = Math.max(stream.node.usedBytes, offset + length);
+        }, mmap: function(stream, address, length, position, prot, flags) {
+          if (address !== 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (!FS.isFile(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          var ptr;
+          var allocated;
+          var contents = stream.node.contents;
+          if (!(flags & 2) && contents.buffer === buffer) {
+            allocated = false;
+            ptr = contents.byteOffset;
+          } else {
+            if (position > 0 || position + length < contents.length) {
+              if (contents.subarray) {
+                contents = contents.subarray(position, position + length);
+              } else {
+                contents = Array.prototype.slice.call(contents, position, position + length);
+              }
+            }
+            allocated = true;
+            ptr = mmapAlloc();
+            if (!ptr) {
+              throw new FS.ErrnoError(48);
+            }
+            ptr >>>= 0;
+            HEAP8.set(contents, ptr >>> 0);
+          }
+          return { ptr, allocated };
+        }, msync: function(stream, buffer2, offset, length, mmapFlags) {
+          if (!FS.isFile(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          if (mmapFlags & 2) {
+            return 0;
+          }
+          MEMFS.stream_ops.write(stream, buffer2, 0, length, offset, false);
+          return 0;
+        } } };
+        function asyncLoad(url, onload, onerror, noRunDep) {
+          var dep = !noRunDep ? getUniqueRunDependency("al " + url) : "";
+          readAsync(url, function(arrayBuffer) {
+            assert(arrayBuffer, 'Loading data file "' + url + '" failed (no arrayBuffer).');
+            onload(new Uint8Array(arrayBuffer));
+            if (dep)
+              removeRunDependency();
+          }, function(event) {
+            if (onerror) {
+              onerror();
+            } else {
+              throw 'Loading data file "' + url + '" failed.';
+            }
+          });
+          if (dep)
+            addRunDependency();
+        }
+        var FS = { root: null, mounts: [], devices: {}, streams: [], nextInode: 1, nameTable: null, currentPath: "/", initialized: false, ignorePermissions: true, trackingDelegate: {}, tracking: { openFlags: { READ: 1, WRITE: 2 } }, ErrnoError: null, genericErrors: {}, filesystems: null, syncFSRequests: 0, lookupPath: function(path, opts) {
+          path = PATH_FS.resolve(FS.cwd(), path);
+          opts = opts || {};
+          if (!path)
+            return { path: "", node: null };
+          var defaults = { follow_mount: true, recurse_count: 0 };
+          for (var key2 in defaults) {
+            if (opts[key2] === void 0) {
+              opts[key2] = defaults[key2];
+            }
+          }
+          if (opts.recurse_count > 8) {
+            throw new FS.ErrnoError(32);
+          }
+          var parts = PATH.normalizeArray(path.split("/").filter(function(p) {
+            return !!p;
+          }), false);
+          var current = FS.root;
+          var current_path = "/";
+          for (var i = 0; i < parts.length; i++) {
+            var islast = i === parts.length - 1;
+            if (islast && opts.parent) {
+              break;
+            }
+            current = FS.lookupNode(current, parts[i]);
+            current_path = PATH.join2(current_path, parts[i]);
+            if (FS.isMountpoint(current)) {
+              if (!islast || islast && opts.follow_mount) {
+                current = current.mounted.root;
+              }
+            }
+            if (!islast || opts.follow) {
+              var count = 0;
+              while (FS.isLink(current.mode)) {
+                var link = FS.readlink(current_path);
+                current_path = PATH_FS.resolve(PATH.dirname(current_path), link);
+                var lookup = FS.lookupPath(current_path, { recurse_count: opts.recurse_count });
+                current = lookup.node;
+                if (count++ > 40) {
+                  throw new FS.ErrnoError(32);
+                }
+              }
+            }
+          }
+          return { path: current_path, node: current };
+        }, getPath: function(node) {
+          var path;
+          while (true) {
+            if (FS.isRoot(node)) {
+              var mount = node.mount.mountpoint;
+              if (!path)
+                return mount;
+              return mount[mount.length - 1] !== "/" ? mount + "/" + path : mount + path;
+            }
+            path = path ? node.name + "/" + path : node.name;
+            node = node.parent;
+          }
+        }, hashName: function(parentid, name2) {
+          var hash = 0;
+          for (var i = 0; i < name2.length; i++) {
+            hash = (hash << 5) - hash + name2.charCodeAt(i) | 0;
+          }
+          return (parentid + hash >>> 0) % FS.nameTable.length;
+        }, hashAddNode: function(node) {
+          var hash = FS.hashName(node.parent.id, node.name);
+          node.name_next = FS.nameTable[hash];
+          FS.nameTable[hash] = node;
+        }, hashRemoveNode: function(node) {
+          var hash = FS.hashName(node.parent.id, node.name);
+          if (FS.nameTable[hash] === node) {
+            FS.nameTable[hash] = node.name_next;
+          } else {
+            var current = FS.nameTable[hash];
+            while (current) {
+              if (current.name_next === node) {
+                current.name_next = node.name_next;
+                break;
+              }
+              current = current.name_next;
+            }
+          }
+        }, lookupNode: function(parent, name2) {
+          var errCode = FS.mayLookup(parent);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode, parent);
+          }
+          var hash = FS.hashName(parent.id, name2);
+          for (var node = FS.nameTable[hash]; node; node = node.name_next) {
+            var nodeName = node.name;
+            if (node.parent.id === parent.id && nodeName === name2) {
+              return node;
+            }
+          }
+          return FS.lookup(parent, name2);
+        }, createNode: function(parent, name2, mode, rdev) {
+          var node = new FS.FSNode(parent, name2, mode, rdev);
+          FS.hashAddNode(node);
+          return node;
+        }, destroyNode: function(node) {
+          FS.hashRemoveNode(node);
+        }, isRoot: function(node) {
+          return node === node.parent;
+        }, isMountpoint: function(node) {
+          return !!node.mounted;
+        }, isFile: function(mode) {
+          return (mode & 61440) === 32768;
+        }, isDir: function(mode) {
+          return (mode & 61440) === 16384;
+        }, isLink: function(mode) {
+          return (mode & 61440) === 40960;
+        }, isChrdev: function(mode) {
+          return (mode & 61440) === 8192;
+        }, isBlkdev: function(mode) {
+          return (mode & 61440) === 24576;
+        }, isFIFO: function(mode) {
+          return (mode & 61440) === 4096;
+        }, isSocket: function(mode) {
+          return (mode & 49152) === 49152;
+        }, flagModes: { "r": 0, "r+": 2, "w": 577, "w+": 578, "a": 1089, "a+": 1090 }, modeStringToFlags: function(str) {
+          var flags = FS.flagModes[str];
+          if (typeof flags === "undefined") {
+            throw new Error("Unknown file open mode: " + str);
+          }
+          return flags;
+        }, flagsToPermissionString: function(flag) {
+          var perms = ["r", "w", "rw"][flag & 3];
+          if (flag & 512) {
+            perms += "w";
+          }
+          return perms;
+        }, nodePermissions: function(node, perms) {
+          if (FS.ignorePermissions) {
+            return 0;
+          }
+          if (perms.includes("r") && !(node.mode & 292)) {
+            return 2;
+          } else if (perms.includes("w") && !(node.mode & 146)) {
+            return 2;
+          } else if (perms.includes("x") && !(node.mode & 73)) {
+            return 2;
+          }
+          return 0;
+        }, mayLookup: function(dir) {
+          var errCode = FS.nodePermissions(dir, "x");
+          if (errCode)
+            return errCode;
+          if (!dir.node_ops.lookup)
+            return 2;
+          return 0;
+        }, mayCreate: function(dir, name2) {
+          try {
+            var node = FS.lookupNode(dir, name2);
+            return 20;
+          } catch (e) {
+          }
+          return FS.nodePermissions(dir, "wx");
+        }, mayDelete: function(dir, name2, isdir) {
+          var node;
+          try {
+            node = FS.lookupNode(dir, name2);
+          } catch (e) {
+            return e.errno;
+          }
+          var errCode = FS.nodePermissions(dir, "wx");
+          if (errCode) {
+            return errCode;
+          }
+          if (isdir) {
+            if (!FS.isDir(node.mode)) {
+              return 54;
+            }
+            if (FS.isRoot(node) || FS.getPath(node) === FS.cwd()) {
+              return 10;
+            }
+          } else {
+            if (FS.isDir(node.mode)) {
+              return 31;
+            }
+          }
+          return 0;
+        }, mayOpen: function(node, flags) {
+          if (!node) {
+            return 44;
+          }
+          if (FS.isLink(node.mode)) {
+            return 32;
+          } else if (FS.isDir(node.mode)) {
+            if (FS.flagsToPermissionString(flags) !== "r" || flags & 512) {
+              return 31;
+            }
+          }
+          return FS.nodePermissions(node, FS.flagsToPermissionString(flags));
+        }, MAX_OPEN_FDS: 4096, nextfd: function(fd_start, fd_end) {
+          fd_start = fd_start || 0;
+          fd_end = fd_end || FS.MAX_OPEN_FDS;
+          for (var fd = fd_start; fd <= fd_end; fd++) {
+            if (!FS.streams[fd]) {
+              return fd;
+            }
+          }
+          throw new FS.ErrnoError(33);
+        }, getStream: function(fd) {
+          return FS.streams[fd];
+        }, createStream: function(stream, fd_start, fd_end) {
+          if (!FS.FSStream) {
+            FS.FSStream = function() {
+            };
+            FS.FSStream.prototype = { object: { get: function() {
+              return this.node;
+            }, set: function(val) {
+              this.node = val;
+            } }, isRead: { get: function() {
+              return (this.flags & 2097155) !== 1;
+            } }, isWrite: { get: function() {
+              return (this.flags & 2097155) !== 0;
+            } }, isAppend: { get: function() {
+              return this.flags & 1024;
+            } } };
+          }
+          var newStream = new FS.FSStream();
+          for (var p in stream) {
+            newStream[p] = stream[p];
+          }
+          stream = newStream;
+          var fd = FS.nextfd(fd_start, fd_end);
+          stream.fd = fd;
+          FS.streams[fd] = stream;
+          return stream;
+        }, closeStream: function(fd) {
+          FS.streams[fd] = null;
+        }, chrdev_stream_ops: { open: function(stream) {
+          var device = FS.getDevice(stream.node.rdev);
+          stream.stream_ops = device.stream_ops;
+          if (stream.stream_ops.open) {
+            stream.stream_ops.open(stream);
+          }
+        }, llseek: function() {
+          throw new FS.ErrnoError(70);
+        } }, major: function(dev) {
+          return dev >> 8;
+        }, minor: function(dev) {
+          return dev & 255;
+        }, makedev: function(ma, mi) {
+          return ma << 8 | mi;
+        }, registerDevice: function(dev, ops) {
+          FS.devices[dev] = { stream_ops: ops };
+        }, getDevice: function(dev) {
+          return FS.devices[dev];
+        }, getMounts: function(mount) {
+          var mounts = [];
+          var check = [mount];
+          while (check.length) {
+            var m = check.pop();
+            mounts.push(m);
+            check.push.apply(check, m.mounts);
+          }
+          return mounts;
+        }, syncfs: function(populate, callback) {
+          if (typeof populate === "function") {
+            callback = populate;
+            populate = false;
+          }
+          FS.syncFSRequests++;
+          if (FS.syncFSRequests > 1) {
+            err("warning: " + FS.syncFSRequests + " FS.syncfs operations in flight at once, probably just doing extra work");
+          }
+          var mounts = FS.getMounts(FS.root.mount);
+          var completed = 0;
+          function doCallback(errCode) {
+            FS.syncFSRequests--;
+            return callback(errCode);
+          }
+          function done(errCode) {
+            if (errCode) {
+              if (!done.errored) {
+                done.errored = true;
+                return doCallback(errCode);
+              }
+              return;
+            }
+            if (++completed >= mounts.length) {
+              doCallback(null);
+            }
+          }
+          mounts.forEach(function(mount) {
+            if (!mount.type.syncfs) {
+              return done(null);
+            }
+            mount.type.syncfs(mount, populate, done);
+          });
+        }, mount: function(type, opts, mountpoint) {
+          var root = mountpoint === "/";
+          var pseudo = !mountpoint;
+          var node;
+          if (root && FS.root) {
+            throw new FS.ErrnoError(10);
+          } else if (!root && !pseudo) {
+            var lookup = FS.lookupPath(mountpoint, { follow_mount: false });
+            mountpoint = lookup.path;
+            node = lookup.node;
+            if (FS.isMountpoint(node)) {
+              throw new FS.ErrnoError(10);
+            }
+            if (!FS.isDir(node.mode)) {
+              throw new FS.ErrnoError(54);
+            }
+          }
+          var mount = { type, opts, mountpoint, mounts: [] };
+          var mountRoot = type.mount(mount);
+          mountRoot.mount = mount;
+          mount.root = mountRoot;
+          if (root) {
+            FS.root = mountRoot;
+          } else if (node) {
+            node.mounted = mount;
+            if (node.mount) {
+              node.mount.mounts.push(mount);
+            }
+          }
+          return mountRoot;
+        }, unmount: function(mountpoint) {
+          var lookup = FS.lookupPath(mountpoint, { follow_mount: false });
+          if (!FS.isMountpoint(lookup.node)) {
+            throw new FS.ErrnoError(28);
+          }
+          var node = lookup.node;
+          var mount = node.mounted;
+          var mounts = FS.getMounts(mount);
+          Object.keys(FS.nameTable).forEach(function(hash) {
+            var current = FS.nameTable[hash];
+            while (current) {
+              var next = current.name_next;
+              if (mounts.includes(current.mount)) {
+                FS.destroyNode(current);
+              }
+              current = next;
+            }
+          });
+          node.mounted = null;
+          var idx = node.mount.mounts.indexOf(mount);
+          node.mount.mounts.splice(idx, 1);
+        }, lookup: function(parent, name2) {
+          return parent.node_ops.lookup(parent, name2);
+        }, mknod: function(path, mode, dev) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          if (!name2 || name2 === "." || name2 === "..") {
+            throw new FS.ErrnoError(28);
+          }
+          var errCode = FS.mayCreate(parent, name2);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.mknod) {
+            throw new FS.ErrnoError(63);
+          }
+          return parent.node_ops.mknod(parent, name2, mode, dev);
+        }, create: function(path, mode) {
+          mode = mode !== void 0 ? mode : 438;
+          mode &= 4095;
+          mode |= 32768;
+          return FS.mknod(path, mode, 0);
+        }, mkdir: function(path, mode) {
+          mode = mode !== void 0 ? mode : 511;
+          mode &= 511 | 512;
+          mode |= 16384;
+          return FS.mknod(path, mode, 0);
+        }, mkdirTree: function(path, mode) {
+          var dirs = path.split("/");
+          var d = "";
+          for (var i = 0; i < dirs.length; ++i) {
+            if (!dirs[i])
+              continue;
+            d += "/" + dirs[i];
+            try {
+              FS.mkdir(d, mode);
+            } catch (e) {
+              if (e.errno != 20)
+                throw e;
+            }
+          }
+        }, mkdev: function(path, mode, dev) {
+          if (typeof dev === "undefined") {
+            dev = mode;
+            mode = 438;
+          }
+          mode |= 8192;
+          return FS.mknod(path, mode, dev);
+        }, symlink: function(oldpath, newpath) {
+          if (!PATH_FS.resolve(oldpath)) {
+            throw new FS.ErrnoError(44);
+          }
+          var lookup = FS.lookupPath(newpath, { parent: true });
+          var parent = lookup.node;
+          if (!parent) {
+            throw new FS.ErrnoError(44);
+          }
+          var newname = PATH.basename(newpath);
+          var errCode = FS.mayCreate(parent, newname);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.symlink) {
+            throw new FS.ErrnoError(63);
+          }
+          return parent.node_ops.symlink(parent, newname, oldpath);
+        }, rename: function(old_path, new_path) {
+          var old_dirname = PATH.dirname(old_path);
+          var new_dirname = PATH.dirname(new_path);
+          var old_name = PATH.basename(old_path);
+          var new_name = PATH.basename(new_path);
+          var lookup, old_dir, new_dir;
+          lookup = FS.lookupPath(old_path, { parent: true });
+          old_dir = lookup.node;
+          lookup = FS.lookupPath(new_path, { parent: true });
+          new_dir = lookup.node;
+          if (!old_dir || !new_dir)
+            throw new FS.ErrnoError(44);
+          if (old_dir.mount !== new_dir.mount) {
+            throw new FS.ErrnoError(75);
+          }
+          var old_node = FS.lookupNode(old_dir, old_name);
+          var relative = PATH_FS.relative(old_path, new_dirname);
+          if (relative.charAt(0) !== ".") {
+            throw new FS.ErrnoError(28);
+          }
+          relative = PATH_FS.relative(new_path, old_dirname);
+          if (relative.charAt(0) !== ".") {
+            throw new FS.ErrnoError(55);
+          }
+          var new_node;
+          try {
+            new_node = FS.lookupNode(new_dir, new_name);
+          } catch (e) {
+          }
+          if (old_node === new_node) {
+            return;
+          }
+          var isdir = FS.isDir(old_node.mode);
+          var errCode = FS.mayDelete(old_dir, old_name, isdir);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          errCode = new_node ? FS.mayDelete(new_dir, new_name, isdir) : FS.mayCreate(new_dir, new_name);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!old_dir.node_ops.rename) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(old_node) || new_node && FS.isMountpoint(new_node)) {
+            throw new FS.ErrnoError(10);
+          }
+          if (new_dir !== old_dir) {
+            errCode = FS.nodePermissions(old_dir, "w");
+            if (errCode) {
+              throw new FS.ErrnoError(errCode);
+            }
+          }
+          try {
+            if (FS.trackingDelegate["willMovePath"]) {
+              FS.trackingDelegate["willMovePath"](old_path, new_path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willMovePath']('" + old_path + "', '" + new_path + "') threw an exception: " + e.message);
+          }
+          FS.hashRemoveNode(old_node);
+          try {
+            old_dir.node_ops.rename(old_node, new_dir, new_name);
+          } catch (e) {
+            throw e;
+          } finally {
+            FS.hashAddNode(old_node);
+          }
+          try {
+            if (FS.trackingDelegate["onMovePath"])
+              FS.trackingDelegate["onMovePath"](old_path, new_path);
+          } catch (e) {
+            err("FS.trackingDelegate['onMovePath']('" + old_path + "', '" + new_path + "') threw an exception: " + e.message);
+          }
+        }, rmdir: function(path) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          var node = FS.lookupNode(parent, name2);
+          var errCode = FS.mayDelete(parent, name2, true);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.rmdir) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(node)) {
+            throw new FS.ErrnoError(10);
+          }
+          try {
+            if (FS.trackingDelegate["willDeletePath"]) {
+              FS.trackingDelegate["willDeletePath"](path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+          parent.node_ops.rmdir(parent, name2);
+          FS.destroyNode(node);
+          try {
+            if (FS.trackingDelegate["onDeletePath"])
+              FS.trackingDelegate["onDeletePath"](path);
+          } catch (e) {
+            err("FS.trackingDelegate['onDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+        }, readdir: function(path) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          var node = lookup.node;
+          if (!node.node_ops.readdir) {
+            throw new FS.ErrnoError(54);
+          }
+          return node.node_ops.readdir(node);
+        }, unlink: function(path) {
+          var lookup = FS.lookupPath(path, { parent: true });
+          var parent = lookup.node;
+          var name2 = PATH.basename(path);
+          var node = FS.lookupNode(parent, name2);
+          var errCode = FS.mayDelete(parent, name2, false);
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          if (!parent.node_ops.unlink) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isMountpoint(node)) {
+            throw new FS.ErrnoError(10);
+          }
+          try {
+            if (FS.trackingDelegate["willDeletePath"]) {
+              FS.trackingDelegate["willDeletePath"](path);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['willDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+          parent.node_ops.unlink(parent, name2);
+          FS.destroyNode(node);
+          try {
+            if (FS.trackingDelegate["onDeletePath"])
+              FS.trackingDelegate["onDeletePath"](path);
+          } catch (e) {
+            err("FS.trackingDelegate['onDeletePath']('" + path + "') threw an exception: " + e.message);
+          }
+        }, readlink: function(path) {
+          var lookup = FS.lookupPath(path);
+          var link = lookup.node;
+          if (!link) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!link.node_ops.readlink) {
+            throw new FS.ErrnoError(28);
+          }
+          return PATH_FS.resolve(FS.getPath(link.parent), link.node_ops.readlink(link));
+        }, stat: function(path, dontFollow) {
+          var lookup = FS.lookupPath(path, { follow: !dontFollow });
+          var node = lookup.node;
+          if (!node) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!node.node_ops.getattr) {
+            throw new FS.ErrnoError(63);
+          }
+          return node.node_ops.getattr(node);
+        }, lstat: function(path) {
+          return FS.stat(path, true);
+        }, chmod: function(path, mode, dontFollow) {
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: !dontFollow });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          node.node_ops.setattr(node, { mode: mode & 4095 | node.mode & ~4095, timestamp: Date.now() });
+        }, lchmod: function(path, mode) {
+          FS.chmod(path, mode, true);
+        }, fchmod: function(fd, mode) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          FS.chmod(stream.node, mode);
+        }, chown: function(path, uid, gid, dontFollow) {
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: !dontFollow });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          node.node_ops.setattr(node, { timestamp: Date.now() });
+        }, lchown: function(path, uid, gid) {
+          FS.chown(path, uid, gid, true);
+        }, fchown: function(fd, uid, gid) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          FS.chown(stream.node, uid, gid);
+        }, truncate: function(path, len) {
+          if (len < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          var node;
+          if (typeof path === "string") {
+            var lookup = FS.lookupPath(path, { follow: true });
+            node = lookup.node;
+          } else {
+            node = path;
+          }
+          if (!node.node_ops.setattr) {
+            throw new FS.ErrnoError(63);
+          }
+          if (FS.isDir(node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!FS.isFile(node.mode)) {
+            throw new FS.ErrnoError(28);
+          }
+          var errCode = FS.nodePermissions(node, "w");
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          node.node_ops.setattr(node, { size: len, timestamp: Date.now() });
+        }, ftruncate: function(fd, len) {
+          var stream = FS.getStream(fd);
+          if (!stream) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(28);
+          }
+          FS.truncate(stream.node, len);
+        }, utime: function(path, atime, mtime) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          var node = lookup.node;
+          node.node_ops.setattr(node, { timestamp: Math.max(atime, mtime) });
+        }, open: function(path, flags, mode, fd_start, fd_end) {
+          if (path === "") {
+            throw new FS.ErrnoError(44);
+          }
+          flags = typeof flags === "string" ? FS.modeStringToFlags(flags) : flags;
+          mode = typeof mode === "undefined" ? 438 : mode;
+          if (flags & 64) {
+            mode = mode & 4095 | 32768;
+          } else {
+            mode = 0;
+          }
+          var node;
+          if (typeof path === "object") {
+            node = path;
+          } else {
+            path = PATH.normalize(path);
+            try {
+              var lookup = FS.lookupPath(path, { follow: !(flags & 131072) });
+              node = lookup.node;
+            } catch (e) {
+            }
+          }
+          var created = false;
+          if (flags & 64) {
+            if (node) {
+              if (flags & 128) {
+                throw new FS.ErrnoError(20);
+              }
+            } else {
+              node = FS.mknod(path, mode, 0);
+              created = true;
+            }
+          }
+          if (!node) {
+            throw new FS.ErrnoError(44);
+          }
+          if (FS.isChrdev(node.mode)) {
+            flags &= ~512;
+          }
+          if (flags & 65536 && !FS.isDir(node.mode)) {
+            throw new FS.ErrnoError(54);
+          }
+          if (!created) {
+            var errCode = FS.mayOpen(node, flags);
+            if (errCode) {
+              throw new FS.ErrnoError(errCode);
+            }
+          }
+          if (flags & 512) {
+            FS.truncate(node, 0);
+          }
+          flags &= ~(128 | 512 | 131072);
+          var stream = FS.createStream({ node, path: FS.getPath(node), flags, seekable: true, position: 0, stream_ops: node.stream_ops, ungotten: [], error: false }, fd_start, fd_end);
+          if (stream.stream_ops.open) {
+            stream.stream_ops.open(stream);
+          }
+          if (Module["logReadFiles"] && !(flags & 1)) {
+            if (!FS.readFiles)
+              FS.readFiles = {};
+            if (!(path in FS.readFiles)) {
+              FS.readFiles[path] = 1;
+              err("FS.trackingDelegate error on read file: " + path);
+            }
+          }
+          try {
+            if (FS.trackingDelegate["onOpenFile"]) {
+              var trackingFlags = 0;
+              if ((flags & 2097155) !== 1) {
+                trackingFlags |= FS.tracking.openFlags.READ;
+              }
+              if ((flags & 2097155) !== 0) {
+                trackingFlags |= FS.tracking.openFlags.WRITE;
+              }
+              FS.trackingDelegate["onOpenFile"](path, trackingFlags);
+            }
+          } catch (e) {
+            err("FS.trackingDelegate['onOpenFile']('" + path + "', flags) threw an exception: " + e.message);
+          }
+          return stream;
+        }, close: function(stream) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (stream.getdents)
+            stream.getdents = null;
+          try {
+            if (stream.stream_ops.close) {
+              stream.stream_ops.close(stream);
+            }
+          } catch (e) {
+            throw e;
+          } finally {
+            FS.closeStream(stream.fd);
+          }
+          stream.fd = null;
+        }, isClosed: function(stream) {
+          return stream.fd === null;
+        }, llseek: function(stream, offset, whence) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (!stream.seekable || !stream.stream_ops.llseek) {
+            throw new FS.ErrnoError(70);
+          }
+          if (whence != 0 && whence != 1 && whence != 2) {
+            throw new FS.ErrnoError(28);
+          }
+          stream.position = stream.stream_ops.llseek(stream, offset, whence);
+          stream.ungotten = [];
+          return stream.position;
+        }, read: function(stream, buffer2, offset, length, position) {
+          offset >>>= 0;
+          if (length < 0 || position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 1) {
+            throw new FS.ErrnoError(8);
+          }
+          if (FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!stream.stream_ops.read) {
+            throw new FS.ErrnoError(28);
+          }
+          var seeking = typeof position !== "undefined";
+          if (!seeking) {
+            position = stream.position;
+          } else if (!stream.seekable) {
+            throw new FS.ErrnoError(70);
+          }
+          var bytesRead = stream.stream_ops.read(stream, buffer2, offset, length, position);
+          if (!seeking)
+            stream.position += bytesRead;
+          return bytesRead;
+        }, write: function(stream, buffer2, offset, length, position, canOwn) {
+          offset >>>= 0;
+          if (length < 0 || position < 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(8);
+          }
+          if (FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(31);
+          }
+          if (!stream.stream_ops.write) {
+            throw new FS.ErrnoError(28);
+          }
+          if (stream.seekable && stream.flags & 1024) {
+            FS.llseek(stream, 0, 2);
+          }
+          var seeking = typeof position !== "undefined";
+          if (!seeking) {
+            position = stream.position;
+          } else if (!stream.seekable) {
+            throw new FS.ErrnoError(70);
+          }
+          var bytesWritten = stream.stream_ops.write(stream, buffer2, offset, length, position, canOwn);
+          if (!seeking)
+            stream.position += bytesWritten;
+          try {
+            if (stream.path && FS.trackingDelegate["onWriteToFile"])
+              FS.trackingDelegate["onWriteToFile"](stream.path);
+          } catch (e) {
+            err("FS.trackingDelegate['onWriteToFile']('" + stream.path + "') threw an exception: " + e.message);
+          }
+          return bytesWritten;
+        }, allocate: function(stream, offset, length) {
+          if (FS.isClosed(stream)) {
+            throw new FS.ErrnoError(8);
+          }
+          if (offset < 0 || length <= 0) {
+            throw new FS.ErrnoError(28);
+          }
+          if ((stream.flags & 2097155) === 0) {
+            throw new FS.ErrnoError(8);
+          }
+          if (!FS.isFile(stream.node.mode) && !FS.isDir(stream.node.mode)) {
+            throw new FS.ErrnoError(43);
+          }
+          if (!stream.stream_ops.allocate) {
+            throw new FS.ErrnoError(138);
+          }
+          stream.stream_ops.allocate(stream, offset, length);
+        }, mmap: function(stream, address, length, position, prot, flags) {
+          address >>>= 0;
+          if ((prot & 2) !== 0 && (flags & 2) === 0 && (stream.flags & 2097155) !== 2) {
+            throw new FS.ErrnoError(2);
+          }
+          if ((stream.flags & 2097155) === 1) {
+            throw new FS.ErrnoError(2);
+          }
+          if (!stream.stream_ops.mmap) {
+            throw new FS.ErrnoError(43);
+          }
+          return stream.stream_ops.mmap(stream, address, length, position, prot, flags);
+        }, msync: function(stream, buffer2, offset, length, mmapFlags) {
+          offset >>>= 0;
+          if (!stream || !stream.stream_ops.msync) {
+            return 0;
+          }
+          return stream.stream_ops.msync(stream, buffer2, offset, length, mmapFlags);
+        }, munmap: function(stream) {
+          return 0;
+        }, ioctl: function(stream, cmd, arg) {
+          if (!stream.stream_ops.ioctl) {
+            throw new FS.ErrnoError(59);
+          }
+          return stream.stream_ops.ioctl(stream, cmd, arg);
+        }, readFile: function(path, opts) {
+          opts = opts || {};
+          opts.flags = opts.flags || 0;
+          opts.encoding = opts.encoding || "binary";
+          if (opts.encoding !== "utf8" && opts.encoding !== "binary") {
+            throw new Error('Invalid encoding type "' + opts.encoding + '"');
+          }
+          var ret;
+          var stream = FS.open(path, opts.flags);
+          var stat = FS.stat(path);
+          var length = stat.size;
+          var buf = new Uint8Array(length);
+          FS.read(stream, buf, 0, length, 0);
+          if (opts.encoding === "utf8") {
+            ret = UTF8ArrayToString(buf, 0);
+          } else if (opts.encoding === "binary") {
+            ret = buf;
+          }
+          FS.close(stream);
+          return ret;
+        }, writeFile: function(path, data, opts) {
+          opts = opts || {};
+          opts.flags = opts.flags || 577;
+          var stream = FS.open(path, opts.flags, opts.mode);
+          if (typeof data === "string") {
+            var buf = new Uint8Array(lengthBytesUTF8(data) + 1);
+            var actualNumBytes = stringToUTF8Array(data, buf, 0, buf.length);
+            FS.write(stream, buf, 0, actualNumBytes, void 0, opts.canOwn);
+          } else if (ArrayBuffer.isView(data)) {
+            FS.write(stream, data, 0, data.byteLength, void 0, opts.canOwn);
+          } else {
+            throw new Error("Unsupported data type");
+          }
+          FS.close(stream);
+        }, cwd: function() {
+          return FS.currentPath;
+        }, chdir: function(path) {
+          var lookup = FS.lookupPath(path, { follow: true });
+          if (lookup.node === null) {
+            throw new FS.ErrnoError(44);
+          }
+          if (!FS.isDir(lookup.node.mode)) {
+            throw new FS.ErrnoError(54);
+          }
+          var errCode = FS.nodePermissions(lookup.node, "x");
+          if (errCode) {
+            throw new FS.ErrnoError(errCode);
+          }
+          FS.currentPath = lookup.path;
+        }, createDefaultDirectories: function() {
+          FS.mkdir("/tmp");
+          FS.mkdir("/home");
+          FS.mkdir("/home/web_user");
+        }, createDefaultDevices: function() {
+          FS.mkdir("/dev");
+          FS.registerDevice(FS.makedev(1, 3), { read: function() {
+            return 0;
+          }, write: function(stream, buffer2, offset, length, pos) {
+            return length;
+          } });
+          FS.mkdev("/dev/null", FS.makedev(1, 3));
+          TTY.register(FS.makedev(5, 0), TTY.default_tty_ops);
+          TTY.register(FS.makedev(6, 0), TTY.default_tty1_ops);
+          FS.mkdev("/dev/tty", FS.makedev(5, 0));
+          FS.mkdev("/dev/tty1", FS.makedev(6, 0));
+          var random_device = getRandomDevice();
+          FS.createDevice("/dev", "random", random_device);
+          FS.createDevice("/dev", "urandom", random_device);
+          FS.mkdir("/dev/shm");
+          FS.mkdir("/dev/shm/tmp");
+        }, createSpecialDirectories: function() {
+          FS.mkdir("/proc");
+          var proc_self = FS.mkdir("/proc/self");
+          FS.mkdir("/proc/self/fd");
+          FS.mount({ mount: function() {
+            var node = FS.createNode(proc_self, "fd", 16384 | 511, 73);
+            node.node_ops = { lookup: function(parent, name2) {
+              var fd = +name2;
+              var stream = FS.getStream(fd);
+              if (!stream)
+                throw new FS.ErrnoError(8);
+              var ret = { parent: null, mount: { mountpoint: "fake" }, node_ops: { readlink: function() {
+                return stream.path;
+              } } };
+              ret.parent = ret;
+              return ret;
+            } };
+            return node;
+          } }, {}, "/proc/self/fd");
+        }, createStandardStreams: function() {
+          if (Module["stdin"]) {
+            FS.createDevice("/dev", "stdin", Module["stdin"]);
+          } else {
+            FS.symlink("/dev/tty", "/dev/stdin");
+          }
+          if (Module["stdout"]) {
+            FS.createDevice("/dev", "stdout", null, Module["stdout"]);
+          } else {
+            FS.symlink("/dev/tty", "/dev/stdout");
+          }
+          if (Module["stderr"]) {
+            FS.createDevice("/dev", "stderr", null, Module["stderr"]);
+          } else {
+            FS.symlink("/dev/tty1", "/dev/stderr");
+          }
+          FS.open("/dev/stdin", 0);
+          FS.open("/dev/stdout", 1);
+          FS.open("/dev/stderr", 1);
+        }, ensureErrnoError: function() {
+          if (FS.ErrnoError)
+            return;
+          FS.ErrnoError = function ErrnoError(errno, node) {
+            this.node = node;
+            this.setErrno = function(errno2) {
+              this.errno = errno2;
+            };
+            this.setErrno(errno);
+            this.message = "FS error";
+          };
+          FS.ErrnoError.prototype = new Error();
+          FS.ErrnoError.prototype.constructor = FS.ErrnoError;
+          [44].forEach(function(code) {
+            FS.genericErrors[code] = new FS.ErrnoError(code);
+            FS.genericErrors[code].stack = "<generic error, no stack>";
+          });
+        }, staticInit: function() {
+          FS.ensureErrnoError();
+          FS.nameTable = new Array(4096);
+          FS.mount(MEMFS, {}, "/");
+          FS.createDefaultDirectories();
+          FS.createDefaultDevices();
+          FS.createSpecialDirectories();
+          FS.filesystems = { "MEMFS": MEMFS };
+        }, init: function(input, output, error) {
+          FS.init.initialized = true;
+          FS.ensureErrnoError();
+          Module["stdin"] = input || Module["stdin"];
+          Module["stdout"] = output || Module["stdout"];
+          Module["stderr"] = error || Module["stderr"];
+          FS.createStandardStreams();
+        }, quit: function() {
+          FS.init.initialized = false;
+          var fflush = Module["_fflush"];
+          if (fflush)
+            fflush(0);
+          for (var i = 0; i < FS.streams.length; i++) {
+            var stream = FS.streams[i];
+            if (!stream) {
+              continue;
+            }
+            FS.close(stream);
+          }
+        }, getMode: function(canRead, canWrite) {
+          var mode = 0;
+          if (canRead)
+            mode |= 292 | 73;
+          if (canWrite)
+            mode |= 146;
+          return mode;
+        }, findObject: function(path, dontResolveLastLink) {
+          var ret = FS.analyzePath(path, dontResolveLastLink);
+          if (ret.exists) {
+            return ret.object;
+          } else {
+            return null;
+          }
+        }, analyzePath: function(path, dontResolveLastLink) {
+          try {
+            var lookup = FS.lookupPath(path, { follow: !dontResolveLastLink });
+            path = lookup.path;
+          } catch (e) {
+          }
+          var ret = { isRoot: false, exists: false, error: 0, name: null, path: null, object: null, parentExists: false, parentPath: null, parentObject: null };
+          try {
+            var lookup = FS.lookupPath(path, { parent: true });
+            ret.parentExists = true;
+            ret.parentPath = lookup.path;
+            ret.parentObject = lookup.node;
+            ret.name = PATH.basename(path);
+            lookup = FS.lookupPath(path, { follow: !dontResolveLastLink });
+            ret.exists = true;
+            ret.path = lookup.path;
+            ret.object = lookup.node;
+            ret.name = lookup.node.name;
+            ret.isRoot = lookup.path === "/";
+          } catch (e) {
+            ret.error = e.errno;
+          }
+          return ret;
+        }, createPath: function(parent, path, canRead, canWrite) {
+          parent = typeof parent === "string" ? parent : FS.getPath(parent);
+          var parts = path.split("/").reverse();
+          while (parts.length) {
+            var part = parts.pop();
+            if (!part)
+              continue;
+            var current = PATH.join2(parent, part);
+            try {
+              FS.mkdir(current);
+            } catch (e) {
+            }
+            parent = current;
+          }
+          return current;
+        }, createFile: function(parent, name2, properties, canRead, canWrite) {
+          var path = PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2);
+          var mode = FS.getMode(canRead, canWrite);
+          return FS.create(path, mode);
+        }, createDataFile: function(parent, name2, data, canRead, canWrite, canOwn) {
+          var path = name2 ? PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2) : parent;
+          var mode = FS.getMode(canRead, canWrite);
+          var node = FS.create(path, mode);
+          if (data) {
+            if (typeof data === "string") {
+              var arr = new Array(data.length);
+              for (var i = 0, len = data.length; i < len; ++i)
+                arr[i] = data.charCodeAt(i);
+              data = arr;
+            }
+            FS.chmod(node, mode | 146);
+            var stream = FS.open(node, 577);
+            FS.write(stream, data, 0, data.length, 0, canOwn);
+            FS.close(stream);
+            FS.chmod(node, mode);
+          }
+          return node;
+        }, createDevice: function(parent, name2, input, output) {
+          var path = PATH.join2(typeof parent === "string" ? parent : FS.getPath(parent), name2);
+          var mode = FS.getMode(!!input, !!output);
+          if (!FS.createDevice.major)
+            FS.createDevice.major = 64;
+          var dev = FS.makedev(FS.createDevice.major++, 0);
+          FS.registerDevice(dev, { open: function(stream) {
+            stream.seekable = false;
+          }, close: function(stream) {
+            if (output && output.buffer && output.buffer.length) {
+              output(10);
+            }
+          }, read: function(stream, buffer2, offset, length, pos) {
+            var bytesRead = 0;
+            for (var i = 0; i < length; i++) {
+              var result;
+              try {
+                result = input();
+              } catch (e) {
+                throw new FS.ErrnoError(29);
+              }
+              if (result === void 0 && bytesRead === 0) {
+                throw new FS.ErrnoError(6);
+              }
+              if (result === null || result === void 0)
+                break;
+              bytesRead++;
+              buffer2[offset + i] = result;
+            }
+            if (bytesRead) {
+              stream.node.timestamp = Date.now();
+            }
+            return bytesRead;
+          }, write: function(stream, buffer2, offset, length, pos) {
+            for (var i = 0; i < length; i++) {
+              try {
+                output(buffer2[offset + i]);
+              } catch (e) {
+                throw new FS.ErrnoError(29);
+              }
+            }
+            if (length) {
+              stream.node.timestamp = Date.now();
+            }
+            return i;
+          } });
+          return FS.mkdev(path, mode, dev);
+        }, forceLoadFile: function(obj) {
+          if (obj.isDevice || obj.isFolder || obj.link || obj.contents)
+            return true;
+          if (typeof XMLHttpRequest !== "undefined") {
+            throw new Error("Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.");
+          } else if (read_) {
+            try {
+              obj.contents = intArrayFromString(read_(obj.url), true);
+              obj.usedBytes = obj.contents.length;
+            } catch (e) {
+              throw new FS.ErrnoError(29);
+            }
+          } else {
+            throw new Error("Cannot load without read() or XMLHttpRequest.");
+          }
+        }, createLazyFile: function(parent, name2, url, canRead, canWrite) {
+          function LazyUint8Array() {
+            this.lengthKnown = false;
+            this.chunks = [];
+          }
+          LazyUint8Array.prototype.get = function LazyUint8Array_get(idx) {
+            if (idx > this.length - 1 || idx < 0) {
+              return void 0;
+            }
+            var chunkOffset = idx % this.chunkSize;
+            var chunkNum = idx / this.chunkSize | 0;
+            return this.getter(chunkNum)[chunkOffset];
+          };
+          LazyUint8Array.prototype.setDataGetter = function LazyUint8Array_setDataGetter(getter) {
+            this.getter = getter;
+          };
+          LazyUint8Array.prototype.cacheLength = function LazyUint8Array_cacheLength() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("HEAD", url, false);
+            xhr.send(null);
+            if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304))
+              throw new Error("Couldn't load " + url + ". Status: " + xhr.status);
+            var datalength = Number(xhr.getResponseHeader("Content-length"));
+            var header;
+            var hasByteServing = (header = xhr.getResponseHeader("Accept-Ranges")) && header === "bytes";
+            var usesGzip = (header = xhr.getResponseHeader("Content-Encoding")) && header === "gzip";
+            var chunkSize = 1024 * 1024;
+            if (!hasByteServing)
+              chunkSize = datalength;
+            var doXHR = function(from, to) {
+              if (from > to)
+                throw new Error("invalid range (" + from + ", " + to + ") or no bytes requested!");
+              if (to > datalength - 1)
+                throw new Error("only " + datalength + " bytes available! programmer error!");
+              var xhr2 = new XMLHttpRequest();
+              xhr2.open("GET", url, false);
+              if (datalength !== chunkSize)
+                xhr2.setRequestHeader("Range", "bytes=" + from + "-" + to);
+              if (typeof Uint8Array != "undefined")
+                xhr2.responseType = "arraybuffer";
+              if (xhr2.overrideMimeType) {
+                xhr2.overrideMimeType("text/plain; charset=x-user-defined");
+              }
+              xhr2.send(null);
+              if (!(xhr2.status >= 200 && xhr2.status < 300 || xhr2.status === 304))
+                throw new Error("Couldn't load " + url + ". Status: " + xhr2.status);
+              if (xhr2.response !== void 0) {
+                return new Uint8Array(xhr2.response || []);
+              } else {
+                return intArrayFromString(xhr2.responseText || "", true);
+              }
+            };
+            var lazyArray2 = this;
+            lazyArray2.setDataGetter(function(chunkNum) {
+              var start = chunkNum * chunkSize;
+              var end = (chunkNum + 1) * chunkSize - 1;
+              end = Math.min(end, datalength - 1);
+              if (typeof lazyArray2.chunks[chunkNum] === "undefined") {
+                lazyArray2.chunks[chunkNum] = doXHR(start, end);
+              }
+              if (typeof lazyArray2.chunks[chunkNum] === "undefined")
+                throw new Error("doXHR failed!");
+              return lazyArray2.chunks[chunkNum];
+            });
+            if (usesGzip || !datalength) {
+              chunkSize = datalength = 1;
+              datalength = this.getter(0).length;
+              chunkSize = datalength;
+              out("LazyFiles on gzip forces download of the whole file when length is accessed");
+            }
+            this._length = datalength;
+            this._chunkSize = chunkSize;
+            this.lengthKnown = true;
+          };
+          if (typeof XMLHttpRequest !== "undefined") {
+            if (!ENVIRONMENT_IS_WORKER)
+              throw "Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc";
+            var lazyArray = new LazyUint8Array();
+            Object.defineProperties(lazyArray, { length: { get: function() {
+              if (!this.lengthKnown) {
+                this.cacheLength();
+              }
+              return this._length;
+            } }, chunkSize: { get: function() {
+              if (!this.lengthKnown) {
+                this.cacheLength();
+              }
+              return this._chunkSize;
+            } } });
+            var properties = { isDevice: false, contents: lazyArray };
+          } else {
+            var properties = { isDevice: false, url };
+          }
+          var node = FS.createFile(parent, name2, properties, canRead, canWrite);
+          if (properties.contents) {
+            node.contents = properties.contents;
+          } else if (properties.url) {
+            node.contents = null;
+            node.url = properties.url;
+          }
+          Object.defineProperties(node, { usedBytes: { get: function() {
+            return this.contents.length;
+          } } });
+          var stream_ops = {};
+          var keys = Object.keys(node.stream_ops);
+          keys.forEach(function(key2) {
+            var fn = node.stream_ops[key2];
+            stream_ops[key2] = function forceLoadLazyFile() {
+              FS.forceLoadFile(node);
+              return fn.apply(null, arguments);
+            };
+          });
+          stream_ops.read = function stream_ops_read(stream, buffer2, offset, length, position) {
+            FS.forceLoadFile(node);
+            var contents = stream.node.contents;
+            if (position >= contents.length)
+              return 0;
+            var size = Math.min(contents.length - position, length);
+            if (contents.slice) {
+              for (var i = 0; i < size; i++) {
+                buffer2[offset + i] = contents[position + i];
+              }
+            } else {
+              for (var i = 0; i < size; i++) {
+                buffer2[offset + i] = contents.get(position + i);
+              }
+            }
+            return size;
+          };
+          node.stream_ops = stream_ops;
+          return node;
+        }, createPreloadedFile: function(parent, name2, url, canRead, canWrite, onload, onerror, dontCreateFile, canOwn, preFinish) {
+          Browser.init();
+          var fullname = name2 ? PATH_FS.resolve(PATH.join2(parent, name2)) : parent;
+          function processData(byteArray) {
+            function finish(byteArray2) {
+              if (preFinish)
+                preFinish();
+              if (!dontCreateFile) {
+                FS.createDataFile(parent, name2, byteArray2, canRead, canWrite, canOwn);
+              }
+              if (onload)
+                onload();
+              removeRunDependency();
+            }
+            var handled = false;
+            Module["preloadPlugins"].forEach(function(plugin) {
+              if (handled)
+                return;
+              if (plugin["canHandle"](fullname)) {
+                plugin["handle"](byteArray, fullname, finish, function() {
+                  if (onerror)
+                    onerror();
+                  removeRunDependency();
+                });
+                handled = true;
+              }
+            });
+            if (!handled)
+              finish(byteArray);
+          }
+          addRunDependency();
+          if (typeof url == "string") {
+            asyncLoad(url, function(byteArray) {
+              processData(byteArray);
+            }, onerror);
+          } else {
+            processData(url);
+          }
+        }, indexedDB: function() {
+          return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        }, DB_NAME: function() {
+          return "EM_FS_" + window.location.pathname;
+        }, DB_VERSION: 20, DB_STORE_NAME: "FILE_DATA", saveFilesToDB: function(paths, onload, onerror) {
+          onload = onload || function() {
+          };
+          onerror = onerror || function() {
+          };
+          var indexedDB = FS.indexedDB();
+          try {
+            var openRequest = indexedDB.open(FS.DB_NAME(), FS.DB_VERSION);
+          } catch (e) {
+            return onerror(e);
+          }
+          openRequest.onupgradeneeded = function openRequest_onupgradeneeded() {
+            out("creating db");
+            var db = openRequest.result;
+            db.createObjectStore(FS.DB_STORE_NAME);
+          };
+          openRequest.onsuccess = function openRequest_onsuccess() {
+            var db = openRequest.result;
+            var transaction = db.transaction([FS.DB_STORE_NAME], "readwrite");
+            var files = transaction.objectStore(FS.DB_STORE_NAME);
+            var ok = 0, fail = 0, total = paths.length;
+            function finish() {
+              if (fail == 0)
+                onload();
+              else
+                onerror();
+            }
+            paths.forEach(function(path) {
+              var putRequest = files.put(FS.analyzePath(path).object.contents, path);
+              putRequest.onsuccess = function putRequest_onsuccess() {
+                ok++;
+                if (ok + fail == total)
+                  finish();
+              };
+              putRequest.onerror = function putRequest_onerror() {
+                fail++;
+                if (ok + fail == total)
+                  finish();
+              };
+            });
+            transaction.onerror = onerror;
+          };
+          openRequest.onerror = onerror;
+        }, loadFilesFromDB: function(paths, onload, onerror) {
+          onload = onload || function() {
+          };
+          onerror = onerror || function() {
+          };
+          var indexedDB = FS.indexedDB();
+          try {
+            var openRequest = indexedDB.open(FS.DB_NAME(), FS.DB_VERSION);
+          } catch (e) {
+            return onerror(e);
+          }
+          openRequest.onupgradeneeded = onerror;
+          openRequest.onsuccess = function openRequest_onsuccess() {
+            var db = openRequest.result;
+            try {
+              var transaction = db.transaction([FS.DB_STORE_NAME], "readonly");
+            } catch (e) {
+              onerror(e);
+              return;
+            }
+            var files = transaction.objectStore(FS.DB_STORE_NAME);
+            var ok = 0, fail = 0, total = paths.length;
+            function finish() {
+              if (fail == 0)
+                onload();
+              else
+                onerror();
+            }
+            paths.forEach(function(path) {
+              var getRequest = files.get(path);
+              getRequest.onsuccess = function getRequest_onsuccess() {
+                if (FS.analyzePath(path).exists) {
+                  FS.unlink(path);
+                }
+                FS.createDataFile(PATH.dirname(path), PATH.basename(path), getRequest.result, true, true, true);
+                ok++;
+                if (ok + fail == total)
+                  finish();
+              };
+              getRequest.onerror = function getRequest_onerror() {
+                fail++;
+                if (ok + fail == total)
+                  finish();
+              };
+            });
+            transaction.onerror = onerror;
+          };
+          openRequest.onerror = onerror;
+        } };
+        var SYSCALLS = { mappings: {}, DEFAULT_POLLMASK: 5, umask: 511, calculateAt: function(dirfd, path, allowEmpty) {
+          if (path[0] === "/") {
+            return path;
+          }
+          var dir;
+          if (dirfd === -100) {
+            dir = FS.cwd();
+          } else {
+            var dirstream = FS.getStream(dirfd);
+            if (!dirstream)
+              throw new FS.ErrnoError(8);
+            dir = dirstream.path;
+          }
+          if (path.length == 0) {
+            if (!allowEmpty) {
+              throw new FS.ErrnoError(44);
+            }
+            return dir;
+          }
+          return PATH.join2(dir, path);
+        }, doStat: function(func, path, buf) {
+          try {
+            var stat = func(path);
+          } catch (e) {
+            if (e && e.node && PATH.normalize(path) !== PATH.normalize(FS.getPath(e.node))) {
+              return -54;
+            }
+            throw e;
+          }
+          HEAP32[buf >>> 2] = stat.dev;
+          HEAP32[buf + 4 >>> 2] = 0;
+          HEAP32[buf + 8 >>> 2] = stat.ino;
+          HEAP32[buf + 12 >>> 2] = stat.mode;
+          HEAP32[buf + 16 >>> 2] = stat.nlink;
+          HEAP32[buf + 20 >>> 2] = stat.uid;
+          HEAP32[buf + 24 >>> 2] = stat.gid;
+          HEAP32[buf + 28 >>> 2] = stat.rdev;
+          HEAP32[buf + 32 >>> 2] = 0;
+          tempI64 = [stat.size >>> 0, (tempDouble = stat.size, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], HEAP32[buf + 40 >>> 2] = tempI64[0], HEAP32[buf + 44 >>> 2] = tempI64[1];
+          HEAP32[buf + 48 >>> 2] = 4096;
+          HEAP32[buf + 52 >>> 2] = stat.blocks;
+          HEAP32[buf + 56 >>> 2] = stat.atime.getTime() / 1e3 | 0;
+          HEAP32[buf + 60 >>> 2] = 0;
+          HEAP32[buf + 64 >>> 2] = stat.mtime.getTime() / 1e3 | 0;
+          HEAP32[buf + 68 >>> 2] = 0;
+          HEAP32[buf + 72 >>> 2] = stat.ctime.getTime() / 1e3 | 0;
+          HEAP32[buf + 76 >>> 2] = 0;
+          tempI64 = [stat.ino >>> 0, (tempDouble = stat.ino, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], HEAP32[buf + 80 >>> 2] = tempI64[0], HEAP32[buf + 84 >>> 2] = tempI64[1];
+          return 0;
+        }, doMsync: function(addr, stream, len, flags, offset) {
+          var buffer2 = HEAPU8.slice(addr, addr + len);
+          FS.msync(stream, buffer2, offset, len, flags);
+        }, doMkdir: function(path, mode) {
+          path = PATH.normalize(path);
+          if (path[path.length - 1] === "/")
+            path = path.substr(0, path.length - 1);
+          FS.mkdir(path, mode, 0);
+          return 0;
+        }, doMknod: function(path, mode, dev) {
+          switch (mode & 61440) {
+            case 32768:
+            case 8192:
+            case 24576:
+            case 4096:
+            case 49152:
+              break;
+            default:
+              return -28;
+          }
+          FS.mknod(path, mode, dev);
+          return 0;
+        }, doReadlink: function(path, buf, bufsize) {
+          if (bufsize <= 0)
+            return -28;
+          var ret = FS.readlink(path);
+          var len = Math.min(bufsize, lengthBytesUTF8(ret));
+          var endChar = HEAP8[buf + len >>> 0];
+          stringToUTF8(ret, buf, bufsize + 1);
+          HEAP8[buf + len >>> 0] = endChar;
+          return len;
+        }, doAccess: function(path, amode) {
+          if (amode & ~7) {
+            return -28;
+          }
+          var node;
+          var lookup = FS.lookupPath(path, { follow: true });
+          node = lookup.node;
+          if (!node) {
+            return -44;
+          }
+          var perms = "";
+          if (amode & 4)
+            perms += "r";
+          if (amode & 2)
+            perms += "w";
+          if (amode & 1)
+            perms += "x";
+          if (perms && FS.nodePermissions(node, perms)) {
+            return -2;
+          }
+          return 0;
+        }, doDup: function(path, flags, suggestFD) {
+          var suggest = FS.getStream(suggestFD);
+          if (suggest)
+            FS.close(suggest);
+          return FS.open(path, flags, 0, suggestFD, suggestFD).fd;
+        }, doReadv: function(stream, iov, iovcnt, offset) {
+          var ret = 0;
+          for (var i = 0; i < iovcnt; i++) {
+            var ptr = HEAP32[iov + i * 8 >>> 2];
+            var len = HEAP32[iov + (i * 8 + 4) >>> 2];
+            var curr = FS.read(stream, HEAP8, ptr, len, offset);
+            if (curr < 0)
+              return -1;
+            ret += curr;
+            if (curr < len)
+              break;
+          }
+          return ret;
+        }, doWritev: function(stream, iov, iovcnt, offset) {
+          var ret = 0;
+          for (var i = 0; i < iovcnt; i++) {
+            var ptr = HEAP32[iov + i * 8 >>> 2];
+            var len = HEAP32[iov + (i * 8 + 4) >>> 2];
+            var curr = FS.write(stream, HEAP8, ptr, len, offset);
+            if (curr < 0)
+              return -1;
+            ret += curr;
+          }
+          return ret;
+        }, varargs: void 0, get: function() {
+          SYSCALLS.varargs += 4;
+          var ret = HEAP32[SYSCALLS.varargs - 4 >>> 2];
+          return ret;
+        }, getStr: function(ptr) {
+          var ret = UTF8ToString(ptr);
+          return ret;
+        }, getStreamFromFD: function(fd) {
+          var stream = FS.getStream(fd);
+          if (!stream)
+            throw new FS.ErrnoError(8);
+          return stream;
+        }, get64: function(low, high) {
+          return low;
+        } };
+        function ___sys_fcntl64(fd, cmd, varargs) {
+          SYSCALLS.varargs = varargs;
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            switch (cmd) {
+              case 0: {
+                var arg = SYSCALLS.get();
+                if (arg < 0) {
+                  return -28;
+                }
+                var newStream;
+                newStream = FS.open(stream.path, stream.flags, 0, arg);
+                return newStream.fd;
+              }
+              case 1:
+              case 2:
+                return 0;
+              case 3:
+                return stream.flags;
+              case 4: {
+                var arg = SYSCALLS.get();
+                stream.flags |= arg;
+                return 0;
+              }
+              case 12: {
+                var arg = SYSCALLS.get();
+                var offset = 0;
+                HEAP16[arg + offset >>> 1] = 2;
+                return 0;
+              }
+              case 13:
+              case 14:
+                return 0;
+              case 16:
+              case 8:
+                return -28;
+              case 9:
+                setErrNo(28);
+                return -1;
+              default: {
+                return -28;
+              }
+            }
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        function ___sys_ioctl(fd, op, varargs) {
+          SYSCALLS.varargs = varargs;
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            switch (op) {
+              case 21509:
+              case 21505: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21510:
+              case 21511:
+              case 21512:
+              case 21506:
+              case 21507:
+              case 21508: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21519: {
+                if (!stream.tty)
+                  return -59;
+                var argp = SYSCALLS.get();
+                HEAP32[argp >>> 2] = 0;
+                return 0;
+              }
+              case 21520: {
+                if (!stream.tty)
+                  return -59;
+                return -28;
+              }
+              case 21531: {
+                var argp = SYSCALLS.get();
+                return FS.ioctl(stream, op, argp);
+              }
+              case 21523: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              case 21524: {
+                if (!stream.tty)
+                  return -59;
+                return 0;
+              }
+              default:
+                abort("bad ioctl syscall " + op);
+            }
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        function ___sys_open(path, flags, varargs) {
+          SYSCALLS.varargs = varargs;
+          try {
+            var pathname = SYSCALLS.getStr(path);
+            var mode = varargs ? SYSCALLS.get() : 0;
+            var stream = FS.open(pathname, flags, mode);
+            return stream.fd;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return -e.errno;
+          }
+        }
+        var tupleRegistrations = {};
+        function runDestructors(destructors) {
+          while (destructors.length) {
+            var ptr = destructors.pop();
+            var del = destructors.pop();
+            del(ptr);
+          }
+        }
+        function simpleReadValueFromPointer(pointer) {
+          return this["fromWireType"](HEAPU32[pointer >>> 2]);
+        }
+        var awaitingDependencies = {};
+        var registeredTypes = {};
+        var typeDependencies = {};
+        var char_0 = 48;
+        var char_9 = 57;
+        function makeLegalFunctionName(name2) {
+          if (name2 === void 0) {
+            return "_unknown";
+          }
+          name2 = name2.replace(/[^a-zA-Z0-9_]/g, "$");
+          var f = name2.charCodeAt(0);
+          if (f >= char_0 && f <= char_9) {
+            return "_" + name2;
+          } else {
+            return name2;
+          }
+        }
+        function createNamedFunction(name2, body) {
+          name2 = makeLegalFunctionName(name2);
+          return new Function("body", "return function " + name2 + '() {\n    "use strict";    return body.apply(this, arguments);\n};\n')(body);
+        }
+        function extendError(baseErrorType, errorName) {
+          var errorClass = createNamedFunction(errorName, function(message) {
+            this.name = errorName;
+            this.message = message;
+            var stack = new Error(message).stack;
+            if (stack !== void 0) {
+              this.stack = this.toString() + "\n" + stack.replace(/^Error(:[^\n]*)?\n/, "");
+            }
+          });
+          errorClass.prototype = Object.create(baseErrorType.prototype);
+          errorClass.prototype.constructor = errorClass;
+          errorClass.prototype.toString = function() {
+            if (this.message === void 0) {
+              return this.name;
+            } else {
+              return this.name + ": " + this.message;
+            }
+          };
+          return errorClass;
+        }
+        var InternalError = void 0;
+        function throwInternalError(message) {
+          throw new InternalError(message);
+        }
+        function whenDependentTypesAreResolved(myTypes, dependentTypes, getTypeConverters) {
+          myTypes.forEach(function(type) {
+            typeDependencies[type] = dependentTypes;
+          });
+          function onComplete(typeConverters2) {
+            var myTypeConverters = getTypeConverters(typeConverters2);
+            if (myTypeConverters.length !== myTypes.length) {
+              throwInternalError("Mismatched type converter count");
+            }
+            for (var i = 0; i < myTypes.length; ++i) {
+              registerType(myTypes[i], myTypeConverters[i]);
+            }
+          }
+          var typeConverters = new Array(dependentTypes.length);
+          var unregisteredTypes = [];
+          var registered = 0;
+          dependentTypes.forEach(function(dt, i) {
+            if (registeredTypes.hasOwnProperty(dt)) {
+              typeConverters[i] = registeredTypes[dt];
+            } else {
+              unregisteredTypes.push(dt);
+              if (!awaitingDependencies.hasOwnProperty(dt)) {
+                awaitingDependencies[dt] = [];
+              }
+              awaitingDependencies[dt].push(function() {
+                typeConverters[i] = registeredTypes[dt];
+                ++registered;
+                if (registered === unregisteredTypes.length) {
+                  onComplete(typeConverters);
+                }
+              });
+            }
+          });
+          if (unregisteredTypes.length === 0) {
+            onComplete(typeConverters);
+          }
+        }
+        function __embind_finalize_value_array(rawTupleType) {
+          var reg = tupleRegistrations[rawTupleType];
+          delete tupleRegistrations[rawTupleType];
+          var elements = reg.elements;
+          var elementsLength = elements.length;
+          var elementTypes = elements.map(function(elt) {
+            return elt.getterReturnType;
+          }).concat(elements.map(function(elt) {
+            return elt.setterArgumentType;
+          }));
+          var rawConstructor = reg.rawConstructor;
+          var rawDestructor = reg.rawDestructor;
+          whenDependentTypesAreResolved([rawTupleType], elementTypes, function(elementTypes2) {
+            elements.forEach(function(elt, i) {
+              var getterReturnType = elementTypes2[i];
+              var getter = elt.getter;
+              var getterContext = elt.getterContext;
+              var setterArgumentType = elementTypes2[i + elementsLength];
+              var setter = elt.setter;
+              var setterContext = elt.setterContext;
+              elt.read = function(ptr) {
+                return getterReturnType["fromWireType"](getter(getterContext, ptr));
+              };
+              elt.write = function(ptr, o) {
+                var destructors = [];
+                setter(setterContext, ptr, setterArgumentType["toWireType"](destructors, o));
+                runDestructors(destructors);
+              };
+            });
+            return [{ name: reg.name, "fromWireType": function(ptr) {
+              var rv = new Array(elementsLength);
+              for (var i = 0; i < elementsLength; ++i) {
+                rv[i] = elements[i].read(ptr);
+              }
+              rawDestructor(ptr);
+              return rv;
+            }, "toWireType": function(destructors, o) {
+              if (elementsLength !== o.length) {
+                throw new TypeError("Incorrect number of tuple elements for " + reg.name + ": expected=" + elementsLength + ", actual=" + o.length);
+              }
+              var ptr = rawConstructor();
+              for (var i = 0; i < elementsLength; ++i) {
+                elements[i].write(ptr, o[i]);
+              }
+              if (destructors !== null) {
+                destructors.push(rawDestructor, ptr);
+              }
+              return ptr;
+            }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: rawDestructor }];
+          });
+        }
+        var structRegistrations = {};
+        function __embind_finalize_value_object(structType) {
+          var reg = structRegistrations[structType];
+          delete structRegistrations[structType];
+          var rawConstructor = reg.rawConstructor;
+          var rawDestructor = reg.rawDestructor;
+          var fieldRecords = reg.fields;
+          var fieldTypes = fieldRecords.map(function(field) {
+            return field.getterReturnType;
+          }).concat(fieldRecords.map(function(field) {
+            return field.setterArgumentType;
+          }));
+          whenDependentTypesAreResolved([structType], fieldTypes, function(fieldTypes2) {
+            var fields = {};
+            fieldRecords.forEach(function(field, i) {
+              var fieldName = field.fieldName;
+              var getterReturnType = fieldTypes2[i];
+              var getter = field.getter;
+              var getterContext = field.getterContext;
+              var setterArgumentType = fieldTypes2[i + fieldRecords.length];
+              var setter = field.setter;
+              var setterContext = field.setterContext;
+              fields[fieldName] = { read: function(ptr) {
+                return getterReturnType["fromWireType"](getter(getterContext, ptr));
+              }, write: function(ptr, o) {
+                var destructors = [];
+                setter(setterContext, ptr, setterArgumentType["toWireType"](destructors, o));
+                runDestructors(destructors);
+              } };
+            });
+            return [{ name: reg.name, "fromWireType": function(ptr) {
+              var rv = {};
+              for (var i in fields) {
+                rv[i] = fields[i].read(ptr);
+              }
+              rawDestructor(ptr);
+              return rv;
+            }, "toWireType": function(destructors, o) {
+              for (var fieldName in fields) {
+                if (!(fieldName in o)) {
+                  throw new TypeError('Missing field:  "' + fieldName + '"');
+                }
+              }
+              var ptr = rawConstructor();
+              for (fieldName in fields) {
+                fields[fieldName].write(ptr, o[fieldName]);
+              }
+              if (destructors !== null) {
+                destructors.push(rawDestructor, ptr);
+              }
+              return ptr;
+            }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: rawDestructor }];
+          });
+        }
+        function __embind_register_bigint(primitiveType, name2, size, minRange, maxRange) {
+        }
+        function getShiftFromSize(size) {
+          switch (size) {
+            case 1:
+              return 0;
+            case 2:
+              return 1;
+            case 4:
+              return 2;
+            case 8:
+              return 3;
+            default:
+              throw new TypeError("Unknown type size: " + size);
+          }
+        }
+        function embind_init_charCodes() {
+          var codes = new Array(256);
+          for (var i = 0; i < 256; ++i) {
+            codes[i] = String.fromCharCode(i);
+          }
+          embind_charCodes = codes;
+        }
+        var embind_charCodes = void 0;
+        function readLatin1String(ptr) {
+          var ret = "";
+          var c = ptr;
+          while (HEAPU8[c >>> 0]) {
+            ret += embind_charCodes[HEAPU8[c++ >>> 0]];
+          }
+          return ret;
+        }
+        var BindingError = void 0;
+        function throwBindingError(message) {
+          throw new BindingError(message);
+        }
+        function registerType(rawType, registeredInstance, options) {
+          options = options || {};
+          if (!("argPackAdvance" in registeredInstance)) {
+            throw new TypeError("registerType registeredInstance requires argPackAdvance");
+          }
+          var name2 = registeredInstance.name;
+          if (!rawType) {
+            throwBindingError('type "' + name2 + '" must have a positive integer typeid pointer');
+          }
+          if (registeredTypes.hasOwnProperty(rawType)) {
+            if (options.ignoreDuplicateRegistrations) {
+              return;
+            } else {
+              throwBindingError("Cannot register type '" + name2 + "' twice");
+            }
+          }
+          registeredTypes[rawType] = registeredInstance;
+          delete typeDependencies[rawType];
+          if (awaitingDependencies.hasOwnProperty(rawType)) {
+            var callbacks = awaitingDependencies[rawType];
+            delete awaitingDependencies[rawType];
+            callbacks.forEach(function(cb) {
+              cb();
+            });
+          }
+        }
+        function __embind_register_bool(rawType, name2, size, trueValue, falseValue) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(wt) {
+            return !!wt;
+          }, "toWireType": function(destructors, o) {
+            return o ? trueValue : falseValue;
+          }, "argPackAdvance": 8, "readValueFromPointer": function(pointer) {
+            var heap;
+            if (size === 1) {
+              heap = HEAP8;
+            } else if (size === 2) {
+              heap = HEAP16;
+            } else if (size === 4) {
+              heap = HEAP32;
+            } else {
+              throw new TypeError("Unknown boolean type size: " + name2);
+            }
+            return this["fromWireType"](heap[pointer >>> shift]);
+          }, destructorFunction: null });
+        }
+        function ClassHandle_isAliasOf(other) {
+          if (!(this instanceof ClassHandle)) {
+            return false;
+          }
+          if (!(other instanceof ClassHandle)) {
+            return false;
+          }
+          var leftClass = this.$$.ptrType.registeredClass;
+          var left = this.$$.ptr;
+          var rightClass = other.$$.ptrType.registeredClass;
+          var right = other.$$.ptr;
+          while (leftClass.baseClass) {
+            left = leftClass.upcast(left);
+            leftClass = leftClass.baseClass;
+          }
+          while (rightClass.baseClass) {
+            right = rightClass.upcast(right);
+            rightClass = rightClass.baseClass;
+          }
+          return leftClass === rightClass && left === right;
+        }
+        function shallowCopyInternalPointer(o) {
+          return { count: o.count, deleteScheduled: o.deleteScheduled, preservePointerOnDelete: o.preservePointerOnDelete, ptr: o.ptr, ptrType: o.ptrType, smartPtr: o.smartPtr, smartPtrType: o.smartPtrType };
+        }
+        function throwInstanceAlreadyDeleted(obj) {
+          function getInstanceTypeName(handle) {
+            return handle.$$.ptrType.registeredClass.name;
+          }
+          throwBindingError(getInstanceTypeName(obj) + " instance already deleted");
+        }
+        var finalizationGroup = false;
+        function detachFinalizer(handle) {
+        }
+        function runDestructor($$) {
+          if ($$.smartPtr) {
+            $$.smartPtrType.rawDestructor($$.smartPtr);
+          } else {
+            $$.ptrType.registeredClass.rawDestructor($$.ptr);
+          }
+        }
+        function releaseClassHandle($$) {
+          $$.count.value -= 1;
+          var toDelete = $$.count.value === 0;
+          if (toDelete) {
+            runDestructor($$);
+          }
+        }
+        function attachFinalizer(handle) {
+          if (typeof FinalizationGroup === "undefined") {
+            attachFinalizer = function(handle2) {
+              return handle2;
+            };
+            return handle;
+          }
+          finalizationGroup = new FinalizationGroup(function(iter) {
+            for (var result = iter.next(); !result.done; result = iter.next()) {
+              var $$ = result.value;
+              if (!$$.ptr) {
+                console.warn("object already deleted: " + $$.ptr);
+              } else {
+                releaseClassHandle($$);
+              }
+            }
+          });
+          attachFinalizer = function(handle2) {
+            finalizationGroup.register(handle2, handle2.$$, handle2.$$);
+            return handle2;
+          };
+          detachFinalizer = function(handle2) {
+            finalizationGroup.unregister(handle2.$$);
+          };
+          return attachFinalizer(handle);
+        }
+        function ClassHandle_clone() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.preservePointerOnDelete) {
+            this.$$.count.value += 1;
+            return this;
+          } else {
+            var clone = attachFinalizer(Object.create(Object.getPrototypeOf(this), { $$: { value: shallowCopyInternalPointer(this.$$) } }));
+            clone.$$.count.value += 1;
+            clone.$$.deleteScheduled = false;
+            return clone;
+          }
+        }
+        function ClassHandle_delete() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.deleteScheduled && !this.$$.preservePointerOnDelete) {
+            throwBindingError("Object already scheduled for deletion");
+          }
+          detachFinalizer(this);
+          releaseClassHandle(this.$$);
+          if (!this.$$.preservePointerOnDelete) {
+            this.$$.smartPtr = void 0;
+            this.$$.ptr = void 0;
+          }
+        }
+        function ClassHandle_isDeleted() {
+          return !this.$$.ptr;
+        }
+        var delayFunction = void 0;
+        var deletionQueue = [];
+        function flushPendingDeletes() {
+          while (deletionQueue.length) {
+            var obj = deletionQueue.pop();
+            obj.$$.deleteScheduled = false;
+            obj["delete"]();
+          }
+        }
+        function ClassHandle_deleteLater() {
+          if (!this.$$.ptr) {
+            throwInstanceAlreadyDeleted(this);
+          }
+          if (this.$$.deleteScheduled && !this.$$.preservePointerOnDelete) {
+            throwBindingError("Object already scheduled for deletion");
+          }
+          deletionQueue.push(this);
+          if (deletionQueue.length === 1 && delayFunction) {
+            delayFunction(flushPendingDeletes);
+          }
+          this.$$.deleteScheduled = true;
+          return this;
+        }
+        function init_ClassHandle() {
+          ClassHandle.prototype["isAliasOf"] = ClassHandle_isAliasOf;
+          ClassHandle.prototype["clone"] = ClassHandle_clone;
+          ClassHandle.prototype["delete"] = ClassHandle_delete;
+          ClassHandle.prototype["isDeleted"] = ClassHandle_isDeleted;
+          ClassHandle.prototype["deleteLater"] = ClassHandle_deleteLater;
+        }
+        function ClassHandle() {
+        }
+        var registeredPointers = {};
+        function ensureOverloadTable(proto, methodName, humanName) {
+          if (proto[methodName].overloadTable === void 0) {
+            var prevFunc = proto[methodName];
+            proto[methodName] = function() {
+              if (!proto[methodName].overloadTable.hasOwnProperty(arguments.length)) {
+                throwBindingError("Function '" + humanName + "' called with an invalid number of arguments (" + arguments.length + ") - expects one of (" + proto[methodName].overloadTable + ")!");
+              }
+              return proto[methodName].overloadTable[arguments.length].apply(this, arguments);
+            };
+            proto[methodName].overloadTable = [];
+            proto[methodName].overloadTable[prevFunc.argCount] = prevFunc;
+          }
+        }
+        function exposePublicSymbol(name2, value, numArguments) {
+          if (Module.hasOwnProperty(name2)) {
+            if (numArguments === void 0 || Module[name2].overloadTable !== void 0 && Module[name2].overloadTable[numArguments] !== void 0) {
+              throwBindingError("Cannot register public name '" + name2 + "' twice");
+            }
+            ensureOverloadTable(Module, name2, name2);
+            if (Module.hasOwnProperty(numArguments)) {
+              throwBindingError("Cannot register multiple overloads of a function with the same number of arguments (" + numArguments + ")!");
+            }
+            Module[name2].overloadTable[numArguments] = value;
+          } else {
+            Module[name2] = value;
+            if (numArguments !== void 0) {
+              Module[name2].numArguments = numArguments;
+            }
+          }
+        }
+        function RegisteredClass(name2, constructor, instancePrototype, rawDestructor, baseClass, getActualType, upcast, downcast) {
+          this.name = name2;
+          this.constructor = constructor;
+          this.instancePrototype = instancePrototype;
+          this.rawDestructor = rawDestructor;
+          this.baseClass = baseClass;
+          this.getActualType = getActualType;
+          this.upcast = upcast;
+          this.downcast = downcast;
+          this.pureVirtualFunctions = [];
+        }
+        function upcastPointer(ptr, ptrClass, desiredClass) {
+          while (ptrClass !== desiredClass) {
+            if (!ptrClass.upcast) {
+              throwBindingError("Expected null or instance of " + desiredClass.name + ", got an instance of " + ptrClass.name);
+            }
+            ptr = ptrClass.upcast(ptr);
+            ptrClass = ptrClass.baseClass;
+          }
+          return ptr;
+        }
+        function constNoSmartPtrRawPointerToWireType(destructors, handle) {
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            return 0;
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          var ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          return ptr;
+        }
+        function genericPointerToWireType(destructors, handle) {
+          var ptr;
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            if (this.isSmartPointer) {
+              ptr = this.rawConstructor();
+              if (destructors !== null) {
+                destructors.push(this.rawDestructor, ptr);
+              }
+              return ptr;
+            } else {
+              return 0;
+            }
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          if (!this.isConst && handle.$$.ptrType.isConst) {
+            throwBindingError("Cannot convert argument of type " + (handle.$$.smartPtrType ? handle.$$.smartPtrType.name : handle.$$.ptrType.name) + " to parameter type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          if (this.isSmartPointer) {
+            if (handle.$$.smartPtr === void 0) {
+              throwBindingError("Passing raw pointer to smart pointer is illegal");
+            }
+            switch (this.sharingPolicy) {
+              case 0:
+                if (handle.$$.smartPtrType === this) {
+                  ptr = handle.$$.smartPtr;
+                } else {
+                  throwBindingError("Cannot convert argument of type " + (handle.$$.smartPtrType ? handle.$$.smartPtrType.name : handle.$$.ptrType.name) + " to parameter type " + this.name);
+                }
+                break;
+              case 1:
+                ptr = handle.$$.smartPtr;
+                break;
+              case 2:
+                if (handle.$$.smartPtrType === this) {
+                  ptr = handle.$$.smartPtr;
+                } else {
+                  var clonedHandle = handle["clone"]();
+                  ptr = this.rawShare(ptr, __emval_register(function() {
+                    clonedHandle["delete"]();
+                  }));
+                  if (destructors !== null) {
+                    destructors.push(this.rawDestructor, ptr);
+                  }
+                }
+                break;
+              default:
+                throwBindingError("Unsupporting sharing policy");
+            }
+          }
+          return ptr;
+        }
+        function nonConstNoSmartPtrRawPointerToWireType(destructors, handle) {
+          if (handle === null) {
+            if (this.isReference) {
+              throwBindingError("null is not a valid " + this.name);
+            }
+            return 0;
+          }
+          if (!handle.$$) {
+            throwBindingError('Cannot pass "' + _embind_repr(handle) + '" as a ' + this.name);
+          }
+          if (!handle.$$.ptr) {
+            throwBindingError("Cannot pass deleted object as a pointer of type " + this.name);
+          }
+          if (handle.$$.ptrType.isConst) {
+            throwBindingError("Cannot convert argument of type " + handle.$$.ptrType.name + " to parameter type " + this.name);
+          }
+          var handleClass = handle.$$.ptrType.registeredClass;
+          var ptr = upcastPointer(handle.$$.ptr, handleClass, this.registeredClass);
+          return ptr;
+        }
+        function RegisteredPointer_getPointee(ptr) {
+          if (this.rawGetPointee) {
+            ptr = this.rawGetPointee(ptr);
+          }
+          return ptr;
+        }
+        function RegisteredPointer_destructor(ptr) {
+          if (this.rawDestructor) {
+            this.rawDestructor(ptr);
+          }
+        }
+        function RegisteredPointer_deleteObject(handle) {
+          if (handle !== null) {
+            handle["delete"]();
+          }
+        }
+        function downcastPointer(ptr, ptrClass, desiredClass) {
+          if (ptrClass === desiredClass) {
+            return ptr;
+          }
+          if (desiredClass.baseClass === void 0) {
+            return null;
+          }
+          var rv = downcastPointer(ptr, ptrClass, desiredClass.baseClass);
+          if (rv === null) {
+            return null;
+          }
+          return desiredClass.downcast(rv);
+        }
+        function getInheritedInstanceCount() {
+          return Object.keys(registeredInstances).length;
+        }
+        function getLiveInheritedInstances() {
+          var rv = [];
+          for (var k in registeredInstances) {
+            if (registeredInstances.hasOwnProperty(k)) {
+              rv.push(registeredInstances[k]);
+            }
+          }
+          return rv;
+        }
+        function setDelayFunction(fn) {
+          delayFunction = fn;
+          if (deletionQueue.length && delayFunction) {
+            delayFunction(flushPendingDeletes);
+          }
+        }
+        function init_embind() {
+          Module["getInheritedInstanceCount"] = getInheritedInstanceCount;
+          Module["getLiveInheritedInstances"] = getLiveInheritedInstances;
+          Module["flushPendingDeletes"] = flushPendingDeletes;
+          Module["setDelayFunction"] = setDelayFunction;
+        }
+        var registeredInstances = {};
+        function getBasestPointer(class_, ptr) {
+          if (ptr === void 0) {
+            throwBindingError("ptr should not be undefined");
+          }
+          while (class_.baseClass) {
+            ptr = class_.upcast(ptr);
+            class_ = class_.baseClass;
+          }
+          return ptr;
+        }
+        function getInheritedInstance(class_, ptr) {
+          ptr = getBasestPointer(class_, ptr);
+          return registeredInstances[ptr];
+        }
+        function makeClassHandle(prototype, record) {
+          if (!record.ptrType || !record.ptr) {
+            throwInternalError("makeClassHandle requires ptr and ptrType");
+          }
+          var hasSmartPtrType = !!record.smartPtrType;
+          var hasSmartPtr = !!record.smartPtr;
+          if (hasSmartPtrType !== hasSmartPtr) {
+            throwInternalError("Both smartPtrType and smartPtr must be specified");
+          }
+          record.count = { value: 1 };
+          return attachFinalizer(Object.create(prototype, { $$: { value: record } }));
+        }
+        function RegisteredPointer_fromWireType(ptr) {
+          var rawPointer = this.getPointee(ptr);
+          if (!rawPointer) {
+            this.destructor(ptr);
+            return null;
+          }
+          var registeredInstance = getInheritedInstance(this.registeredClass, rawPointer);
+          if (registeredInstance !== void 0) {
+            if (registeredInstance.$$.count.value === 0) {
+              registeredInstance.$$.ptr = rawPointer;
+              registeredInstance.$$.smartPtr = ptr;
+              return registeredInstance["clone"]();
+            } else {
+              var rv = registeredInstance["clone"]();
+              this.destructor(ptr);
+              return rv;
+            }
+          }
+          function makeDefaultHandle() {
+            if (this.isSmartPointer) {
+              return makeClassHandle(this.registeredClass.instancePrototype, { ptrType: this.pointeeType, ptr: rawPointer, smartPtrType: this, smartPtr: ptr });
+            } else {
+              return makeClassHandle(this.registeredClass.instancePrototype, { ptrType: this, ptr });
+            }
+          }
+          var actualType = this.registeredClass.getActualType(rawPointer);
+          var registeredPointerRecord = registeredPointers[actualType];
+          if (!registeredPointerRecord) {
+            return makeDefaultHandle.call(this);
+          }
+          var toType;
+          if (this.isConst) {
+            toType = registeredPointerRecord.constPointerType;
+          } else {
+            toType = registeredPointerRecord.pointerType;
+          }
+          var dp = downcastPointer(rawPointer, this.registeredClass, toType.registeredClass);
+          if (dp === null) {
+            return makeDefaultHandle.call(this);
+          }
+          if (this.isSmartPointer) {
+            return makeClassHandle(toType.registeredClass.instancePrototype, { ptrType: toType, ptr: dp, smartPtrType: this, smartPtr: ptr });
+          } else {
+            return makeClassHandle(toType.registeredClass.instancePrototype, { ptrType: toType, ptr: dp });
+          }
+        }
+        function init_RegisteredPointer() {
+          RegisteredPointer.prototype.getPointee = RegisteredPointer_getPointee;
+          RegisteredPointer.prototype.destructor = RegisteredPointer_destructor;
+          RegisteredPointer.prototype["argPackAdvance"] = 8;
+          RegisteredPointer.prototype["readValueFromPointer"] = simpleReadValueFromPointer;
+          RegisteredPointer.prototype["deleteObject"] = RegisteredPointer_deleteObject;
+          RegisteredPointer.prototype["fromWireType"] = RegisteredPointer_fromWireType;
+        }
+        function RegisteredPointer(name2, registeredClass, isReference, isConst, isSmartPointer, pointeeType, sharingPolicy, rawGetPointee, rawConstructor, rawShare, rawDestructor) {
+          this.name = name2;
+          this.registeredClass = registeredClass;
+          this.isReference = isReference;
+          this.isConst = isConst;
+          this.isSmartPointer = isSmartPointer;
+          this.pointeeType = pointeeType;
+          this.sharingPolicy = sharingPolicy;
+          this.rawGetPointee = rawGetPointee;
+          this.rawConstructor = rawConstructor;
+          this.rawShare = rawShare;
+          this.rawDestructor = rawDestructor;
+          if (!isSmartPointer && registeredClass.baseClass === void 0) {
+            if (isConst) {
+              this["toWireType"] = constNoSmartPtrRawPointerToWireType;
+              this.destructorFunction = null;
+            } else {
+              this["toWireType"] = nonConstNoSmartPtrRawPointerToWireType;
+              this.destructorFunction = null;
+            }
+          } else {
+            this["toWireType"] = genericPointerToWireType;
+          }
+        }
+        function replacePublicSymbol(name2, value, numArguments) {
+          if (!Module.hasOwnProperty(name2)) {
+            throwInternalError("Replacing nonexistant public symbol");
+          }
+          if (Module[name2].overloadTable !== void 0 && numArguments !== void 0) {
+            Module[name2].overloadTable[numArguments] = value;
+          } else {
+            Module[name2] = value;
+            Module[name2].argCount = numArguments;
+          }
+        }
+        function dynCallLegacy(sig, ptr, args) {
+          var f = Module["dynCall_" + sig];
+          return args && args.length ? f.apply(null, [ptr].concat(args)) : f.call(null, ptr);
+        }
+        function dynCall(sig, ptr, args) {
+          if (sig.includes("j")) {
+            return dynCallLegacy(sig, ptr, args);
+          }
+          return wasmTable.get(ptr).apply(null, args);
+        }
+        function getDynCaller(sig, ptr) {
+          var argCache = [];
+          return function() {
+            argCache.length = arguments.length;
+            for (var i = 0; i < arguments.length; i++) {
+              argCache[i] = arguments[i];
+            }
+            return dynCall(sig, ptr, argCache);
+          };
+        }
+        function embind__requireFunction(signature, rawFunction) {
+          signature = readLatin1String(signature);
+          function makeDynCaller() {
+            if (signature.includes("j")) {
+              return getDynCaller(signature, rawFunction);
+            }
+            return wasmTable.get(rawFunction);
+          }
+          var fp = makeDynCaller();
+          if (typeof fp !== "function") {
+            throwBindingError("unknown function pointer with signature " + signature + ": " + rawFunction);
+          }
+          return fp;
+        }
+        var UnboundTypeError = void 0;
+        function getTypeName(type) {
+          var ptr = ___getTypeName(type);
+          var rv = readLatin1String(ptr);
+          _free(ptr);
+          return rv;
+        }
+        function throwUnboundTypeError(message, types) {
+          var unboundTypes = [];
+          var seen = {};
+          function visit(type) {
+            if (seen[type]) {
+              return;
+            }
+            if (registeredTypes[type]) {
+              return;
+            }
+            if (typeDependencies[type]) {
+              typeDependencies[type].forEach(visit);
+              return;
+            }
+            unboundTypes.push(type);
+            seen[type] = true;
+          }
+          types.forEach(visit);
+          throw new UnboundTypeError(message + ": " + unboundTypes.map(getTypeName).join([", "]));
+        }
+        function __embind_register_class(rawType, rawPointerType, rawConstPointerType, baseClassRawType, getActualTypeSignature, getActualType, upcastSignature, upcast, downcastSignature, downcast, name2, destructorSignature, rawDestructor) {
+          name2 = readLatin1String(name2);
+          getActualType = embind__requireFunction(getActualTypeSignature, getActualType);
+          if (upcast) {
+            upcast = embind__requireFunction(upcastSignature, upcast);
+          }
+          if (downcast) {
+            downcast = embind__requireFunction(downcastSignature, downcast);
+          }
+          rawDestructor = embind__requireFunction(destructorSignature, rawDestructor);
+          var legalFunctionName = makeLegalFunctionName(name2);
+          exposePublicSymbol(legalFunctionName, function() {
+            throwUnboundTypeError("Cannot construct " + name2 + " due to unbound types", [baseClassRawType]);
+          });
+          whenDependentTypesAreResolved([rawType, rawPointerType, rawConstPointerType], baseClassRawType ? [baseClassRawType] : [], function(base) {
+            base = base[0];
+            var baseClass;
+            var basePrototype;
+            if (baseClassRawType) {
+              baseClass = base.registeredClass;
+              basePrototype = baseClass.instancePrototype;
+            } else {
+              basePrototype = ClassHandle.prototype;
+            }
+            var constructor = createNamedFunction(legalFunctionName, function() {
+              if (Object.getPrototypeOf(this) !== instancePrototype) {
+                throw new BindingError("Use 'new' to construct " + name2);
+              }
+              if (registeredClass.constructor_body === void 0) {
+                throw new BindingError(name2 + " has no accessible constructor");
+              }
+              var body = registeredClass.constructor_body[arguments.length];
+              if (body === void 0) {
+                throw new BindingError("Tried to invoke ctor of " + name2 + " with invalid number of parameters (" + arguments.length + ") - expected (" + Object.keys(registeredClass.constructor_body).toString() + ") parameters instead!");
+              }
+              return body.apply(this, arguments);
+            });
+            var instancePrototype = Object.create(basePrototype, { constructor: { value: constructor } });
+            constructor.prototype = instancePrototype;
+            var registeredClass = new RegisteredClass(name2, constructor, instancePrototype, rawDestructor, baseClass, getActualType, upcast, downcast);
+            var referenceConverter = new RegisteredPointer(name2, registeredClass, true, false, false);
+            var pointerConverter = new RegisteredPointer(name2 + "*", registeredClass, false, false, false);
+            var constPointerConverter = new RegisteredPointer(name2 + " const*", registeredClass, false, true, false);
+            registeredPointers[rawType] = { pointerType: pointerConverter, constPointerType: constPointerConverter };
+            replacePublicSymbol(legalFunctionName, constructor);
+            return [referenceConverter, pointerConverter, constPointerConverter];
+          });
+        }
+        function heap32VectorToArray(count, firstElement) {
+          var array = [];
+          for (var i = 0; i < count; i++) {
+            array.push(HEAP32[(firstElement >> 2) + i >>> 0]);
+          }
+          return array;
+        }
+        function __embind_register_class_constructor(rawClassType, argCount, rawArgTypesAddr, invokerSignature, invoker, rawConstructor) {
+          assert(argCount > 0);
+          var rawArgTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          invoker = embind__requireFunction(invokerSignature, invoker);
+          var args = [rawConstructor];
+          var destructors = [];
+          whenDependentTypesAreResolved([], [rawClassType], function(classType) {
+            classType = classType[0];
+            var humanName = "constructor " + classType.name;
+            if (classType.registeredClass.constructor_body === void 0) {
+              classType.registeredClass.constructor_body = [];
+            }
+            if (classType.registeredClass.constructor_body[argCount - 1] !== void 0) {
+              throw new BindingError("Cannot register multiple constructors with identical number of parameters (" + (argCount - 1) + ") for class '" + classType.name + "'! Overload resolution is currently only performed using the parameter count, not actual type info!");
+            }
+            classType.registeredClass.constructor_body[argCount - 1] = function unboundTypeHandler() {
+              throwUnboundTypeError("Cannot construct " + classType.name + " due to unbound types", rawArgTypes);
+            };
+            whenDependentTypesAreResolved([], rawArgTypes, function(argTypes) {
+              classType.registeredClass.constructor_body[argCount - 1] = function constructor_body() {
+                if (arguments.length !== argCount - 1) {
+                  throwBindingError(humanName + " called with " + arguments.length + " arguments, expected " + (argCount - 1));
+                }
+                destructors.length = 0;
+                args.length = argCount;
+                for (var i = 1; i < argCount; ++i) {
+                  args[i] = argTypes[i]["toWireType"](destructors, arguments[i - 1]);
+                }
+                var ptr = invoker.apply(null, args);
+                runDestructors(destructors);
+                return argTypes[0]["fromWireType"](ptr);
+              };
+              return [];
+            });
+            return [];
+          });
+        }
+        function new_(constructor, argumentList) {
+          if (!(constructor instanceof Function)) {
+            throw new TypeError("new_ called with constructor type " + typeof constructor + " which is not a function");
+          }
+          var dummy = createNamedFunction(constructor.name || "unknownFunctionName", function() {
+          });
+          dummy.prototype = constructor.prototype;
+          var obj = new dummy();
+          var r = constructor.apply(obj, argumentList);
+          return r instanceof Object ? r : obj;
+        }
+        function craftInvokerFunction(humanName, argTypes, classType, cppInvokerFunc, cppTargetFunc) {
+          var argCount = argTypes.length;
+          if (argCount < 2) {
+            throwBindingError("argTypes array size mismatch! Must at least get return value and 'this' types!");
+          }
+          var isClassMethodFunc = argTypes[1] !== null && classType !== null;
+          var needsDestructorStack = false;
+          for (var i = 1; i < argTypes.length; ++i) {
+            if (argTypes[i] !== null && argTypes[i].destructorFunction === void 0) {
+              needsDestructorStack = true;
+              break;
+            }
+          }
+          var returns = argTypes[0].name !== "void";
+          var argsList = "";
+          var argsListWired = "";
+          for (var i = 0; i < argCount - 2; ++i) {
+            argsList += (i !== 0 ? ", " : "") + "arg" + i;
+            argsListWired += (i !== 0 ? ", " : "") + "arg" + i + "Wired";
+          }
+          var invokerFnBody = "return function " + makeLegalFunctionName(humanName) + "(" + argsList + ") {\nif (arguments.length !== " + (argCount - 2) + ") {\nthrowBindingError('function " + humanName + " called with ' + arguments.length + ' arguments, expected " + (argCount - 2) + " args!');\n}\n";
+          if (needsDestructorStack) {
+            invokerFnBody += "var destructors = [];\n";
+          }
+          var dtorStack = needsDestructorStack ? "destructors" : "null";
+          var args1 = ["throwBindingError", "invoker", "fn", "runDestructors", "retType", "classParam"];
+          var args2 = [throwBindingError, cppInvokerFunc, cppTargetFunc, runDestructors, argTypes[0], argTypes[1]];
+          if (isClassMethodFunc) {
+            invokerFnBody += "var thisWired = classParam.toWireType(" + dtorStack + ", this);\n";
+          }
+          for (var i = 0; i < argCount - 2; ++i) {
+            invokerFnBody += "var arg" + i + "Wired = argType" + i + ".toWireType(" + dtorStack + ", arg" + i + "); // " + argTypes[i + 2].name + "\n";
+            args1.push("argType" + i);
+            args2.push(argTypes[i + 2]);
+          }
+          if (isClassMethodFunc) {
+            argsListWired = "thisWired" + (argsListWired.length > 0 ? ", " : "") + argsListWired;
+          }
+          invokerFnBody += (returns ? "var rv = " : "") + "invoker(fn" + (argsListWired.length > 0 ? ", " : "") + argsListWired + ");\n";
+          if (needsDestructorStack) {
+            invokerFnBody += "runDestructors(destructors);\n";
+          } else {
+            for (var i = isClassMethodFunc ? 1 : 2; i < argTypes.length; ++i) {
+              var paramName = i === 1 ? "thisWired" : "arg" + (i - 2) + "Wired";
+              if (argTypes[i].destructorFunction !== null) {
+                invokerFnBody += paramName + "_dtor(" + paramName + "); // " + argTypes[i].name + "\n";
+                args1.push(paramName + "_dtor");
+                args2.push(argTypes[i].destructorFunction);
+              }
+            }
+          }
+          if (returns) {
+            invokerFnBody += "var ret = retType.fromWireType(rv);\nreturn ret;\n";
+          }
+          invokerFnBody += "}\n";
+          args1.push(invokerFnBody);
+          var invokerFunction = new_(Function, args1).apply(null, args2);
+          return invokerFunction;
+        }
+        function __embind_register_class_function(rawClassType, methodName, argCount, rawArgTypesAddr, invokerSignature, rawInvoker, context, isPureVirtual) {
+          var rawArgTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          methodName = readLatin1String(methodName);
+          rawInvoker = embind__requireFunction(invokerSignature, rawInvoker);
+          whenDependentTypesAreResolved([], [rawClassType], function(classType) {
+            classType = classType[0];
+            var humanName = classType.name + "." + methodName;
+            if (methodName.startsWith("@@")) {
+              methodName = Symbol[methodName.substring(2)];
+            }
+            if (isPureVirtual) {
+              classType.registeredClass.pureVirtualFunctions.push(methodName);
+            }
+            function unboundTypesHandler() {
+              throwUnboundTypeError("Cannot call " + humanName + " due to unbound types", rawArgTypes);
+            }
+            var proto = classType.registeredClass.instancePrototype;
+            var method = proto[methodName];
+            if (method === void 0 || method.overloadTable === void 0 && method.className !== classType.name && method.argCount === argCount - 2) {
+              unboundTypesHandler.argCount = argCount - 2;
+              unboundTypesHandler.className = classType.name;
+              proto[methodName] = unboundTypesHandler;
+            } else {
+              ensureOverloadTable(proto, methodName, humanName);
+              proto[methodName].overloadTable[argCount - 2] = unboundTypesHandler;
+            }
+            whenDependentTypesAreResolved([], rawArgTypes, function(argTypes) {
+              var memberFunction = craftInvokerFunction(humanName, argTypes, classType, rawInvoker, context);
+              if (proto[methodName].overloadTable === void 0) {
+                memberFunction.argCount = argCount - 2;
+                proto[methodName] = memberFunction;
+              } else {
+                proto[methodName].overloadTable[argCount - 2] = memberFunction;
+              }
+              return [];
+            });
+            return [];
+          });
+        }
+        var emval_free_list = [];
+        var emval_handle_array = [{}, { value: void 0 }, { value: null }, { value: true }, { value: false }];
+        function __emval_decref(handle) {
+          if (handle > 4 && --emval_handle_array[handle].refcount === 0) {
+            emval_handle_array[handle] = void 0;
+            emval_free_list.push(handle);
+          }
+        }
+        function count_emval_handles() {
+          var count = 0;
+          for (var i = 5; i < emval_handle_array.length; ++i) {
+            if (emval_handle_array[i] !== void 0) {
+              ++count;
+            }
+          }
+          return count;
+        }
+        function get_first_emval() {
+          for (var i = 5; i < emval_handle_array.length; ++i) {
+            if (emval_handle_array[i] !== void 0) {
+              return emval_handle_array[i];
+            }
+          }
+          return null;
+        }
+        function init_emval() {
+          Module["count_emval_handles"] = count_emval_handles;
+          Module["get_first_emval"] = get_first_emval;
+        }
+        function __emval_register(value) {
+          switch (value) {
+            case void 0: {
+              return 1;
+            }
+            case null: {
+              return 2;
+            }
+            case true: {
+              return 3;
+            }
+            case false: {
+              return 4;
+            }
+            default: {
+              var handle = emval_free_list.length ? emval_free_list.pop() : emval_handle_array.length;
+              emval_handle_array[handle] = { refcount: 1, value };
+              return handle;
+            }
+          }
+        }
+        function __embind_register_emval(rawType, name2) {
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(handle) {
+            var rv = emval_handle_array[handle].value;
+            __emval_decref(handle);
+            return rv;
+          }, "toWireType": function(destructors, value) {
+            return __emval_register(value);
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: null });
+        }
+        function enumReadValueFromPointer(name2, shift, signed) {
+          switch (shift) {
+            case 0:
+              return function(pointer) {
+                var heap = signed ? HEAP8 : HEAPU8;
+                return this["fromWireType"](heap[pointer >>> 0]);
+              };
+            case 1:
+              return function(pointer) {
+                var heap = signed ? HEAP16 : HEAPU16;
+                return this["fromWireType"](heap[pointer >>> 1]);
+              };
+            case 2:
+              return function(pointer) {
+                var heap = signed ? HEAP32 : HEAPU32;
+                return this["fromWireType"](heap[pointer >>> 2]);
+              };
+            default:
+              throw new TypeError("Unknown integer type: " + name2);
+          }
+        }
+        function __embind_register_enum(rawType, name2, size, isSigned) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          function ctor() {
+          }
+          ctor.values = {};
+          registerType(rawType, { name: name2, constructor: ctor, "fromWireType": function(c) {
+            return this.constructor.values[c];
+          }, "toWireType": function(destructors, c) {
+            return c.value;
+          }, "argPackAdvance": 8, "readValueFromPointer": enumReadValueFromPointer(name2, shift, isSigned), destructorFunction: null });
+          exposePublicSymbol(name2, ctor);
+        }
+        function requireRegisteredType(rawType, humanName) {
+          var impl = registeredTypes[rawType];
+          if (impl === void 0) {
+            throwBindingError(humanName + " has unknown type " + getTypeName(rawType));
+          }
+          return impl;
+        }
+        function __embind_register_enum_value(rawEnumType, name2, enumValue) {
+          var enumType = requireRegisteredType(rawEnumType, "enum");
+          name2 = readLatin1String(name2);
+          var Enum = enumType.constructor;
+          var Value2 = Object.create(enumType.constructor.prototype, { value: { value: enumValue }, constructor: { value: createNamedFunction(enumType.name + "_" + name2, function() {
+          }) } });
+          Enum.values[enumValue] = Value2;
+          Enum[name2] = Value2;
+        }
+        function _embind_repr(v) {
+          if (v === null) {
+            return "null";
+          }
+          var t = typeof v;
+          if (t === "object" || t === "array" || t === "function") {
+            return v.toString();
+          } else {
+            return "" + v;
+          }
+        }
+        function floatReadValueFromPointer(name2, shift) {
+          switch (shift) {
+            case 2:
+              return function(pointer) {
+                return this["fromWireType"](HEAPF32[pointer >>> 2]);
+              };
+            case 3:
+              return function(pointer) {
+                return this["fromWireType"](HEAPF64[pointer >>> 3]);
+              };
+            default:
+              throw new TypeError("Unknown float type: " + name2);
+          }
+        }
+        function __embind_register_float(rawType, name2, size) {
+          var shift = getShiftFromSize(size);
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            return value;
+          }, "toWireType": function(destructors, value) {
+            if (typeof value !== "number" && typeof value !== "boolean") {
+              throw new TypeError('Cannot convert "' + _embind_repr(value) + '" to ' + this.name);
+            }
+            return value;
+          }, "argPackAdvance": 8, "readValueFromPointer": floatReadValueFromPointer(name2, shift), destructorFunction: null });
+        }
+        function __embind_register_function(name2, argCount, rawArgTypesAddr, signature, rawInvoker, fn) {
+          var argTypes = heap32VectorToArray(argCount, rawArgTypesAddr);
+          name2 = readLatin1String(name2);
+          rawInvoker = embind__requireFunction(signature, rawInvoker);
+          exposePublicSymbol(name2, function() {
+            throwUnboundTypeError("Cannot call " + name2 + " due to unbound types", argTypes);
+          }, argCount - 1);
+          whenDependentTypesAreResolved([], argTypes, function(argTypes2) {
+            var invokerArgsArray = [argTypes2[0], null].concat(argTypes2.slice(1));
+            replacePublicSymbol(name2, craftInvokerFunction(name2, invokerArgsArray, null, rawInvoker, fn), argCount - 1);
+            return [];
+          });
+        }
+        function integerReadValueFromPointer(name2, shift, signed) {
+          switch (shift) {
+            case 0:
+              return signed ? function readS8FromPointer(pointer) {
+                return HEAP8[pointer >>> 0];
+              } : function readU8FromPointer(pointer) {
+                return HEAPU8[pointer >>> 0];
+              };
+            case 1:
+              return signed ? function readS16FromPointer(pointer) {
+                return HEAP16[pointer >>> 1];
+              } : function readU16FromPointer(pointer) {
+                return HEAPU16[pointer >>> 1];
+              };
+            case 2:
+              return signed ? function readS32FromPointer(pointer) {
+                return HEAP32[pointer >>> 2];
+              } : function readU32FromPointer(pointer) {
+                return HEAPU32[pointer >>> 2];
+              };
+            default:
+              throw new TypeError("Unknown integer type: " + name2);
+          }
+        }
+        function __embind_register_integer(primitiveType, name2, size, minRange, maxRange) {
+          name2 = readLatin1String(name2);
+          if (maxRange === -1) {
+            maxRange = 4294967295;
+          }
+          var shift = getShiftFromSize(size);
+          var fromWireType = function(value) {
+            return value;
+          };
+          if (minRange === 0) {
+            var bitshift = 32 - 8 * size;
+            fromWireType = function(value) {
+              return value << bitshift >>> bitshift;
+            };
+          }
+          var isUnsignedType = name2.includes("unsigned");
+          registerType(primitiveType, { name: name2, "fromWireType": fromWireType, "toWireType": function(destructors, value) {
+            if (typeof value !== "number" && typeof value !== "boolean") {
+              throw new TypeError('Cannot convert "' + _embind_repr(value) + '" to ' + this.name);
+            }
+            if (value < minRange || value > maxRange) {
+              throw new TypeError('Passing a number "' + _embind_repr(value) + '" from JS side to C/C++ side to an argument of type "' + name2 + '", which is outside the valid range [' + minRange + ", " + maxRange + "]!");
+            }
+            return isUnsignedType ? value >>> 0 : value | 0;
+          }, "argPackAdvance": 8, "readValueFromPointer": integerReadValueFromPointer(name2, shift, minRange !== 0), destructorFunction: null });
+        }
+        function __embind_register_memory_view(rawType, dataTypeIndex, name2) {
+          var typeMapping = [Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array];
+          var TA = typeMapping[dataTypeIndex];
+          function decodeMemoryView(handle) {
+            handle = handle >> 2;
+            var heap = HEAPU32;
+            var size = heap[handle >>> 0];
+            var data = heap[handle + 1 >>> 0];
+            return new TA(buffer, data, size);
+          }
+          name2 = readLatin1String(name2);
+          registerType(rawType, { name: name2, "fromWireType": decodeMemoryView, "argPackAdvance": 8, "readValueFromPointer": decodeMemoryView }, { ignoreDuplicateRegistrations: true });
+        }
+        function __embind_register_std_string(rawType, name2) {
+          name2 = readLatin1String(name2);
+          var stdStringIsUTF8 = name2 === "std::string";
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            var length = HEAPU32[value >>> 2];
+            var str;
+            if (stdStringIsUTF8) {
+              var decodeStartPtr = value + 4;
+              for (var i = 0; i <= length; ++i) {
+                var currentBytePtr = value + 4 + i;
+                if (i == length || HEAPU8[currentBytePtr >>> 0] == 0) {
+                  var maxRead = currentBytePtr - decodeStartPtr;
+                  var stringSegment = UTF8ToString(decodeStartPtr, maxRead);
+                  if (str === void 0) {
+                    str = stringSegment;
+                  } else {
+                    str += String.fromCharCode(0);
+                    str += stringSegment;
+                  }
+                  decodeStartPtr = currentBytePtr + 1;
+                }
+              }
+            } else {
+              var a = new Array(length);
+              for (var i = 0; i < length; ++i) {
+                a[i] = String.fromCharCode(HEAPU8[value + 4 + i >>> 0]);
+              }
+              str = a.join("");
+            }
+            _free(value);
+            return str;
+          }, "toWireType": function(destructors, value) {
+            if (value instanceof ArrayBuffer) {
+              value = new Uint8Array(value);
+            }
+            var getLength;
+            var valueIsOfTypeString = typeof value === "string";
+            if (!(valueIsOfTypeString || value instanceof Uint8Array || value instanceof Uint8ClampedArray || value instanceof Int8Array)) {
+              throwBindingError("Cannot pass non-string to std::string");
+            }
+            if (stdStringIsUTF8 && valueIsOfTypeString) {
+              getLength = function() {
+                return lengthBytesUTF8(value);
+              };
+            } else {
+              getLength = function() {
+                return value.length;
+              };
+            }
+            var length = getLength();
+            var ptr = _malloc(4 + length + 1);
+            ptr >>>= 0;
+            HEAPU32[ptr >>> 2] = length;
+            if (stdStringIsUTF8 && valueIsOfTypeString) {
+              stringToUTF8(value, ptr + 4, length + 1);
+            } else {
+              if (valueIsOfTypeString) {
+                for (var i = 0; i < length; ++i) {
+                  var charCode = value.charCodeAt(i);
+                  if (charCode > 255) {
+                    _free(ptr);
+                    throwBindingError("String has UTF-16 code units that do not fit in 8 bits");
+                  }
+                  HEAPU8[ptr + 4 + i >>> 0] = charCode;
+                }
+              } else {
+                for (var i = 0; i < length; ++i) {
+                  HEAPU8[ptr + 4 + i >>> 0] = value[i];
+                }
+              }
+            }
+            if (destructors !== null) {
+              destructors.push(_free, ptr);
+            }
+            return ptr;
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: function(ptr) {
+            _free(ptr);
+          } });
+        }
+        function __embind_register_std_wstring(rawType, charSize, name2) {
+          name2 = readLatin1String(name2);
+          var decodeString, encodeString, getHeap, lengthBytesUTF, shift;
+          if (charSize === 2) {
+            decodeString = UTF16ToString;
+            encodeString = stringToUTF16;
+            lengthBytesUTF = lengthBytesUTF16;
+            getHeap = function() {
+              return HEAPU16;
+            };
+            shift = 1;
+          } else if (charSize === 4) {
+            decodeString = UTF32ToString;
+            encodeString = stringToUTF32;
+            lengthBytesUTF = lengthBytesUTF32;
+            getHeap = function() {
+              return HEAPU32;
+            };
+            shift = 2;
+          }
+          registerType(rawType, { name: name2, "fromWireType": function(value) {
+            var length = HEAPU32[value >>> 2];
+            var HEAP = getHeap();
+            var str;
+            var decodeStartPtr = value + 4;
+            for (var i = 0; i <= length; ++i) {
+              var currentBytePtr = value + 4 + i * charSize;
+              if (i == length || HEAP[currentBytePtr >>> shift] == 0) {
+                var maxReadBytes = currentBytePtr - decodeStartPtr;
+                var stringSegment = decodeString(decodeStartPtr, maxReadBytes);
+                if (str === void 0) {
+                  str = stringSegment;
+                } else {
+                  str += String.fromCharCode(0);
+                  str += stringSegment;
+                }
+                decodeStartPtr = currentBytePtr + charSize;
+              }
+            }
+            _free(value);
+            return str;
+          }, "toWireType": function(destructors, value) {
+            if (!(typeof value === "string")) {
+              throwBindingError("Cannot pass non-string to C++ string type " + name2);
+            }
+            var length = lengthBytesUTF(value);
+            var ptr = _malloc(4 + length + charSize);
+            ptr >>>= 0;
+            HEAPU32[ptr >>> 2] = length >> shift;
+            encodeString(value, ptr + 4, length + charSize);
+            if (destructors !== null) {
+              destructors.push(_free, ptr);
+            }
+            return ptr;
+          }, "argPackAdvance": 8, "readValueFromPointer": simpleReadValueFromPointer, destructorFunction: function(ptr) {
+            _free(ptr);
+          } });
+        }
+        function __embind_register_value_array(rawType, name2, constructorSignature, rawConstructor, destructorSignature, rawDestructor) {
+          tupleRegistrations[rawType] = { name: readLatin1String(name2), rawConstructor: embind__requireFunction(constructorSignature, rawConstructor), rawDestructor: embind__requireFunction(destructorSignature, rawDestructor), elements: [] };
+        }
+        function __embind_register_value_array_element(rawTupleType, getterReturnType, getterSignature, getter, getterContext, setterArgumentType, setterSignature, setter, setterContext) {
+          tupleRegistrations[rawTupleType].elements.push({ getterReturnType, getter: embind__requireFunction(getterSignature, getter), getterContext, setterArgumentType, setter: embind__requireFunction(setterSignature, setter), setterContext });
+        }
+        function __embind_register_value_object(rawType, name2, constructorSignature, rawConstructor, destructorSignature, rawDestructor) {
+          structRegistrations[rawType] = { name: readLatin1String(name2), rawConstructor: embind__requireFunction(constructorSignature, rawConstructor), rawDestructor: embind__requireFunction(destructorSignature, rawDestructor), fields: [] };
+        }
+        function __embind_register_value_object_field(structType, fieldName, getterReturnType, getterSignature, getter, getterContext, setterArgumentType, setterSignature, setter, setterContext) {
+          structRegistrations[structType].fields.push({ fieldName: readLatin1String(fieldName), getterReturnType, getter: embind__requireFunction(getterSignature, getter), getterContext, setterArgumentType, setter: embind__requireFunction(setterSignature, setter), setterContext });
+        }
+        function __embind_register_void(rawType, name2) {
+          name2 = readLatin1String(name2);
+          registerType(rawType, { isVoid: true, name: name2, "argPackAdvance": 0, "fromWireType": function() {
+            return void 0;
+          }, "toWireType": function(destructors, o) {
+            return void 0;
+          } });
+        }
+        function requireHandle(handle) {
+          if (!handle) {
+            throwBindingError("Cannot use deleted val. handle = " + handle);
+          }
+          return emval_handle_array[handle].value;
+        }
+        function __emval_as(handle, returnType, destructorsRef) {
+          handle = requireHandle(handle);
+          returnType = requireRegisteredType(returnType, "emval::as");
+          var destructors = [];
+          var rd = __emval_register(destructors);
+          HEAP32[destructorsRef >>> 2] = rd;
+          return returnType["toWireType"](destructors, handle);
+        }
+        function __emval_lookupTypes(argCount, argTypes) {
+          var a = new Array(argCount);
+          for (var i = 0; i < argCount; ++i) {
+            a[i] = requireRegisteredType(HEAP32[(argTypes >> 2) + i >>> 0], "parameter " + i);
+          }
+          return a;
+        }
+        function __emval_call(handle, argCount, argTypes, argv) {
+          handle = requireHandle(handle);
+          var types = __emval_lookupTypes(argCount, argTypes);
+          var args = new Array(argCount);
+          for (var i = 0; i < argCount; ++i) {
+            var type = types[i];
+            args[i] = type["readValueFromPointer"](argv);
+            argv += type["argPackAdvance"];
+          }
+          var rv = handle.apply(void 0, args);
+          return __emval_register(rv);
+        }
+        var emval_symbols = {};
+        function getStringOrSymbol(address) {
+          var symbol = emval_symbols[address];
+          if (symbol === void 0) {
+            return readLatin1String(address);
+          } else {
+            return symbol;
+          }
+        }
+        function emval_get_global() {
+          if (typeof globalThis === "object") {
+            return globalThis;
+          }
+          return function() {
+            return Function;
+          }()("return this")();
+        }
+        function __emval_get_global(name2) {
+          if (name2 === 0) {
+            return __emval_register(emval_get_global());
+          } else {
+            name2 = getStringOrSymbol(name2);
+            return __emval_register(emval_get_global()[name2]);
+          }
+        }
+        function __emval_get_property(handle, key2) {
+          handle = requireHandle(handle);
+          key2 = requireHandle(key2);
+          return __emval_register(handle[key2]);
+        }
+        function __emval_incref(handle) {
+          if (handle > 4) {
+            emval_handle_array[handle].refcount += 1;
+          }
+        }
+        function __emval_instanceof(object, constructor) {
+          object = requireHandle(object);
+          constructor = requireHandle(constructor);
+          return object instanceof constructor;
+        }
+        function __emval_is_number(handle) {
+          handle = requireHandle(handle);
+          return typeof handle === "number";
+        }
+        function __emval_new_array() {
+          return __emval_register([]);
+        }
+        function __emval_new_cstring(v) {
+          return __emval_register(getStringOrSymbol(v));
+        }
+        function __emval_new_object() {
+          return __emval_register({});
+        }
+        function __emval_run_destructors(handle) {
+          var destructors = emval_handle_array[handle].value;
+          runDestructors(destructors);
+          __emval_decref(handle);
+        }
+        function __emval_set_property(handle, key2, value) {
+          handle = requireHandle(handle);
+          key2 = requireHandle(key2);
+          value = requireHandle(value);
+          handle[key2] = value;
+        }
+        function __emval_take_value(type, argv) {
+          type = requireRegisteredType(type, "_emval_take_value");
+          var v = type["readValueFromPointer"](argv);
+          return __emval_register(v);
+        }
+        function _abort() {
+          abort();
+        }
+        var _emscripten_get_now;
+        if (ENVIRONMENT_IS_NODE) {
+          _emscripten_get_now = function() {
+            var t = process["hrtime"]();
+            return t[0] * 1e3 + t[1] / 1e6;
+          };
+        } else
+          _emscripten_get_now = function() {
+            return performance.now();
+          };
+        var _emscripten_get_now_is_monotonic = true;
+        function _clock_gettime(clk_id, tp) {
+          var now;
+          if (clk_id === 0) {
+            now = Date.now();
+          } else if ((clk_id === 1 || clk_id === 4) && _emscripten_get_now_is_monotonic) {
+            now = _emscripten_get_now();
+          } else {
+            setErrNo(28);
+            return -1;
+          }
+          HEAP32[tp >>> 2] = now / 1e3 | 0;
+          HEAP32[tp + 4 >>> 2] = now % 1e3 * 1e3 * 1e3 | 0;
+          return 0;
+        }
+        function _emscripten_memcpy_big(dest, src, num) {
+          HEAPU8.copyWithin(dest >>> 0, src >>> 0, src + num >>> 0);
+        }
+        function emscripten_realloc_buffer(size) {
+          try {
+            wasmMemory.grow(size - buffer.byteLength + 65535 >>> 16);
+            updateGlobalBufferAndViews(wasmMemory.buffer);
+            return 1;
+          } catch (e) {
+          }
+        }
+        function _emscripten_resize_heap(requestedSize) {
+          var oldSize = HEAPU8.length;
+          requestedSize = requestedSize >>> 0;
+          var maxHeapSize = 4294901760;
+          if (requestedSize > maxHeapSize) {
+            return false;
+          }
+          for (var cutDown = 1; cutDown <= 4; cutDown *= 2) {
+            var overGrownHeapSize = oldSize * (1 + 0.2 / cutDown);
+            overGrownHeapSize = Math.min(overGrownHeapSize, requestedSize + 100663296);
+            var newSize = Math.min(maxHeapSize, alignUp(Math.max(requestedSize, overGrownHeapSize), 65536));
+            var replacement = emscripten_realloc_buffer(newSize);
+            if (replacement) {
+              return true;
+            }
+          }
+          return false;
+        }
+        var ENV = {};
+        function getExecutableName() {
+          return thisProgram || "./this.program";
+        }
+        function getEnvStrings() {
+          if (!getEnvStrings.strings) {
+            var lang = (typeof navigator === "object" && navigator.languages && navigator.languages[0] || "C").replace("-", "_") + ".UTF-8";
+            var env = { "USER": "web_user", "LOGNAME": "web_user", "PATH": "/", "PWD": "/", "HOME": "/home/web_user", "LANG": lang, "_": getExecutableName() };
+            for (var x in ENV) {
+              if (ENV[x] === void 0)
+                delete env[x];
+              else
+                env[x] = ENV[x];
+            }
+            var strings = [];
+            for (var x in env) {
+              strings.push(x + "=" + env[x]);
+            }
+            getEnvStrings.strings = strings;
+          }
+          return getEnvStrings.strings;
+        }
+        function _environ_get(__environ, environ_buf) {
+          try {
+            var bufSize = 0;
+            getEnvStrings().forEach(function(string, i) {
+              var ptr = environ_buf + bufSize;
+              HEAP32[__environ + i * 4 >>> 2] = ptr;
+              writeAsciiToMemory(string, ptr);
+              bufSize += string.length + 1;
+            });
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _environ_sizes_get(penviron_count, penviron_buf_size) {
+          try {
+            var strings = getEnvStrings();
+            HEAP32[penviron_count >>> 2] = strings.length;
+            var bufSize = 0;
+            strings.forEach(function(string) {
+              bufSize += string.length + 1;
+            });
+            HEAP32[penviron_buf_size >>> 2] = bufSize;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_close(fd) {
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            FS.close(stream);
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_read(fd, iov, iovcnt, pnum) {
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var num = SYSCALLS.doReadv(stream, iov, iovcnt);
+            HEAP32[pnum >>> 2] = num;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var HIGH_OFFSET = 4294967296;
+            var offset = offset_high * HIGH_OFFSET + (offset_low >>> 0);
+            var DOUBLE_LIMIT = 9007199254740992;
+            if (offset <= -DOUBLE_LIMIT || offset >= DOUBLE_LIMIT) {
+              return -61;
+            }
+            FS.llseek(stream, offset, whence);
+            tempI64 = [stream.position >>> 0, (tempDouble = stream.position, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], HEAP32[newOffset >>> 2] = tempI64[0], HEAP32[newOffset + 4 >>> 2] = tempI64[1];
+            if (stream.getdents && offset === 0 && whence === 0)
+              stream.getdents = null;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _fd_write(fd, iov, iovcnt, pnum) {
+          try {
+            var stream = SYSCALLS.getStreamFromFD(fd);
+            var num = SYSCALLS.doWritev(stream, iov, iovcnt);
+            HEAP32[pnum >>> 2] = num;
+            return 0;
+          } catch (e) {
+            if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError))
+              abort(e);
+            return e.errno;
+          }
+        }
+        function _setTempRet0(val) {
+        }
+        function __isLeapYear(year) {
+          return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+        }
+        function __arraySum(array, index) {
+          var sum = 0;
+          for (var i = 0; i <= index; sum += array[i++]) {
+          }
+          return sum;
+        }
+        var __MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var __MONTH_DAYS_REGULAR = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        function __addDays(date, days) {
+          var newDate = new Date(date.getTime());
+          while (days > 0) {
+            var leap = __isLeapYear(newDate.getFullYear());
+            var currentMonth = newDate.getMonth();
+            var daysInCurrentMonth = (leap ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR)[currentMonth];
+            if (days > daysInCurrentMonth - newDate.getDate()) {
+              days -= daysInCurrentMonth - newDate.getDate() + 1;
+              newDate.setDate(1);
+              if (currentMonth < 11) {
+                newDate.setMonth(currentMonth + 1);
+              } else {
+                newDate.setMonth(0);
+                newDate.setFullYear(newDate.getFullYear() + 1);
+              }
+            } else {
+              newDate.setDate(newDate.getDate() + days);
+              return newDate;
+            }
+          }
+          return newDate;
+        }
+        function _strftime(s, maxsize, format, tm) {
+          var tm_zone = HEAP32[tm + 40 >>> 2];
+          var date = { tm_sec: HEAP32[tm >>> 2], tm_min: HEAP32[tm + 4 >>> 2], tm_hour: HEAP32[tm + 8 >>> 2], tm_mday: HEAP32[tm + 12 >>> 2], tm_mon: HEAP32[tm + 16 >>> 2], tm_year: HEAP32[tm + 20 >>> 2], tm_wday: HEAP32[tm + 24 >>> 2], tm_yday: HEAP32[tm + 28 >>> 2], tm_isdst: HEAP32[tm + 32 >>> 2], tm_gmtoff: HEAP32[tm + 36 >>> 2], tm_zone: tm_zone ? UTF8ToString(tm_zone) : "" };
+          var pattern = UTF8ToString(format);
+          var EXPANSION_RULES_1 = { "%c": "%a %b %d %H:%M:%S %Y", "%D": "%m/%d/%y", "%F": "%Y-%m-%d", "%h": "%b", "%r": "%I:%M:%S %p", "%R": "%H:%M", "%T": "%H:%M:%S", "%x": "%m/%d/%y", "%X": "%H:%M:%S", "%Ec": "%c", "%EC": "%C", "%Ex": "%m/%d/%y", "%EX": "%H:%M:%S", "%Ey": "%y", "%EY": "%Y", "%Od": "%d", "%Oe": "%e", "%OH": "%H", "%OI": "%I", "%Om": "%m", "%OM": "%M", "%OS": "%S", "%Ou": "%u", "%OU": "%U", "%OV": "%V", "%Ow": "%w", "%OW": "%W", "%Oy": "%y" };
+          for (var rule in EXPANSION_RULES_1) {
+            pattern = pattern.replace(new RegExp(rule, "g"), EXPANSION_RULES_1[rule]);
+          }
+          var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          function leadingSomething(value, digits, character) {
+            var str = typeof value === "number" ? value.toString() : value || "";
+            while (str.length < digits) {
+              str = character[0] + str;
+            }
+            return str;
+          }
+          function leadingNulls(value, digits) {
+            return leadingSomething(value, digits, "0");
+          }
+          function compareByDay(date1, date2) {
+            function sgn(value) {
+              return value < 0 ? -1 : value > 0 ? 1 : 0;
+            }
+            var compare;
+            if ((compare = sgn(date1.getFullYear() - date2.getFullYear())) === 0) {
+              if ((compare = sgn(date1.getMonth() - date2.getMonth())) === 0) {
+                compare = sgn(date1.getDate() - date2.getDate());
+              }
+            }
+            return compare;
+          }
+          function getFirstWeekStartDate(janFourth) {
+            switch (janFourth.getDay()) {
+              case 0:
+                return new Date(janFourth.getFullYear() - 1, 11, 29);
+              case 1:
+                return janFourth;
+              case 2:
+                return new Date(janFourth.getFullYear(), 0, 3);
+              case 3:
+                return new Date(janFourth.getFullYear(), 0, 2);
+              case 4:
+                return new Date(janFourth.getFullYear(), 0, 1);
+              case 5:
+                return new Date(janFourth.getFullYear() - 1, 11, 31);
+              case 6:
+                return new Date(janFourth.getFullYear() - 1, 11, 30);
+            }
+          }
+          function getWeekBasedYear(date2) {
+            var thisDate = __addDays(new Date(date2.tm_year + 1900, 0, 1), date2.tm_yday);
+            var janFourthThisYear = new Date(thisDate.getFullYear(), 0, 4);
+            var janFourthNextYear = new Date(thisDate.getFullYear() + 1, 0, 4);
+            var firstWeekStartThisYear = getFirstWeekStartDate(janFourthThisYear);
+            var firstWeekStartNextYear = getFirstWeekStartDate(janFourthNextYear);
+            if (compareByDay(firstWeekStartThisYear, thisDate) <= 0) {
+              if (compareByDay(firstWeekStartNextYear, thisDate) <= 0) {
+                return thisDate.getFullYear() + 1;
+              } else {
+                return thisDate.getFullYear();
+              }
+            } else {
+              return thisDate.getFullYear() - 1;
+            }
+          }
+          var EXPANSION_RULES_2 = { "%a": function(date2) {
+            return WEEKDAYS[date2.tm_wday].substring(0, 3);
+          }, "%A": function(date2) {
+            return WEEKDAYS[date2.tm_wday];
+          }, "%b": function(date2) {
+            return MONTHS[date2.tm_mon].substring(0, 3);
+          }, "%B": function(date2) {
+            return MONTHS[date2.tm_mon];
+          }, "%C": function(date2) {
+            var year = date2.tm_year + 1900;
+            return leadingNulls(year / 100 | 0, 2);
+          }, "%d": function(date2) {
+            return leadingNulls(date2.tm_mday, 2);
+          }, "%e": function(date2) {
+            return leadingSomething(date2.tm_mday, 2, " ");
+          }, "%g": function(date2) {
+            return getWeekBasedYear(date2).toString().substring(2);
+          }, "%G": function(date2) {
+            return getWeekBasedYear(date2);
+          }, "%H": function(date2) {
+            return leadingNulls(date2.tm_hour, 2);
+          }, "%I": function(date2) {
+            var twelveHour = date2.tm_hour;
+            if (twelveHour == 0)
+              twelveHour = 12;
+            else if (twelveHour > 12)
+              twelveHour -= 12;
+            return leadingNulls(twelveHour, 2);
+          }, "%j": function(date2) {
+            return leadingNulls(date2.tm_mday + __arraySum(__isLeapYear(date2.tm_year + 1900) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, date2.tm_mon - 1), 3);
+          }, "%m": function(date2) {
+            return leadingNulls(date2.tm_mon + 1, 2);
+          }, "%M": function(date2) {
+            return leadingNulls(date2.tm_min, 2);
+          }, "%n": function() {
+            return "\n";
+          }, "%p": function(date2) {
+            if (date2.tm_hour >= 0 && date2.tm_hour < 12) {
+              return "AM";
+            } else {
+              return "PM";
+            }
+          }, "%S": function(date2) {
+            return leadingNulls(date2.tm_sec, 2);
+          }, "%t": function() {
+            return "	";
+          }, "%u": function(date2) {
+            return date2.tm_wday || 7;
+          }, "%U": function(date2) {
+            var janFirst = new Date(date2.tm_year + 1900, 0, 1);
+            var firstSunday = janFirst.getDay() === 0 ? janFirst : __addDays(janFirst, 7 - janFirst.getDay());
+            var endDate = new Date(date2.tm_year + 1900, date2.tm_mon, date2.tm_mday);
+            if (compareByDay(firstSunday, endDate) < 0) {
+              var februaryFirstUntilEndMonth = __arraySum(__isLeapYear(endDate.getFullYear()) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, endDate.getMonth() - 1) - 31;
+              var firstSundayUntilEndJanuary = 31 - firstSunday.getDate();
+              var days = firstSundayUntilEndJanuary + februaryFirstUntilEndMonth + endDate.getDate();
+              return leadingNulls(Math.ceil(days / 7), 2);
+            }
+            return compareByDay(firstSunday, janFirst) === 0 ? "01" : "00";
+          }, "%V": function(date2) {
+            var janFourthThisYear = new Date(date2.tm_year + 1900, 0, 4);
+            var janFourthNextYear = new Date(date2.tm_year + 1901, 0, 4);
+            var firstWeekStartThisYear = getFirstWeekStartDate(janFourthThisYear);
+            var firstWeekStartNextYear = getFirstWeekStartDate(janFourthNextYear);
+            var endDate = __addDays(new Date(date2.tm_year + 1900, 0, 1), date2.tm_yday);
+            if (compareByDay(endDate, firstWeekStartThisYear) < 0) {
+              return "53";
+            }
+            if (compareByDay(firstWeekStartNextYear, endDate) <= 0) {
+              return "01";
+            }
+            var daysDifference;
+            if (firstWeekStartThisYear.getFullYear() < date2.tm_year + 1900) {
+              daysDifference = date2.tm_yday + 32 - firstWeekStartThisYear.getDate();
+            } else {
+              daysDifference = date2.tm_yday + 1 - firstWeekStartThisYear.getDate();
+            }
+            return leadingNulls(Math.ceil(daysDifference / 7), 2);
+          }, "%w": function(date2) {
+            return date2.tm_wday;
+          }, "%W": function(date2) {
+            var janFirst = new Date(date2.tm_year, 0, 1);
+            var firstMonday = janFirst.getDay() === 1 ? janFirst : __addDays(janFirst, janFirst.getDay() === 0 ? 1 : 7 - janFirst.getDay() + 1);
+            var endDate = new Date(date2.tm_year + 1900, date2.tm_mon, date2.tm_mday);
+            if (compareByDay(firstMonday, endDate) < 0) {
+              var februaryFirstUntilEndMonth = __arraySum(__isLeapYear(endDate.getFullYear()) ? __MONTH_DAYS_LEAP : __MONTH_DAYS_REGULAR, endDate.getMonth() - 1) - 31;
+              var firstMondayUntilEndJanuary = 31 - firstMonday.getDate();
+              var days = firstMondayUntilEndJanuary + februaryFirstUntilEndMonth + endDate.getDate();
+              return leadingNulls(Math.ceil(days / 7), 2);
+            }
+            return compareByDay(firstMonday, janFirst) === 0 ? "01" : "00";
+          }, "%y": function(date2) {
+            return (date2.tm_year + 1900).toString().substring(2);
+          }, "%Y": function(date2) {
+            return date2.tm_year + 1900;
+          }, "%z": function(date2) {
+            var off = date2.tm_gmtoff;
+            var ahead = off >= 0;
+            off = Math.abs(off) / 60;
+            off = off / 60 * 100 + off % 60;
+            return (ahead ? "+" : "-") + String("0000" + off).slice(-4);
+          }, "%Z": function(date2) {
+            return date2.tm_zone;
+          }, "%%": function() {
+            return "%";
+          } };
+          for (var rule in EXPANSION_RULES_2) {
+            if (pattern.includes(rule)) {
+              pattern = pattern.replace(new RegExp(rule, "g"), EXPANSION_RULES_2[rule](date));
+            }
+          }
+          var bytes = intArrayFromString(pattern, false);
+          if (bytes.length > maxsize) {
+            return 0;
+          }
+          writeArrayToMemory(bytes, s);
+          return bytes.length - 1;
+        }
+        function _strftime_l(s, maxsize, format, tm) {
+          return _strftime(s, maxsize, format, tm);
+        }
+        var FSNode = function(parent, name2, mode, rdev) {
+          if (!parent) {
+            parent = this;
+          }
+          this.parent = parent;
+          this.mount = parent.mount;
+          this.mounted = null;
+          this.id = FS.nextInode++;
+          this.name = name2;
+          this.mode = mode;
+          this.node_ops = {};
+          this.stream_ops = {};
+          this.rdev = rdev;
+        };
+        var readMode = 292 | 73;
+        var writeMode = 146;
+        Object.defineProperties(FSNode.prototype, { read: { get: function() {
+          return (this.mode & readMode) === readMode;
+        }, set: function(val) {
+          val ? this.mode |= readMode : this.mode &= ~readMode;
+        } }, write: { get: function() {
+          return (this.mode & writeMode) === writeMode;
+        }, set: function(val) {
+          val ? this.mode |= writeMode : this.mode &= ~writeMode;
+        } }, isFolder: { get: function() {
+          return FS.isDir(this.mode);
+        } }, isDevice: { get: function() {
+          return FS.isChrdev(this.mode);
+        } } });
+        FS.FSNode = FSNode;
+        FS.staticInit();
+        Module["FS_createPath"] = FS.createPath;
+        Module["FS_createDataFile"] = FS.createDataFile;
+        Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
+        Module["FS_createLazyFile"] = FS.createLazyFile;
+        Module["FS_createDevice"] = FS.createDevice;
+        Module["FS_unlink"] = FS.unlink;
+        InternalError = Module["InternalError"] = extendError(Error, "InternalError");
+        embind_init_charCodes();
+        BindingError = Module["BindingError"] = extendError(Error, "BindingError");
+        init_ClassHandle();
+        init_RegisteredPointer();
+        init_embind();
+        UnboundTypeError = Module["UnboundTypeError"] = extendError(Error, "UnboundTypeError");
+        init_emval();
+        function intArrayFromString(stringy, dontAddNull, length) {
+          var len = length > 0 ? length : lengthBytesUTF8(stringy) + 1;
+          var u8array = new Array(len);
+          var numBytesWritten = stringToUTF8Array(stringy, u8array, 0, u8array.length);
+          if (dontAddNull)
+            u8array.length = numBytesWritten;
+          return u8array;
+        }
+        var asmLibraryArg = { "y": ___assert_fail, "x": ___cxa_allocate_exception, "w": ___cxa_throw, "A": ___sys_fcntl64, "O": ___sys_ioctl, "P": ___sys_open, "Z": __embind_finalize_value_array, "o": __embind_finalize_value_object, "J": __embind_register_bigint, "W": __embind_register_bool, "r": __embind_register_class, "q": __embind_register_class_constructor, "b": __embind_register_class_function, "V": __embind_register_emval, "Y": __embind_register_enum, "t": __embind_register_enum_value, "D": __embind_register_float, "e": __embind_register_function, "n": __embind_register_integer, "j": __embind_register_memory_view, "E": __embind_register_std_string, "v": __embind_register_std_wstring, "_": __embind_register_value_array, "g": __embind_register_value_array_element, "p": __embind_register_value_object, "d": __embind_register_value_object_field, "X": __embind_register_void, "l": __emval_as, "F": __emval_call, "a": __emval_decref, "H": __emval_get_global, "m": __emval_get_property, "i": __emval_incref, "L": __emval_instanceof, "G": __emval_is_number, "z": __emval_new_array, "f": __emval_new_cstring, "s": __emval_new_object, "k": __emval_run_destructors, "h": __emval_set_property, "c": __emval_take_value, "C": _abort, "N": _clock_gettime, "M": _emscripten_memcpy_big, "u": _emscripten_resize_heap, "R": _environ_get, "S": _environ_sizes_get, "B": _fd_close, "U": _fd_read, "I": _fd_seek, "T": _fd_write, "K": _setTempRet0, "Q": _strftime_l };
+        createWasm();
+        Module["___wasm_call_ctors"] = function() {
+          return (Module["___wasm_call_ctors"] = Module["asm"]["aa"]).apply(null, arguments);
+        };
+        Module["_main"] = function() {
+          return (Module["_main"] = Module["asm"]["ba"]).apply(null, arguments);
+        };
+        var _malloc = Module["_malloc"] = function() {
+          return (_malloc = Module["_malloc"] = Module["asm"]["ca"]).apply(null, arguments);
+        };
+        var _free = Module["_free"] = function() {
+          return (_free = Module["_free"] = Module["asm"]["da"]).apply(null, arguments);
+        };
+        var ___getTypeName = Module["___getTypeName"] = function() {
+          return (___getTypeName = Module["___getTypeName"] = Module["asm"]["ea"]).apply(null, arguments);
+        };
+        Module["___embind_register_native_and_builtin_types"] = function() {
+          return (Module["___embind_register_native_and_builtin_types"] = Module["asm"]["fa"]).apply(null, arguments);
+        };
+        var ___errno_location = Module["___errno_location"] = function() {
+          return (___errno_location = Module["___errno_location"] = Module["asm"]["ga"]).apply(null, arguments);
+        };
+        Module["dynCall_jiji"] = function() {
+          return (Module["dynCall_jiji"] = Module["asm"]["ia"]).apply(null, arguments);
+        };
+        Module["dynCall_viijii"] = function() {
+          return (Module["dynCall_viijii"] = Module["asm"]["ja"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiij"] = function() {
+          return (Module["dynCall_iiiiij"] = Module["asm"]["ka"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiijj"] = function() {
+          return (Module["dynCall_iiiiijj"] = Module["asm"]["la"]).apply(null, arguments);
+        };
+        Module["dynCall_iiiiiijj"] = function() {
+          return (Module["dynCall_iiiiiijj"] = Module["asm"]["ma"]).apply(null, arguments);
+        };
+        Module["addRunDependency"] = addRunDependency;
+        Module["removeRunDependency"] = removeRunDependency;
+        Module["FS_createPath"] = FS.createPath;
+        Module["FS_createDataFile"] = FS.createDataFile;
+        Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
+        Module["FS_createLazyFile"] = FS.createLazyFile;
+        Module["FS_createDevice"] = FS.createDevice;
+        Module["FS_unlink"] = FS.unlink;
+        Module["FS"] = FS;
+        var calledRun;
+        function ExitStatus(status) {
+          this.name = "ExitStatus";
+          this.message = "Program terminated with exit(" + status + ")";
+          this.status = status;
+        }
+        dependenciesFulfilled = function runCaller() {
+          if (!calledRun)
+            run();
+          if (!calledRun)
+            dependenciesFulfilled = runCaller;
+        };
+        function callMain(args) {
+          var entryFunction = Module["_main"];
+          var argc = 0;
+          var argv = 0;
+          try {
+            var ret = entryFunction(argc, argv);
+            exit(ret, true);
+          } catch (e) {
+            if (e instanceof ExitStatus || e == "unwind") {
+              return;
+            }
+            var toLog = e;
+            if (e && typeof e === "object" && e.stack) {
+              toLog = [e, e.stack];
+            }
+            err("exception thrown: " + toLog);
+            quit_(1, e);
+          } finally {
+          }
+        }
+        function run(args) {
+          if (runDependencies > 0) {
+            return;
+          }
+          preRun();
+          if (runDependencies > 0) {
+            return;
+          }
+          function doRun() {
+            if (calledRun)
+              return;
+            calledRun = true;
+            Module["calledRun"] = true;
+            if (ABORT)
+              return;
+            initRuntime();
+            preMain();
+            readyPromiseResolve(Module);
+            if (Module["onRuntimeInitialized"])
+              Module["onRuntimeInitialized"]();
+            if (shouldRunNow)
+              callMain();
+            postRun();
+          }
+          if (Module["setStatus"]) {
+            Module["setStatus"]("Running...");
+            setTimeout(function() {
+              setTimeout(function() {
+                Module["setStatus"]("");
+              }, 1);
+              doRun();
+            }, 1);
+          } else {
+            doRun();
+          }
+        }
+        Module["run"] = run;
+        function exit(status, implicit) {
+          if (keepRuntimeAlive()) ; else {
+            if (Module["onExit"])
+              Module["onExit"](status);
+            ABORT = true;
+          }
+          quit_(status, new ExitStatus(status));
+        }
+        if (Module["preInit"]) {
+          if (typeof Module["preInit"] == "function")
+            Module["preInit"] = [Module["preInit"]];
+          while (Module["preInit"].length > 0) {
+            Module["preInit"].pop()();
+          }
+        }
+        var shouldRunNow = true;
+        if (Module["noInitialRun"])
+          shouldRunNow = false;
+        run();
+        return WebIFCWasm3.ready;
+      };
+    }();
+    if (typeof exports === "object" && typeof module === "object")
+      module.exports = WebIFCWasm2;
+    else if (typeof define === "function" && define["amd"])
+      define([], function() {
+        return WebIFCWasm2;
+      });
+    else if (typeof exports === "object")
+      exports["WebIFCWasm"] = WebIFCWasm2;
+  }
+});
+var IFCBEAM$1 = 753842376;
+var IFCBUILDING$1 = 4031249490;
+var IFCBUILDINGELEMENTPROXY$1 = 1095909175;
+var IFCBUILDINGSTOREY$1 = 3124254112;
+var IFCCOLUMN$1 = 843113511;
+var IFCDOOR$1 = 395920057;
+var IFCFOOTING$1 = 900683007;
+var IFCFURNISHINGELEMENT$1 = 263784265;
+var IFCMEMBER$1 = 1073191201;
+var IFCPLATE$1 = 3171933400;
+var IFCPROJECT$1 = 103090709;
+var IFCPROXY$1 = 3219374653;
+var IFCROOF$1 = 2016517767;
+var IFCSLAB$1 = 1529196076;
+var IFCSTAIRFLIGHT$1 = 4252922144;
+var IFCUNITASSIGNMENT$1 = 180925521;
+var IFCWALL$1 = 2391406946;
+var IFCWALLSTANDARDCASE$1 = 3512223829;
+var IFCWINDOW$1 = 3304561284;
+if (typeof self !== "undefined" && self.crossOriginIsolated) {
+  require_web_ifc_mt$1();
+} else {
+  require_web_ifc$1();
+}
+
+class ClippingEdges {
+    constructor(clippingPlane) {
+        this.edges = {};
+        this.isVisible = true;
+        this.inverseMatrix = new Matrix4();
+        this.localPlane = new Plane();
+        this.tempLine = new Line3();
+        this.tempVector = new Vector3();
+        this.stylesInitialized = false;
+        this.clippingPlane = clippingPlane;
+    }
+    get visible() {
+        return this.isVisible;
+    }
+    set visible(visible) {
+        this.isVisible = visible;
+        const allEdges = Object.values(this.edges);
+        allEdges.forEach((edges) => {
+            edges.mesh.visible = visible;
+            if (visible)
+                ClippingEdges.context.getScene().add(edges.mesh);
+            else
+                edges.mesh.removeFromParent();
+        });
+        if (visible)
+            this.updateEdges();
+    }
+    // Initializes the helper geometry used to compute the vertices
+    static newGeneratorGeometry() {
+        // create line geometry with enough data to hold 100000 segments
+        const generatorGeometry = new BufferGeometry();
+        const linePosAttr = new BufferAttribute(new Float32Array(300000), 3, false);
+        linePosAttr.setUsage(DynamicDrawUsage);
+        generatorGeometry.setAttribute('position', linePosAttr);
+        return generatorGeometry;
+    }
+    dispose() {
+        Object.values(this.edges).forEach((edge) => {
+            if (edge.generatorGeometry.boundsTree)
+                edge.generatorGeometry.disposeBoundsTree();
+            edge.generatorGeometry.dispose();
+            if (edge.mesh.geometry.boundsTree)
+                edge.mesh.geometry.disposeBoundsTree();
+            edge.mesh.geometry.dispose();
+            edge.mesh.removeFromParent();
+            edge.mesh = null;
+        });
+        this.edges = null;
+        this.clippingPlane = null;
+    }
+    disposeStylesAndHelpers() {
+        if (ClippingEdges.basicEdges) {
+            ClippingEdges.basicEdges.removeFromParent();
+            ClippingEdges.basicEdges.geometry.dispose();
+            ClippingEdges.basicEdges = null;
+            ClippingEdges.basicEdges = new LineSegments();
+        }
+        ClippingEdges.context = null;
+        ClippingEdges.ifc = null;
+        ClippingEdges.edgesParent = undefined;
+        if (!ClippingEdges.styles)
+            return;
+        const styles = Object.values(ClippingEdges.styles);
+        styles.forEach((style) => {
+            style.ids.length = 0;
+            style.meshes.forEach((mesh) => {
+                mesh.removeFromParent();
+                mesh.geometry.dispose();
+                if (mesh.geometry.boundsTree)
+                    mesh.geometry.disposeBoundsTree();
+                if (Array.isArray(mesh.material))
+                    mesh.material.forEach((mat) => mat.dispose());
+                else
+                    mesh.material.dispose();
+            });
+            style.meshes.length = 0;
+            style.categories.length = 0;
+            style.material.dispose();
+        });
+        ClippingEdges.styles = null;
+        ClippingEdges.styles = {};
+    }
+    async updateEdges() {
+        if (ClippingEdges.createDefaultIfcStyles) {
+            await this.updateIfcStyles();
+        }
+        if (ClippingEdges.forceStyleUpdate) {
+            this.updateSubsetsTranformation();
+        }
+        Object.keys(ClippingEdges.styles).forEach((styleName) => {
+            try {
+                // this can trow error if there is an empty mesh, we still want to update other edges so we catch ere
+                this.drawEdges(styleName);
+            }
+            catch (e) {
+                console.error('error in drawing edges', e);
+            }
+        });
+    }
+    // Creates a new style that applies to all clipping edges for IFC models
+    static async newStyle(styleName, categories, material = ClippingEdges.defaultMaterial) {
+        const subsets = [];
+        const models = ClippingEdges.context.items.ifcModels;
+        for (let i = 0; i < models.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            const subset = await ClippingEdges.newSubset(styleName, models[i], categories);
+            if (subset) {
+                subsets.push(subset);
+            }
+        }
+        material.clippingPlanes = ClippingEdges.context.getClippingPlanes();
+        ClippingEdges.styles[styleName] = {
+            ids: models.map((model) => model.modelID),
+            categories,
+            material,
+            meshes: subsets
+        };
+    }
+    // Creates a new style that applies to all clipping edges for generic models
+    static async newStyleFromMesh(styleName, meshes, material = ClippingEdges.defaultMaterial) {
+        const ids = meshes.map((mesh) => mesh.modelID);
+        meshes.forEach((mesh) => {
+            if (!mesh.geometry.boundsTree)
+                mesh.geometry.computeBoundsTree();
+        });
+        material.clippingPlanes = ClippingEdges.context.getClippingPlanes();
+        ClippingEdges.styles[styleName] = {
+            ids,
+            categories: [],
+            material,
+            meshes
+        };
+    }
+    async updateStylesIfcGeometry() {
+        const styleNames = Object.keys(ClippingEdges.styles);
+        for (let i = 0; i < styleNames.length; i++) {
+            const name = styleNames[i];
+            const style = ClippingEdges.styles[name];
+            const models = ClippingEdges.context.items.ifcModels;
+            style.meshes.length = 0;
+            for (let i = 0; i < models.length; i++) {
+                // eslint-disable-next-line no-await-in-loop
+                const subset = await ClippingEdges.newSubset(name, models[i], style.categories);
+                if (subset) {
+                    style.meshes.push(subset);
+                }
+            }
+        }
+    }
+    updateSubsetsTranformation() {
+        const styleNames = Object.keys(ClippingEdges.styles);
+        for (let i = 0; i < styleNames.length; i++) {
+            const styleName = styleNames[i];
+            const style = ClippingEdges.styles[styleName];
+            style.meshes.forEach((mesh) => {
+                const model = ClippingEdges.context.items.ifcModels.find((model) => model.modelID === mesh.modelID);
+                if (model) {
+                    mesh.position.copy(model.position);
+                    mesh.rotation.copy(model.rotation);
+                    mesh.scale.copy(model.scale);
+                }
+            });
+        }
+        ClippingEdges.forceStyleUpdate = false;
+    }
+    async updateIfcStyles() {
+        if (!this.stylesInitialized) {
+            await this.createDefaultIfcStyles();
+        }
+        if (ClippingEdges.forceStyleUpdate) {
+            await this.updateStylesIfcGeometry();
+            ClippingEdges.forceStyleUpdate = false;
+        }
+    }
+    // Creates some basic styles so that users don't have to create it each time
+    async createDefaultIfcStyles() {
+        if (Object.keys(ClippingEdges.styles).length === 0) {
+            await ClippingEdges.newStyle('thick', [
+                IFCWALLSTANDARDCASE$1,
+                IFCWALL$1,
+                IFCSLAB$1,
+                IFCSTAIRFLIGHT$1,
+                IFCCOLUMN$1,
+                IFCBEAM$1,
+                IFCROOF$1,
+                IFCBUILDINGELEMENTPROXY$1,
+                IFCPROXY$1
+            ], new LineMaterial({ color: 0x000000, linewidth: 0.0015 }));
+            await ClippingEdges.newStyle('thin', [
+                IFCWINDOW$1,
+                IFCPLATE$1,
+                IFCMEMBER$1,
+                IFCDOOR$1,
+                IFCFURNISHINGELEMENT$1,
+                IFCPROXY$1,
+                IFCBUILDINGELEMENTPROXY$1,
+                IFCFOOTING$1
+            ], new LineMaterial({ color: 0x333333, linewidth: 0.001 }));
+            this.stylesInitialized = true;
+        }
+    }
+    // Creates a new subset. This allows to apply a style just to a specific set of items
+    static async newSubset(styleName, model, categories) {
+        const modelID = model.modelID;
+        const ids = await this.getItemIDs(modelID, categories);
+        // If no items were found, no geometry is created for this style
+        if (!ids.length)
+            return null;
+        const manager = this.ifc.loader.ifcManager;
+        let subset;
+        if (ids.length > 0) {
+            subset = manager.createSubset({
+                modelID,
+                ids,
+                customID: styleName,
+                material: ClippingEdges.invisibleMaterial,
+                removePrevious: true,
+                scene: ClippingEdges.context.getScene(),
+                applyBVH: true
+            });
+        }
+        else {
+            subset = manager.getSubset(modelID, ClippingEdges.invisibleMaterial, styleName);
+        }
+        subset.position.copy(model.position);
+        subset.rotation.copy(model.rotation);
+        subset.scale.copy(model.scale);
+        return subset;
+    }
+    static async getItemIDs(modelID, categories) {
+        const ids = [];
+        for (let j = 0; j < categories.length; j++) {
+            // eslint-disable-next-line no-await-in-loop
+            const found = await this.ifc.getAllItemsOfType(modelID, categories[j], false);
+            ids.push(...found);
+        }
+        const visibleItems = this.getVisibileItems(modelID);
+        return ids.filter((id) => visibleItems.has(id));
+    }
+    static getVisibileItems(modelID) {
+        const visibleItems = new Set();
+        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
+        if (!model)
+            throw new Error('IFC model was not found for computing clipping edges.');
+        if (!model.geometry.index)
+            throw new Error('Indices were not found for clipping edges.');
+        const indices = new Set(model.geometry.index.array);
+        indices.forEach((index) => {
+            visibleItems.add(model.geometry.attributes.expressID.getX(index));
+        });
+        return visibleItems;
+    }
+    // Creates the geometry of the clipping edges
+    newThickEdges(styleName) {
+        const material = ClippingEdges.styles[styleName].material;
+        const thickLineGeometry = new LineSegmentsGeometry();
+        const thickEdges = new LineSegments2(thickLineGeometry, material);
+        thickEdges.material.polygonOffset = true;
+        thickEdges.material.polygonOffsetFactor = -2;
+        thickEdges.material.polygonOffsetUnits = 1;
+        thickEdges.renderOrder = 3;
+        return thickEdges;
+    }
+    // Source: https://gkjohnson.github.io/three-mesh-bvh/example/bundle/clippedEdges.html
+    drawEdges(styleName) {
+        const style = ClippingEdges.styles[styleName];
+        // if (!style.subsets.geometry.boundsTree) return;
+        if (!this.edges[styleName]) {
+            this.edges[styleName] = {
+                generatorGeometry: ClippingEdges.newGeneratorGeometry(),
+                mesh: this.newThickEdges(styleName)
+            };
+        }
+        const edges = this.edges[styleName];
+        let index = 0;
+        const posAttr = edges.generatorGeometry.attributes.position;
+        // @ts-ignore
+        posAttr.array.fill(0);
+        const notEmptyMeshes = style.meshes.filter((subset) => subset.geometry);
+        notEmptyMeshes.forEach((mesh) => {
+            if (!mesh.geometry.boundsTree) {
+                throw new Error('Boundstree not found for clipping edges subset.');
+            }
+            this.inverseMatrix.copy(mesh.matrixWorld).invert();
+            this.localPlane.copy(this.clippingPlane).applyMatrix4(this.inverseMatrix);
+            mesh.geometry.boundsTree.shapecast({
+                intersectsBounds: (box) => {
+                    return this.localPlane.intersectsBox(box);
+                },
+                // @ts-ignore
+                intersectsTriangle: (tri) => {
+                    // check each triangle edge to see if it intersects with the plane. If so then
+                    // add it to the list of segments.
+                    let count = 0;
+                    this.tempLine.start.copy(tri.a);
+                    this.tempLine.end.copy(tri.b);
+                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
+                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
+                        posAttr.setXYZ(index, result.x, result.y, result.z);
+                        count++;
+                        index++;
+                    }
+                    this.tempLine.start.copy(tri.b);
+                    this.tempLine.end.copy(tri.c);
+                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
+                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
+                        posAttr.setXYZ(index, result.x, result.y, result.z);
+                        count++;
+                        index++;
+                    }
+                    this.tempLine.start.copy(tri.c);
+                    this.tempLine.end.copy(tri.a);
+                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
+                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
+                        posAttr.setXYZ(index, result.x, result.y, result.z);
+                        count++;
+                        index++;
+                    }
+                    // If we only intersected with one or three sides then just remove it. This could be handled
+                    // more gracefully.
+                    if (count !== 2) {
+                        index -= count;
+                    }
+                }
+            });
+        });
+        // set the draw range to only the new segments and offset the lines so they don't intersect with the geometry
+        edges.mesh.geometry.setDrawRange(0, index);
+        edges.mesh.position.copy(this.clippingPlane.normal).multiplyScalar(0.0001);
+        posAttr.needsUpdate = true;
+        // Update the edges geometry only if there is no NaN in the output (which means there's been an error)
+        if (!Number.isNaN(edges.generatorGeometry.attributes.position.array[0])) {
+            ClippingEdges.basicEdges.geometry = edges.generatorGeometry;
+            edges.mesh.geometry.fromLineSegments(ClippingEdges.basicEdges);
+            const parent = ClippingEdges.edgesParent || ClippingEdges.context.getScene();
+            parent.add(edges.mesh);
+            ClippingEdges.context.renderer.postProduction.excludedItems.add(edges.mesh);
+        }
+    }
+}
+ClippingEdges.styles = {};
+ClippingEdges.forceStyleUpdate = false;
+ClippingEdges.createDefaultIfcStyles = true;
+ClippingEdges.edgesParent = null;
+ClippingEdges.invisibleMaterial = new MeshBasicMaterial({ visible: false });
+ClippingEdges.defaultMaterial = new LineMaterial({ color: 0x000000, linewidth: 0.001 });
+// Helpers
+ClippingEdges.basicEdges = new LineSegments();
+
+class IfcPlane$1 extends IfcComponent {
+    constructor(context, origin, normal, onStartDragging, onEndDragging, planeSize, edgesEnabled) {
+        super(context);
+        this.arrowBoundingBox = new Mesh();
+        this.isVisible = true;
+        this.enabled = true;
+        this.edgesActive = true;
+        // Wether this plane is a section or floor plan
+        this.isPlan = false;
+        this.removeFromScene = () => {
+            this.helper.removeFromParent();
+            this.arrowBoundingBox.removeFromParent();
+            this.arrowBoundingBox.geometry.dispose();
+            this.arrowBoundingBox = undefined;
+            this.planeMesh.geometry.dispose();
+            this.planeMesh.geometry = undefined;
+            this.controls.removeFromParent();
+            this.controls.dispose();
+            this.edges.dispose();
+            this.helper.removeFromParent();
+        };
+        this.planeSize = planeSize;
+        this.context = context;
+        this.plane = new Plane();
+        this.planeMesh = this.getPlaneMesh();
+        this.normal = normal;
+        this.origin = origin;
+        this.helper = this.createHelper();
+        this.controls = this.newTransformControls();
+        this.setupEvents(onStartDragging, onEndDragging);
+        this.plane.setFromNormalAndCoplanarPoint(normal, origin);
+        this.edges = new ClippingEdges(this.plane);
+        this.edgesActive = edgesEnabled;
+    }
+    get active() {
+        return this.enabled;
+    }
+    set active(state) {
+        this.enabled = state;
+        const planes = this.context.getClippingPlanes();
+        this.edges.visible = state;
+        if (state) {
+            planes.push(this.plane);
+        }
+        else {
+            const index = planes.indexOf(this.plane);
+            if (index >= 0)
+                planes.splice(index);
+        }
+    }
+    get visible() {
+        return this.isVisible;
+    }
+    set visible(state) {
+        this.isVisible = state;
+        this.controls.visible = state;
+        this.helper.visible = state;
+        this.edges.visible = state;
+    }
+    dispose() {
+        if (IfcPlane$1.planeMaterial) {
+            IfcPlane$1.planeMaterial.dispose();
+            IfcPlane$1.planeMaterial = null;
+            IfcPlane$1.planeMaterial = IfcPlane$1.getPlaneMaterial();
+        }
+        if (IfcPlane$1.hiddenMaterial) {
+            IfcPlane$1.hiddenMaterial.dispose();
+            IfcPlane$1.hiddenMaterial = null;
+            IfcPlane$1.hiddenMaterial = IfcPlane$1.getHiddenMaterial();
+        }
+        this.removeFromScene();
+        this.edges.disposeStylesAndHelpers();
+        this.edges = null;
+        this.context = null;
+    }
+    static getPlaneMaterial() {
+        return new MeshBasicMaterial({
+            color: 0xffff00,
+            side: DoubleSide,
+            transparent: true,
+            opacity: 0.2
+        });
+    }
+    static getHiddenMaterial() {
+        return new MeshBasicMaterial({ visible: false });
+    }
+    newTransformControls() {
+        const camera = this.context.getCamera();
+        const container = this.context.getDomElement();
+        const controls = new TransformControls(camera, container);
+        this.initializeControls(controls);
+        const scene = this.context.getScene();
+        scene.add(controls);
+        this.context.renderer.postProduction.excludedItems.add(controls);
+        return controls;
+    }
+    initializeControls(controls) {
+        controls.attach(this.helper);
+        controls.showX = false;
+        controls.showY = false;
+        controls.setSpace('local');
+        this.createArrowBoundingBox();
+        controls.children[0].children[0].add(this.arrowBoundingBox);
+    }
+    createArrowBoundingBox() {
+        this.arrowBoundingBox.geometry = new CylinderGeometry(0.18, 0.18, 1.2);
+        this.arrowBoundingBox.material = IfcPlane$1.hiddenMaterial;
+        this.arrowBoundingBox.rotateX(Math.PI / 2);
+        this.arrowBoundingBox.updateMatrix();
+        this.arrowBoundingBox.geometry.applyMatrix4(this.arrowBoundingBox.matrix);
+    }
+    setupEvents(onStart, onEnd) {
+        this.controls.addEventListener('change', () => {
+            if (!this.enabled)
+                return;
+            this.plane.setFromNormalAndCoplanarPoint(this.normal, this.helper.position);
+            if (this.edgesActive)
+                this.edges.updateEdges();
+        });
+        this.controls.addEventListener('dragging-changed', (event) => {
+            if (!this.enabled)
+                return;
+            this.isVisible = !event.value;
+            this.context.toggleCameraControls(this.isVisible);
+            if (event.value)
+                onStart();
+            else
+                onEnd();
+        });
+        this.context.ifcCamera.currentNavMode.onChangeProjection.on((camera) => {
+            this.controls.camera = camera;
+        });
+    }
+    createHelper() {
+        const helper = new Object3D();
+        helper.lookAt(this.normal);
+        helper.position.copy(this.origin);
+        const scene = this.context.getScene();
+        scene.add(helper);
+        helper.add(this.planeMesh);
+        this.context.renderer.postProduction.excludedItems.add(helper);
+        return helper;
+    }
+    getPlaneMesh() {
+        const planeGeom = new PlaneGeometry(this.planeSize, this.planeSize, 1);
+        return new Mesh(planeGeom, IfcPlane$1.planeMaterial);
+    }
+}
+IfcPlane$1.planeMaterial = IfcPlane$1.getPlaneMaterial();
+IfcPlane$1.hiddenMaterial = IfcPlane$1.getHiddenMaterial();
+
+class IfcClipper extends IfcComponent {
+    constructor(context, ifc) {
+        super(context);
+        this.orthogonalY = true;
+        this.toleranceOrthogonalY = 0.7;
+        this.planeSize = 5;
+        this.createPlane = () => {
+            if (!this.enabled)
+                return;
+            const intersects = this.context.castRayIfc();
+            if (!intersects)
+                return;
+            this.createPlaneFromIntersection(intersects);
+            this.intersection = undefined;
+        };
+        this.createFromNormalAndCoplanarPoint = (normal, point, isPlan = false) => {
+            const plane = new IfcPlane$1(this.context, point, normal, this.activateDragging, this.deactivateDragging, this.planeSize, this.edgesEnabled);
+            plane.isPlan = isPlan;
+            this.planes.push(plane);
+            this.context.addClippingPlane(plane.plane);
+            this.updateMaterials();
+            return plane;
+        };
+        this.deletePlane = (plane) => {
+            let existingPlane = plane;
+            if (!existingPlane) {
+                if (!this.enabled)
+                    return;
+                existingPlane = this.pickPlane();
+            }
+            if (!existingPlane)
+                return;
+            const index = this.planes.indexOf(existingPlane);
+            if (index === -1)
+                return;
+            existingPlane.removeFromScene();
+            this.planes.splice(index, 1);
+            this.context.removeClippingPlane(existingPlane.plane);
+            this.updateMaterials();
+            this.context.renderer.postProduction.update();
+        };
+        this.deleteAllPlanes = () => {
+            while (this.planes.length > 0) {
+                this.deletePlane(this.planes[0]);
+            }
+        };
+        this.pickPlane = () => {
+            const planeMeshes = this.planes.map((p) => p.planeMesh);
+            const arrowMeshes = this.planes.map((p) => p.arrowBoundingBox);
+            const intersects = this.context.castRay([...planeMeshes, ...arrowMeshes]);
+            if (intersects.length > 0) {
+                return this.planes.find((p) => {
+                    if (p.planeMesh === intersects[0].object || p.arrowBoundingBox === intersects[0].object) {
+                        return p;
+                    }
+                    return null;
+                });
+            }
+            return null;
+        };
+        this.createPlaneFromIntersection = (intersection) => {
+            var _a;
+            const constant = intersection.point.distanceTo(new Vector3(0, 0, 0));
+            const normal = (_a = intersection.face) === null || _a === void 0 ? void 0 : _a.normal;
+            if (!constant || !normal)
+                return;
+            const normalMatrix = new Matrix3().getNormalMatrix(intersection.object.matrixWorld);
+            const worldNormal = normal.clone().applyMatrix3(normalMatrix).normalize();
+            this.normalizePlaneDirectionY(worldNormal);
+            const plane = this.newPlane(intersection, worldNormal.negate());
+            this.planes.push(plane);
+            this.context.addClippingPlane(plane.plane);
+            this.updateMaterials();
+        };
+        this.activateDragging = () => {
+            this.dragging = true;
+            this.context.renderer.postProduction.visible = false;
+        };
+        this.deactivateDragging = () => {
+            this.dragging = false;
+            this.context.renderer.postProduction.visible = true;
+        };
+        this.updateMaterials = () => {
+            // Apply clipping to all models
+            const planes = this.context.getClippingPlanes();
+            this.context.items.ifcModels.forEach((model) => {
+                if (Array.isArray(model.material)) {
+                    model.material.forEach((mat) => (mat.clippingPlanes = planes));
+                }
+                else {
+                    model.material.clippingPlanes = planes;
+                }
+            });
+            // Applying clipping to all subsets. then we can also filter and apply only to specified subsest as parameter
+            Object.values(this.ifc.loader.ifcManager.subsets.getAllSubsets()).forEach((subset) => {
+                const mesh = subset.mesh;
+                if (mesh.material)
+                    this.updateMaterial(mesh, planes);
+                if (mesh.userData.wireframe)
+                    this.updateMaterial(mesh.userData.wireframe, planes);
+            });
+        };
+        this.context = context;
+        this.ifc = ifc;
+        this.enabled = false;
+        this.edgesEnabled = true;
+        this.dragging = false;
+        this.planes = [];
+    }
+    get active() {
+        return this.enabled;
+    }
+    set active(state) {
+        this.enabled = state;
+        this.planes.forEach((plane) => {
+            if (!plane.isPlan) {
+                plane.visible = state;
+                plane.active = state;
+            }
+        });
+        this.updateMaterials();
+        this.context.renderer.postProduction.visible = true;
+    }
+    get edgesActive() {
+        return this.edgesEnabled;
+    }
+    set edgesActive(state) {
+        this.edgesEnabled = state;
+        this.planes.forEach((plane) => {
+            plane.edgesActive = state;
+        });
+    }
+    toggle() {
+        this.active = !this.active;
+    }
+    dispose() {
+        this.planes.forEach((plane) => plane.dispose());
+        this.planes.length = 0;
+        this.context = null;
+        this.ifc = null;
+    }
+    normalizePlaneDirectionY(normal) {
+        if (this.orthogonalY) {
+            if (normal.y > this.toleranceOrthogonalY) {
+                normal.x = 0;
+                normal.y = 1;
+                normal.z = 0;
+            }
+            if (normal.y < -this.toleranceOrthogonalY) {
+                normal.x = 0;
+                normal.y = -1;
+                normal.z = 0;
+            }
+        }
+    }
+    newPlane(intersection, worldNormal) {
+        return new IfcPlane$1(this.context, intersection.point, worldNormal, this.activateDragging, this.deactivateDragging, this.planeSize, this.edgesEnabled);
+    }
+    updateMaterial(mesh, planes) {
+        if (!Array.isArray(mesh.material)) {
+            mesh.material.clippingPlanes = planes;
+            return;
+        }
+        mesh.material.forEach((m) => {
+            m.clippingPlanes = planes;
+        });
+    }
+}
+
+[new Vector3(), new Vector3(), new Vector3()];
+function disposeMeshRecursively(mesh) {
+    mesh.removeFromParent();
+    if (mesh.geometry)
+        mesh.geometry.dispose();
+    if (mesh.material) {
+        if (Array.isArray(mesh.material))
+            mesh.material.forEach((mat) => mat.dispose());
+        else
+            mesh.material.dispose();
+    }
+    if (mesh.children && mesh.children.length) {
+        mesh.children.forEach((child) => disposeMeshRecursively(child));
+    }
+    mesh.children.length = 0;
+}
+
+class SectionFillManager {
+    constructor(IFC, context) {
+        this.IFC = IFC;
+        this.context = context;
+        this.existMessage = 'The specified fill already exists';
+        this.fills = {};
+    }
+    dispose() {
+        const fills = Object.values(this.fills);
+        fills.forEach((fill) => disposeMeshRecursively(fill));
+        this.fills = null;
+    }
+    create(name, modelID, ids, material) {
+        if (this.fills[name] !== undefined)
+            throw new Error(this.existMessage);
+        material.clippingPlanes = this.context.getClippingPlanes();
+        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
+        if (!model)
+            throw new Error('The requested model to fill was not found.');
+        this.setupMaterial(material);
+        const subset = this.getSubset(modelID, ids, material, name);
+        if (!subset)
+            return null;
+        this.context.items.pickableIfcModels.push(subset);
+        subset.position.copy(model.position);
+        subset.rotation.copy(model.rotation);
+        this.context.getScene().add(subset);
+        this.fills[name] = subset;
+        // subset.renderOrder = 2;
+        return subset;
+    }
+    createFromMesh(name, mesh) {
+        if (this.fills[name] !== undefined)
+            throw new Error(this.existMessage);
+        const planes = this.context.getClippingPlanes();
+        if (Array.isArray(mesh.material)) {
+            mesh.material.forEach((material) => {
+                material.clippingPlanes = planes;
+            });
+        }
+        else {
+            mesh.material.clippingPlanes = planes;
+        }
+        this.fills[name] = mesh;
+    }
+    delete(name) {
+        const subset = this.fills[name];
+        delete this.fills[name];
+        this.context.scene.removeModel(subset);
+        subset.geometry.dispose();
+    }
+    setupMaterial(material) {
+        material.clippingPlanes = this.context.getClippingPlanes();
+        material.side = BackSide;
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = -1;
+        material.polygonOffsetUnits = 1;
+    }
+    getSubset(modelID, ids, material, name) {
+        return this.IFC.loader.ifcManager.createSubset({
+            modelID,
+            ids,
+            scene: this.context.getScene(),
+            removePrevious: true,
+            material,
+            applyBVH: true,
+            customID: name
+        });
+    }
+}
+
+var UnitType;
+(function (UnitType) {
+    UnitType["LENGTHUNIT"] = "LENGTHUNIT";
+    UnitType["AREAUNIT"] = "AREAUNIT";
+    UnitType["VOLUMEUNIT"] = "VOLUMEUNIT";
+})(UnitType || (UnitType = {}));
+const UnitScale = {
+    MILLI: 0.001,
+    CENTI: 0.01,
+    DECI: 0.1,
+    NONE: 1,
+    DECA: 10,
+    HECTO: 100,
+    KILO: 1000
+};
+class IfcUnits {
+    constructor(ifc) {
+        this.allUnits = {};
+        this.ifc = ifc;
+    }
+    dispose() {
+        this.allUnits = null;
+        this.ifc = null;
+    }
+    async getUnits(modelID, type) {
+        if (!this.allUnits[modelID]) {
+            await this.getUnitsOfModel(modelID);
+        }
+        return this.allUnits[modelID][type];
+    }
+    async getUnitsOfModel(modelID) {
+        this.allUnits[modelID] = {};
+        const foundUnitsID = await this.ifc.getAllItemsOfType(modelID, IFCUNITASSIGNMENT$1, false);
+        const unitsID = foundUnitsID[0];
+        const unitReference = await this.ifc.getProperties(modelID, unitsID, false, true);
+        const units = unitReference.Units;
+        Object.values(UnitType).forEach((value) => {
+            const foundUnit = units.find((item) => item.UnitType && item.UnitType.value === value);
+            if (foundUnit) {
+                const prefix = foundUnit.Prefix;
+                let scale;
+                if (prefix === null || prefix === undefined)
+                    scale = UnitScale.NONE;
+                else
+                    scale = UnitScale[prefix.value];
+                this.allUnits[modelID][value] = scale;
+            }
+        });
+    }
+}
+
+class PlanManager {
+    constructor(ifc, context, clipper) {
+        this.ifc = ifc;
+        this.context = context;
+        this.clipper = clipper;
+        this.planLists = {};
+        this.active = false;
+        this.defaultSectionOffset = 1.5;
+        this.defaultCameraOffset = 30;
+        this.storeys = [];
+        this.floorPlanViewCached = false;
+        this.previousCamera = new Vector3();
+        this.previousTarget = new Vector3();
+        this.previousProjection = CameraProjections.Perspective;
+        this.sectionFill = new Mesh();
+    }
+    dispose() {
+        disposeMeshRecursively(this.sectionFill);
+        this.sectionFill = null;
+        this.storeys = null;
+        this.planLists = null;
+    }
+    getAll(modelID) {
+        const currentPlans = this.planLists[modelID];
+        if (!currentPlans)
+            throw new Error("The requested model doesn't have floor plans generated");
+        return Object.keys(currentPlans);
+    }
+    async create(config) {
+        const { modelID, name } = config;
+        const ortho = config.ortho || true;
+        if (this.planLists[modelID] === undefined)
+            this.planLists[modelID] = {};
+        const currentPlanlist = this.planLists[modelID];
+        const expressID = config.expressID;
+        if (currentPlanlist[expressID])
+            return;
+        currentPlanlist[expressID] = { modelID, name, ortho, expressID };
+        await this.createClippingPlane(config, currentPlanlist[expressID]);
+    }
+    async goTo(modelID, name, animate = false) {
+        var _a;
+        if (((_a = this.currentPlan) === null || _a === void 0 ? void 0 : _a.modelID) === modelID && this.currentPlan.name === name)
+            return;
+        this.storeCameraPosition();
+        this.hidePreviousClippingPlane();
+        this.getCurrentPlan(modelID, name);
+        this.activateCurrentPlan();
+        if (!this.active) {
+            await this.moveCameraTo2DPlanPosition(animate);
+            this.active = true;
+        }
+    }
+    async exitPlanView(animate = false) {
+        if (!this.active)
+            return;
+        this.active = false;
+        this.cacheFloorplanView();
+        this.context.ifcCamera.setNavigationMode(NavigationModes.Orbit);
+        this.context.ifcCamera.projection = this.previousProjection;
+        if (this.currentPlan && this.currentPlan.plane) {
+            this.currentPlan.plane.active = false;
+        }
+        this.currentPlan = undefined;
+        await this.context.ifcCamera.cameraControls.setLookAt(this.previousCamera.x, this.previousCamera.y, this.previousCamera.z, this.previousTarget.x, this.previousTarget.y, this.previousTarget.z, animate);
+    }
+    async computeAllPlanViews(modelID) {
+        var _a;
+        await this.getCurrentStoreys(modelID);
+        const unitsScale = await this.ifc.units.getUnits(modelID, UnitType.LENGTHUNIT);
+        const siteCoords = await this.getSiteCoords(modelID);
+        const transformHeight = await this.getTransformHeight(modelID);
+        const storeys = this.storeys[modelID];
+        for (let i = 0; i < storeys.length; i++) {
+            if (storeys[i]) {
+                const baseHeight = ((_a = storeys[i].Elevation) === null || _a === void 0 ? void 0 : _a.value) || 0;
+                const elevation = (baseHeight + siteCoords[2]) * unitsScale + transformHeight;
+                const expressID = storeys[i].expressID;
+                // eslint-disable-next-line no-await-in-loop
+                await this.create({
+                    modelID,
+                    name: this.getFloorplanName(storeys[i]),
+                    point: new Vector3(0, elevation + this.defaultSectionOffset, 0),
+                    normal: new Vector3(0, -1, 0),
+                    rotation: 0,
+                    ortho: true,
+                    expressID
+                });
+            }
+        }
+    }
+    storeCameraPosition() {
+        if (this.active) {
+            this.cacheFloorplanView();
+        }
+        else {
+            this.store3dCameraPosition();
+        }
+    }
+    async createClippingPlane(config, plan) {
+        if (config.normal && config.point) {
+            const { normal, point } = config;
+            const plane = this.clipper.createFromNormalAndCoplanarPoint(normal, point, true);
+            plane.visible = false;
+            plane.active = false;
+            plan.plane = plane;
+            await plane.edges.updateEdges();
+            plane.edges.visible = false;
+        }
+    }
+    async getTransformHeight(modelID) {
+        const transformMatrix = await this.ifc.loader.ifcManager.ifcAPI.GetCoordinationMatrix(modelID);
+        return transformMatrix[13];
+    }
+    async getCurrentStoreys(modelID) {
+        if (!this.storeys[modelID]) {
+            this.storeys[modelID] = await this.ifc.getAllItemsOfType(modelID, IFCBUILDINGSTOREY$1, true);
+        }
+    }
+    async getSiteCoords(modelID) {
+        const building = await this.getBuilding(modelID);
+        const sitePlace = building.ObjectPlacement.PlacementRelTo.RelativePlacement.Location;
+        return sitePlace.Coordinates.map((coord) => coord.value);
+    }
+    async getBuilding(modelID) {
+        const allBuildingsIDs = await this.ifc.getAllItemsOfType(modelID, IFCBUILDING$1, false);
+        const buildingID = allBuildingsIDs[0];
+        return this.ifc.getProperties(modelID, buildingID, false, true);
+    }
+    cacheFloorplanView() {
+        this.floorPlanViewCached = true;
+        this.context.ifcCamera.cameraControls.saveState();
+    }
+    async moveCameraTo2DPlanPosition(animate) {
+        if (this.floorPlanViewCached)
+            await this.context.ifcCamera.cameraControls.reset(animate);
+        else
+            await this.context.ifcCamera.cameraControls.setLookAt(0, 100, 0, 0, 0, 0, animate);
+    }
+    activateCurrentPlan() {
+        if (!this.currentPlan)
+            throw new Error('Current plan is not defined.');
+        if (this.currentPlan.plane)
+            this.currentPlan.plane.active = true;
+        this.context.ifcCamera.setNavigationMode(NavigationModes.Plan);
+        this.context.ifcCamera.projection = this.currentPlan.ortho
+            ? CameraProjections.Orthographic
+            : CameraProjections.Perspective;
+    }
+    store3dCameraPosition() {
+        this.context.getCamera().getWorldPosition(this.previousCamera);
+        this.context.ifcCamera.cameraControls.getTarget(this.previousTarget);
+        this.previousProjection = this.context.ifcCamera.projection;
+    }
+    getCurrentPlan(modelID, name) {
+        if (this.planLists[modelID] === undefined)
+            throw new Error('The specified plan is undefined!');
+        const currentPlanList = this.planLists[modelID];
+        if (currentPlanList[name] === undefined)
+            throw new Error('The specified plan is undefined!');
+        if (!currentPlanList[name])
+            throw new Error('The specified plan name does not exist!');
+        this.currentPlan = currentPlanList[name];
+    }
+    hidePreviousClippingPlane() {
+        var _a;
+        const plane = (_a = this.currentPlan) === null || _a === void 0 ? void 0 : _a.plane;
+        if (plane)
+            plane.active = false;
+    }
+    getFloorplanName(floorplan) {
+        var _a, _b, _c, _d;
+        if ((_b = (_a = floorplan === null || floorplan === void 0 ? void 0 : floorplan.Name) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.length) {
+            return floorplan.Name.value;
+        }
+        if ((_d = (_c = floorplan === null || floorplan === void 0 ? void 0 : floorplan.LongName) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.length) {
+            return floorplan.LongName.value;
+        }
+        return floorplan.GlobalId.value;
+    }
+}
+
+class IfcGrid$1 extends IfcComponent {
+    constructor(context) {
+        super(context);
+        this.context = context;
+    }
+    dispose() {
+        if (this.grid) {
+            disposeMeshRecursively(this.grid);
+        }
+        this.grid = null;
+    }
+    setGrid(size, divisions, colorCenterLine, colorGrid) {
+        if (this.grid) {
+            if (this.grid.parent)
+                this.grid.removeFromParent();
+            this.grid.geometry.dispose();
+        }
+        this.grid = new GridHelper(size, divisions, colorCenterLine, colorGrid);
+        this.grid.renderOrder = 0;
+        const scene = this.context.getScene();
+        scene.add(this.grid);
+        this.context.renderer.postProduction.excludedItems.add(this.grid);
+    }
+}
+
+class IfcAxes extends IfcComponent {
+    constructor(context) {
+        super(context);
+        this.context = context;
+    }
+    dispose() {
+        if (this.axes) {
+            disposeMeshRecursively(this.axes);
+        }
+        this.axes = null;
+    }
+    setAxes(size) {
+        if (this.axes) {
+            if (this.axes.parent)
+                this.axes.removeFromParent();
+            this.axes.geometry.dispose();
+        }
+        this.axes = new AxesHelper(size);
+        this.axes.material.depthTest = false;
+        this.axes.renderOrder = 2;
+        const scene = this.context.getScene();
+        scene.add(this.axes);
+        this.context.renderer.postProduction.excludedItems.add(this.axes);
+    }
+}
+
+class CSS2DObject extends Object3D {
+
+	constructor( element = document.createElement( 'div' ) ) {
+
+		super();
+
+		this.element = element;
+
+		this.element.style.position = 'absolute';
+		this.element.style.userSelect = 'none';
+
+		this.element.setAttribute( 'draggable', false );
+
+		this.addEventListener( 'removed', function () {
+
+			this.traverse( function ( object ) {
+
+				if ( object.element instanceof Element && object.element.parentNode !== null ) {
+
+					object.element.parentNode.removeChild( object.element );
+
+				}
+
+			} );
+
+		} );
+
+	}
+
+	copy( source, recursive ) {
+
+		super.copy( source, recursive );
+
+		this.element = source.element.cloneNode( true );
+
+		return this;
+
+	}
+
+}
+
+CSS2DObject.prototype.isCSS2DObject = true;
+
+//
+
+const _vector = new Vector3();
+const _viewMatrix = new Matrix4();
+const _viewProjectionMatrix = new Matrix4();
+const _a = new Vector3();
+const _b = new Vector3();
+
+class CSS2DRenderer {
+
+	constructor( parameters = {} ) {
+
+		const _this = this;
+
+		let _width, _height;
+		let _widthHalf, _heightHalf;
+
+		const cache = {
+			objects: new WeakMap()
+		};
+
+		const domElement = parameters.element !== undefined ? parameters.element : document.createElement( 'div' );
+
+		domElement.style.overflow = 'hidden';
+
+		this.domElement = domElement;
+
+		this.getSize = function () {
+
+			return {
+				width: _width,
+				height: _height
+			};
+
+		};
+
+		this.render = function ( scene, camera ) {
+
+			if ( scene.autoUpdate === true ) scene.updateMatrixWorld();
+			if ( camera.parent === null ) camera.updateMatrixWorld();
+
+			_viewMatrix.copy( camera.matrixWorldInverse );
+			_viewProjectionMatrix.multiplyMatrices( camera.projectionMatrix, _viewMatrix );
+
+			renderObject( scene, scene, camera );
+			zOrder( scene );
+
+		};
+
+		this.setSize = function ( width, height ) {
+
+			_width = width;
+			_height = height;
+
+			_widthHalf = _width / 2;
+			_heightHalf = _height / 2;
+
+			domElement.style.width = width + 'px';
+			domElement.style.height = height + 'px';
+
+		};
+
+		function renderObject( object, scene, camera ) {
+
+			if ( object.isCSS2DObject ) {
+
+				object.onBeforeRender( _this, scene, camera );
+
+				_vector.setFromMatrixPosition( object.matrixWorld );
+				_vector.applyMatrix4( _viewProjectionMatrix );
+
+				const element = object.element;
+
+				if ( /apple/i.test( navigator.vendor ) ) {
+
+					// https://github.com/mrdoob/three.js/issues/21415
+					element.style.transform = 'translate(-50%,-50%) translate(' + Math.round( _vector.x * _widthHalf + _widthHalf ) + 'px,' + Math.round( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
+
+				} else {
+
+					element.style.transform = 'translate(-50%,-50%) translate(' + ( _vector.x * _widthHalf + _widthHalf ) + 'px,' + ( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
+
+				}
+
+				element.style.display = ( object.visible && _vector.z >= - 1 && _vector.z <= 1 ) ? '' : 'none';
+
+				const objectData = {
+					distanceToCameraSquared: getDistanceToSquared( camera, object )
+				};
+
+				cache.objects.set( object, objectData );
+
+				if ( element.parentNode !== domElement ) {
+
+					domElement.appendChild( element );
+
+				}
+
+				object.onAfterRender( _this, scene, camera );
+
+			}
+
+			for ( let i = 0, l = object.children.length; i < l; i ++ ) {
+
+				renderObject( object.children[ i ], scene, camera );
+
+			}
+
+		}
+
+		function getDistanceToSquared( object1, object2 ) {
+
+			_a.setFromMatrixPosition( object1.matrixWorld );
+			_b.setFromMatrixPosition( object2.matrixWorld );
+
+			return _a.distanceToSquared( _b );
+
+		}
+
+		function filterAndFlatten( scene ) {
+
+			const result = [];
+
+			scene.traverse( function ( object ) {
+
+				if ( object.isCSS2DObject ) result.push( object );
+
+			} );
+
+			return result;
+
+		}
+
+		function zOrder( scene ) {
+
+			const sorted = filterAndFlatten( scene ).sort( function ( a, b ) {
+
+				const distanceA = cache.objects.get( a ).distanceToCameraSquared;
+				const distanceB = cache.objects.get( b ).distanceToCameraSquared;
+
+				return distanceA - distanceB;
+
+			} );
+
+			const zMax = sorted.length;
+
+			for ( let i = 0, l = sorted.length; i < l; i ++ ) {
+
+				sorted[ i ].element.style.zIndex = zMax - i;
+
+			}
+
+		}
+
+	}
+
+}
+
+class IfcDimensionLine {
+    constructor(context, start, end, lineMaterial, endpointMaterial, endpointGeometry, className, endpointScale) {
+        // Elements
+        this.root = new Group();
+        this.endpointMeshes = [];
+        this.scale = new Vector3(1, 1, 1);
+        this.boundingSize = 0.05;
+        this.context = context;
+        this.labelClassName = className;
+        this.start = start;
+        this.end = end;
+        this.scale = endpointScale;
+        this.lineMaterial = lineMaterial;
+        this.endpointMaterial = endpointMaterial;
+        this.length = this.getLength();
+        this.center = this.getCenter();
+        this.axis = new BufferGeometry().setFromPoints([start, end]);
+        this.line = new Line(this.axis, this.lineMaterial);
+        this.root.add(this.line);
+        this.endpoint = endpointGeometry;
+        this.addEndpointMeshes();
+        this.textLabel = this.newText();
+        this.root.renderOrder = 2;
+        this.context.getScene().add(this.root);
+        this.context.ifcCamera.onChange.on(() => this.rescaleObjectsToCameraPosition());
+        this.rescaleObjectsToCameraPosition();
+    }
+    dispose() {
+        this.removeFromScene();
+        this.context = null;
+        disposeMeshRecursively(this.root);
+        this.root = null;
+        disposeMeshRecursively(this.line);
+        this.line = null;
+        this.endpointMeshes.forEach((mesh) => disposeMeshRecursively(mesh));
+        this.endpointMeshes.length = 0;
+        this.axis.dispose();
+        this.axis = null;
+        this.endpoint.dispose();
+        this.endpoint = null;
+        this.textLabel.removeFromParent();
+        this.textLabel.element.remove();
+        this.textLabel = null;
+        this.lineMaterial.dispose();
+        this.lineMaterial = null;
+        this.endpointMaterial.dispose();
+        this.endpointMaterial = null;
+        if (this.boundingMesh) {
+            disposeMeshRecursively(this.boundingMesh);
+            this.boundingMesh = null;
+        }
+    }
+    get boundingBox() {
+        return this.boundingMesh;
+    }
+    get text() {
+        return this.textLabel;
+    }
+    set dimensionColor(dimensionColor) {
+        this.endpointMaterial.color = dimensionColor;
+        this.lineMaterial.color = dimensionColor;
+    }
+    set visibility(visible) {
+        this.root.visible = visible;
+        this.textLabel.visible = visible;
+    }
+    set endpointGeometry(geometry) {
+        this.endpointMeshes.forEach((mesh) => this.root.remove(mesh));
+        this.endpointMeshes = [];
+        this.endpoint = geometry;
+        this.addEndpointMeshes();
+    }
+    set endpointScale(scale) {
+        this.scale = scale;
+        this.endpointMeshes.forEach((mesh) => mesh.scale.set(scale.x, scale.y, scale.z));
+    }
+    set endPoint(point) {
+        this.end = point;
+        if (!this.axis)
+            return;
+        const position = this.axis.attributes.position;
+        if (!position)
+            return;
+        position.setXYZ(1, point.x, point.y, point.z);
+        position.needsUpdate = true;
+        this.endpointMeshes[1].position.set(point.x, point.y, point.z);
+        this.endpointMeshes[1].lookAt(this.start);
+        this.endpointMeshes[0].lookAt(this.end);
+        this.length = this.getLength();
+        this.textLabel.element.textContent = this.getTextContent();
+        this.center = this.getCenter();
+        this.textLabel.position.set(this.center.x, this.center.y, this.center.z);
+        this.line.computeLineDistances();
+    }
+    removeFromScene() {
+        this.context.getScene().remove(this.root);
+        this.root.remove(this.textLabel);
+    }
+    createBoundingBox() {
+        this.boundingMesh = this.newBoundingBox();
+        this.setupBoundingBox(this.end);
+    }
+    rescaleObjectsToCameraPosition() {
+        this.endpointMeshes.forEach((mesh) => this.rescaleMesh(mesh, IfcDimensionLine.scaleFactor));
+        if (this.boundingMesh) {
+            this.rescaleMesh(this.boundingMesh, this.boundingSize, true, true, false);
+        }
+    }
+    rescaleMesh(mesh, scalefactor = 1, x = true, y = true, z = true) {
+        const camera = this.context.ifcCamera.activeCamera;
+        let scale = new Vector3().subVectors(mesh.position, camera.position).length();
+        if (this.context.ifcCamera.projection === CameraProjections.Orthographic) {
+            scale *= 0.1;
+        }
+        scale *= scalefactor;
+        const scaleX = x ? scale : 1;
+        const scaleY = y ? scale : 1;
+        const scaleZ = z ? scale : 1;
+        mesh.scale.set(scaleX, scaleY, scaleZ);
+    }
+    addEndpointMeshes() {
+        this.newEndpointMesh(this.start, this.end);
+        this.newEndpointMesh(this.end, this.start);
+    }
+    newEndpointMesh(position, direction) {
+        const mesh = new Mesh(this.endpoint, this.endpointMaterial);
+        mesh.position.set(position.x, position.y, position.z);
+        mesh.scale.set(this.scale.x, this.scale.y, this.scale.z);
+        mesh.lookAt(direction);
+        this.endpointMeshes.push(mesh);
+        this.root.add(mesh);
+    }
+    newText() {
+        const htmlText = document.createElement('div');
+        htmlText.className = this.labelClassName;
+        htmlText.textContent = this.getTextContent();
+        const label = new CSS2DObject(htmlText);
+        label.position.set(this.center.x, this.center.y, this.center.z);
+        this.root.add(label);
+        return label;
+    }
+    getTextContent() {
+        return `${this.length / IfcDimensionLine.scale} ${IfcDimensionLine.units}`;
+    }
+    newBoundingBox() {
+        const box = new BoxGeometry(1, 1, this.length);
+        return new Mesh(box);
+    }
+    setupBoundingBox(end) {
+        if (!this.boundingMesh)
+            return;
+        this.boundingMesh.position.set(this.center.x, this.center.y, this.center.z);
+        this.boundingMesh.lookAt(end);
+        this.boundingMesh.visible = false;
+        this.root.add(this.boundingMesh);
+    }
+    getLength() {
+        return parseFloat(this.start.distanceTo(this.end).toFixed(2));
+    }
+    getCenter() {
+        let dir = this.end.clone().sub(this.start);
+        const len = dir.length() * 0.5;
+        dir = dir.normalize().multiplyScalar(len);
+        return this.start.clone().add(dir);
+    }
+}
+IfcDimensionLine.scaleFactor = 0.1;
+IfcDimensionLine.scale = 1;
+IfcDimensionLine.units = 'm';
+
+class IfcDimensions extends IfcComponent {
+    constructor(context) {
+        super(context);
+        this.dimensions = [];
+        this.labelClassName = 'ifcjs-dimension-label';
+        this.previewClassName = 'ifcjs-dimension-preview';
+        // State
+        this.enabled = false;
+        this.preview = false;
+        this.dragging = false;
+        this.snapDistance = 0.25;
+        // Measures
+        this.baseScale = new Vector3(1, 1, 1);
+        // Materials
+        this.lineMaterial = new LineDashedMaterial({
+            color: 0x000000,
+            linewidth: 2,
+            depthTest: false,
+            dashSize: 0.2,
+            gapSize: 0.2
+        });
+        this.endpointsMaterial = new MeshBasicMaterial({ color: 0x000000, depthTest: false });
+        // Temp variables
+        this.startPoint = new Vector3();
+        this.endPoint = new Vector3();
+        this.context = context;
+        this.endpoint = IfcDimensions.getDefaultEndpointGeometry();
+        const htmlPreview = document.createElement('div');
+        htmlPreview.className = this.previewClassName;
+        this.previewElement = new CSS2DObject(htmlPreview);
+        this.previewElement.visible = false;
+    }
+    dispose() {
+        this.context = null;
+        this.dimensions.forEach((dim) => dim.dispose());
+        this.dimensions = null;
+        this.currentDimension = null;
+        this.endpoint.dispose();
+        this.endpoint = null;
+        this.previewElement.removeFromParent();
+        this.previewElement.element.remove();
+        this.previewElement = null;
+    }
+    update(_delta) {
+        if (this.enabled && this.preview) {
+            const intersects = this.context.castRayIfc();
+            this.previewElement.visible = !!intersects;
+            if (!intersects)
+                return;
+            this.previewElement.visible = true;
+            const closest = this.getClosestVertex(intersects);
+            this.previewElement.visible = !!closest;
+            if (!closest)
+                return;
+            this.previewElement.position.set(closest.x, closest.y, closest.z);
+            if (this.dragging) {
+                this.drawInProcess();
+            }
+        }
+    }
+    // TODO: This causes a memory leak, and it's a bit confusing
+    setArrow(height, radius) {
+        this.endpoint = IfcDimensions.getDefaultEndpointGeometry(height, radius);
+    }
+    setPreviewElement(element) {
+        this.previewElement = new CSS2DObject(element);
+    }
+    get active() {
+        return this.enabled;
+    }
+    get previewActive() {
+        return this.preview;
+    }
+    get previewObject() {
+        return this.previewElement;
+    }
+    set previewActive(state) {
+        this.preview = state;
+        const scene = this.context.getScene();
+        if (this.preview) {
+            scene.add(this.previewElement);
+        }
+        else {
+            scene.remove(this.previewElement);
+        }
+    }
+    set active(state) {
+        this.enabled = state;
+        this.dimensions.forEach((dim) => {
+            dim.visibility = state;
+        });
+    }
+    set dimensionsColor(color) {
+        this.endpointsMaterial.color = color;
+        this.lineMaterial.color = color;
+    }
+    set dimensionsWidth(width) {
+        this.lineMaterial.linewidth = width;
+    }
+    set endpointGeometry(geometry) {
+        this.dimensions.forEach((dim) => {
+            dim.endpointGeometry = geometry;
+        });
+    }
+    set endpointScaleFactor(factor) {
+        IfcDimensionLine.scaleFactor = factor;
+    }
+    set endpointScale(scale) {
+        this.baseScale = scale;
+        this.dimensions.forEach((dim) => {
+            dim.endpointScale = scale;
+        });
+    }
+    create() {
+        if (!this.enabled)
+            return;
+        if (!this.dragging) {
+            this.drawStart();
+            return;
+        }
+        this.drawEnd();
+    }
+    createInPlane(plane) {
+        if (!this.enabled)
+            return;
+        if (!this.dragging) {
+            this.drawStartInPlane(plane);
+            return;
+        }
+        this.drawEnd();
+    }
+    delete() {
+        if (!this.enabled || this.dimensions.length === 0)
+            return;
+        const boundingBoxes = this.getBoundingBoxes();
+        const intersects = this.context.castRay(boundingBoxes);
+        if (intersects.length === 0)
+            return;
+        const selected = this.dimensions.find((dim) => dim.boundingBox === intersects[0].object);
+        if (!selected)
+            return;
+        const index = this.dimensions.indexOf(selected);
+        this.dimensions.splice(index, 1);
+        selected.removeFromScene();
+    }
+    deleteAll() {
+        this.dimensions.forEach((dim) => {
+            dim.removeFromScene();
+        });
+        this.dimensions = [];
+    }
+    cancelDrawing() {
+        var _a;
+        if (!this.currentDimension)
+            return;
+        this.dragging = false;
+        (_a = this.currentDimension) === null || _a === void 0 ? void 0 : _a.removeFromScene();
+        this.currentDimension = undefined;
+    }
+    drawStart() {
+        this.dragging = true;
+        const intersects = this.context.castRayIfc();
+        if (!intersects)
+            return;
+        const found = this.getClosestVertex(intersects);
+        if (!found)
+            return;
+        this.startPoint = found;
+    }
+    drawStartInPlane(plane) {
+        this.dragging = true;
+        const intersects = this.context.castRay([plane]);
+        if (!intersects || intersects.length < 1)
+            return;
+        this.startPoint = intersects[0].point;
+    }
+    drawInProcess() {
+        const intersects = this.context.castRayIfc();
+        if (!intersects)
+            return;
+        const found = this.getClosestVertex(intersects);
+        if (!found)
+            return;
+        this.endPoint = found;
+        if (!this.currentDimension)
+            this.currentDimension = this.drawDimension();
+        this.currentDimension.endPoint = this.endPoint;
+    }
+    drawEnd() {
+        if (!this.currentDimension)
+            return;
+        this.currentDimension.createBoundingBox();
+        this.dimensions.push(this.currentDimension);
+        this.currentDimension = undefined;
+        this.dragging = false;
+    }
+    get getDimensionsLines() {
+        return this.dimensions;
+    }
+    drawDimension() {
+        return new IfcDimensionLine(this.context, this.startPoint, this.endPoint, this.lineMaterial, this.endpointsMaterial, this.endpoint, this.labelClassName, this.baseScale);
+    }
+    getBoundingBoxes() {
+        return this.dimensions
+            .map((dim) => dim.boundingBox)
+            .filter((box) => box !== undefined);
+    }
+    static getDefaultEndpointGeometry(height = 0.1, radius = 0.03) {
+        const coneGeometry = new ConeGeometry(radius, height);
+        coneGeometry.translate(0, -height / 2, 0);
+        coneGeometry.rotateX(-Math.PI / 2);
+        return coneGeometry;
+    }
+    getClosestVertex(intersects) {
+        let closestVertex = new Vector3();
+        let vertexFound = false;
+        let closestDistance = Number.MAX_SAFE_INTEGER;
+        const vertices = this.getVertices(intersects);
+        vertices === null || vertices === void 0 ? void 0 : vertices.forEach((vertex) => {
+            if (!vertex)
+                return;
+            const distance = intersects.point.distanceTo(vertex);
+            if (distance > closestDistance || distance > this.snapDistance)
+                return;
+            vertexFound = true;
+            closestVertex = vertex;
+            closestDistance = intersects.point.distanceTo(vertex);
+        });
+        return vertexFound ? closestVertex : intersects.point;
+    }
+    getVertices(intersects) {
+        const mesh = intersects.object;
+        if (!intersects.face || !mesh)
+            return null;
+        const geom = mesh.geometry;
+        return [
+            this.getVertex(intersects.face.a, geom),
+            this.getVertex(intersects.face.b, geom),
+            this.getVertex(intersects.face.c, geom)
+        ];
+    }
+    getVertex(index, geom) {
+        if (index === undefined)
+            return null;
+        const vertices = geom.attributes.position;
+        return new Vector3(vertices.getX(index), vertices.getY(index), vertices.getZ(index));
+    }
+}
+
+class Edges {
+    constructor(context) {
+        this.context = context;
+        this.threshold = 30;
+        this.edges = {};
+    }
+    static setupModelMaterial(material) {
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = 1;
+        material.polygonOffsetUnits = 1;
+    }
+    dispose() {
+        const allEdges = Object.values(this.edges);
+        allEdges.forEach((item) => {
+            disposeMeshRecursively(item.edges);
+            if (Array.isArray(item.originalMaterials)) {
+                item.originalMaterials.forEach((mat) => mat.dispose());
+            }
+            else
+                item.originalMaterials.dispose();
+            if (item.baseMaterial)
+                item.baseMaterial.dispose();
+        });
+        this.edges = null;
+    }
+    getAll() {
+        return Object.keys(this.edges);
+    }
+    get(name) {
+        return this.edges[name];
+    }
+    create(name, modelID, lineMaterial, material) {
+        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
+        if (!model)
+            return;
+        this.createFromMesh(name, model, lineMaterial, material);
+    }
+    // use this to create edges of a subset this implements a todo of allowing subsets of edges
+    createFromSubset(name, subset, lineMaterial, material) {
+        this.createFromMesh(name, subset, lineMaterial, material);
+    }
+    createFromMesh(name, mesh, lineMaterial, material) {
+        const planes = this.context.getClippingPlanes();
+        lineMaterial.clippingPlanes = planes;
+        if (material)
+            material.clippingPlanes = planes;
+        this.setupModelMaterials(mesh);
+        const geo = new EdgesGeometry(mesh.geometry, this.threshold);
+        lineMaterial.clippingPlanes = this.context.getClippingPlanes();
+        this.edges[name] = {
+            edges: new LineSegments(geo, lineMaterial),
+            originalMaterials: mesh.material,
+            baseMaterial: material,
+            model: mesh,
+            active: false
+        };
+    }
+    toggle(name, active) {
+        const selected = this.edges[name];
+        if (!selected)
+            return;
+        if (active === undefined)
+            active = !selected.active;
+        selected.active = active;
+        if (active) {
+            const pos = selected.model.position;
+            const rot = selected.model.rotation;
+            selected.edges.position.set(pos.x, pos.y, pos.z);
+            selected.edges.rotation.set(rot.x, rot.y, rot.z);
+            if (selected.baseMaterial)
+                selected.model.material = selected.baseMaterial;
+            this.context.getScene().add(selected.edges);
+            return;
+        }
+        if (selected.baseMaterial)
+            selected.model.material = selected.originalMaterials;
+        selected.edges.removeFromParent();
+    }
+    setupModelMaterials(model) {
+        if (Array.isArray(model.material)) {
+            model.material.forEach((mat) => Edges.setupModelMaterial(mat));
+            return;
+        }
+        Edges.setupModelMaterial(model.material);
+    }
+}
+
+// Split strategy constants
+const CENTER = 0;
+const AVERAGE = 1;
+const SAH = 2;
+
+// Traversal constants
+const NOT_INTERSECTED = 0;
+const INTERSECTED = 1;
+const CONTAINED = 2;
+
+// SAH cost constants
+// TODO: hone these costs more. The relative difference between them should be the
+// difference in measured time to perform a triangle intersection vs traversing
+// bounds.
+const TRIANGLE_INTERSECT_COST = 1.25;
+const TRAVERSAL_COST = 1;
+
+
+// Build constants
+const BYTES_PER_NODE = 6 * 4 + 4 + 4;
+const IS_LEAFNODE_FLAG = 0xFFFF;
+
+// EPSILON for computing floating point error during build
+// https://en.wikipedia.org/wiki/Machine_epsilon#Values_for_standard_hardware_floating_point_arithmetics
+const FLOAT32_EPSILON = Math.pow( 2, - 24 );
+
+class MeshBVHNode {
+
+	constructor() {
+
+		// internal nodes have boundingData, left, right, and splitAxis
+		// leaf nodes have offset and count (referring to primitives in the mesh geometry)
+
+	}
+
+}
+
+function arrayToBox( nodeIndex32, array, target ) {
+
+	target.min.x = array[ nodeIndex32 ];
+	target.min.y = array[ nodeIndex32 + 1 ];
+	target.min.z = array[ nodeIndex32 + 2 ];
+
+	target.max.x = array[ nodeIndex32 + 3 ];
+	target.max.y = array[ nodeIndex32 + 4 ];
+	target.max.z = array[ nodeIndex32 + 5 ];
+
+	return target;
+
+}
+
+function getLongestEdgeIndex( bounds ) {
+
+	let splitDimIdx = - 1;
+	let splitDist = - Infinity;
+
+	for ( let i = 0; i < 3; i ++ ) {
+
+		const dist = bounds[ i + 3 ] - bounds[ i ];
+		if ( dist > splitDist ) {
+
+			splitDist = dist;
+			splitDimIdx = i;
+
+		}
+
+	}
+
+	return splitDimIdx;
+
+}
+
+// copys bounds a into bounds b
+function copyBounds( source, target ) {
+
+	target.set( source );
+
+}
+
+// sets bounds target to the union of bounds a and b
+function unionBounds( a, b, target ) {
+
+	let aVal, bVal;
+	for ( let d = 0; d < 3; d ++ ) {
+
+		const d3 = d + 3;
+
+		// set the minimum values
+		aVal = a[ d ];
+		bVal = b[ d ];
+		target[ d ] = aVal < bVal ? aVal : bVal;
+
+		// set the max values
+		aVal = a[ d3 ];
+		bVal = b[ d3 ];
+		target[ d3 ] = aVal > bVal ? aVal : bVal;
+
+	}
+
+}
+
+// expands the given bounds by the provided triangle bounds
+function expandByTriangleBounds( startIndex, triangleBounds, bounds ) {
+
+	for ( let d = 0; d < 3; d ++ ) {
+
+		const tCenter = triangleBounds[ startIndex + 2 * d ];
+		const tHalf = triangleBounds[ startIndex + 2 * d + 1 ];
+
+		const tMin = tCenter - tHalf;
+		const tMax = tCenter + tHalf;
+
+		if ( tMin < bounds[ d ] ) {
+
+			bounds[ d ] = tMin;
+
+		}
+
+		if ( tMax > bounds[ d + 3 ] ) {
+
+			bounds[ d + 3 ] = tMax;
+
+		}
+
+	}
+
+}
+
+// compute bounds surface area
+function computeSurfaceArea( bounds ) {
+
+	const d0 = bounds[ 3 ] - bounds[ 0 ];
+	const d1 = bounds[ 4 ] - bounds[ 1 ];
+	const d2 = bounds[ 5 ] - bounds[ 2 ];
+
+	return 2 * ( d0 * d1 + d1 * d2 + d2 * d0 );
+
+}
+
+function ensureIndex( geo, options ) {
+
+	if ( ! geo.index ) {
+
+		const vertexCount = geo.attributes.position.count;
+		const BufferConstructor = options.useSharedArrayBuffer ? SharedArrayBuffer : ArrayBuffer;
+		let index;
+		if ( vertexCount > 65535 ) {
+
+			index = new Uint32Array( new BufferConstructor( 4 * vertexCount ) );
+
+		} else {
+
+			index = new Uint16Array( new BufferConstructor( 2 * vertexCount ) );
+
+		}
+
+		geo.setIndex( new BufferAttribute( index, 1 ) );
+
+		for ( let i = 0; i < vertexCount; i ++ ) {
+
+			index[ i ] = i;
+
+		}
+
+	}
+
+}
+
+// Computes the set of { offset, count } ranges which need independent BVH roots. Each
+// region in the geometry index that belongs to a different set of material groups requires
+// a separate BVH root, so that triangles indices belonging to one group never get swapped
+// with triangle indices belongs to another group. For example, if the groups were like this:
+//
+// [-------------------------------------------------------------]
+// |__________________|
+//   g0 = [0, 20]  |______________________||_____________________|
+//                      g1 = [16, 40]           g2 = [41, 60]
+//
+// we would need four BVH roots: [0, 15], [16, 20], [21, 40], [41, 60].
+function getRootIndexRanges( geo ) {
+
+	if ( ! geo.groups || ! geo.groups.length ) {
+
+		return [ { offset: 0, count: geo.index.count / 3 } ];
+
+	}
+
+	const ranges = [];
+	const rangeBoundaries = new Set();
+	for ( const group of geo.groups ) {
+
+		rangeBoundaries.add( group.start );
+		rangeBoundaries.add( group.start + group.count );
+
+	}
+
+	// note that if you don't pass in a comparator, it sorts them lexicographically as strings :-(
+	const sortedBoundaries = Array.from( rangeBoundaries.values() ).sort( ( a, b ) => a - b );
+	for ( let i = 0; i < sortedBoundaries.length - 1; i ++ ) {
+
+		const start = sortedBoundaries[ i ], end = sortedBoundaries[ i + 1 ];
+		ranges.push( { offset: ( start / 3 ), count: ( end - start ) / 3 } );
+
+	}
+
+	return ranges;
+
+}
+
+// computes the union of the bounds of all of the given triangles and puts the resulting box in target. If
+// centroidTarget is provided then a bounding box is computed for the centroids of the triangles, as well.
+// These are computed together to avoid redundant accesses to bounds array.
+function getBounds( triangleBounds, offset, count, target, centroidTarget = null ) {
+
+	let minx = Infinity;
+	let miny = Infinity;
+	let minz = Infinity;
+	let maxx = - Infinity;
+	let maxy = - Infinity;
+	let maxz = - Infinity;
+
+	let cminx = Infinity;
+	let cminy = Infinity;
+	let cminz = Infinity;
+	let cmaxx = - Infinity;
+	let cmaxy = - Infinity;
+	let cmaxz = - Infinity;
+
+	const includeCentroid = centroidTarget !== null;
+	for ( let i = offset * 6, end = ( offset + count ) * 6; i < end; i += 6 ) {
+
+		const cx = triangleBounds[ i + 0 ];
+		const hx = triangleBounds[ i + 1 ];
+		const lx = cx - hx;
+		const rx = cx + hx;
+		if ( lx < minx ) minx = lx;
+		if ( rx > maxx ) maxx = rx;
+		if ( includeCentroid && cx < cminx ) cminx = cx;
+		if ( includeCentroid && cx > cmaxx ) cmaxx = cx;
+
+		const cy = triangleBounds[ i + 2 ];
+		const hy = triangleBounds[ i + 3 ];
+		const ly = cy - hy;
+		const ry = cy + hy;
+		if ( ly < miny ) miny = ly;
+		if ( ry > maxy ) maxy = ry;
+		if ( includeCentroid && cy < cminy ) cminy = cy;
+		if ( includeCentroid && cy > cmaxy ) cmaxy = cy;
+
+		const cz = triangleBounds[ i + 4 ];
+		const hz = triangleBounds[ i + 5 ];
+		const lz = cz - hz;
+		const rz = cz + hz;
+		if ( lz < minz ) minz = lz;
+		if ( rz > maxz ) maxz = rz;
+		if ( includeCentroid && cz < cminz ) cminz = cz;
+		if ( includeCentroid && cz > cmaxz ) cmaxz = cz;
+
+	}
+
+	target[ 0 ] = minx;
+	target[ 1 ] = miny;
+	target[ 2 ] = minz;
+
+	target[ 3 ] = maxx;
+	target[ 4 ] = maxy;
+	target[ 5 ] = maxz;
+
+	if ( includeCentroid ) {
+
+		centroidTarget[ 0 ] = cminx;
+		centroidTarget[ 1 ] = cminy;
+		centroidTarget[ 2 ] = cminz;
+
+		centroidTarget[ 3 ] = cmaxx;
+		centroidTarget[ 4 ] = cmaxy;
+		centroidTarget[ 5 ] = cmaxz;
+
+	}
+
+}
+
+// A stand alone function for retrieving the centroid bounds.
+function getCentroidBounds( triangleBounds, offset, count, centroidTarget ) {
+
+	let cminx = Infinity;
+	let cminy = Infinity;
+	let cminz = Infinity;
+	let cmaxx = - Infinity;
+	let cmaxy = - Infinity;
+	let cmaxz = - Infinity;
+
+	for ( let i = offset * 6, end = ( offset + count ) * 6; i < end; i += 6 ) {
+
+		const cx = triangleBounds[ i + 0 ];
+		if ( cx < cminx ) cminx = cx;
+		if ( cx > cmaxx ) cmaxx = cx;
+
+		const cy = triangleBounds[ i + 2 ];
+		if ( cy < cminy ) cminy = cy;
+		if ( cy > cmaxy ) cmaxy = cy;
+
+		const cz = triangleBounds[ i + 4 ];
+		if ( cz < cminz ) cminz = cz;
+		if ( cz > cmaxz ) cmaxz = cz;
+
+	}
+
+	centroidTarget[ 0 ] = cminx;
+	centroidTarget[ 1 ] = cminy;
+	centroidTarget[ 2 ] = cminz;
+
+	centroidTarget[ 3 ] = cmaxx;
+	centroidTarget[ 4 ] = cmaxy;
+	centroidTarget[ 5 ] = cmaxz;
+
+}
+
+
+// reorders `tris` such that for `count` elements after `offset`, elements on the left side of the split
+// will be on the left and elements on the right side of the split will be on the right. returns the index
+// of the first element on the right side, or offset + count if there are no elements on the right side.
+function partition( index, triangleBounds, offset, count, split ) {
+
+	let left = offset;
+	let right = offset + count - 1;
+	const pos = split.pos;
+	const axisOffset = split.axis * 2;
+
+	// hoare partitioning, see e.g. https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme
+	while ( true ) {
+
+		while ( left <= right && triangleBounds[ left * 6 + axisOffset ] < pos ) {
+
+			left ++;
+
+		}
+
+
+		// if a triangle center lies on the partition plane it is considered to be on the right side
+		while ( left <= right && triangleBounds[ right * 6 + axisOffset ] >= pos ) {
+
+			right --;
+
+		}
+
+		if ( left < right ) {
+
+			// we need to swap all of the information associated with the triangles at index
+			// left and right; that's the verts in the geometry index, the bounds,
+			// and perhaps the SAH planes
+
+			for ( let i = 0; i < 3; i ++ ) {
+
+				let t0 = index[ left * 3 + i ];
+				index[ left * 3 + i ] = index[ right * 3 + i ];
+				index[ right * 3 + i ] = t0;
+
+				let t1 = triangleBounds[ left * 6 + i * 2 + 0 ];
+				triangleBounds[ left * 6 + i * 2 + 0 ] = triangleBounds[ right * 6 + i * 2 + 0 ];
+				triangleBounds[ right * 6 + i * 2 + 0 ] = t1;
+
+				let t2 = triangleBounds[ left * 6 + i * 2 + 1 ];
+				triangleBounds[ left * 6 + i * 2 + 1 ] = triangleBounds[ right * 6 + i * 2 + 1 ];
+				triangleBounds[ right * 6 + i * 2 + 1 ] = t2;
+
+			}
+
+			left ++;
+			right --;
+
+		} else {
+
+			return left;
+
+		}
+
+	}
+
+}
+
+const BIN_COUNT = 32;
+const binsSort = ( a, b ) => a.candidate - b.candidate;
+const sahBins = new Array( BIN_COUNT ).fill().map( () => {
+
+	return {
+
+		count: 0,
+		bounds: new Float32Array( 6 ),
+		rightCacheBounds: new Float32Array( 6 ),
+		leftCacheBounds: new Float32Array( 6 ),
+		candidate: 0,
+
+	};
+
+} );
+const leftBounds = new Float32Array( 6 );
+
+function getOptimalSplit( nodeBoundingData, centroidBoundingData, triangleBounds, offset, count, strategy ) {
+
+	let axis = - 1;
+	let pos = 0;
+
+	// Center
+	if ( strategy === CENTER ) {
+
+		axis = getLongestEdgeIndex( centroidBoundingData );
+		if ( axis !== - 1 ) {
+
+			pos = ( centroidBoundingData[ axis ] + centroidBoundingData[ axis + 3 ] ) / 2;
+
+		}
+
+	} else if ( strategy === AVERAGE ) {
+
+		axis = getLongestEdgeIndex( nodeBoundingData );
+		if ( axis !== - 1 ) {
+
+			pos = getAverage( triangleBounds, offset, count, axis );
+
+		}
+
+	} else if ( strategy === SAH ) {
+
+		const rootSurfaceArea = computeSurfaceArea( nodeBoundingData );
+		let bestCost = TRIANGLE_INTERSECT_COST * count;
+
+		// iterate over all axes
+		const cStart = offset * 6;
+		const cEnd = ( offset + count ) * 6;
+		for ( let a = 0; a < 3; a ++ ) {
+
+			const axisLeft = centroidBoundingData[ a ];
+			const axisRight = centroidBoundingData[ a + 3 ];
+			const axisLength = axisRight - axisLeft;
+			const binWidth = axisLength / BIN_COUNT;
+
+			// If we have fewer triangles than we're planning to split then just check all
+			// the triangle positions because it will be faster.
+			if ( count < BIN_COUNT / 4 ) {
+
+				// initialize the bin candidates
+				const truncatedBins = [ ...sahBins ];
+				truncatedBins.length = count;
+
+				// set the candidates
+				let b = 0;
+				for ( let c = cStart; c < cEnd; c += 6, b ++ ) {
+
+					const bin = truncatedBins[ b ];
+					bin.candidate = triangleBounds[ c + 2 * a ];
+					bin.count = 0;
+
+					const {
+						bounds,
+						leftCacheBounds,
+						rightCacheBounds,
+					} = bin;
+					for ( let d = 0; d < 3; d ++ ) {
+
+						rightCacheBounds[ d ] = Infinity;
+						rightCacheBounds[ d + 3 ] = - Infinity;
+
+						leftCacheBounds[ d ] = Infinity;
+						leftCacheBounds[ d + 3 ] = - Infinity;
+
+						bounds[ d ] = Infinity;
+						bounds[ d + 3 ] = - Infinity;
+
+					}
+
+					expandByTriangleBounds( c, triangleBounds, bounds );
+
+				}
+
+				truncatedBins.sort( binsSort );
+
+				// remove redundant splits
+				let splitCount = count;
+				for ( let bi = 0; bi < splitCount; bi ++ ) {
+
+					const bin = truncatedBins[ bi ];
+					while ( bi + 1 < splitCount && truncatedBins[ bi + 1 ].candidate === bin.candidate ) {
+
+						truncatedBins.splice( bi + 1, 1 );
+						splitCount --;
+
+					}
+
+				}
+
+				// find the appropriate bin for each triangle and expand the bounds.
+				for ( let c = cStart; c < cEnd; c += 6 ) {
+
+					const center = triangleBounds[ c + 2 * a ];
+					for ( let bi = 0; bi < splitCount; bi ++ ) {
+
+						const bin = truncatedBins[ bi ];
+						if ( center >= bin.candidate ) {
+
+							expandByTriangleBounds( c, triangleBounds, bin.rightCacheBounds );
+
+						} else {
+
+							expandByTriangleBounds( c, triangleBounds, bin.leftCacheBounds );
+							bin.count ++;
+
+						}
+
+					}
+
+				}
+
+				// expand all the bounds
+				for ( let bi = 0; bi < splitCount; bi ++ ) {
+
+					const bin = truncatedBins[ bi ];
+					const leftCount = bin.count;
+					const rightCount = count - bin.count;
+
+					// check the cost of this split
+					const leftBounds = bin.leftCacheBounds;
+					const rightBounds = bin.rightCacheBounds;
+
+					let leftProb = 0;
+					if ( leftCount !== 0 ) {
+
+						leftProb = computeSurfaceArea( leftBounds ) / rootSurfaceArea;
+
+					}
+
+					let rightProb = 0;
+					if ( rightCount !== 0 ) {
+
+						rightProb = computeSurfaceArea( rightBounds ) / rootSurfaceArea;
+
+					}
+
+					const cost = TRAVERSAL_COST + TRIANGLE_INTERSECT_COST * (
+						leftProb * leftCount + rightProb * rightCount
+					);
+
+					if ( cost < bestCost ) {
+
+						axis = a;
+						bestCost = cost;
+						pos = bin.candidate;
+
+					}
+
+				}
+
+			} else {
+
+				// reset the bins
+				for ( let i = 0; i < BIN_COUNT; i ++ ) {
+
+					const bin = sahBins[ i ];
+					bin.count = 0;
+					bin.candidate = axisLeft + binWidth + i * binWidth;
+
+					const bounds = bin.bounds;
+					for ( let d = 0; d < 3; d ++ ) {
+
+						bounds[ d ] = Infinity;
+						bounds[ d + 3 ] = - Infinity;
+
+					}
+
+				}
+
+				// iterate over all center positions
+				for ( let c = cStart; c < cEnd; c += 6 ) {
+
+					const triCenter = triangleBounds[ c + 2 * a ];
+					const relativeCenter = triCenter - axisLeft;
+
+					// in the partition function if the centroid lies on the split plane then it is
+					// considered to be on the right side of the split
+					let binIndex = ~ ~ ( relativeCenter / binWidth );
+					if ( binIndex >= BIN_COUNT ) binIndex = BIN_COUNT - 1;
+
+					const bin = sahBins[ binIndex ];
+					bin.count ++;
+
+					expandByTriangleBounds( c, triangleBounds, bin.bounds );
+
+				}
+
+				// cache the unioned bounds from right to left so we don't have to regenerate them each time
+				const lastBin = sahBins[ BIN_COUNT - 1 ];
+				copyBounds( lastBin.bounds, lastBin.rightCacheBounds );
+				for ( let i = BIN_COUNT - 2; i >= 0; i -- ) {
+
+					const bin = sahBins[ i ];
+					const nextBin = sahBins[ i + 1 ];
+					unionBounds( bin.bounds, nextBin.rightCacheBounds, bin.rightCacheBounds );
+
+				}
+
+				let leftCount = 0;
+				for ( let i = 0; i < BIN_COUNT - 1; i ++ ) {
+
+					const bin = sahBins[ i ];
+					const binCount = bin.count;
+					const bounds = bin.bounds;
+
+					const nextBin = sahBins[ i + 1 ];
+					const rightBounds = nextBin.rightCacheBounds;
+
+					// dont do anything with the bounds if the new bounds have no triangles
+					if ( binCount !== 0 ) {
+
+						if ( leftCount === 0 ) {
+
+							copyBounds( bounds, leftBounds );
+
+						} else {
+
+							unionBounds( bounds, leftBounds, leftBounds );
+
+						}
+
+					}
+
+					leftCount += binCount;
+
+					// check the cost of this split
+					let leftProb = 0;
+					let rightProb = 0;
+
+					if ( leftCount !== 0 ) {
+
+						leftProb = computeSurfaceArea( leftBounds ) / rootSurfaceArea;
+
+					}
+
+					const rightCount = count - leftCount;
+					if ( rightCount !== 0 ) {
+
+						rightProb = computeSurfaceArea( rightBounds ) / rootSurfaceArea;
+
+					}
+
+					const cost = TRAVERSAL_COST + TRIANGLE_INTERSECT_COST * (
+						leftProb * leftCount + rightProb * rightCount
+					);
+
+					if ( cost < bestCost ) {
+
+						axis = a;
+						bestCost = cost;
+						pos = bin.candidate;
+
+					}
+
+				}
+
+			}
+
+		}
+
+	} else {
+
+		console.warn( `MeshBVH: Invalid build strategy value ${ strategy } used.` );
+
+	}
+
+	return { axis, pos };
+
+}
+
+// returns the average coordinate on the specified axis of the all the provided triangles
+function getAverage( triangleBounds, offset, count, axis ) {
+
+	let avg = 0;
+	for ( let i = offset, end = offset + count; i < end; i ++ ) {
+
+		avg += triangleBounds[ i * 6 + axis * 2 ];
+
+	}
+
+	return avg / count;
+
+}
+
+// precomputes the bounding box for each triangle; required for quickly calculating tree splits.
+// result is an array of size tris.length * 6 where triangle i maps to a
+// [x_center, x_delta, y_center, y_delta, z_center, z_delta] tuple starting at index i * 6,
+// representing the center and half-extent in each dimension of triangle i
+function computeTriangleBounds( geo, fullBounds ) {
+
+	const posAttr = geo.attributes.position;
+	const index = geo.index.array;
+	const triCount = index.length / 3;
+	const triangleBounds = new Float32Array( triCount * 6 );
+	const normalized = posAttr.normalized;
+
+	// used for non-normalized positions
+	const posArr = posAttr.array;
+
+	// support for an interleaved position buffer
+	const bufferOffset = posAttr.offset || 0;
+	let stride = 3;
+	if ( posAttr.isInterleavedBufferAttribute ) {
+
+		stride = posAttr.data.stride;
+
+	}
+
+	// used for normalized positions
+	const getters = [ 'getX', 'getY', 'getZ' ];
+
+	for ( let tri = 0; tri < triCount; tri ++ ) {
+
+		const tri3 = tri * 3;
+		const tri6 = tri * 6;
+
+		let ai, bi, ci;
+
+		if ( normalized ) {
+
+			ai = index[ tri3 + 0 ];
+			bi = index[ tri3 + 1 ];
+			ci = index[ tri3 + 2 ];
+
+		} else {
+
+			ai = index[ tri3 + 0 ] * stride + bufferOffset;
+			bi = index[ tri3 + 1 ] * stride + bufferOffset;
+			ci = index[ tri3 + 2 ] * stride + bufferOffset;
+
+		}
+
+		for ( let el = 0; el < 3; el ++ ) {
+
+			let a, b, c;
+
+			if ( normalized ) {
+
+				a = posAttr[ getters[ el ] ]( ai );
+				b = posAttr[ getters[ el ] ]( bi );
+				c = posAttr[ getters[ el ] ]( ci );
+
+			} else {
+
+				a = posArr[ ai + el ];
+				b = posArr[ bi + el ];
+				c = posArr[ ci + el ];
+
+			}
+
+			let min = a;
+			if ( b < min ) min = b;
+			if ( c < min ) min = c;
+
+			let max = a;
+			if ( b > max ) max = b;
+			if ( c > max ) max = c;
+
+			// Increase the bounds size by float32 epsilon to avoid precision errors when
+			// converting to 32 bit float. Scale the epsilon by the size of the numbers being
+			// worked with.
+			const halfExtents = ( max - min ) / 2;
+			const el2 = el * 2;
+			triangleBounds[ tri6 + el2 + 0 ] = min + halfExtents;
+			triangleBounds[ tri6 + el2 + 1 ] = halfExtents + ( Math.abs( min ) + halfExtents ) * FLOAT32_EPSILON;
+
+			if ( min < fullBounds[ el ] ) fullBounds[ el ] = min;
+			if ( max > fullBounds[ el + 3 ] ) fullBounds[ el + 3 ] = max;
+
+		}
+
+	}
+
+	return triangleBounds;
+
+}
+
+function buildTree( geo, options ) {
+
+	function triggerProgress( trianglesProcessed ) {
+
+		if ( onProgress ) {
+
+			onProgress( trianglesProcessed / totalTriangles );
+
+		}
+
+	}
+
+	// either recursively splits the given node, creating left and right subtrees for it, or makes it a leaf node,
+	// recording the offset and count of its triangles and writing them into the reordered geometry index.
+	function splitNode( node, offset, count, centroidBoundingData = null, depth = 0 ) {
+
+		if ( ! reachedMaxDepth && depth >= maxDepth ) {
+
+			reachedMaxDepth = true;
+			if ( verbose ) {
+
+				console.warn( `MeshBVH: Max depth of ${ maxDepth } reached when generating BVH. Consider increasing maxDepth.` );
+				console.warn( geo );
+
+			}
+
+		}
+
+		// early out if we've met our capacity
+		if ( count <= maxLeafTris || depth >= maxDepth ) {
+
+			triggerProgress( offset + count );
+			node.offset = offset;
+			node.count = count;
+			return node;
+
+		}
+
+		// Find where to split the volume
+		const split = getOptimalSplit( node.boundingData, centroidBoundingData, triangleBounds, offset, count, strategy );
+		if ( split.axis === - 1 ) {
+
+			triggerProgress( offset + count );
+			node.offset = offset;
+			node.count = count;
+			return node;
+
+		}
+
+		const splitOffset = partition( indexArray, triangleBounds, offset, count, split );
+
+		// create the two new child nodes
+		if ( splitOffset === offset || splitOffset === offset + count ) {
+
+			triggerProgress( offset + count );
+			node.offset = offset;
+			node.count = count;
+
+		} else {
+
+			node.splitAxis = split.axis;
+
+			// create the left child and compute its bounding box
+			const left = new MeshBVHNode();
+			const lstart = offset;
+			const lcount = splitOffset - offset;
+			node.left = left;
+			left.boundingData = new Float32Array( 6 );
+
+			getBounds( triangleBounds, lstart, lcount, left.boundingData, cacheCentroidBoundingData );
+			splitNode( left, lstart, lcount, cacheCentroidBoundingData, depth + 1 );
+
+			// repeat for right
+			const right = new MeshBVHNode();
+			const rstart = splitOffset;
+			const rcount = count - lcount;
+			node.right = right;
+			right.boundingData = new Float32Array( 6 );
+
+			getBounds( triangleBounds, rstart, rcount, right.boundingData, cacheCentroidBoundingData );
+			splitNode( right, rstart, rcount, cacheCentroidBoundingData, depth + 1 );
+
+		}
+
+		return node;
+
+	}
+
+	ensureIndex( geo, options );
+
+	// Compute the full bounds of the geometry at the same time as triangle bounds because
+	// we'll need it for the root bounds in the case with no groups and it should be fast here.
+	// We can't use the geometrying bounding box if it's available because it may be out of date.
+	const fullBounds = new Float32Array( 6 );
+	const cacheCentroidBoundingData = new Float32Array( 6 );
+	const triangleBounds = computeTriangleBounds( geo, fullBounds );
+	const indexArray = geo.index.array;
+	const maxDepth = options.maxDepth;
+	const verbose = options.verbose;
+	const maxLeafTris = options.maxLeafTris;
+	const strategy = options.strategy;
+	const onProgress = options.onProgress;
+	const totalTriangles = geo.index.count / 3;
+	let reachedMaxDepth = false;
+
+	const roots = [];
+	const ranges = getRootIndexRanges( geo );
+
+	if ( ranges.length === 1 ) {
+
+		const range = ranges[ 0 ];
+		const root = new MeshBVHNode();
+		root.boundingData = fullBounds;
+		getCentroidBounds( triangleBounds, range.offset, range.count, cacheCentroidBoundingData );
+
+		splitNode( root, range.offset, range.count, cacheCentroidBoundingData );
+		roots.push( root );
+
+	} else {
+
+		for ( let range of ranges ) {
+
+			const root = new MeshBVHNode();
+			root.boundingData = new Float32Array( 6 );
+			getBounds( triangleBounds, range.offset, range.count, root.boundingData, cacheCentroidBoundingData );
+
+			splitNode( root, range.offset, range.count, cacheCentroidBoundingData );
+			roots.push( root );
+
+		}
+
+	}
+
+	return roots;
+
+}
+
+function buildPackedTree( geo, options ) {
+
+	// boundingData  				: 6 float32
+	// right / offset 				: 1 uint32
+	// splitAxis / isLeaf + count 	: 1 uint32 / 2 uint16
+	const roots = buildTree( geo, options );
+
+	let float32Array;
+	let uint32Array;
+	let uint16Array;
+	const packedRoots = [];
+	const BufferConstructor = options.useSharedArrayBuffer ? SharedArrayBuffer : ArrayBuffer;
+	for ( let i = 0; i < roots.length; i ++ ) {
+
+		const root = roots[ i ];
+		let nodeCount = countNodes( root );
+
+		const buffer = new BufferConstructor( BYTES_PER_NODE * nodeCount );
+		float32Array = new Float32Array( buffer );
+		uint32Array = new Uint32Array( buffer );
+		uint16Array = new Uint16Array( buffer );
+		populateBuffer( 0, root );
+		packedRoots.push( buffer );
+
+	}
+
+	return packedRoots;
+
+	function countNodes( node ) {
+
+		if ( node.count ) {
+
+			return 1;
+
+		} else {
+
+			return 1 + countNodes( node.left ) + countNodes( node.right );
+
+		}
+
+	}
+
+	function populateBuffer( byteOffset, node ) {
+
+		const stride4Offset = byteOffset / 4;
+		const stride2Offset = byteOffset / 2;
+		const isLeaf = ! ! node.count;
+		const boundingData = node.boundingData;
+		for ( let i = 0; i < 6; i ++ ) {
+
+			float32Array[ stride4Offset + i ] = boundingData[ i ];
+
+		}
+
+		if ( isLeaf ) {
+
+			const offset = node.offset;
+			const count = node.count;
+			uint32Array[ stride4Offset + 6 ] = offset;
+			uint16Array[ stride2Offset + 14 ] = count;
+			uint16Array[ stride2Offset + 15 ] = IS_LEAFNODE_FLAG;
+			return byteOffset + BYTES_PER_NODE;
+
+		} else {
+
+			const left = node.left;
+			const right = node.right;
+			const splitAxis = node.splitAxis;
+
+			let nextUnusedPointer;
+			nextUnusedPointer = populateBuffer( byteOffset + BYTES_PER_NODE, left );
+
+			if ( ( nextUnusedPointer / 4 ) > Math.pow( 2, 32 ) ) {
+
+				throw new Error( 'MeshBVH: Cannot store child pointer greater than 32 bits.' );
+
+			}
+
+			uint32Array[ stride4Offset + 6 ] = nextUnusedPointer / 4;
+			nextUnusedPointer = populateBuffer( nextUnusedPointer, right );
+
+			uint32Array[ stride4Offset + 7 ] = splitAxis;
+			return nextUnusedPointer;
+
+		}
+
+	}
+
+}
+
+class SeparatingAxisBounds {
+
+	constructor() {
+
+		this.min = Infinity;
+		this.max = - Infinity;
+
+	}
+
+	setFromPointsField( points, field ) {
+
+		let min = Infinity;
+		let max = - Infinity;
+		for ( let i = 0, l = points.length; i < l; i ++ ) {
+
+			const p = points[ i ];
+			const val = p[ field ];
+			min = val < min ? val : min;
+			max = val > max ? val : max;
+
+		}
+
+		this.min = min;
+		this.max = max;
+
+	}
+
+	setFromPoints( axis, points ) {
+
+		let min = Infinity;
+		let max = - Infinity;
+		for ( let i = 0, l = points.length; i < l; i ++ ) {
+
+			const p = points[ i ];
+			const val = axis.dot( p );
+			min = val < min ? val : min;
+			max = val > max ? val : max;
+
+		}
+
+		this.min = min;
+		this.max = max;
+
+	}
+
+	isSeparated( other ) {
+
+		return this.min > other.max || other.min > this.max;
+
+	}
+
+}
+
+SeparatingAxisBounds.prototype.setFromBox = ( function () {
+
+	const p = new Vector3();
+	return function setFromBox( axis, box ) {
+
+		const boxMin = box.min;
+		const boxMax = box.max;
+		let min = Infinity;
+		let max = - Infinity;
+		for ( let x = 0; x <= 1; x ++ ) {
+
+			for ( let y = 0; y <= 1; y ++ ) {
+
+				for ( let z = 0; z <= 1; z ++ ) {
+
+					p.x = boxMin.x * x + boxMax.x * ( 1 - x );
+					p.y = boxMin.y * y + boxMax.y * ( 1 - y );
+					p.z = boxMin.z * z + boxMax.z * ( 1 - z );
+
+					const val = axis.dot( p );
+					min = Math.min( val, min );
+					max = Math.max( val, max );
+
+				}
+
+			}
+
+		}
+
+		this.min = min;
+		this.max = max;
+
+	};
+
+} )();
+
+( (function () {
+
+	const cacheSatBounds = new SeparatingAxisBounds();
+	return function areIntersecting( shape1, shape2 ) {
+
+		const points1 = shape1.points;
+		const satAxes1 = shape1.satAxes;
+		const satBounds1 = shape1.satBounds;
+
+		const points2 = shape2.points;
+		const satAxes2 = shape2.satAxes;
+		const satBounds2 = shape2.satBounds;
+
+		// check axes of the first shape
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const sb = satBounds1[ i ];
+			const sa = satAxes1[ i ];
+			cacheSatBounds.setFromPoints( sa, points2 );
+			if ( sb.isSeparated( cacheSatBounds ) ) return false;
+
+		}
+
+		// check axes of the second shape
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const sb = satBounds2[ i ];
+			const sa = satAxes2[ i ];
+			cacheSatBounds.setFromPoints( sa, points1 );
+			if ( sb.isSeparated( cacheSatBounds ) ) return false;
+
+		}
+
+	};
+
+}) )();
+
+const closestPointLineToLine = ( function () {
+
+	// https://github.com/juj/MathGeoLib/blob/master/src/Geometry/Line.cpp#L56
+	const dir1 = new Vector3();
+	const dir2 = new Vector3();
+	const v02 = new Vector3();
+	return function closestPointLineToLine( l1, l2, result ) {
+
+		const v0 = l1.start;
+		const v10 = dir1;
+		const v2 = l2.start;
+		const v32 = dir2;
+
+		v02.subVectors( v0, v2 );
+		dir1.subVectors( l1.end, l1.start );
+		dir2.subVectors( l2.end, l2.start );
+
+		// float d0232 = v02.Dot(v32);
+		const d0232 = v02.dot( v32 );
+
+		// float d3210 = v32.Dot(v10);
+		const d3210 = v32.dot( v10 );
+
+		// float d3232 = v32.Dot(v32);
+		const d3232 = v32.dot( v32 );
+
+		// float d0210 = v02.Dot(v10);
+		const d0210 = v02.dot( v10 );
+
+		// float d1010 = v10.Dot(v10);
+		const d1010 = v10.dot( v10 );
+
+		// float denom = d1010*d3232 - d3210*d3210;
+		const denom = d1010 * d3232 - d3210 * d3210;
+
+		let d, d2;
+		if ( denom !== 0 ) {
+
+			d = ( d0232 * d3210 - d0210 * d3232 ) / denom;
+
+		} else {
+
+			d = 0;
+
+		}
+
+		d2 = ( d0232 + d * d3210 ) / d3232;
+
+		result.x = d;
+		result.y = d2;
+
+	};
+
+} )();
+
+const closestPointsSegmentToSegment = ( function () {
+
+	// https://github.com/juj/MathGeoLib/blob/master/src/Geometry/LineSegment.cpp#L187
+	const paramResult = new Vector2();
+	const temp1 = new Vector3();
+	const temp2 = new Vector3();
+	return function closestPointsSegmentToSegment( l1, l2, target1, target2 ) {
+
+		closestPointLineToLine( l1, l2, paramResult );
+
+		let d = paramResult.x;
+		let d2 = paramResult.y;
+		if ( d >= 0 && d <= 1 && d2 >= 0 && d2 <= 1 ) {
+
+			l1.at( d, target1 );
+			l2.at( d2, target2 );
+
+			return;
+
+		} else if ( d >= 0 && d <= 1 ) {
+
+			// Only d2 is out of bounds.
+			if ( d2 < 0 ) {
+
+				l2.at( 0, target2 );
+
+			} else {
+
+				l2.at( 1, target2 );
+
+			}
+
+			l1.closestPointToPoint( target2, true, target1 );
+			return;
+
+		} else if ( d2 >= 0 && d2 <= 1 ) {
+
+			// Only d is out of bounds.
+			if ( d < 0 ) {
+
+				l1.at( 0, target1 );
+
+			} else {
+
+				l1.at( 1, target1 );
+
+			}
+
+			l2.closestPointToPoint( target1, true, target2 );
+			return;
+
+		} else {
+
+			// Both u and u2 are out of bounds.
+			let p;
+			if ( d < 0 ) {
+
+				p = l1.start;
+
+			} else {
+
+				p = l1.end;
+
+			}
+
+			let p2;
+			if ( d2 < 0 ) {
+
+				p2 = l2.start;
+
+			} else {
+
+				p2 = l2.end;
+
+			}
+
+			const closestPoint = temp1;
+			const closestPoint2 = temp2;
+			l1.closestPointToPoint( p2, true, temp1 );
+			l2.closestPointToPoint( p, true, temp2 );
+
+			if ( closestPoint.distanceToSquared( p2 ) <= closestPoint2.distanceToSquared( p ) ) {
+
+				target1.copy( closestPoint );
+				target2.copy( p2 );
+				return;
+
+			} else {
+
+				target1.copy( p );
+				target2.copy( closestPoint2 );
+				return;
+
+			}
+
+		}
+
+	};
+
+} )();
+
+
+const sphereIntersectTriangle = ( function () {
+
+	// https://stackoverflow.com/questions/34043955/detect-collision-between-sphere-and-triangle-in-three-js
+	const closestPointTemp = new Vector3();
+	const projectedPointTemp = new Vector3();
+	const planeTemp = new Plane();
+	const lineTemp = new Line3();
+	return function sphereIntersectTriangle( sphere, triangle ) {
+
+		const { radius, center } = sphere;
+		const { a, b, c } = triangle;
+
+		// phase 1
+		lineTemp.start = a;
+		lineTemp.end = b;
+		const closestPoint1 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
+		if ( closestPoint1.distanceTo( center ) <= radius ) return true;
+
+		lineTemp.start = a;
+		lineTemp.end = c;
+		const closestPoint2 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
+		if ( closestPoint2.distanceTo( center ) <= radius ) return true;
+
+		lineTemp.start = b;
+		lineTemp.end = c;
+		const closestPoint3 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
+		if ( closestPoint3.distanceTo( center ) <= radius ) return true;
+
+		// phase 2
+		const plane = triangle.getPlane( planeTemp );
+		const dp = Math.abs( plane.distanceToPoint( center ) );
+		if ( dp <= radius ) {
+
+			const pp = plane.projectPoint( center, projectedPointTemp );
+			const cp = triangle.containsPoint( pp );
+			if ( cp ) return true;
+
+		}
+
+		return false;
+
+	};
+
+} )();
+
+const DIST_EPSILON = 1e-15;
+function isNearZero( value ) {
+
+	return Math.abs( value ) < DIST_EPSILON;
+
+}
+
+class ExtendedTriangle extends Triangle {
+
+	constructor( ...args ) {
+
+		super( ...args );
+
+		this.isExtendedTriangle = true;
+		this.satAxes = new Array( 4 ).fill().map( () => new Vector3() );
+		this.satBounds = new Array( 4 ).fill().map( () => new SeparatingAxisBounds() );
+		this.points = [ this.a, this.b, this.c ];
+		this.sphere = new Sphere();
+		this.plane = new Plane();
+		this.needsUpdate = true;
+
+	}
+
+	intersectsSphere( sphere ) {
+
+		return sphereIntersectTriangle( sphere, this );
+
+	}
+
+	update() {
+
+		const a = this.a;
+		const b = this.b;
+		const c = this.c;
+		const points = this.points;
+
+		const satAxes = this.satAxes;
+		const satBounds = this.satBounds;
+
+		const axis0 = satAxes[ 0 ];
+		const sab0 = satBounds[ 0 ];
+		this.getNormal( axis0 );
+		sab0.setFromPoints( axis0, points );
+
+		const axis1 = satAxes[ 1 ];
+		const sab1 = satBounds[ 1 ];
+		axis1.subVectors( a, b );
+		sab1.setFromPoints( axis1, points );
+
+		const axis2 = satAxes[ 2 ];
+		const sab2 = satBounds[ 2 ];
+		axis2.subVectors( b, c );
+		sab2.setFromPoints( axis2, points );
+
+		const axis3 = satAxes[ 3 ];
+		const sab3 = satBounds[ 3 ];
+		axis3.subVectors( c, a );
+		sab3.setFromPoints( axis3, points );
+
+		this.sphere.setFromPoints( this.points );
+		this.plane.setFromNormalAndCoplanarPoint( axis0, a );
+		this.needsUpdate = false;
+
+	}
+
+}
+
+ExtendedTriangle.prototype.closestPointToSegment = ( function () {
+
+	const point1 = new Vector3();
+	const point2 = new Vector3();
+	const edge = new Line3();
+
+	return function distanceToSegment( segment, target1 = null, target2 = null ) {
+
+		const { start, end } = segment;
+		const points = this.points;
+		let distSq;
+		let closestDistanceSq = Infinity;
+
+		// check the triangle edges
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const nexti = ( i + 1 ) % 3;
+			edge.start.copy( points[ i ] );
+			edge.end.copy( points[ nexti ] );
+
+			closestPointsSegmentToSegment( edge, segment, point1, point2 );
+
+			distSq = point1.distanceToSquared( point2 );
+			if ( distSq < closestDistanceSq ) {
+
+				closestDistanceSq = distSq;
+				if ( target1 ) target1.copy( point1 );
+				if ( target2 ) target2.copy( point2 );
+
+			}
+
+		}
+
+		// check end points
+		this.closestPointToPoint( start, point1 );
+		distSq = start.distanceToSquared( point1 );
+		if ( distSq < closestDistanceSq ) {
+
+			closestDistanceSq = distSq;
+			if ( target1 ) target1.copy( point1 );
+			if ( target2 ) target2.copy( start );
+
+		}
+
+		this.closestPointToPoint( end, point1 );
+		distSq = end.distanceToSquared( point1 );
+		if ( distSq < closestDistanceSq ) {
+
+			closestDistanceSq = distSq;
+			if ( target1 ) target1.copy( point1 );
+			if ( target2 ) target2.copy( end );
+
+		}
+
+		return Math.sqrt( closestDistanceSq );
+
+	};
+
+} )();
+
+ExtendedTriangle.prototype.intersectsTriangle = ( function () {
+
+	const saTri2 = new ExtendedTriangle();
+	const arr1 = new Array( 3 );
+	const arr2 = new Array( 3 );
+	const cachedSatBounds = new SeparatingAxisBounds();
+	const cachedSatBounds2 = new SeparatingAxisBounds();
+	const cachedAxis = new Vector3();
+	const dir1 = new Vector3();
+	const dir2 = new Vector3();
+	const tempDir = new Vector3();
+	const edge = new Line3();
+	const edge1 = new Line3();
+	const edge2 = new Line3();
+
+	// TODO: If the triangles are coplanar and intersecting the target is nonsensical. It should at least
+	// be a line contained by both triangles if not a different special case somehow represented in the return result.
+	return function intersectsTriangle( other, target = null ) {
+
+		if ( this.needsUpdate ) {
+
+			this.update();
+
+		}
+
+		if ( ! other.isExtendedTriangle ) {
+
+			saTri2.copy( other );
+			saTri2.update();
+			other = saTri2;
+
+		} else if ( other.needsUpdate ) {
+
+			other.update();
+
+		}
+
+		const plane1 = this.plane;
+		const plane2 = other.plane;
+
+		if ( Math.abs( plane1.normal.dot( plane2.normal ) ) > 1.0 - 1e-10 ) {
+
+			// perform separating axis intersection test only for coplanar triangles
+			const satBounds1 = this.satBounds;
+			const satAxes1 = this.satAxes;
+			arr2[ 0 ] = other.a;
+			arr2[ 1 ] = other.b;
+			arr2[ 2 ] = other.c;
+			for ( let i = 0; i < 4; i ++ ) {
+
+				const sb = satBounds1[ i ];
+				const sa = satAxes1[ i ];
+				cachedSatBounds.setFromPoints( sa, arr2 );
+				if ( sb.isSeparated( cachedSatBounds ) ) return false;
+
+			}
+
+			const satBounds2 = other.satBounds;
+			const satAxes2 = other.satAxes;
+			arr1[ 0 ] = this.a;
+			arr1[ 1 ] = this.b;
+			arr1[ 2 ] = this.c;
+			for ( let i = 0; i < 4; i ++ ) {
+
+				const sb = satBounds2[ i ];
+				const sa = satAxes2[ i ];
+				cachedSatBounds.setFromPoints( sa, arr1 );
+				if ( sb.isSeparated( cachedSatBounds ) ) return false;
+
+			}
+
+			// check crossed axes
+			for ( let i = 0; i < 4; i ++ ) {
+
+				const sa1 = satAxes1[ i ];
+				for ( let i2 = 0; i2 < 4; i2 ++ ) {
+
+					const sa2 = satAxes2[ i2 ];
+					cachedAxis.crossVectors( sa1, sa2 );
+					cachedSatBounds.setFromPoints( cachedAxis, arr1 );
+					cachedSatBounds2.setFromPoints( cachedAxis, arr2 );
+					if ( cachedSatBounds.isSeparated( cachedSatBounds2 ) ) return false;
+
+				}
+
+			}
+
+			if ( target ) {
+
+				// TODO find two points that intersect on the edges and make that the result
+				console.warn( 'ExtendedTriangle.intersectsTriangle: Triangles are coplanar which does not support an output edge. Setting edge to 0, 0, 0.' );
+
+				target.start.set( 0, 0, 0 );
+				target.end.set( 0, 0, 0 );
+
+			}
+
+			return true;
+
+		} else {
+
+			// find the edge that intersects the other triangle plane
+			const points1 = this.points;
+			let found1 = false;
+			let count1 = 0;
+			for ( let i = 0; i < 3; i ++ ) {
+
+				const p = points1[ i ];
+				const pNext = points1[ ( i + 1 ) % 3 ];
+
+				edge.start.copy( p );
+				edge.end.copy( pNext );
+				edge.delta( dir1 );
+
+				const targetPoint = found1 ? edge1.start : edge1.end;
+				const startIntersects = isNearZero( plane2.distanceToPoint( p ) );
+				if ( isNearZero( plane2.normal.dot( dir1 ) ) && startIntersects ) {
+
+					// if the edge lies on the plane then take the line
+					edge1.copy( edge );
+					count1 = 2;
+					break;
+
+				}
+
+				// check if the start point is near the plane because "intersectLine" is not robust to that case
+				const doesIntersect = plane2.intersectLine( edge, targetPoint ) || startIntersects;
+				if ( doesIntersect && ! isNearZero( targetPoint.distanceTo( pNext ) ) ) {
+
+					count1 ++;
+					if ( found1 ) {
+
+						break;
+
+					}
+
+					found1 = true;
+
+				}
+
+			}
+
+			if ( count1 === 1 && this.containsPoint( edge1.end ) ) {
+
+				if ( target ) {
+
+					target.start.copy( edge1.end );
+					target.end.copy( edge1.end );
+
+				}
+
+				return true;
+
+			} else if ( count1 !== 2 ) {
+
+				return false;
+
+			}
+
+			// find the other triangles edge that intersects this plane
+			const points2 = other.points;
+			let found2 = false;
+			let count2 = 0;
+			for ( let i = 0; i < 3; i ++ ) {
+
+				const p = points2[ i ];
+				const pNext = points2[ ( i + 1 ) % 3 ];
+
+				edge.start.copy( p );
+				edge.end.copy( pNext );
+				edge.delta( dir2 );
+
+				const targetPoint = found2 ? edge2.start : edge2.end;
+				const startIntersects = isNearZero( plane1.distanceToPoint( p ) );
+				if ( isNearZero( plane1.normal.dot( dir2 ) ) && startIntersects ) {
+
+					// if the edge lies on the plane then take the line
+					edge2.copy( edge );
+					count2 = 2;
+					break;
+
+				}
+
+				// check if the start point is near the plane because "intersectLine" is not robust to that case
+				const doesIntersect = plane1.intersectLine( edge, targetPoint ) || startIntersects;
+				if ( doesIntersect && ! isNearZero( targetPoint.distanceTo( pNext ) ) ) {
+
+					count2 ++;
+					if ( found2 ) {
+
+						break;
+
+					}
+
+					found2 = true;
+
+				}
+
+			}
+
+			if ( count2 === 1 && this.containsPoint( edge2.end ) ) {
+
+				if ( target ) {
+
+					target.start.copy( edge2.end );
+					target.end.copy( edge2.end );
+
+				}
+
+				return true;
+
+			} else if ( count2 !== 2 ) {
+
+				return false;
+
+			}
+
+			// find swap the second edge so both lines are running the same direction
+			edge1.delta( dir1 );
+			edge2.delta( dir2 );
+
+			if ( dir1.dot( dir2 ) < 0 ) {
+
+				let tmp = edge2.start;
+				edge2.start = edge2.end;
+				edge2.end = tmp;
+
+			}
+
+			// check if the edges are overlapping
+			const s1 = edge1.start.dot( dir1 );
+			const e1 = edge1.end.dot( dir1 );
+			const s2 = edge2.start.dot( dir1 );
+			const e2 = edge2.end.dot( dir1 );
+			const separated1 = e1 < s2;
+			const separated2 = s1 < e2;
+
+			if ( s1 !== e2 && s2 !== e1 && separated1 === separated2 ) {
+
+				return false;
+
+			}
+
+			// assign the target output
+			if ( target ) {
+
+				tempDir.subVectors( edge1.start, edge2.start );
+				if ( tempDir.dot( dir1 ) > 0 ) {
+
+					target.start.copy( edge1.start );
+
+				} else {
+
+					target.start.copy( edge2.start );
+
+				}
+
+				tempDir.subVectors( edge1.end, edge2.end );
+				if ( tempDir.dot( dir1 ) < 0 ) {
+
+					target.end.copy( edge1.end );
+
+				} else {
+
+					target.end.copy( edge2.end );
+
+				}
+
+			}
+
+			return true;
+
+		}
+
+	};
+
+} )();
+
+
+ExtendedTriangle.prototype.distanceToPoint = ( function () {
+
+	const target = new Vector3();
+	return function distanceToPoint( point ) {
+
+		this.closestPointToPoint( point, target );
+		return point.distanceTo( target );
+
+	};
+
+} )();
+
+
+ExtendedTriangle.prototype.distanceToTriangle = ( function () {
+
+	const point = new Vector3();
+	const point2 = new Vector3();
+	const cornerFields = [ 'a', 'b', 'c' ];
+	const line1 = new Line3();
+	const line2 = new Line3();
+
+	return function distanceToTriangle( other, target1 = null, target2 = null ) {
+
+		const lineTarget = target1 || target2 ? line1 : null;
+		if ( this.intersectsTriangle( other, lineTarget ) ) {
+
+			if ( target1 || target2 ) {
+
+				if ( target1 ) lineTarget.getCenter( target1 );
+				if ( target2 ) lineTarget.getCenter( target2 );
+
+			}
+
+			return 0;
+
+		}
+
+		let closestDistanceSq = Infinity;
+
+		// check all point distances
+		for ( let i = 0; i < 3; i ++ ) {
+
+			let dist;
+			const field = cornerFields[ i ];
+			const otherVec = other[ field ];
+			this.closestPointToPoint( otherVec, point );
+
+			dist = otherVec.distanceToSquared( point );
+
+			if ( dist < closestDistanceSq ) {
+
+				closestDistanceSq = dist;
+				if ( target1 ) target1.copy( point );
+				if ( target2 ) target2.copy( otherVec );
+
+			}
+
+
+			const thisVec = this[ field ];
+			other.closestPointToPoint( thisVec, point );
+
+			dist = thisVec.distanceToSquared( point );
+
+			if ( dist < closestDistanceSq ) {
+
+				closestDistanceSq = dist;
+				if ( target1 ) target1.copy( thisVec );
+				if ( target2 ) target2.copy( point );
+
+			}
+
+		}
+
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const f11 = cornerFields[ i ];
+			const f12 = cornerFields[ ( i + 1 ) % 3 ];
+			line1.set( this[ f11 ], this[ f12 ] );
+			for ( let i2 = 0; i2 < 3; i2 ++ ) {
+
+				const f21 = cornerFields[ i2 ];
+				const f22 = cornerFields[ ( i2 + 1 ) % 3 ];
+				line2.set( other[ f21 ], other[ f22 ] );
+
+				closestPointsSegmentToSegment( line1, line2, point, point2 );
+
+				const dist = point.distanceToSquared( point2 );
+				if ( dist < closestDistanceSq ) {
+
+					closestDistanceSq = dist;
+					if ( target1 ) target1.copy( point );
+					if ( target2 ) target2.copy( point2 );
+
+				}
+
+			}
+
+		}
+
+		return Math.sqrt( closestDistanceSq );
+
+	};
+
+} )();
+
+class OrientedBox extends Box3 {
+
+	constructor( ...args ) {
+
+		super( ...args );
+
+		this.isOrientedBox = true;
+		this.matrix = new Matrix4();
+		this.invMatrix = new Matrix4();
+		this.points = new Array( 8 ).fill().map( () => new Vector3() );
+		this.satAxes = new Array( 3 ).fill().map( () => new Vector3() );
+		this.satBounds = new Array( 3 ).fill().map( () => new SeparatingAxisBounds() );
+		this.alignedSatBounds = new Array( 3 ).fill().map( () => new SeparatingAxisBounds() );
+		this.needsUpdate = false;
+
+	}
+
+	set( min, max, matrix ) {
+
+		super.set( min, max );
+		this.matrix.copy( matrix );
+		this.needsUpdate = true;
+
+	}
+
+	copy( other ) {
+
+		super.copy( other );
+		this.matrix.copy( other.matrix );
+		this.needsUpdate = true;
+
+	}
+
+}
+
+OrientedBox.prototype.update = ( function () {
+
+	return function update() {
+
+		const matrix = this.matrix;
+		const min = this.min;
+		const max = this.max;
+
+		const points = this.points;
+		for ( let x = 0; x <= 1; x ++ ) {
+
+			for ( let y = 0; y <= 1; y ++ ) {
+
+				for ( let z = 0; z <= 1; z ++ ) {
+
+					const i = ( ( 1 << 0 ) * x ) | ( ( 1 << 1 ) * y ) | ( ( 1 << 2 ) * z );
+					const v = points[ i ];
+					v.x = x ? max.x : min.x;
+					v.y = y ? max.y : min.y;
+					v.z = z ? max.z : min.z;
+
+					v.applyMatrix4( matrix );
+
+				}
+
+			}
+
+		}
+
+		const satBounds = this.satBounds;
+		const satAxes = this.satAxes;
+		const minVec = points[ 0 ];
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const axis = satAxes[ i ];
+			const sb = satBounds[ i ];
+			const index = 1 << i;
+			const pi = points[ index ];
+
+			axis.subVectors( minVec, pi );
+			sb.setFromPoints( axis, points );
+
+		}
+
+		const alignedSatBounds = this.alignedSatBounds;
+		alignedSatBounds[ 0 ].setFromPointsField( points, 'x' );
+		alignedSatBounds[ 1 ].setFromPointsField( points, 'y' );
+		alignedSatBounds[ 2 ].setFromPointsField( points, 'z' );
+
+		this.invMatrix.copy( this.matrix ).invert();
+		this.needsUpdate = false;
+
+	};
+
+} )();
+
+OrientedBox.prototype.intersectsBox = ( function () {
+
+	const aabbBounds = new SeparatingAxisBounds();
+	return function intersectsBox( box ) {
+
+		// TODO: should this be doing SAT against the AABB?
+		if ( this.needsUpdate ) {
+
+			this.update();
+
+		}
+
+		const min = box.min;
+		const max = box.max;
+		const satBounds = this.satBounds;
+		const satAxes = this.satAxes;
+		const alignedSatBounds = this.alignedSatBounds;
+
+		aabbBounds.min = min.x;
+		aabbBounds.max = max.x;
+		if ( alignedSatBounds[ 0 ].isSeparated( aabbBounds ) ) return false;
+
+		aabbBounds.min = min.y;
+		aabbBounds.max = max.y;
+		if ( alignedSatBounds[ 1 ].isSeparated( aabbBounds ) ) return false;
+
+		aabbBounds.min = min.z;
+		aabbBounds.max = max.z;
+		if ( alignedSatBounds[ 2 ].isSeparated( aabbBounds ) ) return false;
+
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const axis = satAxes[ i ];
+			const sb = satBounds[ i ];
+			aabbBounds.setFromBox( axis, box );
+			if ( sb.isSeparated( aabbBounds ) ) return false;
+
+		}
+
+		return true;
+
+	};
+
+} )();
+
+OrientedBox.prototype.intersectsTriangle = ( function () {
+
+	const saTri = new ExtendedTriangle();
+	const pointsArr = new Array( 3 );
+	const cachedSatBounds = new SeparatingAxisBounds();
+	const cachedSatBounds2 = new SeparatingAxisBounds();
+	const cachedAxis = new Vector3();
+	return function intersectsTriangle( triangle ) {
+
+		if ( this.needsUpdate ) {
+
+			this.update();
+
+		}
+
+		if ( ! triangle.isExtendedTriangle ) {
+
+			saTri.copy( triangle );
+			saTri.update();
+			triangle = saTri;
+
+		} else if ( triangle.needsUpdate ) {
+
+			triangle.update();
+
+		}
+
+		const satBounds = this.satBounds;
+		const satAxes = this.satAxes;
+
+		pointsArr[ 0 ] = triangle.a;
+		pointsArr[ 1 ] = triangle.b;
+		pointsArr[ 2 ] = triangle.c;
+
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const sb = satBounds[ i ];
+			const sa = satAxes[ i ];
+			cachedSatBounds.setFromPoints( sa, pointsArr );
+			if ( sb.isSeparated( cachedSatBounds ) ) return false;
+
+		}
+
+		const triSatBounds = triangle.satBounds;
+		const triSatAxes = triangle.satAxes;
+		const points = this.points;
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const sb = triSatBounds[ i ];
+			const sa = triSatAxes[ i ];
+			cachedSatBounds.setFromPoints( sa, points );
+			if ( sb.isSeparated( cachedSatBounds ) ) return false;
+
+		}
+
+		// check crossed axes
+		for ( let i = 0; i < 3; i ++ ) {
+
+			const sa1 = satAxes[ i ];
+			for ( let i2 = 0; i2 < 4; i2 ++ ) {
+
+				const sa2 = triSatAxes[ i2 ];
+				cachedAxis.crossVectors( sa1, sa2 );
+				cachedSatBounds.setFromPoints( cachedAxis, pointsArr );
+				cachedSatBounds2.setFromPoints( cachedAxis, points );
+				if ( cachedSatBounds.isSeparated( cachedSatBounds2 ) ) return false;
+
+			}
+
+		}
+
+		return true;
+
+	};
+
+} )();
+
+OrientedBox.prototype.closestPointToPoint = ( function () {
+
+	return function closestPointToPoint( point, target1 ) {
+
+		if ( this.needsUpdate ) {
+
+			this.update();
+
+		}
+
+		target1
+			.copy( point )
+			.applyMatrix4( this.invMatrix )
+			.clamp( this.min, this.max )
+			.applyMatrix4( this.matrix );
+
+		return target1;
+
+	};
+
+} )();
+
+OrientedBox.prototype.distanceToPoint = ( function () {
+
+	const target = new Vector3();
+	return function distanceToPoint( point ) {
+
+		this.closestPointToPoint( point, target );
+		return point.distanceTo( target );
+
+	};
+
+} )();
+
+OrientedBox.prototype.distanceToBox = ( function () {
+
+	const xyzFields = [ 'x', 'y', 'z' ];
+	const segments1 = new Array( 12 ).fill().map( () => new Line3() );
+	const segments2 = new Array( 12 ).fill().map( () => new Line3() );
+
+	const point1 = new Vector3();
+	const point2 = new Vector3();
+
+	// early out if we find a value below threshold
+	return function distanceToBox( box, threshold = 0, target1 = null, target2 = null ) {
+
+		if ( this.needsUpdate ) {
+
+			this.update();
+
+		}
+
+		if ( this.intersectsBox( box ) ) {
+
+			if ( target1 || target2 ) {
+
+				box.getCenter( point2 );
+				this.closestPointToPoint( point2, point1 );
+				box.closestPointToPoint( point1, point2 );
+
+				if ( target1 ) target1.copy( point1 );
+				if ( target2 ) target2.copy( point2 );
+
+			}
+
+			return 0;
+
+		}
+
+		const threshold2 = threshold * threshold;
+		const min = box.min;
+		const max = box.max;
+		const points = this.points;
+
+
+		// iterate over every edge and compare distances
+		let closestDistanceSq = Infinity;
+
+		// check over all these points
+		for ( let i = 0; i < 8; i ++ ) {
+
+			const p = points[ i ];
+			point2.copy( p ).clamp( min, max );
+
+			const dist = p.distanceToSquared( point2 );
+			if ( dist < closestDistanceSq ) {
+
+				closestDistanceSq = dist;
+				if ( target1 ) target1.copy( p );
+				if ( target2 ) target2.copy( point2 );
+
+				if ( dist < threshold2 ) return Math.sqrt( dist );
+
+			}
+
+		}
+
+		// generate and check all line segment distances
+		let count = 0;
+		for ( let i = 0; i < 3; i ++ ) {
+
+			for ( let i1 = 0; i1 <= 1; i1 ++ ) {
+
+				for ( let i2 = 0; i2 <= 1; i2 ++ ) {
+
+					const nextIndex = ( i + 1 ) % 3;
+					const nextIndex2 = ( i + 2 ) % 3;
+
+					// get obb line segments
+					const index = i1 << nextIndex | i2 << nextIndex2;
+					const index2 = 1 << i | i1 << nextIndex | i2 << nextIndex2;
+					const p1 = points[ index ];
+					const p2 = points[ index2 ];
+					const line1 = segments1[ count ];
+					line1.set( p1, p2 );
+
+
+					// get aabb line segments
+					const f1 = xyzFields[ i ];
+					const f2 = xyzFields[ nextIndex ];
+					const f3 = xyzFields[ nextIndex2 ];
+					const line2 = segments2[ count ];
+					const start = line2.start;
+					const end = line2.end;
+
+					start[ f1 ] = min[ f1 ];
+					start[ f2 ] = i1 ? min[ f2 ] : max[ f2 ];
+					start[ f3 ] = i2 ? min[ f3 ] : max[ f2 ];
+
+					end[ f1 ] = max[ f1 ];
+					end[ f2 ] = i1 ? min[ f2 ] : max[ f2 ];
+					end[ f3 ] = i2 ? min[ f3 ] : max[ f2 ];
+
+					count ++;
+
+				}
+
+			}
+
+		}
+
+		// check all the other boxes point
+		for ( let x = 0; x <= 1; x ++ ) {
+
+			for ( let y = 0; y <= 1; y ++ ) {
+
+				for ( let z = 0; z <= 1; z ++ ) {
+
+					point2.x = x ? max.x : min.x;
+					point2.y = y ? max.y : min.y;
+					point2.z = z ? max.z : min.z;
+
+					this.closestPointToPoint( point2, point1 );
+					const dist = point2.distanceToSquared( point1 );
+					if ( dist < closestDistanceSq ) {
+
+						closestDistanceSq = dist;
+						if ( target1 ) target1.copy( point1 );
+						if ( target2 ) target2.copy( point2 );
+
+						if ( dist < threshold2 ) return Math.sqrt( dist );
+
+					}
+
+				}
+
+			}
+
+		}
+
+		for ( let i = 0; i < 12; i ++ ) {
+
+			const l1 = segments1[ i ];
+			for ( let i2 = 0; i2 < 12; i2 ++ ) {
+
+				const l2 = segments2[ i2 ];
+				closestPointsSegmentToSegment( l1, l2, point1, point2 );
+				const dist = point1.distanceToSquared( point2 );
+				if ( dist < closestDistanceSq ) {
+
+					closestDistanceSq = dist;
+					if ( target1 ) target1.copy( point1 );
+					if ( target2 ) target2.copy( point2 );
+
+					if ( dist < threshold2 ) return Math.sqrt( dist );
+
+				}
+
+			}
+
+		}
+
+		return Math.sqrt( closestDistanceSq );
+
+	};
+
+} )();
+
+// Ripped and modified From THREE.js Mesh raycast
+// https://github.com/mrdoob/three.js/blob/0aa87c999fe61e216c1133fba7a95772b503eddf/src/objects/Mesh.js#L115
+const vA = /* @__PURE__ */ new Vector3();
+const vB = /* @__PURE__ */ new Vector3();
+const vC = /* @__PURE__ */ new Vector3();
+
+const uvA = /* @__PURE__ */ new Vector2();
+const uvB = /* @__PURE__ */ new Vector2();
+const uvC = /* @__PURE__ */ new Vector2();
+
+const intersectionPoint = /* @__PURE__ */ new Vector3();
+function checkIntersection( ray, pA, pB, pC, point, side ) {
+
+	let intersect;
+	if ( side === BackSide ) {
+
+		intersect = ray.intersectTriangle( pC, pB, pA, true, point );
+
+	} else {
+
+		intersect = ray.intersectTriangle( pA, pB, pC, side !== DoubleSide, point );
+
+	}
+
+	if ( intersect === null ) return null;
+
+	const distance = ray.origin.distanceTo( point );
+
+	return {
+
+		distance: distance,
+		point: point.clone(),
+
+	};
+
+}
+
+function checkBufferGeometryIntersection( ray, position, uv, a, b, c, side ) {
+
+	vA.fromBufferAttribute( position, a );
+	vB.fromBufferAttribute( position, b );
+	vC.fromBufferAttribute( position, c );
+
+	const intersection = checkIntersection( ray, vA, vB, vC, intersectionPoint, side );
+
+	if ( intersection ) {
+
+		if ( uv ) {
+
+			uvA.fromBufferAttribute( uv, a );
+			uvB.fromBufferAttribute( uv, b );
+			uvC.fromBufferAttribute( uv, c );
+
+			intersection.uv = Triangle.getUV( intersectionPoint, vA, vB, vC, uvA, uvB, uvC, new Vector2( ) );
+
+		}
+
+		const face = {
+			a: a,
+			b: b,
+			c: c,
+			normal: new Vector3(),
+			materialIndex: 0
+		};
+
+		Triangle.getNormal( vA, vB, vC, face.normal );
+
+		intersection.face = face;
+		intersection.faceIndex = a;
+
+	}
+
+	return intersection;
+
+}
+
+// https://github.com/mrdoob/three.js/blob/0aa87c999fe61e216c1133fba7a95772b503eddf/src/objects/Mesh.js#L258
+function intersectTri( geo, side, ray, tri, intersections ) {
+
+	const triOffset = tri * 3;
+	const a = geo.index.getX( triOffset );
+	const b = geo.index.getX( triOffset + 1 );
+	const c = geo.index.getX( triOffset + 2 );
+
+	const intersection = checkBufferGeometryIntersection( ray, geo.attributes.position, geo.attributes.uv, a, b, c, side );
+
+	if ( intersection ) {
+
+		intersection.faceIndex = tri;
+		if ( intersections ) intersections.push( intersection );
+		return intersection;
+
+	}
+
+	return null;
+
+}
+
+function intersectTris( geo, side, ray, offset, count, intersections ) {
+
+	for ( let i = offset, end = offset + count; i < end; i ++ ) {
+
+		intersectTri( geo, side, ray, i, intersections );
+
+	}
+
+}
+
+function intersectClosestTri( geo, side, ray, offset, count ) {
+
+	let dist = Infinity;
+	let res = null;
+	for ( let i = offset, end = offset + count; i < end; i ++ ) {
+
+		const intersection = intersectTri( geo, side, ray, i );
+		if ( intersection && intersection.distance < dist ) {
+
+			res = intersection;
+			dist = intersection.distance;
+
+		}
+
+	}
+
+	return res;
+
+}
+
+// converts the given BVH raycast intersection to align with the three.js raycast
+// structure (include object, world space distance and point).
+function convertRaycastIntersect( hit, object, raycaster ) {
+
+	if ( hit === null ) {
+
+		return null;
+
+	}
+
+	hit.point.applyMatrix4( object.matrixWorld );
+	hit.distance = hit.point.distanceTo( raycaster.ray.origin );
+	hit.object = object;
+
+	if ( hit.distance < raycaster.near || hit.distance > raycaster.far ) {
+
+		return null;
+
+	} else {
+
+		return hit;
+
+	}
+
+}
+
+// sets the vertices of triangle `tri` with the 3 vertices after i
+function setTriangle( tri, i, index, pos ) {
+
+	const ta = tri.a;
+	const tb = tri.b;
+	const tc = tri.c;
+
+	let i0 = i;
+	let i1 = i + 1;
+	let i2 = i + 2;
+	if ( index ) {
+
+		i0 = index.getX( i );
+		i1 = index.getX( i + 1 );
+		i2 = index.getX( i + 2 );
+
+	}
+
+	ta.x = pos.getX( i0 );
+	ta.y = pos.getY( i0 );
+	ta.z = pos.getZ( i0 );
+
+	tb.x = pos.getX( i1 );
+	tb.y = pos.getY( i1 );
+	tb.z = pos.getZ( i1 );
+
+	tc.x = pos.getX( i2 );
+	tc.y = pos.getY( i2 );
+	tc.z = pos.getZ( i2 );
+
+}
+
+function iterateOverTriangles(
+	offset,
+	count,
+	geometry,
+	intersectsTriangleFunc,
+	contained,
+	depth,
+	triangle
+) {
+
+	const index = geometry.index;
+	const pos = geometry.attributes.position;
+	for ( let i = offset, l = count + offset; i < l; i ++ ) {
+
+		setTriangle( triangle, i * 3, index, pos );
+		triangle.needsUpdate = true;
+
+		if ( intersectsTriangleFunc( triangle, i, contained, depth ) ) {
+
+			return true;
+
+		}
+
+	}
+
+	return false;
+
+}
+
+class PrimitivePool {
+
+	constructor( getNewPrimitive ) {
+
+		this._getNewPrimitive = getNewPrimitive;
+		this._primitives = [];
+
+	}
+
+	getPrimitive() {
+
+		const primitives = this._primitives;
+		if ( primitives.length === 0 ) {
+
+			return this._getNewPrimitive();
+
+		} else {
+
+			return primitives.pop();
+
+		}
+
+	}
+
+	releasePrimitive( primitive ) {
+
+		this._primitives.push( primitive );
+
+	}
+
+}
+
+function IS_LEAF( n16, uint16Array ) {
+
+	return uint16Array[ n16 + 15 ] === 0xFFFF;
+
+}
+
+function OFFSET( n32, uint32Array ) {
+
+	return uint32Array[ n32 + 6 ];
+
+}
+
+function COUNT( n16, uint16Array ) {
+
+	return uint16Array[ n16 + 14 ];
+
+}
+
+function LEFT_NODE( n32 ) {
+
+	return n32 + 8;
+
+}
+
+function RIGHT_NODE( n32, uint32Array ) {
+
+	return uint32Array[ n32 + 6 ];
+
+}
+
+function SPLIT_AXIS( n32, uint32Array ) {
+
+	return uint32Array[ n32 + 7 ];
+
+}
+
+function BOUNDING_DATA_INDEX( n32 ) {
+
+	return n32;
+
+}
+
+const boundingBox = new Box3();
+const boxIntersection = new Vector3();
+const xyzFields = [ 'x', 'y', 'z' ];
+
+function raycast( nodeIndex32, geometry, side, ray, intersects ) {
+
+	let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+	const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
+	if ( isLeaf ) {
+
+		const offset = OFFSET( nodeIndex32, uint32Array );
+		const count = COUNT( nodeIndex16, uint16Array );
+
+		intersectTris( geometry, side, ray, offset, count, intersects );
+
+	} else {
+
+		const leftIndex = LEFT_NODE( nodeIndex32 );
+		if ( intersectRay( leftIndex, float32Array, ray, boxIntersection ) ) {
+
+			raycast( leftIndex, geometry, side, ray, intersects );
+
+		}
+
+		const rightIndex = RIGHT_NODE( nodeIndex32, uint32Array );
+		if ( intersectRay( rightIndex, float32Array, ray, boxIntersection ) ) {
+
+			raycast( rightIndex, geometry, side, ray, intersects );
+
+		}
+
+	}
+
+}
+
+function raycastFirst( nodeIndex32, geometry, side, ray ) {
+
+	let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+	const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
+	if ( isLeaf ) {
+
+		const offset = OFFSET( nodeIndex32, uint32Array );
+		const count = COUNT( nodeIndex16, uint16Array );
+		return intersectClosestTri( geometry, side, ray, offset, count );
+
+	} else {
+
+		// consider the position of the split plane with respect to the oncoming ray; whichever direction
+		// the ray is coming from, look for an intersection among that side of the tree first
+		const splitAxis = SPLIT_AXIS( nodeIndex32, uint32Array );
+		const xyzAxis = xyzFields[ splitAxis ];
+		const rayDir = ray.direction[ xyzAxis ];
+		const leftToRight = rayDir >= 0;
+
+		// c1 is the child to check first
+		let c1, c2;
+		if ( leftToRight ) {
+
+			c1 = LEFT_NODE( nodeIndex32 );
+			c2 = RIGHT_NODE( nodeIndex32, uint32Array );
+
+		} else {
+
+			c1 = RIGHT_NODE( nodeIndex32, uint32Array );
+			c2 = LEFT_NODE( nodeIndex32 );
+
+		}
+
+		const c1Intersection = intersectRay( c1, float32Array, ray, boxIntersection );
+		const c1Result = c1Intersection ? raycastFirst( c1, geometry, side, ray ) : null;
+
+		// if we got an intersection in the first node and it's closer than the second node's bounding
+		// box, we don't need to consider the second node because it couldn't possibly be a better result
+		if ( c1Result ) {
+
+			// check if the point is within the second bounds
+			// "point" is in the local frame of the bvh
+			const point = c1Result.point[ xyzAxis ];
+			const isOutside = leftToRight ?
+				point <= float32Array[ c2 + splitAxis ] : // min bounding data
+				point >= float32Array[ c2 + splitAxis + 3 ]; // max bounding data
+
+			if ( isOutside ) {
+
+				return c1Result;
+
+			}
+
+		}
+
+		// either there was no intersection in the first node, or there could still be a closer
+		// intersection in the second, so check the second node and then take the better of the two
+		const c2Intersection = intersectRay( c2, float32Array, ray, boxIntersection );
+		const c2Result = c2Intersection ? raycastFirst( c2, geometry, side, ray ) : null;
+
+		if ( c1Result && c2Result ) {
+
+			return c1Result.distance <= c2Result.distance ? c1Result : c2Result;
+
+		} else {
+
+			return c1Result || c2Result || null;
+
+		}
+
+	}
+
+}
+
+const shapecast = ( function () {
+
+	let _box1, _box2;
+	const boxStack = [];
+	const boxPool = new PrimitivePool( () => new Box3() );
+
+	return function shapecast( ...args ) {
+
+		_box1 = boxPool.getPrimitive();
+		_box2 = boxPool.getPrimitive();
+		boxStack.push( _box1, _box2 );
+
+		const result = shapecastTraverse( ...args );
+
+		boxPool.releasePrimitive( _box1 );
+		boxPool.releasePrimitive( _box2 );
+		boxStack.pop();
+		boxStack.pop();
+
+		const length = boxStack.length;
+		if ( length > 0 ) {
+
+			_box2 = boxStack[ length - 1 ];
+			_box1 = boxStack[ length - 2 ];
+
+		}
+
+		return result;
+
+	};
+
+	function shapecastTraverse(
+		nodeIndex32,
+		geometry,
+		intersectsBoundsFunc,
+		intersectsRangeFunc,
+		nodeScoreFunc = null,
+		nodeIndexByteOffset = 0, // offset for unique node identifier
+		depth = 0
+	) {
+
+		// Define these inside the function so it has access to the local variables needed
+		// when converting to the buffer equivalents
+		function getLeftOffset( nodeIndex32 ) {
+
+			let nodeIndex16 = nodeIndex32 * 2, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+			// traverse until we find a leaf
+			while ( ! IS_LEAF( nodeIndex16, uint16Array ) ) {
+
+				nodeIndex32 = LEFT_NODE( nodeIndex32 );
+				nodeIndex16 = nodeIndex32 * 2;
+
+			}
+
+			return OFFSET( nodeIndex32, uint32Array );
+
+		}
+
+		function getRightEndOffset( nodeIndex32 ) {
+
+			let nodeIndex16 = nodeIndex32 * 2, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+			// traverse until we find a leaf
+			while ( ! IS_LEAF( nodeIndex16, uint16Array ) ) {
+
+				// adjust offset to point to the right node
+				nodeIndex32 = RIGHT_NODE( nodeIndex32, uint32Array );
+				nodeIndex16 = nodeIndex32 * 2;
+
+			}
+
+			// return the end offset of the triangle range
+			return OFFSET( nodeIndex32, uint32Array ) + COUNT( nodeIndex16, uint16Array );
+
+		}
+
+		let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+		const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
+		if ( isLeaf ) {
+
+			const offset = OFFSET( nodeIndex32, uint32Array );
+			const count = COUNT( nodeIndex16, uint16Array );
+			arrayToBox( BOUNDING_DATA_INDEX( nodeIndex32 ), float32Array, _box1 );
+			return intersectsRangeFunc( offset, count, false, depth, nodeIndexByteOffset + nodeIndex32, _box1 );
+
+		} else {
+
+			const left = LEFT_NODE( nodeIndex32 );
+			const right = RIGHT_NODE( nodeIndex32, uint32Array );
+			let c1 = left;
+			let c2 = right;
+
+			let score1, score2;
+			let box1, box2;
+			if ( nodeScoreFunc ) {
+
+				box1 = _box1;
+				box2 = _box2;
+
+				// bounding data is not offset
+				arrayToBox( BOUNDING_DATA_INDEX( c1 ), float32Array, box1 );
+				arrayToBox( BOUNDING_DATA_INDEX( c2 ), float32Array, box2 );
+
+				score1 = nodeScoreFunc( box1 );
+				score2 = nodeScoreFunc( box2 );
+
+				if ( score2 < score1 ) {
+
+					c1 = right;
+					c2 = left;
+
+					const temp = score1;
+					score1 = score2;
+					score2 = temp;
+
+					box1 = box2;
+					// box2 is always set before use below
+
+				}
+
+			}
+
+			// Check box 1 intersection
+			if ( ! box1 ) {
+
+				box1 = _box1;
+				arrayToBox( BOUNDING_DATA_INDEX( c1 ), float32Array, box1 );
+
+			}
+
+			const isC1Leaf = IS_LEAF( c1 * 2, uint16Array );
+			const c1Intersection = intersectsBoundsFunc( box1, isC1Leaf, score1, depth + 1, nodeIndexByteOffset + c1 );
+
+			let c1StopTraversal;
+			if ( c1Intersection === CONTAINED ) {
+
+				const offset = getLeftOffset( c1 );
+				const end = getRightEndOffset( c1 );
+				const count = end - offset;
+
+				c1StopTraversal = intersectsRangeFunc( offset, count, true, depth + 1, nodeIndexByteOffset + c1, box1 );
+
+			} else {
+
+				c1StopTraversal =
+					c1Intersection &&
+					shapecastTraverse(
+						c1,
+						geometry,
+						intersectsBoundsFunc,
+						intersectsRangeFunc,
+						nodeScoreFunc,
+						nodeIndexByteOffset,
+						depth + 1
+					);
+
+			}
+
+			if ( c1StopTraversal ) return true;
+
+			// Check box 2 intersection
+			// cached box2 will have been overwritten by previous traversal
+			box2 = _box2;
+			arrayToBox( BOUNDING_DATA_INDEX( c2 ), float32Array, box2 );
+
+			const isC2Leaf = IS_LEAF( c2 * 2, uint16Array );
+			const c2Intersection = intersectsBoundsFunc( box2, isC2Leaf, score2, depth + 1, nodeIndexByteOffset + c2 );
+
+			let c2StopTraversal;
+			if ( c2Intersection === CONTAINED ) {
+
+				const offset = getLeftOffset( c2 );
+				const end = getRightEndOffset( c2 );
+				const count = end - offset;
+
+				c2StopTraversal = intersectsRangeFunc( offset, count, true, depth + 1, nodeIndexByteOffset + c2, box2 );
+
+			} else {
+
+				c2StopTraversal =
+					c2Intersection &&
+					shapecastTraverse(
+						c2,
+						geometry,
+						intersectsBoundsFunc,
+						intersectsRangeFunc,
+						nodeScoreFunc,
+						nodeIndexByteOffset,
+						depth + 1
+					);
+
+			}
+
+			if ( c2StopTraversal ) return true;
+
+			return false;
+
+		}
+
+	}
+
+} )();
+
+const intersectsGeometry = ( function () {
+
+	const triangle = new ExtendedTriangle();
+	const triangle2 = new ExtendedTriangle();
+	const invertedMat = new Matrix4();
+
+	const obb = new OrientedBox();
+	const obb2 = new OrientedBox();
+
+	return function intersectsGeometry( nodeIndex32, geometry, otherGeometry, geometryToBvh, cachedObb = null ) {
+
+		let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
+
+		if ( cachedObb === null ) {
+
+			if ( ! otherGeometry.boundingBox ) {
+
+				otherGeometry.computeBoundingBox();
+
+			}
+
+			obb.set( otherGeometry.boundingBox.min, otherGeometry.boundingBox.max, geometryToBvh );
+			cachedObb = obb;
+
+		}
+
+		const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
+		if ( isLeaf ) {
+
+			const thisGeometry = geometry;
+			const thisIndex = thisGeometry.index;
+			const thisPos = thisGeometry.attributes.position;
+
+			const index = otherGeometry.index;
+			const pos = otherGeometry.attributes.position;
+
+			const offset = OFFSET( nodeIndex32, uint32Array );
+			const count = COUNT( nodeIndex16, uint16Array );
+
+			// get the inverse of the geometry matrix so we can transform our triangles into the
+			// geometry space we're trying to test. We assume there are fewer triangles being checked
+			// here.
+			invertedMat.copy( geometryToBvh ).invert();
+
+			if ( otherGeometry.boundsTree ) {
+
+				arrayToBox( BOUNDING_DATA_INDEX( nodeIndex32 ), float32Array, obb2 );
+				obb2.matrix.copy( invertedMat );
+				obb2.needsUpdate = true;
+
+				const res = otherGeometry.boundsTree.shapecast( {
+
+					intersectsBounds: box => obb2.intersectsBox( box ),
+
+					intersectsTriangle: tri => {
+
+						tri.a.applyMatrix4( geometryToBvh );
+						tri.b.applyMatrix4( geometryToBvh );
+						tri.c.applyMatrix4( geometryToBvh );
+						tri.needsUpdate = true;
+
+						for ( let i = offset * 3, l = ( count + offset ) * 3; i < l; i += 3 ) {
+
+							// this triangle needs to be transformed into the current BVH coordinate frame
+							setTriangle( triangle2, i, thisIndex, thisPos );
+							triangle2.needsUpdate = true;
+							if ( tri.intersectsTriangle( triangle2 ) ) {
+
+								return true;
+
+							}
+
+						}
+
+						return false;
+
+					}
+
+				} );
+
+				return res;
+
+			} else {
+
+				for ( let i = offset * 3, l = ( count + offset * 3 ); i < l; i += 3 ) {
+
+					// this triangle needs to be transformed into the current BVH coordinate frame
+					setTriangle( triangle, i, thisIndex, thisPos );
+					triangle.a.applyMatrix4( invertedMat );
+					triangle.b.applyMatrix4( invertedMat );
+					triangle.c.applyMatrix4( invertedMat );
+					triangle.needsUpdate = true;
+
+					for ( let i2 = 0, l2 = index.count; i2 < l2; i2 += 3 ) {
+
+						setTriangle( triangle2, i2, index, pos );
+						triangle2.needsUpdate = true;
+
+						if ( triangle.intersectsTriangle( triangle2 ) ) {
+
+							return true;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		} else {
+
+			const left = nodeIndex32 + 8;
+			const right = uint32Array[ nodeIndex32 + 6 ];
+
+			arrayToBox( BOUNDING_DATA_INDEX( left ), float32Array, boundingBox );
+			const leftIntersection =
+				cachedObb.intersectsBox( boundingBox ) &&
+				intersectsGeometry( left, geometry, otherGeometry, geometryToBvh, cachedObb );
+
+			if ( leftIntersection ) return true;
+
+			arrayToBox( BOUNDING_DATA_INDEX( right ), float32Array, boundingBox );
+			const rightIntersection =
+				cachedObb.intersectsBox( boundingBox ) &&
+				intersectsGeometry( right, geometry, otherGeometry, geometryToBvh, cachedObb );
+
+			if ( rightIntersection ) return true;
+
+			return false;
+
+		}
+
+	};
+
+} )();
+
+function intersectRay( nodeIndex32, array, ray, target ) {
+
+	arrayToBox( nodeIndex32, array, boundingBox );
+	return ray.intersectBox( boundingBox, target );
+
+}
+
+const bufferStack = [];
+let _prevBuffer;
+let _float32Array;
+let _uint16Array;
+let _uint32Array;
+function setBuffer( buffer ) {
+
+	if ( _prevBuffer ) {
+
+		bufferStack.push( _prevBuffer );
+
+	}
+
+	_prevBuffer = buffer;
+	_float32Array = new Float32Array( buffer );
+	_uint16Array = new Uint16Array( buffer );
+	_uint32Array = new Uint32Array( buffer );
+
+}
+
+function clearBuffer() {
+
+	_prevBuffer = null;
+	_float32Array = null;
+	_uint16Array = null;
+	_uint32Array = null;
+
+	if ( bufferStack.length ) {
+
+		setBuffer( bufferStack.pop() );
+
+	}
+
+}
+
+const SKIP_GENERATION = Symbol( 'skip tree generation' );
+
+const aabb = /* @__PURE__ */ new Box3();
+const aabb2 = /* @__PURE__ */ new Box3();
+const tempMatrix = /* @__PURE__ */ new Matrix4();
+const obb = /* @__PURE__ */ new OrientedBox();
+const obb2 = /* @__PURE__ */ new OrientedBox();
+const temp = /* @__PURE__ */ new Vector3();
+const temp1 = /* @__PURE__ */ new Vector3();
+const temp2 = /* @__PURE__ */ new Vector3();
+const temp3 = /* @__PURE__ */ new Vector3();
+const temp4 = /* @__PURE__ */ new Vector3();
+const tempBox = /* @__PURE__ */ new Box3();
+const trianglePool = /* @__PURE__ */ new PrimitivePool( () => new ExtendedTriangle() );
+
+class MeshBVH {
+
+	static serialize( bvh, options = {} ) {
+
+		if ( options.isBufferGeometry ) {
+
+			console.warn( 'MeshBVH.serialize: The arguments for the function have changed. See documentation for new signature.' );
+
+			return MeshBVH.serialize(
+				arguments[ 0 ],
+				{
+					cloneBuffers: arguments[ 2 ] === undefined ? true : arguments[ 2 ],
+				}
+			);
+
+		}
+
+		options = {
+			cloneBuffers: true,
+			...options,
+		};
+
+		const geometry = bvh.geometry;
+		const rootData = bvh._roots;
+		const indexAttribute = geometry.getIndex();
+		let result;
+		if ( options.cloneBuffers ) {
+
+			result = {
+				roots: rootData.map( root => root.slice() ),
+				index: indexAttribute.array.slice(),
+			};
+
+		} else {
+
+			result = {
+				roots: rootData,
+				index: indexAttribute.array,
+			};
+
+		}
+
+		return result;
+
+	}
+
+	static deserialize( data, geometry, options = {} ) {
+
+		if ( typeof options === 'boolean' ) {
+
+			console.warn( 'MeshBVH.deserialize: The arguments for the function have changed. See documentation for new signature.' );
+
+			return MeshBVH.deserialize(
+				arguments[ 0 ],
+				arguments[ 1 ],
+				{
+					setIndex: arguments[ 2 ] === undefined ? true : arguments[ 2 ],
+				}
+			);
+
+		}
+
+		options = {
+			setIndex: true,
+			...options,
+		};
+
+		const { index, roots } = data;
+		const bvh = new MeshBVH( geometry, { ...options, [ SKIP_GENERATION ]: true } );
+		bvh._roots = roots;
+
+		if ( options.setIndex ) {
+
+			const indexAttribute = geometry.getIndex();
+			if ( indexAttribute === null ) {
+
+				const newIndex = new BufferAttribute( data.index, 1, false );
+				geometry.setIndex( newIndex );
+
+			} else if ( indexAttribute.array !== index ) {
+
+				indexAttribute.array.set( index );
+				indexAttribute.needsUpdate = true;
+
+			}
+
+		}
+
+		return bvh;
+
+	}
+
+	constructor( geometry, options = {} ) {
+
+		if ( ! geometry.isBufferGeometry ) {
+
+			throw new Error( 'MeshBVH: Only BufferGeometries are supported.' );
+
+		} else if ( geometry.index && geometry.index.isInterleavedBufferAttribute ) {
+
+			throw new Error( 'MeshBVH: InterleavedBufferAttribute is not supported for the index attribute.' );
+
+		}
+
+		// default options
+		options = Object.assign( {
+
+			strategy: CENTER,
+			maxDepth: 40,
+			maxLeafTris: 10,
+			verbose: true,
+			useSharedArrayBuffer: false,
+			setBoundingBox: true,
+			onProgress: null,
+
+			// undocumented options
+
+			// Whether to skip generating the tree. Used for deserialization.
+			[ SKIP_GENERATION ]: false,
+
+		}, options );
+
+		if ( options.useSharedArrayBuffer && typeof SharedArrayBuffer === 'undefined' ) {
+
+			throw new Error( 'MeshBVH: SharedArrayBuffer is not available.' );
+
+		}
+
+		this._roots = null;
+		if ( ! options[ SKIP_GENERATION ] ) {
+
+			this._roots = buildPackedTree( geometry, options );
+
+			if ( ! geometry.boundingBox && options.setBoundingBox ) {
+
+				geometry.boundingBox = this.getBoundingBox( new Box3() );
+
+			}
+
+		}
+
+		// retain references to the geometry so we can use them it without having to
+		// take a geometry reference in every function.
+		this.geometry = geometry;
+
+	}
+
+	refit( nodeIndices = null ) {
+
+		if ( nodeIndices && Array.isArray( nodeIndices ) ) {
+
+			nodeIndices = new Set( nodeIndices );
+
+		}
+
+		const geometry = this.geometry;
+		const indexArr = geometry.index.array;
+		const posAttr = geometry.attributes.position;
+
+		let buffer, uint32Array, uint16Array, float32Array;
+		let byteOffset = 0;
+		const roots = this._roots;
+		for ( let i = 0, l = roots.length; i < l; i ++ ) {
+
+			buffer = roots[ i ];
+			uint32Array = new Uint32Array( buffer );
+			uint16Array = new Uint16Array( buffer );
+			float32Array = new Float32Array( buffer );
+
+			_traverse( 0, byteOffset );
+			byteOffset += buffer.byteLength;
+
+		}
+
+		function _traverse( node32Index, byteOffset, force = false ) {
+
+			const node16Index = node32Index * 2;
+			const isLeaf = uint16Array[ node16Index + 15 ] === IS_LEAFNODE_FLAG;
+			if ( isLeaf ) {
+
+				const offset = uint32Array[ node32Index + 6 ];
+				const count = uint16Array[ node16Index + 14 ];
+
+				let minx = Infinity;
+				let miny = Infinity;
+				let minz = Infinity;
+				let maxx = - Infinity;
+				let maxy = - Infinity;
+				let maxz = - Infinity;
+
+				for ( let i = 3 * offset, l = 3 * ( offset + count ); i < l; i ++ ) {
+
+					const index = indexArr[ i ];
+					const x = posAttr.getX( index );
+					const y = posAttr.getY( index );
+					const z = posAttr.getZ( index );
+
+					if ( x < minx ) minx = x;
+					if ( x > maxx ) maxx = x;
+
+					if ( y < miny ) miny = y;
+					if ( y > maxy ) maxy = y;
+
+					if ( z < minz ) minz = z;
+					if ( z > maxz ) maxz = z;
+
+				}
+
+				if (
+					float32Array[ node32Index + 0 ] !== minx ||
+					float32Array[ node32Index + 1 ] !== miny ||
+					float32Array[ node32Index + 2 ] !== minz ||
+
+					float32Array[ node32Index + 3 ] !== maxx ||
+					float32Array[ node32Index + 4 ] !== maxy ||
+					float32Array[ node32Index + 5 ] !== maxz
+				) {
+
+					float32Array[ node32Index + 0 ] = minx;
+					float32Array[ node32Index + 1 ] = miny;
+					float32Array[ node32Index + 2 ] = minz;
+
+					float32Array[ node32Index + 3 ] = maxx;
+					float32Array[ node32Index + 4 ] = maxy;
+					float32Array[ node32Index + 5 ] = maxz;
+
+					return true;
+
+				} else {
+
+					return false;
+
+				}
+
+			} else {
+
+				const left = node32Index + 8;
+				const right = uint32Array[ node32Index + 6 ];
+
+				// the identifying node indices provided by the shapecast function include offsets of all
+				// root buffers to guarantee they're unique between roots so offset left and right indices here.
+				const offsetLeft = left + byteOffset;
+				const offsetRight = right + byteOffset;
+				let forceChildren = force;
+				let includesLeft = false;
+				let includesRight = false;
+
+				if ( nodeIndices ) {
+
+					// if we see that neither the left or right child are included in the set that need to be updated
+					// then we assume that all children need to be updated.
+					if ( ! forceChildren ) {
+
+						includesLeft = nodeIndices.has( offsetLeft );
+						includesRight = nodeIndices.has( offsetRight );
+						forceChildren = ! includesLeft && ! includesRight;
+
+					}
+
+				} else {
+
+					includesLeft = true;
+					includesRight = true;
+
+				}
+
+				const traverseLeft = forceChildren || includesLeft;
+				const traverseRight = forceChildren || includesRight;
+
+				let leftChange = false;
+				if ( traverseLeft ) {
+
+					leftChange = _traverse( left, byteOffset, forceChildren );
+
+				}
+
+				let rightChange = false;
+				if ( traverseRight ) {
+
+					rightChange = _traverse( right, byteOffset, forceChildren );
+
+				}
+
+				const didChange = leftChange || rightChange;
+				if ( didChange ) {
+
+					for ( let i = 0; i < 3; i ++ ) {
+
+						const lefti = left + i;
+						const righti = right + i;
+						const minLeftValue = float32Array[ lefti ];
+						const maxLeftValue = float32Array[ lefti + 3 ];
+						const minRightValue = float32Array[ righti ];
+						const maxRightValue = float32Array[ righti + 3 ];
+
+						float32Array[ node32Index + i ] = minLeftValue < minRightValue ? minLeftValue : minRightValue;
+						float32Array[ node32Index + i + 3 ] = maxLeftValue > maxRightValue ? maxLeftValue : maxRightValue;
+
+					}
+
+				}
+
+				return didChange;
+
+			}
+
+		}
+
+	}
+
+	traverse( callback, rootIndex = 0 ) {
+
+		const buffer = this._roots[ rootIndex ];
+		const uint32Array = new Uint32Array( buffer );
+		const uint16Array = new Uint16Array( buffer );
+		_traverse( 0 );
+
+		function _traverse( node32Index, depth = 0 ) {
+
+			const node16Index = node32Index * 2;
+			const isLeaf = uint16Array[ node16Index + 15 ] === IS_LEAFNODE_FLAG;
+			if ( isLeaf ) {
+
+				const offset = uint32Array[ node32Index + 6 ];
+				const count = uint16Array[ node16Index + 14 ];
+				callback( depth, isLeaf, new Float32Array( buffer, node32Index * 4, 6 ), offset, count );
+
+			} else {
+
+				// TODO: use node functions here
+				const left = node32Index + BYTES_PER_NODE / 4;
+				const right = uint32Array[ node32Index + 6 ];
+				const splitAxis = uint32Array[ node32Index + 7 ];
+				const stopTraversal = callback( depth, isLeaf, new Float32Array( buffer, node32Index * 4, 6 ), splitAxis );
+
+				if ( ! stopTraversal ) {
+
+					_traverse( left, depth + 1 );
+					_traverse( right, depth + 1 );
+
+				}
+
+			}
+
+		}
+
+	}
+
+	/* Core Cast Functions */
+	raycast( ray, materialOrSide = FrontSide ) {
+
+		const roots = this._roots;
+		const geometry = this.geometry;
+		const intersects = [];
+		const isMaterial = materialOrSide.isMaterial;
+		const isArrayMaterial = Array.isArray( materialOrSide );
+
+		const groups = geometry.groups;
+		const side = isMaterial ? materialOrSide.side : materialOrSide;
+		for ( let i = 0, l = roots.length; i < l; i ++ ) {
+
+			const materialSide = isArrayMaterial ? materialOrSide[ groups[ i ].materialIndex ].side : side;
+			const startCount = intersects.length;
+
+			setBuffer( roots[ i ] );
+			raycast( 0, geometry, materialSide, ray, intersects );
+			clearBuffer();
+
+			if ( isArrayMaterial ) {
+
+				const materialIndex = groups[ i ].materialIndex;
+				for ( let j = startCount, jl = intersects.length; j < jl; j ++ ) {
+
+					intersects[ j ].face.materialIndex = materialIndex;
+
+				}
+
+			}
+
+		}
+
+		return intersects;
+
+	}
+
+	raycastFirst( ray, materialOrSide = FrontSide ) {
+
+		const roots = this._roots;
+		const geometry = this.geometry;
+		const isMaterial = materialOrSide.isMaterial;
+		const isArrayMaterial = Array.isArray( materialOrSide );
+
+		let closestResult = null;
+
+		const groups = geometry.groups;
+		const side = isMaterial ? materialOrSide.side : materialOrSide;
+		for ( let i = 0, l = roots.length; i < l; i ++ ) {
+
+			const materialSide = isArrayMaterial ? materialOrSide[ groups[ i ].materialIndex ].side : side;
+
+			setBuffer( roots[ i ] );
+			const result = raycastFirst( 0, geometry, materialSide, ray );
+			clearBuffer();
+
+			if ( result != null && ( closestResult == null || result.distance < closestResult.distance ) ) {
+
+				closestResult = result;
+				if ( isArrayMaterial ) {
+
+					result.face.materialIndex = groups[ i ].materialIndex;
+
+				}
+
+			}
+
+		}
+
+		return closestResult;
+
+	}
+
+	intersectsGeometry( otherGeometry, geomToMesh ) {
+
+		const geometry = this.geometry;
+		let result = false;
+		for ( const root of this._roots ) {
+
+			setBuffer( root );
+			result = intersectsGeometry( 0, geometry, otherGeometry, geomToMesh );
+			clearBuffer();
+
+			if ( result ) {
+
+				break;
+
+			}
+
+		}
+
+		return result;
+
+	}
+
+	shapecast( callbacks, _intersectsTriangleFunc, _orderNodesFunc ) {
+
+		const geometry = this.geometry;
+		if ( callbacks instanceof Function ) {
+
+			if ( _intersectsTriangleFunc ) {
+
+				// Support the previous function signature that provided three sequential index buffer
+				// indices here.
+				const originalTriangleFunc = _intersectsTriangleFunc;
+				_intersectsTriangleFunc = ( tri, index, contained, depth ) => {
+
+					const i3 = index * 3;
+					return originalTriangleFunc( tri, i3, i3 + 1, i3 + 2, contained, depth );
+
+				};
+
+
+			}
+
+			callbacks = {
+
+				boundsTraverseOrder: _orderNodesFunc,
+				intersectsBounds: callbacks,
+				intersectsTriangle: _intersectsTriangleFunc,
+				intersectsRange: null,
+
+			};
+
+			console.warn( 'MeshBVH: Shapecast function signature has changed and now takes an object of callbacks as a second argument. See docs for new signature.' );
+
+		}
+
+		const triangle = trianglePool.getPrimitive();
+		let {
+			boundsTraverseOrder,
+			intersectsBounds,
+			intersectsRange,
+			intersectsTriangle,
+		} = callbacks;
+
+		if ( intersectsRange && intersectsTriangle ) {
+
+			const originalIntersectsRange = intersectsRange;
+			intersectsRange = ( offset, count, contained, depth, nodeIndex ) => {
+
+				if ( ! originalIntersectsRange( offset, count, contained, depth, nodeIndex ) ) {
+
+					return iterateOverTriangles( offset, count, geometry, intersectsTriangle, contained, depth, triangle );
+
+				}
+
+				return true;
+
+			};
+
+		} else if ( ! intersectsRange ) {
+
+			if ( intersectsTriangle ) {
+
+				intersectsRange = ( offset, count, contained, depth ) => {
+
+					return iterateOverTriangles( offset, count, geometry, intersectsTriangle, contained, depth, triangle );
+
+				};
+
+			} else {
+
+				intersectsRange = ( offset, count, contained ) => {
+
+					return contained;
+
+				};
+
+			}
+
+		}
+
+		let result = false;
+		let byteOffset = 0;
+		for ( const root of this._roots ) {
+
+			setBuffer( root );
+			result = shapecast( 0, geometry, intersectsBounds, intersectsRange, boundsTraverseOrder, byteOffset );
+			clearBuffer();
+
+			if ( result ) {
+
+				break;
+
+			}
+
+			byteOffset += root.byteLength;
+
+		}
+
+		trianglePool.releasePrimitive( triangle );
+
+		return result;
+
+	}
+
+	bvhcast( otherBvh, matrixToLocal, callbacks ) {
+
+		// BVHCast function for intersecting two BVHs against each other. Ultimately just uses two recursive shapecast calls rather
+		// than an approach that walks down the tree (see bvhcast.js file for more info).
+
+		let {
+			intersectsRanges,
+			intersectsTriangles,
+		} = callbacks;
+
+		const indexAttr = this.geometry.index;
+		const positionAttr = this.geometry.attributes.position;
+
+		const otherIndexAttr = otherBvh.geometry.index;
+		const otherPositionAttr = otherBvh.geometry.attributes.position;
+
+		tempMatrix.copy( matrixToLocal ).invert();
+
+		const triangle = trianglePool.getPrimitive();
+		const triangle2 = trianglePool.getPrimitive();
+
+		if ( intersectsTriangles ) {
+
+			function iterateOverDoubleTriangles( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) {
+
+				for ( let i2 = offset2, l2 = offset2 + count2; i2 < l2; i2 ++ ) {
+
+					setTriangle( triangle2, i2 * 3, otherIndexAttr, otherPositionAttr );
+					triangle2.a.applyMatrix4( matrixToLocal );
+					triangle2.b.applyMatrix4( matrixToLocal );
+					triangle2.c.applyMatrix4( matrixToLocal );
+					triangle2.needsUpdate = true;
+
+					for ( let i1 = offset1, l1 = offset1 + count1; i1 < l1; i1 ++ ) {
+
+						setTriangle( triangle, i1 * 3, indexAttr, positionAttr );
+						triangle.needsUpdate = true;
+
+						if ( intersectsTriangles( triangle, triangle2, i1, i2, depth1, index1, depth2, index2 ) ) {
+
+							return true;
+
+						}
+
+					}
+
+				}
+
+				return false;
+
+			}
+
+			if ( intersectsRanges ) {
+
+				const originalIntersectsRanges = intersectsRanges;
+				intersectsRanges = function ( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) {
+
+					if ( ! originalIntersectsRanges( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) ) {
+
+						return iterateOverDoubleTriangles( offset1, count1, offset2, count2, depth1, index1, depth2, index2 );
+
+					}
+
+					return true;
+
+				};
+
+			} else {
+
+				intersectsRanges = iterateOverDoubleTriangles;
+
+			}
+
+		}
+
+		otherBvh.getBoundingBox( aabb2 );
+		aabb2.applyMatrix4( matrixToLocal );
+		const result = this.shapecast( {
+
+			intersectsBounds: box => aabb2.intersectsBox( box ),
+
+			intersectsRange: ( offset1, count1, contained, depth1, nodeIndex1, box ) => {
+
+				aabb.copy( box );
+				aabb.applyMatrix4( tempMatrix );
+				return otherBvh.shapecast( {
+
+					intersectsBounds: box => aabb.intersectsBox( box ),
+
+					intersectsRange: ( offset2, count2, contained, depth2, nodeIndex2 ) => {
+
+						return intersectsRanges( offset1, count1, offset2, count2, depth1, nodeIndex1, depth2, nodeIndex2 );
+
+					},
+
+				} );
+
+			}
+
+		} );
+
+		trianglePool.releasePrimitive( triangle );
+		trianglePool.releasePrimitive( triangle2 );
+		return result;
+
+	}
+
+	/* Derived Cast Functions */
+	intersectsBox( box, boxToMesh ) {
+
+		obb.set( box.min, box.max, boxToMesh );
+		obb.needsUpdate = true;
+
+		return this.shapecast(
+			{
+				intersectsBounds: box => obb.intersectsBox( box ),
+				intersectsTriangle: tri => obb.intersectsTriangle( tri )
+			}
+		);
+
+	}
+
+	intersectsSphere( sphere ) {
+
+		return this.shapecast(
+			{
+				intersectsBounds: box => sphere.intersectsBox( box ),
+				intersectsTriangle: tri => tri.intersectsSphere( sphere )
+			}
+		);
+
+	}
+
+	closestPointToGeometry( otherGeometry, geometryToBvh, target1 = { }, target2 = { }, minThreshold = 0, maxThreshold = Infinity ) {
+
+		if ( ! otherGeometry.boundingBox ) {
+
+			otherGeometry.computeBoundingBox();
+
+		}
+
+		obb.set( otherGeometry.boundingBox.min, otherGeometry.boundingBox.max, geometryToBvh );
+		obb.needsUpdate = true;
+
+		const geometry = this.geometry;
+		const pos = geometry.attributes.position;
+		const index = geometry.index;
+		const otherPos = otherGeometry.attributes.position;
+		const otherIndex = otherGeometry.index;
+		const triangle = trianglePool.getPrimitive();
+		const triangle2 = trianglePool.getPrimitive();
+
+		let tempTarget1 = temp1;
+		let tempTargetDest1 = temp2;
+		let tempTarget2 = null;
+		let tempTargetDest2 = null;
+
+		if ( target2 ) {
+
+			tempTarget2 = temp3;
+			tempTargetDest2 = temp4;
+
+		}
+
+		let closestDistance = Infinity;
+		let closestDistanceTriIndex = null;
+		let closestDistanceOtherTriIndex = null;
+		tempMatrix.copy( geometryToBvh ).invert();
+		obb2.matrix.copy( tempMatrix );
+		this.shapecast(
+			{
+
+				boundsTraverseOrder: box => {
+
+					return obb.distanceToBox( box );
+
+				},
+
+				intersectsBounds: ( box, isLeaf, score ) => {
+
+					if ( score < closestDistance && score < maxThreshold ) {
+
+						// if we know the triangles of this bounds will be intersected next then
+						// save the bounds to use during triangle checks.
+						if ( isLeaf ) {
+
+							obb2.min.copy( box.min );
+							obb2.max.copy( box.max );
+							obb2.needsUpdate = true;
+
+						}
+
+						return true;
+
+					}
+
+					return false;
+
+				},
+
+				intersectsRange: ( offset, count ) => {
+
+					if ( otherGeometry.boundsTree ) {
+
+						// if the other geometry has a bvh then use the accelerated path where we use shapecast to find
+						// the closest bounds in the other geometry to check.
+						return otherGeometry.boundsTree.shapecast( {
+							boundsTraverseOrder: box => {
+
+								return obb2.distanceToBox( box );
+
+							},
+
+							intersectsBounds: ( box, isLeaf, score ) => {
+
+								return score < closestDistance && score < maxThreshold;
+
+							},
+
+							intersectsRange: ( otherOffset, otherCount ) => {
+
+								for ( let i2 = otherOffset * 3, l2 = ( otherOffset + otherCount ) * 3; i2 < l2; i2 += 3 ) {
+
+									setTriangle( triangle2, i2, otherIndex, otherPos );
+									triangle2.a.applyMatrix4( geometryToBvh );
+									triangle2.b.applyMatrix4( geometryToBvh );
+									triangle2.c.applyMatrix4( geometryToBvh );
+									triangle2.needsUpdate = true;
+
+									for ( let i = offset * 3, l = ( offset + count ) * 3; i < l; i += 3 ) {
+
+										setTriangle( triangle, i, index, pos );
+										triangle.needsUpdate = true;
+
+										const dist = triangle.distanceToTriangle( triangle2, tempTarget1, tempTarget2 );
+										if ( dist < closestDistance ) {
+
+											tempTargetDest1.copy( tempTarget1 );
+
+											if ( tempTargetDest2 ) {
+
+												tempTargetDest2.copy( tempTarget2 );
+
+											}
+
+											closestDistance = dist;
+											closestDistanceTriIndex = i / 3;
+											closestDistanceOtherTriIndex = i2 / 3;
+
+										}
+
+										// stop traversal if we find a point that's under the given threshold
+										if ( dist < minThreshold ) {
+
+											return true;
+
+										}
+
+									}
+
+								}
+
+							},
+						} );
+
+					} else {
+
+						// If no bounds tree then we'll just check every triangle.
+						const triCount = otherIndex ? otherIndex.count : otherPos.count;
+						for ( let i2 = 0, l2 = triCount; i2 < l2; i2 += 3 ) {
+
+							setTriangle( triangle2, i2, otherIndex, otherPos );
+							triangle2.a.applyMatrix4( geometryToBvh );
+							triangle2.b.applyMatrix4( geometryToBvh );
+							triangle2.c.applyMatrix4( geometryToBvh );
+							triangle2.needsUpdate = true;
+
+							for ( let i = offset * 3, l = ( offset + count ) * 3; i < l; i += 3 ) {
+
+								setTriangle( triangle, i, index, pos );
+								triangle.needsUpdate = true;
+
+								const dist = triangle.distanceToTriangle( triangle2, tempTarget1, tempTarget2 );
+								if ( dist < closestDistance ) {
+
+									tempTargetDest1.copy( tempTarget1 );
+
+									if ( tempTargetDest2 ) {
+
+										tempTargetDest2.copy( tempTarget2 );
+
+									}
+
+									closestDistance = dist;
+									closestDistanceTriIndex = i / 3;
+									closestDistanceOtherTriIndex = i2 / 3;
+
+								}
+
+								// stop traversal if we find a point that's under the given threshold
+								if ( dist < minThreshold ) {
+
+									return true;
+
+								}
+
+							}
+
+						}
+
+					}
+
+				},
+
+			}
+
+		);
+
+		trianglePool.releasePrimitive( triangle );
+		trianglePool.releasePrimitive( triangle2 );
+
+		if ( closestDistance === Infinity ) return null;
+
+		if ( ! target1.point ) target1.point = tempTargetDest1.clone();
+		else target1.point.copy( tempTargetDest1 );
+		target1.distance = closestDistance,
+		target1.faceIndex = closestDistanceTriIndex;
+
+		if ( target2 ) {
+
+			if ( ! target2.point ) target2.point = tempTargetDest2.clone();
+			else target2.point.copy( tempTargetDest2 );
+			target2.point.applyMatrix4( tempMatrix );
+			tempTargetDest1.applyMatrix4( tempMatrix );
+			target2.distance = tempTargetDest1.sub( target2.point ).length();
+			target2.faceIndex = closestDistanceOtherTriIndex;
+
+		}
+
+		return target1;
+
+	}
+
+	closestPointToPoint( point, target = { }, minThreshold = 0, maxThreshold = Infinity ) {
+
+		// early out if under minThreshold
+		// skip checking if over maxThreshold
+		// set minThreshold = maxThreshold to quickly check if a point is within a threshold
+		// returns Infinity if no value found
+		const minThresholdSq = minThreshold * minThreshold;
+		const maxThresholdSq = maxThreshold * maxThreshold;
+		let closestDistanceSq = Infinity;
+		let closestDistanceTriIndex = null;
+		this.shapecast(
+
+			{
+
+				boundsTraverseOrder: box => {
+
+					temp.copy( point ).clamp( box.min, box.max );
+					return temp.distanceToSquared( point );
+
+				},
+
+				intersectsBounds: ( box, isLeaf, score ) => {
+
+					return score < closestDistanceSq && score < maxThresholdSq;
+
+				},
+
+				intersectsTriangle: ( tri, triIndex ) => {
+
+					tri.closestPointToPoint( point, temp );
+					const distSq = point.distanceToSquared( temp );
+					if ( distSq < closestDistanceSq ) {
+
+						temp1.copy( temp );
+						closestDistanceSq = distSq;
+						closestDistanceTriIndex = triIndex;
+
+					}
+
+					if ( distSq < minThresholdSq ) {
+
+						return true;
+
+					} else {
+
+						return false;
+
+					}
+
+				},
+
+			}
+
+		);
+
+		if ( closestDistanceSq === Infinity ) return null;
+
+		const closestDistance = Math.sqrt( closestDistanceSq );
+
+		if ( ! target.point ) target.point = temp1.clone();
+		else target.point.copy( temp1 );
+		target.distance = closestDistance,
+		target.faceIndex = closestDistanceTriIndex;
+
+		return target;
+
+	}
+
+	getBoundingBox( target ) {
+
+		target.makeEmpty();
+
+		const roots = this._roots;
+		roots.forEach( buffer => {
+
+			arrayToBox( 0, new Float32Array( buffer ), tempBox );
+			target.union( tempBox );
+
+		} );
+
+		return target;
+
+	}
+
+}
+
+const ray = /* @__PURE__ */ new Ray();
+const tmpInverseMatrix = /* @__PURE__ */ new Matrix4();
+const origMeshRaycastFunc = Mesh.prototype.raycast;
+
+function acceleratedRaycast( raycaster, intersects ) {
+
+	if ( this.geometry.boundsTree ) {
+
+		if ( this.material === undefined ) return;
+
+		tmpInverseMatrix.copy( this.matrixWorld ).invert();
+		ray.copy( raycaster.ray ).applyMatrix4( tmpInverseMatrix );
+
+		const bvh = this.geometry.boundsTree;
+		if ( raycaster.firstHitOnly === true ) {
+
+			const hit = convertRaycastIntersect( bvh.raycastFirst( ray, this.material ), this, raycaster );
+			if ( hit ) {
+
+				intersects.push( hit );
+
+			}
+
+		} else {
+
+			const hits = bvh.raycast( ray, this.material );
+			for ( let i = 0, l = hits.length; i < l; i ++ ) {
+
+				const hit = convertRaycastIntersect( hits[ i ], this, raycaster );
+				if ( hit ) {
+
+					intersects.push( hit );
+
+				}
+
+			}
+
+		}
+
+	} else {
+
+		origMeshRaycastFunc.call( this, raycaster, intersects );
+
+	}
+
+}
+
+function computeBoundsTree( options ) {
+
+	this.boundsTree = new MeshBVH( this, options );
+	return this.boundsTree;
+
+}
+
+function disposeBoundsTree() {
+
+	this.boundsTree = null;
+
+}
 
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
@@ -59867,7 +76674,7 @@ FromRawLineData[IFCGEOMETRICSET] = (d) => {
   return IfcGeometricSet.FromTape(d.ID, d.type, d.arguments);
 };
 FromRawLineData[IFCGRID] = (d) => {
-  return IfcGrid$1.FromTape(d.ID, d.type, d.arguments);
+  return IfcGrid.FromTape(d.ID, d.type, d.arguments);
 };
 FromRawLineData[IFCGRIDAXIS] = (d) => {
   return IfcGridAxis.FromTape(d.ID, d.type, d.arguments);
@@ -60245,7 +77052,7 @@ FromRawLineData[IFCPLANAREXTENT] = (d) => {
   return IfcPlanarExtent.FromTape(d.ID, d.type, d.arguments);
 };
 FromRawLineData[IFCPLANE] = (d) => {
-  return IfcPlane$1.FromTape(d.ID, d.type, d.arguments);
+  return IfcPlane.FromTape(d.ID, d.type, d.arguments);
 };
 FromRawLineData[IFCPLATE] = (d) => {
   return IfcPlate.FromTape(d.ID, d.type, d.arguments);
@@ -72847,7 +89654,7 @@ var IfcGeometricSet = class {
     return args;
   }
 };
-var IfcGrid$1 = class {
+var IfcGrid = class {
   constructor(expressID, type, GlobalId, OwnerHistory, Name, Description, ObjectType, ObjectPlacement, Representation, UAxes, VAxes, WAxes, PredefinedType) {
     this.expressID = expressID;
     this.type = type;
@@ -72876,7 +89683,7 @@ var IfcGrid$1 = class {
     let VAxes = tape[ptr++];
     let WAxes = tape[ptr++];
     let PredefinedType = tape[ptr++];
-    return new IfcGrid$1(expressID, type, GlobalId, OwnerHistory, Name, Description, ObjectType, ObjectPlacement, Representation, UAxes, VAxes, WAxes, PredefinedType);
+    return new IfcGrid(expressID, type, GlobalId, OwnerHistory, Name, Description, ObjectType, ObjectPlacement, Representation, UAxes, VAxes, WAxes, PredefinedType);
   }
   ToTape() {
     let args = [];
@@ -76831,7 +93638,7 @@ var IfcPlanarExtent = class {
     return args;
   }
 };
-var IfcPlane$1 = class {
+var IfcPlane = class {
   constructor(expressID, type, Position) {
     this.expressID = expressID;
     this.type = type;
@@ -76840,7 +93647,7 @@ var IfcPlane$1 = class {
   static FromTape(expressID, type, tape) {
     let ptr = 0;
     let Position = tape[ptr++];
-    return new IfcPlane$1(expressID, type, Position);
+    return new IfcPlane(expressID, type, Position);
   }
   ToTape() {
     let args = [];
@@ -90700,5839 +107507,6 @@ var IfcAPI2 = class {
   }
 };
 
-class ClippingEdges {
-    constructor(clippingPlane) {
-        this.edges = {};
-        this.isVisible = true;
-        this.inverseMatrix = new Matrix4();
-        this.localPlane = new Plane();
-        this.tempLine = new Line3();
-        this.tempVector = new Vector3();
-        this.stylesInitialized = false;
-        this.clippingPlane = clippingPlane;
-    }
-    get visible() {
-        return this.isVisible;
-    }
-    set visible(visible) {
-        this.isVisible = visible;
-        const allEdges = Object.values(this.edges);
-        allEdges.forEach((edges) => {
-            edges.mesh.visible = visible;
-            if (visible)
-                ClippingEdges.context.getScene().add(edges.mesh);
-            else
-                edges.mesh.removeFromParent();
-        });
-        if (visible)
-            this.updateEdges();
-    }
-    // Initializes the helper geometry used to compute the vertices
-    static newGeneratorGeometry() {
-        // create line geometry with enough data to hold 100000 segments
-        const generatorGeometry = new BufferGeometry();
-        const linePosAttr = new BufferAttribute(new Float32Array(300000), 3, false);
-        linePosAttr.setUsage(DynamicDrawUsage);
-        generatorGeometry.setAttribute('position', linePosAttr);
-        return generatorGeometry;
-    }
-    dispose() {
-        Object.values(this.edges).forEach((edge) => {
-            if (edge.generatorGeometry.boundsTree)
-                edge.generatorGeometry.disposeBoundsTree();
-            edge.generatorGeometry.dispose();
-            if (edge.mesh.geometry.boundsTree)
-                edge.mesh.geometry.disposeBoundsTree();
-            edge.mesh.geometry.dispose();
-            edge.mesh.removeFromParent();
-            edge.mesh = null;
-        });
-        this.edges = null;
-        this.clippingPlane = null;
-    }
-    disposeStylesAndHelpers() {
-        if (ClippingEdges.basicEdges) {
-            ClippingEdges.basicEdges.removeFromParent();
-            ClippingEdges.basicEdges.geometry.dispose();
-            ClippingEdges.basicEdges = null;
-            ClippingEdges.basicEdges = new LineSegments();
-        }
-        ClippingEdges.context = null;
-        ClippingEdges.ifc = null;
-        ClippingEdges.edgesParent = undefined;
-        if (!ClippingEdges.styles)
-            return;
-        const styles = Object.values(ClippingEdges.styles);
-        styles.forEach((style) => {
-            style.ids.length = 0;
-            style.meshes.forEach((mesh) => {
-                mesh.removeFromParent();
-                mesh.geometry.dispose();
-                if (mesh.geometry.boundsTree)
-                    mesh.geometry.disposeBoundsTree();
-                if (Array.isArray(mesh.material))
-                    mesh.material.forEach((mat) => mat.dispose());
-                else
-                    mesh.material.dispose();
-            });
-            style.meshes.length = 0;
-            style.categories.length = 0;
-            style.material.dispose();
-        });
-        ClippingEdges.styles = null;
-        ClippingEdges.styles = {};
-    }
-    async updateEdges() {
-        if (ClippingEdges.createDefaultIfcStyles) {
-            await this.updateIfcStyles();
-        }
-        if (ClippingEdges.forceStyleUpdate) {
-            this.updateSubsetsTranformation();
-        }
-        Object.keys(ClippingEdges.styles).forEach((styleName) => {
-            try {
-                // this can trow error if there is an empty mesh, we still want to update other edges so we catch ere
-                this.drawEdges(styleName);
-            }
-            catch (e) {
-                console.error('error in drawing edges', e);
-            }
-        });
-    }
-    // Creates a new style that applies to all clipping edges for IFC models
-    static async newStyle(styleName, categories, material = ClippingEdges.defaultMaterial) {
-        const subsets = [];
-        const models = ClippingEdges.context.items.ifcModels;
-        for (let i = 0; i < models.length; i++) {
-            // eslint-disable-next-line no-await-in-loop
-            const subset = await ClippingEdges.newSubset(styleName, models[i], categories);
-            if (subset) {
-                subsets.push(subset);
-            }
-        }
-        material.clippingPlanes = ClippingEdges.context.getClippingPlanes();
-        ClippingEdges.styles[styleName] = {
-            ids: models.map((model) => model.modelID),
-            categories,
-            material,
-            meshes: subsets
-        };
-    }
-    // Creates a new style that applies to all clipping edges for generic models
-    static async newStyleFromMesh(styleName, meshes, material = ClippingEdges.defaultMaterial) {
-        const ids = meshes.map((mesh) => mesh.modelID);
-        meshes.forEach((mesh) => {
-            if (!mesh.geometry.boundsTree)
-                mesh.geometry.computeBoundsTree();
-        });
-        material.clippingPlanes = ClippingEdges.context.getClippingPlanes();
-        ClippingEdges.styles[styleName] = {
-            ids,
-            categories: [],
-            material,
-            meshes
-        };
-    }
-    async updateStylesIfcGeometry() {
-        const styleNames = Object.keys(ClippingEdges.styles);
-        for (let i = 0; i < styleNames.length; i++) {
-            const name = styleNames[i];
-            const style = ClippingEdges.styles[name];
-            const models = ClippingEdges.context.items.ifcModels;
-            style.meshes.length = 0;
-            for (let i = 0; i < models.length; i++) {
-                // eslint-disable-next-line no-await-in-loop
-                const subset = await ClippingEdges.newSubset(name, models[i], style.categories);
-                if (subset) {
-                    style.meshes.push(subset);
-                }
-            }
-        }
-    }
-    updateSubsetsTranformation() {
-        const styleNames = Object.keys(ClippingEdges.styles);
-        for (let i = 0; i < styleNames.length; i++) {
-            const styleName = styleNames[i];
-            const style = ClippingEdges.styles[styleName];
-            style.meshes.forEach((mesh) => {
-                const model = ClippingEdges.context.items.ifcModels.find((model) => model.modelID === mesh.modelID);
-                if (model) {
-                    mesh.position.copy(model.position);
-                    mesh.rotation.copy(model.rotation);
-                    mesh.scale.copy(model.scale);
-                }
-            });
-        }
-        ClippingEdges.forceStyleUpdate = false;
-    }
-    async updateIfcStyles() {
-        if (!this.stylesInitialized) {
-            await this.createDefaultIfcStyles();
-        }
-        if (ClippingEdges.forceStyleUpdate) {
-            await this.updateStylesIfcGeometry();
-            ClippingEdges.forceStyleUpdate = false;
-        }
-    }
-    // Creates some basic styles so that users don't have to create it each time
-    async createDefaultIfcStyles() {
-        if (Object.keys(ClippingEdges.styles).length === 0) {
-            await ClippingEdges.newStyle('thick', [
-                IFCWALLSTANDARDCASE,
-                IFCWALL,
-                IFCSLAB,
-                IFCSTAIRFLIGHT,
-                IFCCOLUMN,
-                IFCBEAM,
-                IFCROOF,
-                IFCBUILDINGELEMENTPROXY,
-                IFCPROXY
-            ], new LineMaterial({ color: 0x000000, linewidth: 0.0015 }));
-            await ClippingEdges.newStyle('thin', [
-                IFCWINDOW,
-                IFCPLATE,
-                IFCMEMBER,
-                IFCDOOR,
-                IFCFURNISHINGELEMENT,
-                IFCPROXY,
-                IFCBUILDINGELEMENTPROXY,
-                IFCFOOTING
-            ], new LineMaterial({ color: 0x333333, linewidth: 0.001 }));
-            this.stylesInitialized = true;
-        }
-    }
-    // Creates a new subset. This allows to apply a style just to a specific set of items
-    static async newSubset(styleName, model, categories) {
-        const modelID = model.modelID;
-        const ids = await this.getItemIDs(modelID, categories);
-        // If no items were found, no geometry is created for this style
-        if (!ids.length)
-            return null;
-        const manager = this.ifc.loader.ifcManager;
-        let subset;
-        if (ids.length > 0) {
-            subset = manager.createSubset({
-                modelID,
-                ids,
-                customID: styleName,
-                material: ClippingEdges.invisibleMaterial,
-                removePrevious: true,
-                scene: ClippingEdges.context.getScene(),
-                applyBVH: true
-            });
-        }
-        else {
-            subset = manager.getSubset(modelID, ClippingEdges.invisibleMaterial, styleName);
-        }
-        subset.position.copy(model.position);
-        subset.rotation.copy(model.rotation);
-        subset.scale.copy(model.scale);
-        return subset;
-    }
-    static async getItemIDs(modelID, categories) {
-        const ids = [];
-        for (let j = 0; j < categories.length; j++) {
-            // eslint-disable-next-line no-await-in-loop
-            const found = await this.ifc.getAllItemsOfType(modelID, categories[j], false);
-            ids.push(...found);
-        }
-        const visibleItems = this.getVisibileItems(modelID);
-        return ids.filter((id) => visibleItems.has(id));
-    }
-    static getVisibileItems(modelID) {
-        const visibleItems = new Set();
-        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
-        if (!model)
-            throw new Error('IFC model was not found for computing clipping edges.');
-        if (!model.geometry.index)
-            throw new Error('Indices were not found for clipping edges.');
-        const indices = new Set(model.geometry.index.array);
-        indices.forEach((index) => {
-            visibleItems.add(model.geometry.attributes.expressID.getX(index));
-        });
-        return visibleItems;
-    }
-    // Creates the geometry of the clipping edges
-    newThickEdges(styleName) {
-        const material = ClippingEdges.styles[styleName].material;
-        const thickLineGeometry = new LineSegmentsGeometry();
-        const thickEdges = new LineSegments2(thickLineGeometry, material);
-        thickEdges.material.polygonOffset = true;
-        thickEdges.material.polygonOffsetFactor = -2;
-        thickEdges.material.polygonOffsetUnits = 1;
-        thickEdges.renderOrder = 3;
-        return thickEdges;
-    }
-    // Source: https://gkjohnson.github.io/three-mesh-bvh/example/bundle/clippedEdges.html
-    drawEdges(styleName) {
-        const style = ClippingEdges.styles[styleName];
-        // if (!style.subsets.geometry.boundsTree) return;
-        if (!this.edges[styleName]) {
-            this.edges[styleName] = {
-                generatorGeometry: ClippingEdges.newGeneratorGeometry(),
-                mesh: this.newThickEdges(styleName)
-            };
-        }
-        const edges = this.edges[styleName];
-        let index = 0;
-        const posAttr = edges.generatorGeometry.attributes.position;
-        // @ts-ignore
-        posAttr.array.fill(0);
-        const notEmptyMeshes = style.meshes.filter((subset) => subset.geometry);
-        notEmptyMeshes.forEach((mesh) => {
-            if (!mesh.geometry.boundsTree) {
-                throw new Error('Boundstree not found for clipping edges subset.');
-            }
-            this.inverseMatrix.copy(mesh.matrixWorld).invert();
-            this.localPlane.copy(this.clippingPlane).applyMatrix4(this.inverseMatrix);
-            mesh.geometry.boundsTree.shapecast({
-                intersectsBounds: (box) => {
-                    return this.localPlane.intersectsBox(box);
-                },
-                // @ts-ignore
-                intersectsTriangle: (tri) => {
-                    // check each triangle edge to see if it intersects with the plane. If so then
-                    // add it to the list of segments.
-                    let count = 0;
-                    this.tempLine.start.copy(tri.a);
-                    this.tempLine.end.copy(tri.b);
-                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
-                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
-                        posAttr.setXYZ(index, result.x, result.y, result.z);
-                        count++;
-                        index++;
-                    }
-                    this.tempLine.start.copy(tri.b);
-                    this.tempLine.end.copy(tri.c);
-                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
-                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
-                        posAttr.setXYZ(index, result.x, result.y, result.z);
-                        count++;
-                        index++;
-                    }
-                    this.tempLine.start.copy(tri.c);
-                    this.tempLine.end.copy(tri.a);
-                    if (this.localPlane.intersectLine(this.tempLine, this.tempVector)) {
-                        const result = this.tempVector.applyMatrix4(mesh.matrixWorld);
-                        posAttr.setXYZ(index, result.x, result.y, result.z);
-                        count++;
-                        index++;
-                    }
-                    // If we only intersected with one or three sides then just remove it. This could be handled
-                    // more gracefully.
-                    if (count !== 2) {
-                        index -= count;
-                    }
-                }
-            });
-        });
-        // set the draw range to only the new segments and offset the lines so they don't intersect with the geometry
-        edges.mesh.geometry.setDrawRange(0, index);
-        edges.mesh.position.copy(this.clippingPlane.normal).multiplyScalar(0.0001);
-        posAttr.needsUpdate = true;
-        // Update the edges geometry only if there is no NaN in the output (which means there's been an error)
-        if (!Number.isNaN(edges.generatorGeometry.attributes.position.array[0])) {
-            ClippingEdges.basicEdges.geometry = edges.generatorGeometry;
-            edges.mesh.geometry.fromLineSegments(ClippingEdges.basicEdges);
-            const parent = ClippingEdges.edgesParent || ClippingEdges.context.getScene();
-            parent.add(edges.mesh);
-            ClippingEdges.context.renderer.postProduction.excludedItems.add(edges.mesh);
-        }
-    }
-}
-ClippingEdges.styles = {};
-ClippingEdges.forceStyleUpdate = false;
-ClippingEdges.createDefaultIfcStyles = true;
-ClippingEdges.edgesParent = null;
-ClippingEdges.invisibleMaterial = new MeshBasicMaterial({ visible: false });
-ClippingEdges.defaultMaterial = new LineMaterial({ color: 0x000000, linewidth: 0.001 });
-// Helpers
-ClippingEdges.basicEdges = new LineSegments();
-
-class IfcPlane extends IfcComponent {
-    constructor(context, origin, normal, onStartDragging, onEndDragging, planeSize, edgesEnabled) {
-        super(context);
-        this.arrowBoundingBox = new Mesh();
-        this.isVisible = true;
-        this.enabled = true;
-        this.edgesActive = true;
-        // Wether this plane is a section or floor plan
-        this.isPlan = false;
-        this.removeFromScene = () => {
-            this.helper.removeFromParent();
-            this.arrowBoundingBox.removeFromParent();
-            this.arrowBoundingBox.geometry.dispose();
-            this.arrowBoundingBox = undefined;
-            this.planeMesh.geometry.dispose();
-            this.planeMesh.geometry = undefined;
-            this.controls.removeFromParent();
-            this.controls.dispose();
-            this.edges.dispose();
-            this.helper.removeFromParent();
-        };
-        this.planeSize = planeSize;
-        this.context = context;
-        this.plane = new Plane();
-        this.planeMesh = this.getPlaneMesh();
-        this.normal = normal;
-        this.origin = origin;
-        this.helper = this.createHelper();
-        this.controls = this.newTransformControls();
-        this.setupEvents(onStartDragging, onEndDragging);
-        this.plane.setFromNormalAndCoplanarPoint(normal, origin);
-        this.edges = new ClippingEdges(this.plane);
-        this.edgesActive = edgesEnabled;
-    }
-    get active() {
-        return this.enabled;
-    }
-    set active(state) {
-        this.enabled = state;
-        const planes = this.context.getClippingPlanes();
-        this.edges.visible = state;
-        if (state) {
-            planes.push(this.plane);
-        }
-        else {
-            const index = planes.indexOf(this.plane);
-            if (index >= 0)
-                planes.splice(index);
-        }
-    }
-    get visible() {
-        return this.isVisible;
-    }
-    set visible(state) {
-        this.isVisible = state;
-        this.controls.visible = state;
-        this.helper.visible = state;
-        this.edges.visible = state;
-    }
-    dispose() {
-        if (IfcPlane.planeMaterial) {
-            IfcPlane.planeMaterial.dispose();
-            IfcPlane.planeMaterial = null;
-            IfcPlane.planeMaterial = IfcPlane.getPlaneMaterial();
-        }
-        if (IfcPlane.hiddenMaterial) {
-            IfcPlane.hiddenMaterial.dispose();
-            IfcPlane.hiddenMaterial = null;
-            IfcPlane.hiddenMaterial = IfcPlane.getHiddenMaterial();
-        }
-        this.removeFromScene();
-        this.edges.disposeStylesAndHelpers();
-        this.edges = null;
-        this.context = null;
-    }
-    static getPlaneMaterial() {
-        return new MeshBasicMaterial({
-            color: 0xffff00,
-            side: DoubleSide,
-            transparent: true,
-            opacity: 0.2
-        });
-    }
-    static getHiddenMaterial() {
-        return new MeshBasicMaterial({ visible: false });
-    }
-    newTransformControls() {
-        const camera = this.context.getCamera();
-        const container = this.context.getDomElement();
-        const controls = new TransformControls(camera, container);
-        this.initializeControls(controls);
-        const scene = this.context.getScene();
-        scene.add(controls);
-        this.context.renderer.postProduction.excludedItems.add(controls);
-        return controls;
-    }
-    initializeControls(controls) {
-        controls.attach(this.helper);
-        controls.showX = false;
-        controls.showY = false;
-        controls.setSpace('local');
-        this.createArrowBoundingBox();
-        controls.children[0].children[0].add(this.arrowBoundingBox);
-    }
-    createArrowBoundingBox() {
-        this.arrowBoundingBox.geometry = new CylinderGeometry(0.18, 0.18, 1.2);
-        this.arrowBoundingBox.material = IfcPlane.hiddenMaterial;
-        this.arrowBoundingBox.rotateX(Math.PI / 2);
-        this.arrowBoundingBox.updateMatrix();
-        this.arrowBoundingBox.geometry.applyMatrix4(this.arrowBoundingBox.matrix);
-    }
-    setupEvents(onStart, onEnd) {
-        this.controls.addEventListener('change', () => {
-            if (!this.enabled)
-                return;
-            this.plane.setFromNormalAndCoplanarPoint(this.normal, this.helper.position);
-            if (this.edgesActive)
-                this.edges.updateEdges();
-        });
-        this.controls.addEventListener('dragging-changed', (event) => {
-            if (!this.enabled)
-                return;
-            this.isVisible = !event.value;
-            this.context.toggleCameraControls(this.isVisible);
-            if (event.value)
-                onStart();
-            else
-                onEnd();
-        });
-        this.context.ifcCamera.currentNavMode.onChangeProjection.on((camera) => {
-            this.controls.camera = camera;
-        });
-    }
-    createHelper() {
-        const helper = new Object3D();
-        helper.lookAt(this.normal);
-        helper.position.copy(this.origin);
-        const scene = this.context.getScene();
-        scene.add(helper);
-        helper.add(this.planeMesh);
-        this.context.renderer.postProduction.excludedItems.add(helper);
-        return helper;
-    }
-    getPlaneMesh() {
-        const planeGeom = new PlaneGeometry(this.planeSize, this.planeSize, 1);
-        return new Mesh(planeGeom, IfcPlane.planeMaterial);
-    }
-}
-IfcPlane.planeMaterial = IfcPlane.getPlaneMaterial();
-IfcPlane.hiddenMaterial = IfcPlane.getHiddenMaterial();
-
-class IfcClipper extends IfcComponent {
-    constructor(context, ifc) {
-        super(context);
-        this.orthogonalY = true;
-        this.toleranceOrthogonalY = 0.7;
-        this.planeSize = 5;
-        this.createPlane = () => {
-            if (!this.enabled)
-                return;
-            const intersects = this.context.castRayIfc();
-            if (!intersects)
-                return;
-            this.createPlaneFromIntersection(intersects);
-            this.intersection = undefined;
-        };
-        this.createFromNormalAndCoplanarPoint = (normal, point, isPlan = false) => {
-            const plane = new IfcPlane(this.context, point, normal, this.activateDragging, this.deactivateDragging, this.planeSize, this.edgesEnabled);
-            plane.isPlan = isPlan;
-            this.planes.push(plane);
-            this.context.addClippingPlane(plane.plane);
-            this.updateMaterials();
-            return plane;
-        };
-        this.deletePlane = (plane) => {
-            let existingPlane = plane;
-            if (!existingPlane) {
-                if (!this.enabled)
-                    return;
-                existingPlane = this.pickPlane();
-            }
-            if (!existingPlane)
-                return;
-            const index = this.planes.indexOf(existingPlane);
-            if (index === -1)
-                return;
-            existingPlane.removeFromScene();
-            this.planes.splice(index, 1);
-            this.context.removeClippingPlane(existingPlane.plane);
-            this.updateMaterials();
-            this.context.renderer.postProduction.update();
-        };
-        this.deleteAllPlanes = () => {
-            while (this.planes.length > 0) {
-                this.deletePlane(this.planes[0]);
-            }
-        };
-        this.pickPlane = () => {
-            const planeMeshes = this.planes.map((p) => p.planeMesh);
-            const arrowMeshes = this.planes.map((p) => p.arrowBoundingBox);
-            const intersects = this.context.castRay([...planeMeshes, ...arrowMeshes]);
-            if (intersects.length > 0) {
-                return this.planes.find((p) => {
-                    if (p.planeMesh === intersects[0].object || p.arrowBoundingBox === intersects[0].object) {
-                        return p;
-                    }
-                    return null;
-                });
-            }
-            return null;
-        };
-        this.createPlaneFromIntersection = (intersection) => {
-            var _a;
-            const constant = intersection.point.distanceTo(new Vector3(0, 0, 0));
-            const normal = (_a = intersection.face) === null || _a === void 0 ? void 0 : _a.normal;
-            if (!constant || !normal)
-                return;
-            const normalMatrix = new Matrix3().getNormalMatrix(intersection.object.matrixWorld);
-            const worldNormal = normal.clone().applyMatrix3(normalMatrix).normalize();
-            this.normalizePlaneDirectionY(worldNormal);
-            const plane = this.newPlane(intersection, worldNormal.negate());
-            this.planes.push(plane);
-            this.context.addClippingPlane(plane.plane);
-            this.updateMaterials();
-        };
-        this.activateDragging = () => {
-            this.dragging = true;
-            this.context.renderer.postProduction.visible = false;
-        };
-        this.deactivateDragging = () => {
-            this.dragging = false;
-            this.context.renderer.postProduction.visible = true;
-        };
-        this.updateMaterials = () => {
-            // Apply clipping to all models
-            const planes = this.context.getClippingPlanes();
-            this.context.items.ifcModels.forEach((model) => {
-                if (Array.isArray(model.material)) {
-                    model.material.forEach((mat) => (mat.clippingPlanes = planes));
-                }
-                else {
-                    model.material.clippingPlanes = planes;
-                }
-            });
-            // Applying clipping to all subsets. then we can also filter and apply only to specified subsest as parameter
-            Object.values(this.ifc.loader.ifcManager.subsets.getAllSubsets()).forEach((subset) => {
-                const mesh = subset.mesh;
-                if (mesh.material)
-                    this.updateMaterial(mesh, planes);
-                if (mesh.userData.wireframe)
-                    this.updateMaterial(mesh.userData.wireframe, planes);
-            });
-        };
-        this.context = context;
-        this.ifc = ifc;
-        this.enabled = false;
-        this.edgesEnabled = true;
-        this.dragging = false;
-        this.planes = [];
-    }
-    get active() {
-        return this.enabled;
-    }
-    set active(state) {
-        this.enabled = state;
-        this.planes.forEach((plane) => {
-            if (!plane.isPlan) {
-                plane.visible = state;
-                plane.active = state;
-            }
-        });
-        this.updateMaterials();
-        this.context.renderer.postProduction.visible = true;
-    }
-    get edgesActive() {
-        return this.edgesEnabled;
-    }
-    set edgesActive(state) {
-        this.edgesEnabled = state;
-        this.planes.forEach((plane) => {
-            plane.edgesActive = state;
-        });
-    }
-    toggle() {
-        this.active = !this.active;
-    }
-    dispose() {
-        this.planes.forEach((plane) => plane.dispose());
-        this.planes.length = 0;
-        this.context = null;
-        this.ifc = null;
-    }
-    normalizePlaneDirectionY(normal) {
-        if (this.orthogonalY) {
-            if (normal.y > this.toleranceOrthogonalY) {
-                normal.x = 0;
-                normal.y = 1;
-                normal.z = 0;
-            }
-            if (normal.y < -this.toleranceOrthogonalY) {
-                normal.x = 0;
-                normal.y = -1;
-                normal.z = 0;
-            }
-        }
-    }
-    newPlane(intersection, worldNormal) {
-        return new IfcPlane(this.context, intersection.point, worldNormal, this.activateDragging, this.deactivateDragging, this.planeSize, this.edgesEnabled);
-    }
-    updateMaterial(mesh, planes) {
-        if (!Array.isArray(mesh.material)) {
-            mesh.material.clippingPlanes = planes;
-            return;
-        }
-        mesh.material.forEach((m) => {
-            m.clippingPlanes = planes;
-        });
-    }
-}
-
-[new Vector3(), new Vector3(), new Vector3()];
-function disposeMeshRecursively(mesh) {
-    mesh.removeFromParent();
-    if (mesh.geometry)
-        mesh.geometry.dispose();
-    if (mesh.material) {
-        if (Array.isArray(mesh.material))
-            mesh.material.forEach((mat) => mat.dispose());
-        else
-            mesh.material.dispose();
-    }
-    if (mesh.children && mesh.children.length) {
-        mesh.children.forEach((child) => disposeMeshRecursively(child));
-    }
-    mesh.children.length = 0;
-}
-
-class SectionFillManager {
-    constructor(IFC, context) {
-        this.IFC = IFC;
-        this.context = context;
-        this.existMessage = 'The specified fill already exists';
-        this.fills = {};
-    }
-    dispose() {
-        const fills = Object.values(this.fills);
-        fills.forEach((fill) => disposeMeshRecursively(fill));
-        this.fills = null;
-    }
-    create(name, modelID, ids, material) {
-        if (this.fills[name] !== undefined)
-            throw new Error(this.existMessage);
-        material.clippingPlanes = this.context.getClippingPlanes();
-        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
-        if (!model)
-            throw new Error('The requested model to fill was not found.');
-        this.setupMaterial(material);
-        const subset = this.getSubset(modelID, ids, material, name);
-        if (!subset)
-            return null;
-        this.context.items.pickableIfcModels.push(subset);
-        subset.position.copy(model.position);
-        subset.rotation.copy(model.rotation);
-        this.context.getScene().add(subset);
-        this.fills[name] = subset;
-        // subset.renderOrder = 2;
-        return subset;
-    }
-    createFromMesh(name, mesh) {
-        if (this.fills[name] !== undefined)
-            throw new Error(this.existMessage);
-        const planes = this.context.getClippingPlanes();
-        if (Array.isArray(mesh.material)) {
-            mesh.material.forEach((material) => {
-                material.clippingPlanes = planes;
-            });
-        }
-        else {
-            mesh.material.clippingPlanes = planes;
-        }
-        this.fills[name] = mesh;
-    }
-    delete(name) {
-        const subset = this.fills[name];
-        delete this.fills[name];
-        this.context.scene.removeModel(subset);
-        subset.geometry.dispose();
-    }
-    setupMaterial(material) {
-        material.clippingPlanes = this.context.getClippingPlanes();
-        material.side = BackSide;
-        material.polygonOffset = true;
-        material.polygonOffsetFactor = -1;
-        material.polygonOffsetUnits = 1;
-    }
-    getSubset(modelID, ids, material, name) {
-        return this.IFC.loader.ifcManager.createSubset({
-            modelID,
-            ids,
-            scene: this.context.getScene(),
-            removePrevious: true,
-            material,
-            applyBVH: true,
-            customID: name
-        });
-    }
-}
-
-var UnitType;
-(function (UnitType) {
-    UnitType["LENGTHUNIT"] = "LENGTHUNIT";
-    UnitType["AREAUNIT"] = "AREAUNIT";
-    UnitType["VOLUMEUNIT"] = "VOLUMEUNIT";
-})(UnitType || (UnitType = {}));
-const UnitScale = {
-    MILLI: 0.001,
-    CENTI: 0.01,
-    DECI: 0.1,
-    NONE: 1,
-    DECA: 10,
-    HECTO: 100,
-    KILO: 1000
-};
-class IfcUnits {
-    constructor(ifc) {
-        this.allUnits = {};
-        this.ifc = ifc;
-    }
-    dispose() {
-        this.allUnits = null;
-        this.ifc = null;
-    }
-    async getUnits(modelID, type) {
-        if (!this.allUnits[modelID]) {
-            await this.getUnitsOfModel(modelID);
-        }
-        return this.allUnits[modelID][type];
-    }
-    async getUnitsOfModel(modelID) {
-        this.allUnits[modelID] = {};
-        const foundUnitsID = await this.ifc.getAllItemsOfType(modelID, IFCUNITASSIGNMENT, false);
-        const unitsID = foundUnitsID[0];
-        const unitReference = await this.ifc.getProperties(modelID, unitsID, false, true);
-        const units = unitReference.Units;
-        Object.values(UnitType).forEach((value) => {
-            const foundUnit = units.find((item) => item.UnitType && item.UnitType.value === value);
-            if (foundUnit) {
-                const prefix = foundUnit.Prefix;
-                let scale;
-                if (prefix === null || prefix === undefined)
-                    scale = UnitScale.NONE;
-                else
-                    scale = UnitScale[prefix.value];
-                this.allUnits[modelID][value] = scale;
-            }
-        });
-    }
-}
-
-class PlanManager {
-    constructor(ifc, context, clipper) {
-        this.ifc = ifc;
-        this.context = context;
-        this.clipper = clipper;
-        this.planLists = {};
-        this.active = false;
-        this.defaultSectionOffset = 1.5;
-        this.defaultCameraOffset = 30;
-        this.storeys = [];
-        this.floorPlanViewCached = false;
-        this.previousCamera = new Vector3();
-        this.previousTarget = new Vector3();
-        this.previousProjection = CameraProjections.Perspective;
-        this.sectionFill = new Mesh();
-    }
-    dispose() {
-        disposeMeshRecursively(this.sectionFill);
-        this.sectionFill = null;
-        this.storeys = null;
-        this.planLists = null;
-    }
-    getAll(modelID) {
-        const currentPlans = this.planLists[modelID];
-        if (!currentPlans)
-            throw new Error("The requested model doesn't have floor plans generated");
-        return Object.keys(currentPlans);
-    }
-    async create(config) {
-        const { modelID, name } = config;
-        const ortho = config.ortho || true;
-        if (this.planLists[modelID] === undefined)
-            this.planLists[modelID] = {};
-        const currentPlanlist = this.planLists[modelID];
-        const expressID = config.expressID;
-        if (currentPlanlist[expressID])
-            return;
-        currentPlanlist[expressID] = { modelID, name, ortho, expressID };
-        await this.createClippingPlane(config, currentPlanlist[expressID]);
-    }
-    async goTo(modelID, name, animate = false) {
-        var _a;
-        if (((_a = this.currentPlan) === null || _a === void 0 ? void 0 : _a.modelID) === modelID && this.currentPlan.name === name)
-            return;
-        this.storeCameraPosition();
-        this.hidePreviousClippingPlane();
-        this.getCurrentPlan(modelID, name);
-        this.activateCurrentPlan();
-        if (!this.active) {
-            await this.moveCameraTo2DPlanPosition(animate);
-            this.active = true;
-        }
-    }
-    async exitPlanView(animate = false) {
-        if (!this.active)
-            return;
-        this.active = false;
-        this.cacheFloorplanView();
-        this.context.ifcCamera.setNavigationMode(NavigationModes.Orbit);
-        this.context.ifcCamera.projection = this.previousProjection;
-        if (this.currentPlan && this.currentPlan.plane) {
-            this.currentPlan.plane.active = false;
-        }
-        this.currentPlan = undefined;
-        await this.context.ifcCamera.cameraControls.setLookAt(this.previousCamera.x, this.previousCamera.y, this.previousCamera.z, this.previousTarget.x, this.previousTarget.y, this.previousTarget.z, animate);
-    }
-    async computeAllPlanViews(modelID) {
-        var _a;
-        await this.getCurrentStoreys(modelID);
-        const unitsScale = await this.ifc.units.getUnits(modelID, UnitType.LENGTHUNIT);
-        const siteCoords = await this.getSiteCoords(modelID);
-        const transformHeight = await this.getTransformHeight(modelID);
-        const storeys = this.storeys[modelID];
-        for (let i = 0; i < storeys.length; i++) {
-            if (storeys[i]) {
-                const baseHeight = ((_a = storeys[i].Elevation) === null || _a === void 0 ? void 0 : _a.value) || 0;
-                const elevation = (baseHeight + siteCoords[2]) * unitsScale + transformHeight;
-                const expressID = storeys[i].expressID;
-                // eslint-disable-next-line no-await-in-loop
-                await this.create({
-                    modelID,
-                    name: this.getFloorplanName(storeys[i]),
-                    point: new Vector3(0, elevation + this.defaultSectionOffset, 0),
-                    normal: new Vector3(0, -1, 0),
-                    rotation: 0,
-                    ortho: true,
-                    expressID
-                });
-            }
-        }
-    }
-    storeCameraPosition() {
-        if (this.active) {
-            this.cacheFloorplanView();
-        }
-        else {
-            this.store3dCameraPosition();
-        }
-    }
-    async createClippingPlane(config, plan) {
-        if (config.normal && config.point) {
-            const { normal, point } = config;
-            const plane = this.clipper.createFromNormalAndCoplanarPoint(normal, point, true);
-            plane.visible = false;
-            plane.active = false;
-            plan.plane = plane;
-            await plane.edges.updateEdges();
-            plane.edges.visible = false;
-        }
-    }
-    async getTransformHeight(modelID) {
-        const transformMatrix = await this.ifc.loader.ifcManager.ifcAPI.GetCoordinationMatrix(modelID);
-        return transformMatrix[13];
-    }
-    async getCurrentStoreys(modelID) {
-        if (!this.storeys[modelID]) {
-            this.storeys[modelID] = await this.ifc.getAllItemsOfType(modelID, IFCBUILDINGSTOREY, true);
-        }
-    }
-    async getSiteCoords(modelID) {
-        const building = await this.getBuilding(modelID);
-        const sitePlace = building.ObjectPlacement.PlacementRelTo.RelativePlacement.Location;
-        return sitePlace.Coordinates.map((coord) => coord.value);
-    }
-    async getBuilding(modelID) {
-        const allBuildingsIDs = await this.ifc.getAllItemsOfType(modelID, IFCBUILDING, false);
-        const buildingID = allBuildingsIDs[0];
-        return this.ifc.getProperties(modelID, buildingID, false, true);
-    }
-    cacheFloorplanView() {
-        this.floorPlanViewCached = true;
-        this.context.ifcCamera.cameraControls.saveState();
-    }
-    async moveCameraTo2DPlanPosition(animate) {
-        if (this.floorPlanViewCached)
-            await this.context.ifcCamera.cameraControls.reset(animate);
-        else
-            await this.context.ifcCamera.cameraControls.setLookAt(0, 100, 0, 0, 0, 0, animate);
-    }
-    activateCurrentPlan() {
-        if (!this.currentPlan)
-            throw new Error('Current plan is not defined.');
-        if (this.currentPlan.plane)
-            this.currentPlan.plane.active = true;
-        this.context.ifcCamera.setNavigationMode(NavigationModes.Plan);
-        this.context.ifcCamera.projection = this.currentPlan.ortho
-            ? CameraProjections.Orthographic
-            : CameraProjections.Perspective;
-    }
-    store3dCameraPosition() {
-        this.context.getCamera().getWorldPosition(this.previousCamera);
-        this.context.ifcCamera.cameraControls.getTarget(this.previousTarget);
-        this.previousProjection = this.context.ifcCamera.projection;
-    }
-    getCurrentPlan(modelID, name) {
-        if (this.planLists[modelID] === undefined)
-            throw new Error('The specified plan is undefined!');
-        const currentPlanList = this.planLists[modelID];
-        if (currentPlanList[name] === undefined)
-            throw new Error('The specified plan is undefined!');
-        if (!currentPlanList[name])
-            throw new Error('The specified plan name does not exist!');
-        this.currentPlan = currentPlanList[name];
-    }
-    hidePreviousClippingPlane() {
-        var _a;
-        const plane = (_a = this.currentPlan) === null || _a === void 0 ? void 0 : _a.plane;
-        if (plane)
-            plane.active = false;
-    }
-    getFloorplanName(floorplan) {
-        var _a, _b, _c, _d;
-        if ((_b = (_a = floorplan === null || floorplan === void 0 ? void 0 : floorplan.Name) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.length) {
-            return floorplan.Name.value;
-        }
-        if ((_d = (_c = floorplan === null || floorplan === void 0 ? void 0 : floorplan.LongName) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.length) {
-            return floorplan.LongName.value;
-        }
-        return floorplan.GlobalId.value;
-    }
-}
-
-class IfcGrid extends IfcComponent {
-    constructor(context) {
-        super(context);
-        this.context = context;
-    }
-    dispose() {
-        if (this.grid) {
-            disposeMeshRecursively(this.grid);
-        }
-        this.grid = null;
-    }
-    setGrid(size, divisions, colorCenterLine, colorGrid) {
-        if (this.grid) {
-            if (this.grid.parent)
-                this.grid.removeFromParent();
-            this.grid.geometry.dispose();
-        }
-        this.grid = new GridHelper(size, divisions, colorCenterLine, colorGrid);
-        this.grid.renderOrder = 0;
-        const scene = this.context.getScene();
-        scene.add(this.grid);
-        this.context.renderer.postProduction.excludedItems.add(this.grid);
-    }
-}
-
-class IfcAxes extends IfcComponent {
-    constructor(context) {
-        super(context);
-        this.context = context;
-    }
-    dispose() {
-        if (this.axes) {
-            disposeMeshRecursively(this.axes);
-        }
-        this.axes = null;
-    }
-    setAxes(size) {
-        if (this.axes) {
-            if (this.axes.parent)
-                this.axes.removeFromParent();
-            this.axes.geometry.dispose();
-        }
-        this.axes = new AxesHelper(size);
-        this.axes.material.depthTest = false;
-        this.axes.renderOrder = 2;
-        const scene = this.context.getScene();
-        scene.add(this.axes);
-        this.context.renderer.postProduction.excludedItems.add(this.axes);
-    }
-}
-
-class CSS2DObject extends Object3D {
-
-	constructor( element = document.createElement( 'div' ) ) {
-
-		super();
-
-		this.element = element;
-
-		this.element.style.position = 'absolute';
-		this.element.style.userSelect = 'none';
-
-		this.element.setAttribute( 'draggable', false );
-
-		this.addEventListener( 'removed', function () {
-
-			this.traverse( function ( object ) {
-
-				if ( object.element instanceof Element && object.element.parentNode !== null ) {
-
-					object.element.parentNode.removeChild( object.element );
-
-				}
-
-			} );
-
-		} );
-
-	}
-
-	copy( source, recursive ) {
-
-		super.copy( source, recursive );
-
-		this.element = source.element.cloneNode( true );
-
-		return this;
-
-	}
-
-}
-
-CSS2DObject.prototype.isCSS2DObject = true;
-
-//
-
-const _vector = new Vector3();
-const _viewMatrix = new Matrix4();
-const _viewProjectionMatrix = new Matrix4();
-const _a = new Vector3();
-const _b = new Vector3();
-
-class CSS2DRenderer {
-
-	constructor( parameters = {} ) {
-
-		const _this = this;
-
-		let _width, _height;
-		let _widthHalf, _heightHalf;
-
-		const cache = {
-			objects: new WeakMap()
-		};
-
-		const domElement = parameters.element !== undefined ? parameters.element : document.createElement( 'div' );
-
-		domElement.style.overflow = 'hidden';
-
-		this.domElement = domElement;
-
-		this.getSize = function () {
-
-			return {
-				width: _width,
-				height: _height
-			};
-
-		};
-
-		this.render = function ( scene, camera ) {
-
-			if ( scene.autoUpdate === true ) scene.updateMatrixWorld();
-			if ( camera.parent === null ) camera.updateMatrixWorld();
-
-			_viewMatrix.copy( camera.matrixWorldInverse );
-			_viewProjectionMatrix.multiplyMatrices( camera.projectionMatrix, _viewMatrix );
-
-			renderObject( scene, scene, camera );
-			zOrder( scene );
-
-		};
-
-		this.setSize = function ( width, height ) {
-
-			_width = width;
-			_height = height;
-
-			_widthHalf = _width / 2;
-			_heightHalf = _height / 2;
-
-			domElement.style.width = width + 'px';
-			domElement.style.height = height + 'px';
-
-		};
-
-		function renderObject( object, scene, camera ) {
-
-			if ( object.isCSS2DObject ) {
-
-				object.onBeforeRender( _this, scene, camera );
-
-				_vector.setFromMatrixPosition( object.matrixWorld );
-				_vector.applyMatrix4( _viewProjectionMatrix );
-
-				const element = object.element;
-
-				if ( /apple/i.test( navigator.vendor ) ) {
-
-					// https://github.com/mrdoob/three.js/issues/21415
-					element.style.transform = 'translate(-50%,-50%) translate(' + Math.round( _vector.x * _widthHalf + _widthHalf ) + 'px,' + Math.round( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
-
-				} else {
-
-					element.style.transform = 'translate(-50%,-50%) translate(' + ( _vector.x * _widthHalf + _widthHalf ) + 'px,' + ( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
-
-				}
-
-				element.style.display = ( object.visible && _vector.z >= - 1 && _vector.z <= 1 ) ? '' : 'none';
-
-				const objectData = {
-					distanceToCameraSquared: getDistanceToSquared( camera, object )
-				};
-
-				cache.objects.set( object, objectData );
-
-				if ( element.parentNode !== domElement ) {
-
-					domElement.appendChild( element );
-
-				}
-
-				object.onAfterRender( _this, scene, camera );
-
-			}
-
-			for ( let i = 0, l = object.children.length; i < l; i ++ ) {
-
-				renderObject( object.children[ i ], scene, camera );
-
-			}
-
-		}
-
-		function getDistanceToSquared( object1, object2 ) {
-
-			_a.setFromMatrixPosition( object1.matrixWorld );
-			_b.setFromMatrixPosition( object2.matrixWorld );
-
-			return _a.distanceToSquared( _b );
-
-		}
-
-		function filterAndFlatten( scene ) {
-
-			const result = [];
-
-			scene.traverse( function ( object ) {
-
-				if ( object.isCSS2DObject ) result.push( object );
-
-			} );
-
-			return result;
-
-		}
-
-		function zOrder( scene ) {
-
-			const sorted = filterAndFlatten( scene ).sort( function ( a, b ) {
-
-				const distanceA = cache.objects.get( a ).distanceToCameraSquared;
-				const distanceB = cache.objects.get( b ).distanceToCameraSquared;
-
-				return distanceA - distanceB;
-
-			} );
-
-			const zMax = sorted.length;
-
-			for ( let i = 0, l = sorted.length; i < l; i ++ ) {
-
-				sorted[ i ].element.style.zIndex = zMax - i;
-
-			}
-
-		}
-
-	}
-
-}
-
-class IfcDimensionLine {
-    constructor(context, start, end, lineMaterial, endpointMaterial, endpointGeometry, className, endpointScale) {
-        // Elements
-        this.root = new Group();
-        this.endpointMeshes = [];
-        this.scale = new Vector3(1, 1, 1);
-        this.boundingSize = 0.05;
-        this.context = context;
-        this.labelClassName = className;
-        this.start = start;
-        this.end = end;
-        this.scale = endpointScale;
-        this.lineMaterial = lineMaterial;
-        this.endpointMaterial = endpointMaterial;
-        this.length = this.getLength();
-        this.center = this.getCenter();
-        this.axis = new BufferGeometry().setFromPoints([start, end]);
-        this.line = new Line(this.axis, this.lineMaterial);
-        this.root.add(this.line);
-        this.endpoint = endpointGeometry;
-        this.addEndpointMeshes();
-        this.textLabel = this.newText();
-        this.root.renderOrder = 2;
-        this.context.getScene().add(this.root);
-        this.camera = this.context.getCamera();
-        this.context.ifcCamera.onChange.on(() => this.rescaleObjectsToCameraPosition());
-        this.rescaleObjectsToCameraPosition();
-    }
-    dispose() {
-        this.removeFromScene();
-        this.context = null;
-        disposeMeshRecursively(this.root);
-        this.root = null;
-        disposeMeshRecursively(this.line);
-        this.line = null;
-        this.endpointMeshes.forEach((mesh) => disposeMeshRecursively(mesh));
-        this.endpointMeshes.length = 0;
-        this.axis.dispose();
-        this.axis = null;
-        this.endpoint.dispose();
-        this.endpoint = null;
-        this.textLabel.removeFromParent();
-        this.textLabel.element.remove();
-        this.textLabel = null;
-        this.lineMaterial.dispose();
-        this.lineMaterial = null;
-        this.endpointMaterial.dispose();
-        this.endpointMaterial = null;
-        if (this.boundingMesh) {
-            disposeMeshRecursively(this.boundingMesh);
-            this.boundingMesh = null;
-        }
-    }
-    get boundingBox() {
-        return this.boundingMesh;
-    }
-    get text() {
-        return this.textLabel;
-    }
-    set dimensionColor(dimensionColor) {
-        this.endpointMaterial.color = dimensionColor;
-        this.lineMaterial.color = dimensionColor;
-    }
-    set visibility(visible) {
-        this.root.visible = visible;
-        this.textLabel.visible = visible;
-    }
-    set endpointGeometry(geometry) {
-        this.endpointMeshes.forEach((mesh) => this.root.remove(mesh));
-        this.endpointMeshes = [];
-        this.endpoint = geometry;
-        this.addEndpointMeshes();
-    }
-    set endpointScale(scale) {
-        this.scale = scale;
-        this.endpointMeshes.forEach((mesh) => mesh.scale.set(scale.x, scale.y, scale.z));
-    }
-    set endPoint(point) {
-        this.end = point;
-        if (!this.axis)
-            return;
-        const position = this.axis.attributes.position;
-        if (!position)
-            return;
-        position.setXYZ(1, point.x, point.y, point.z);
-        position.needsUpdate = true;
-        this.endpointMeshes[1].position.set(point.x, point.y, point.z);
-        this.endpointMeshes[1].lookAt(this.start);
-        this.endpointMeshes[0].lookAt(this.end);
-        this.length = this.getLength();
-        this.textLabel.element.textContent = this.getTextContent();
-        this.center = this.getCenter();
-        this.textLabel.position.set(this.center.x, this.center.y, this.center.z);
-        this.line.computeLineDistances();
-    }
-    removeFromScene() {
-        this.context.getScene().remove(this.root);
-        this.root.remove(this.textLabel);
-    }
-    createBoundingBox() {
-        this.boundingMesh = this.newBoundingBox();
-        this.setupBoundingBox(this.end);
-    }
-    rescaleObjectsToCameraPosition() {
-        this.endpointMeshes.forEach((mesh) => this.rescaleMesh(mesh, IfcDimensionLine.scaleFactor));
-        if (this.boundingMesh) {
-            this.rescaleMesh(this.boundingMesh, this.boundingSize, true, true, false);
-        }
-    }
-    rescaleMesh(mesh, scalefactor = 1, x = true, y = true, z = true) {
-        let scale = new Vector3().subVectors(mesh.position, this.camera.position).length();
-        scale *= scalefactor;
-        const scaleX = x ? scale : 1;
-        const scaleY = y ? scale : 1;
-        const scaleZ = z ? scale : 1;
-        mesh.scale.set(scaleX, scaleY, scaleZ);
-    }
-    addEndpointMeshes() {
-        this.newEndpointMesh(this.start, this.end);
-        this.newEndpointMesh(this.end, this.start);
-    }
-    newEndpointMesh(position, direction) {
-        const mesh = new Mesh(this.endpoint, this.endpointMaterial);
-        mesh.position.set(position.x, position.y, position.z);
-        mesh.scale.set(this.scale.x, this.scale.y, this.scale.z);
-        mesh.lookAt(direction);
-        this.endpointMeshes.push(mesh);
-        this.root.add(mesh);
-    }
-    newText() {
-        const htmlText = document.createElement('div');
-        htmlText.className = this.labelClassName;
-        htmlText.textContent = this.getTextContent();
-        const label = new CSS2DObject(htmlText);
-        label.position.set(this.center.x, this.center.y, this.center.z);
-        this.root.add(label);
-        return label;
-    }
-    getTextContent() {
-        return `${this.length / IfcDimensionLine.scale} ${IfcDimensionLine.units}`;
-    }
-    newBoundingBox() {
-        const box = new BoxGeometry(1, 1, this.length);
-        return new Mesh(box);
-    }
-    setupBoundingBox(end) {
-        if (!this.boundingMesh)
-            return;
-        this.boundingMesh.position.set(this.center.x, this.center.y, this.center.z);
-        this.boundingMesh.lookAt(end);
-        this.boundingMesh.visible = false;
-        this.root.add(this.boundingMesh);
-    }
-    getLength() {
-        return parseFloat(this.start.distanceTo(this.end).toFixed(2));
-    }
-    getCenter() {
-        let dir = this.end.clone().sub(this.start);
-        const len = dir.length() * 0.5;
-        dir = dir.normalize().multiplyScalar(len);
-        return this.start.clone().add(dir);
-    }
-}
-IfcDimensionLine.scaleFactor = 0.1;
-IfcDimensionLine.scale = 1;
-IfcDimensionLine.units = 'm';
-
-class IfcDimensions extends IfcComponent {
-    constructor(context) {
-        super(context);
-        this.dimensions = [];
-        this.labelClassName = 'ifcjs-dimension-label';
-        this.previewClassName = 'ifcjs-dimension-preview';
-        // State
-        this.enabled = false;
-        this.preview = false;
-        this.dragging = false;
-        this.snapDistance = 0.25;
-        // Measures
-        this.baseScale = new Vector3(1, 1, 1);
-        // Materials
-        this.lineMaterial = new LineDashedMaterial({
-            color: 0x000000,
-            linewidth: 2,
-            depthTest: false,
-            dashSize: 0.2,
-            gapSize: 0.2
-        });
-        this.endpointsMaterial = new MeshBasicMaterial({ color: 0x000000, depthTest: false });
-        // Temp variables
-        this.startPoint = new Vector3();
-        this.endPoint = new Vector3();
-        this.context = context;
-        this.endpoint = IfcDimensions.getDefaultEndpointGeometry();
-        const htmlPreview = document.createElement('div');
-        htmlPreview.className = this.previewClassName;
-        this.previewElement = new CSS2DObject(htmlPreview);
-        this.previewElement.visible = false;
-    }
-    dispose() {
-        this.context = null;
-        this.dimensions.forEach((dim) => dim.dispose());
-        this.dimensions = null;
-        this.currentDimension = null;
-        this.endpoint.dispose();
-        this.endpoint = null;
-        this.previewElement.removeFromParent();
-        this.previewElement.element.remove();
-        this.previewElement = null;
-    }
-    update(_delta) {
-        if (this.enabled && this.preview) {
-            const intersects = this.context.castRayIfc();
-            this.previewElement.visible = !!intersects;
-            if (!intersects)
-                return;
-            this.previewElement.visible = true;
-            const closest = this.getClosestVertex(intersects);
-            this.previewElement.visible = !!closest;
-            if (!closest)
-                return;
-            this.previewElement.position.set(closest.x, closest.y, closest.z);
-            if (this.dragging) {
-                this.drawInProcess();
-            }
-        }
-    }
-    setArrow(height, radius) {
-        this.endpoint = IfcDimensions.getDefaultEndpointGeometry(height, radius);
-    }
-    setPreviewElement(element) {
-        this.previewElement = new CSS2DObject(element);
-    }
-    get active() {
-        return this.enabled;
-    }
-    get previewActive() {
-        return this.preview;
-    }
-    get previewObject() {
-        return this.previewElement;
-    }
-    set previewActive(state) {
-        this.preview = state;
-        const scene = this.context.getScene();
-        if (this.preview) {
-            scene.add(this.previewElement);
-        }
-        else {
-            scene.remove(this.previewElement);
-        }
-    }
-    set active(state) {
-        this.enabled = state;
-        this.dimensions.forEach((dim) => {
-            dim.visibility = state;
-        });
-    }
-    set dimensionsColor(color) {
-        this.endpointsMaterial.color = color;
-        this.lineMaterial.color = color;
-    }
-    set dimensionsWidth(width) {
-        this.lineMaterial.linewidth = width;
-    }
-    set endpointGeometry(geometry) {
-        this.dimensions.forEach((dim) => {
-            dim.endpointGeometry = geometry;
-        });
-    }
-    set endpointScaleFactor(factor) {
-        IfcDimensionLine.scaleFactor = factor;
-    }
-    set endpointScale(scale) {
-        this.baseScale = scale;
-        this.dimensions.forEach((dim) => {
-            dim.endpointScale = scale;
-        });
-    }
-    create() {
-        if (!this.enabled)
-            return;
-        if (!this.dragging) {
-            this.drawStart();
-            return;
-        }
-        this.drawEnd();
-    }
-    createInPlane(plane) {
-        if (!this.enabled)
-            return;
-        if (!this.dragging) {
-            this.drawStartInPlane(plane);
-            return;
-        }
-        this.drawEnd();
-    }
-    delete() {
-        if (!this.enabled || this.dimensions.length === 0)
-            return;
-        const boundingBoxes = this.getBoundingBoxes();
-        const intersects = this.context.castRay(boundingBoxes);
-        if (intersects.length === 0)
-            return;
-        const selected = this.dimensions.find((dim) => dim.boundingBox === intersects[0].object);
-        if (!selected)
-            return;
-        const index = this.dimensions.indexOf(selected);
-        this.dimensions.splice(index, 1);
-        selected.removeFromScene();
-    }
-    deleteAll() {
-        this.dimensions.forEach((dim) => {
-            dim.removeFromScene();
-        });
-        this.dimensions = [];
-    }
-    cancelDrawing() {
-        var _a;
-        if (!this.currentDimension)
-            return;
-        this.dragging = false;
-        (_a = this.currentDimension) === null || _a === void 0 ? void 0 : _a.removeFromScene();
-        this.currentDimension = undefined;
-    }
-    drawStart() {
-        this.dragging = true;
-        const intersects = this.context.castRayIfc();
-        if (!intersects)
-            return;
-        const found = this.getClosestVertex(intersects);
-        if (!found)
-            return;
-        this.startPoint = found;
-    }
-    drawStartInPlane(plane) {
-        this.dragging = true;
-        const intersects = this.context.castRay([plane]);
-        if (!intersects || intersects.length < 1)
-            return;
-        this.startPoint = intersects[0].point;
-    }
-    drawInProcess() {
-        const intersects = this.context.castRayIfc();
-        if (!intersects)
-            return;
-        const found = this.getClosestVertex(intersects);
-        if (!found)
-            return;
-        this.endPoint = found;
-        if (!this.currentDimension)
-            this.currentDimension = this.drawDimension();
-        this.currentDimension.endPoint = this.endPoint;
-    }
-    drawEnd() {
-        if (!this.currentDimension)
-            return;
-        this.currentDimension.createBoundingBox();
-        this.dimensions.push(this.currentDimension);
-        this.currentDimension = undefined;
-        this.dragging = false;
-    }
-    get getDimensionsLines() {
-        return this.dimensions;
-    }
-    drawDimension() {
-        return new IfcDimensionLine(this.context, this.startPoint, this.endPoint, this.lineMaterial, this.endpointsMaterial, this.endpoint, this.labelClassName, this.baseScale);
-    }
-    getBoundingBoxes() {
-        return this.dimensions
-            .map((dim) => dim.boundingBox)
-            .filter((box) => box !== undefined);
-    }
-    static getDefaultEndpointGeometry(height = 0.02, radius = 0.05) {
-        const coneGeometry = new ConeGeometry(radius, height);
-        coneGeometry.translate(0, -height / 2, 0);
-        coneGeometry.rotateX(-Math.PI / 2);
-        return coneGeometry;
-    }
-    getClosestVertex(intersects) {
-        let closestVertex = new Vector3();
-        let vertexFound = false;
-        let closestDistance = Number.MAX_SAFE_INTEGER;
-        const vertices = this.getVertices(intersects);
-        vertices === null || vertices === void 0 ? void 0 : vertices.forEach((vertex) => {
-            if (!vertex)
-                return;
-            const distance = intersects.point.distanceTo(vertex);
-            if (distance > closestDistance || distance > this.snapDistance)
-                return;
-            vertexFound = true;
-            closestVertex = vertex;
-            closestDistance = intersects.point.distanceTo(vertex);
-        });
-        return vertexFound ? closestVertex : intersects.point;
-    }
-    getVertices(intersects) {
-        const mesh = intersects.object;
-        if (!intersects.face || !mesh)
-            return null;
-        const geom = mesh.geometry;
-        return [
-            this.getVertex(intersects.face.a, geom),
-            this.getVertex(intersects.face.b, geom),
-            this.getVertex(intersects.face.c, geom)
-        ];
-    }
-    getVertex(index, geom) {
-        if (index === undefined)
-            return null;
-        const vertices = geom.attributes.position;
-        return new Vector3(vertices.getX(index), vertices.getY(index), vertices.getZ(index));
-    }
-}
-
-class Edges {
-    constructor(context) {
-        this.context = context;
-        this.threshold = 30;
-        this.edges = {};
-    }
-    static setupModelMaterial(material) {
-        material.polygonOffset = true;
-        material.polygonOffsetFactor = 1;
-        material.polygonOffsetUnits = 1;
-    }
-    dispose() {
-        const allEdges = Object.values(this.edges);
-        allEdges.forEach((item) => {
-            disposeMeshRecursively(item.edges);
-            if (Array.isArray(item.originalMaterials)) {
-                item.originalMaterials.forEach((mat) => mat.dispose());
-            }
-            else
-                item.originalMaterials.dispose();
-            if (item.baseMaterial)
-                item.baseMaterial.dispose();
-        });
-        this.edges = null;
-    }
-    getAll() {
-        return Object.keys(this.edges);
-    }
-    get(name) {
-        return this.edges[name];
-    }
-    create(name, modelID, lineMaterial, material) {
-        const model = this.context.items.ifcModels.find((model) => model.modelID === modelID);
-        if (!model)
-            return;
-        this.createFromMesh(name, model, lineMaterial, material);
-    }
-    // use this to create edges of a subset this implements a todo of allowing subsets of edges
-    createFromSubset(name, subset, lineMaterial, material) {
-        this.createFromMesh(name, subset, lineMaterial, material);
-    }
-    createFromMesh(name, mesh, lineMaterial, material) {
-        const planes = this.context.getClippingPlanes();
-        lineMaterial.clippingPlanes = planes;
-        if (material)
-            material.clippingPlanes = planes;
-        this.setupModelMaterials(mesh);
-        const geo = new EdgesGeometry(mesh.geometry, this.threshold);
-        lineMaterial.clippingPlanes = this.context.getClippingPlanes();
-        this.edges[name] = {
-            edges: new LineSegments(geo, lineMaterial),
-            originalMaterials: mesh.material,
-            baseMaterial: material,
-            model: mesh,
-            active: false
-        };
-    }
-    toggle(name, active) {
-        const selected = this.edges[name];
-        if (!selected)
-            return;
-        if (active === undefined)
-            active = !selected.active;
-        selected.active = active;
-        if (active) {
-            const pos = selected.model.position;
-            const rot = selected.model.rotation;
-            selected.edges.position.set(pos.x, pos.y, pos.z);
-            selected.edges.rotation.set(rot.x, rot.y, rot.z);
-            if (selected.baseMaterial)
-                selected.model.material = selected.baseMaterial;
-            this.context.getScene().add(selected.edges);
-            return;
-        }
-        if (selected.baseMaterial)
-            selected.model.material = selected.originalMaterials;
-        selected.edges.removeFromParent();
-    }
-    setupModelMaterials(model) {
-        if (Array.isArray(model.material)) {
-            model.material.forEach((mat) => Edges.setupModelMaterial(mat));
-            return;
-        }
-        Edges.setupModelMaterial(model.material);
-    }
-}
-
-// Split strategy constants
-const CENTER = 0;
-const AVERAGE = 1;
-const SAH = 2;
-
-// Traversal constants
-const NOT_INTERSECTED = 0;
-const INTERSECTED = 1;
-const CONTAINED = 2;
-
-// SAH cost constants
-// TODO: hone these costs more. The relative difference between them should be the
-// difference in measured time to perform a triangle intersection vs traversing
-// bounds.
-const TRIANGLE_INTERSECT_COST = 1.25;
-const TRAVERSAL_COST = 1;
-
-
-// Build constants
-const BYTES_PER_NODE = 6 * 4 + 4 + 4;
-const IS_LEAFNODE_FLAG = 0xFFFF;
-
-// EPSILON for computing floating point error during build
-// https://en.wikipedia.org/wiki/Machine_epsilon#Values_for_standard_hardware_floating_point_arithmetics
-const FLOAT32_EPSILON = Math.pow( 2, - 24 );
-
-class MeshBVHNode {
-
-	constructor() {
-
-		// internal nodes have boundingData, left, right, and splitAxis
-		// leaf nodes have offset and count (referring to primitives in the mesh geometry)
-
-	}
-
-}
-
-function arrayToBox( nodeIndex32, array, target ) {
-
-	target.min.x = array[ nodeIndex32 ];
-	target.min.y = array[ nodeIndex32 + 1 ];
-	target.min.z = array[ nodeIndex32 + 2 ];
-
-	target.max.x = array[ nodeIndex32 + 3 ];
-	target.max.y = array[ nodeIndex32 + 4 ];
-	target.max.z = array[ nodeIndex32 + 5 ];
-
-	return target;
-
-}
-
-function getLongestEdgeIndex( bounds ) {
-
-	let splitDimIdx = - 1;
-	let splitDist = - Infinity;
-
-	for ( let i = 0; i < 3; i ++ ) {
-
-		const dist = bounds[ i + 3 ] - bounds[ i ];
-		if ( dist > splitDist ) {
-
-			splitDist = dist;
-			splitDimIdx = i;
-
-		}
-
-	}
-
-	return splitDimIdx;
-
-}
-
-// copys bounds a into bounds b
-function copyBounds( source, target ) {
-
-	target.set( source );
-
-}
-
-// sets bounds target to the union of bounds a and b
-function unionBounds( a, b, target ) {
-
-	let aVal, bVal;
-	for ( let d = 0; d < 3; d ++ ) {
-
-		const d3 = d + 3;
-
-		// set the minimum values
-		aVal = a[ d ];
-		bVal = b[ d ];
-		target[ d ] = aVal < bVal ? aVal : bVal;
-
-		// set the max values
-		aVal = a[ d3 ];
-		bVal = b[ d3 ];
-		target[ d3 ] = aVal > bVal ? aVal : bVal;
-
-	}
-
-}
-
-// expands the given bounds by the provided triangle bounds
-function expandByTriangleBounds( startIndex, triangleBounds, bounds ) {
-
-	for ( let d = 0; d < 3; d ++ ) {
-
-		const tCenter = triangleBounds[ startIndex + 2 * d ];
-		const tHalf = triangleBounds[ startIndex + 2 * d + 1 ];
-
-		const tMin = tCenter - tHalf;
-		const tMax = tCenter + tHalf;
-
-		if ( tMin < bounds[ d ] ) {
-
-			bounds[ d ] = tMin;
-
-		}
-
-		if ( tMax > bounds[ d + 3 ] ) {
-
-			bounds[ d + 3 ] = tMax;
-
-		}
-
-	}
-
-}
-
-// compute bounds surface area
-function computeSurfaceArea( bounds ) {
-
-	const d0 = bounds[ 3 ] - bounds[ 0 ];
-	const d1 = bounds[ 4 ] - bounds[ 1 ];
-	const d2 = bounds[ 5 ] - bounds[ 2 ];
-
-	return 2 * ( d0 * d1 + d1 * d2 + d2 * d0 );
-
-}
-
-function ensureIndex( geo, options ) {
-
-	if ( ! geo.index ) {
-
-		const vertexCount = geo.attributes.position.count;
-		const BufferConstructor = options.useSharedArrayBuffer ? SharedArrayBuffer : ArrayBuffer;
-		let index;
-		if ( vertexCount > 65535 ) {
-
-			index = new Uint32Array( new BufferConstructor( 4 * vertexCount ) );
-
-		} else {
-
-			index = new Uint16Array( new BufferConstructor( 2 * vertexCount ) );
-
-		}
-
-		geo.setIndex( new BufferAttribute( index, 1 ) );
-
-		for ( let i = 0; i < vertexCount; i ++ ) {
-
-			index[ i ] = i;
-
-		}
-
-	}
-
-}
-
-// Computes the set of { offset, count } ranges which need independent BVH roots. Each
-// region in the geometry index that belongs to a different set of material groups requires
-// a separate BVH root, so that triangles indices belonging to one group never get swapped
-// with triangle indices belongs to another group. For example, if the groups were like this:
-//
-// [-------------------------------------------------------------]
-// |__________________|
-//   g0 = [0, 20]  |______________________||_____________________|
-//                      g1 = [16, 40]           g2 = [41, 60]
-//
-// we would need four BVH roots: [0, 15], [16, 20], [21, 40], [41, 60].
-function getRootIndexRanges( geo ) {
-
-	if ( ! geo.groups || ! geo.groups.length ) {
-
-		return [ { offset: 0, count: geo.index.count / 3 } ];
-
-	}
-
-	const ranges = [];
-	const rangeBoundaries = new Set();
-	for ( const group of geo.groups ) {
-
-		rangeBoundaries.add( group.start );
-		rangeBoundaries.add( group.start + group.count );
-
-	}
-
-	// note that if you don't pass in a comparator, it sorts them lexicographically as strings :-(
-	const sortedBoundaries = Array.from( rangeBoundaries.values() ).sort( ( a, b ) => a - b );
-	for ( let i = 0; i < sortedBoundaries.length - 1; i ++ ) {
-
-		const start = sortedBoundaries[ i ], end = sortedBoundaries[ i + 1 ];
-		ranges.push( { offset: ( start / 3 ), count: ( end - start ) / 3 } );
-
-	}
-
-	return ranges;
-
-}
-
-// computes the union of the bounds of all of the given triangles and puts the resulting box in target. If
-// centroidTarget is provided then a bounding box is computed for the centroids of the triangles, as well.
-// These are computed together to avoid redundant accesses to bounds array.
-function getBounds( triangleBounds, offset, count, target, centroidTarget = null ) {
-
-	let minx = Infinity;
-	let miny = Infinity;
-	let minz = Infinity;
-	let maxx = - Infinity;
-	let maxy = - Infinity;
-	let maxz = - Infinity;
-
-	let cminx = Infinity;
-	let cminy = Infinity;
-	let cminz = Infinity;
-	let cmaxx = - Infinity;
-	let cmaxy = - Infinity;
-	let cmaxz = - Infinity;
-
-	const includeCentroid = centroidTarget !== null;
-	for ( let i = offset * 6, end = ( offset + count ) * 6; i < end; i += 6 ) {
-
-		const cx = triangleBounds[ i + 0 ];
-		const hx = triangleBounds[ i + 1 ];
-		const lx = cx - hx;
-		const rx = cx + hx;
-		if ( lx < minx ) minx = lx;
-		if ( rx > maxx ) maxx = rx;
-		if ( includeCentroid && cx < cminx ) cminx = cx;
-		if ( includeCentroid && cx > cmaxx ) cmaxx = cx;
-
-		const cy = triangleBounds[ i + 2 ];
-		const hy = triangleBounds[ i + 3 ];
-		const ly = cy - hy;
-		const ry = cy + hy;
-		if ( ly < miny ) miny = ly;
-		if ( ry > maxy ) maxy = ry;
-		if ( includeCentroid && cy < cminy ) cminy = cy;
-		if ( includeCentroid && cy > cmaxy ) cmaxy = cy;
-
-		const cz = triangleBounds[ i + 4 ];
-		const hz = triangleBounds[ i + 5 ];
-		const lz = cz - hz;
-		const rz = cz + hz;
-		if ( lz < minz ) minz = lz;
-		if ( rz > maxz ) maxz = rz;
-		if ( includeCentroid && cz < cminz ) cminz = cz;
-		if ( includeCentroid && cz > cmaxz ) cmaxz = cz;
-
-	}
-
-	target[ 0 ] = minx;
-	target[ 1 ] = miny;
-	target[ 2 ] = minz;
-
-	target[ 3 ] = maxx;
-	target[ 4 ] = maxy;
-	target[ 5 ] = maxz;
-
-	if ( includeCentroid ) {
-
-		centroidTarget[ 0 ] = cminx;
-		centroidTarget[ 1 ] = cminy;
-		centroidTarget[ 2 ] = cminz;
-
-		centroidTarget[ 3 ] = cmaxx;
-		centroidTarget[ 4 ] = cmaxy;
-		centroidTarget[ 5 ] = cmaxz;
-
-	}
-
-}
-
-// A stand alone function for retrieving the centroid bounds.
-function getCentroidBounds( triangleBounds, offset, count, centroidTarget ) {
-
-	let cminx = Infinity;
-	let cminy = Infinity;
-	let cminz = Infinity;
-	let cmaxx = - Infinity;
-	let cmaxy = - Infinity;
-	let cmaxz = - Infinity;
-
-	for ( let i = offset * 6, end = ( offset + count ) * 6; i < end; i += 6 ) {
-
-		const cx = triangleBounds[ i + 0 ];
-		if ( cx < cminx ) cminx = cx;
-		if ( cx > cmaxx ) cmaxx = cx;
-
-		const cy = triangleBounds[ i + 2 ];
-		if ( cy < cminy ) cminy = cy;
-		if ( cy > cmaxy ) cmaxy = cy;
-
-		const cz = triangleBounds[ i + 4 ];
-		if ( cz < cminz ) cminz = cz;
-		if ( cz > cmaxz ) cmaxz = cz;
-
-	}
-
-	centroidTarget[ 0 ] = cminx;
-	centroidTarget[ 1 ] = cminy;
-	centroidTarget[ 2 ] = cminz;
-
-	centroidTarget[ 3 ] = cmaxx;
-	centroidTarget[ 4 ] = cmaxy;
-	centroidTarget[ 5 ] = cmaxz;
-
-}
-
-
-// reorders `tris` such that for `count` elements after `offset`, elements on the left side of the split
-// will be on the left and elements on the right side of the split will be on the right. returns the index
-// of the first element on the right side, or offset + count if there are no elements on the right side.
-function partition( index, triangleBounds, offset, count, split ) {
-
-	let left = offset;
-	let right = offset + count - 1;
-	const pos = split.pos;
-	const axisOffset = split.axis * 2;
-
-	// hoare partitioning, see e.g. https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme
-	while ( true ) {
-
-		while ( left <= right && triangleBounds[ left * 6 + axisOffset ] < pos ) {
-
-			left ++;
-
-		}
-
-
-		// if a triangle center lies on the partition plane it is considered to be on the right side
-		while ( left <= right && triangleBounds[ right * 6 + axisOffset ] >= pos ) {
-
-			right --;
-
-		}
-
-		if ( left < right ) {
-
-			// we need to swap all of the information associated with the triangles at index
-			// left and right; that's the verts in the geometry index, the bounds,
-			// and perhaps the SAH planes
-
-			for ( let i = 0; i < 3; i ++ ) {
-
-				let t0 = index[ left * 3 + i ];
-				index[ left * 3 + i ] = index[ right * 3 + i ];
-				index[ right * 3 + i ] = t0;
-
-				let t1 = triangleBounds[ left * 6 + i * 2 + 0 ];
-				triangleBounds[ left * 6 + i * 2 + 0 ] = triangleBounds[ right * 6 + i * 2 + 0 ];
-				triangleBounds[ right * 6 + i * 2 + 0 ] = t1;
-
-				let t2 = triangleBounds[ left * 6 + i * 2 + 1 ];
-				triangleBounds[ left * 6 + i * 2 + 1 ] = triangleBounds[ right * 6 + i * 2 + 1 ];
-				triangleBounds[ right * 6 + i * 2 + 1 ] = t2;
-
-			}
-
-			left ++;
-			right --;
-
-		} else {
-
-			return left;
-
-		}
-
-	}
-
-}
-
-const BIN_COUNT = 32;
-const binsSort = ( a, b ) => a.candidate - b.candidate;
-const sahBins = new Array( BIN_COUNT ).fill().map( () => {
-
-	return {
-
-		count: 0,
-		bounds: new Float32Array( 6 ),
-		rightCacheBounds: new Float32Array( 6 ),
-		leftCacheBounds: new Float32Array( 6 ),
-		candidate: 0,
-
-	};
-
-} );
-const leftBounds = new Float32Array( 6 );
-
-function getOptimalSplit( nodeBoundingData, centroidBoundingData, triangleBounds, offset, count, strategy ) {
-
-	let axis = - 1;
-	let pos = 0;
-
-	// Center
-	if ( strategy === CENTER ) {
-
-		axis = getLongestEdgeIndex( centroidBoundingData );
-		if ( axis !== - 1 ) {
-
-			pos = ( centroidBoundingData[ axis ] + centroidBoundingData[ axis + 3 ] ) / 2;
-
-		}
-
-	} else if ( strategy === AVERAGE ) {
-
-		axis = getLongestEdgeIndex( nodeBoundingData );
-		if ( axis !== - 1 ) {
-
-			pos = getAverage( triangleBounds, offset, count, axis );
-
-		}
-
-	} else if ( strategy === SAH ) {
-
-		const rootSurfaceArea = computeSurfaceArea( nodeBoundingData );
-		let bestCost = TRIANGLE_INTERSECT_COST * count;
-
-		// iterate over all axes
-		const cStart = offset * 6;
-		const cEnd = ( offset + count ) * 6;
-		for ( let a = 0; a < 3; a ++ ) {
-
-			const axisLeft = centroidBoundingData[ a ];
-			const axisRight = centroidBoundingData[ a + 3 ];
-			const axisLength = axisRight - axisLeft;
-			const binWidth = axisLength / BIN_COUNT;
-
-			// If we have fewer triangles than we're planning to split then just check all
-			// the triangle positions because it will be faster.
-			if ( count < BIN_COUNT / 4 ) {
-
-				// initialize the bin candidates
-				const truncatedBins = [ ...sahBins ];
-				truncatedBins.length = count;
-
-				// set the candidates
-				let b = 0;
-				for ( let c = cStart; c < cEnd; c += 6, b ++ ) {
-
-					const bin = truncatedBins[ b ];
-					bin.candidate = triangleBounds[ c + 2 * a ];
-					bin.count = 0;
-
-					const {
-						bounds,
-						leftCacheBounds,
-						rightCacheBounds,
-					} = bin;
-					for ( let d = 0; d < 3; d ++ ) {
-
-						rightCacheBounds[ d ] = Infinity;
-						rightCacheBounds[ d + 3 ] = - Infinity;
-
-						leftCacheBounds[ d ] = Infinity;
-						leftCacheBounds[ d + 3 ] = - Infinity;
-
-						bounds[ d ] = Infinity;
-						bounds[ d + 3 ] = - Infinity;
-
-					}
-
-					expandByTriangleBounds( c, triangleBounds, bounds );
-
-				}
-
-				truncatedBins.sort( binsSort );
-
-				// remove redundant splits
-				let splitCount = count;
-				for ( let bi = 0; bi < splitCount; bi ++ ) {
-
-					const bin = truncatedBins[ bi ];
-					while ( bi + 1 < splitCount && truncatedBins[ bi + 1 ].candidate === bin.candidate ) {
-
-						truncatedBins.splice( bi + 1, 1 );
-						splitCount --;
-
-					}
-
-				}
-
-				// find the appropriate bin for each triangle and expand the bounds.
-				for ( let c = cStart; c < cEnd; c += 6 ) {
-
-					const center = triangleBounds[ c + 2 * a ];
-					for ( let bi = 0; bi < splitCount; bi ++ ) {
-
-						const bin = truncatedBins[ bi ];
-						if ( center >= bin.candidate ) {
-
-							expandByTriangleBounds( c, triangleBounds, bin.rightCacheBounds );
-
-						} else {
-
-							expandByTriangleBounds( c, triangleBounds, bin.leftCacheBounds );
-							bin.count ++;
-
-						}
-
-					}
-
-				}
-
-				// expand all the bounds
-				for ( let bi = 0; bi < splitCount; bi ++ ) {
-
-					const bin = truncatedBins[ bi ];
-					const leftCount = bin.count;
-					const rightCount = count - bin.count;
-
-					// check the cost of this split
-					const leftBounds = bin.leftCacheBounds;
-					const rightBounds = bin.rightCacheBounds;
-
-					let leftProb = 0;
-					if ( leftCount !== 0 ) {
-
-						leftProb = computeSurfaceArea( leftBounds ) / rootSurfaceArea;
-
-					}
-
-					let rightProb = 0;
-					if ( rightCount !== 0 ) {
-
-						rightProb = computeSurfaceArea( rightBounds ) / rootSurfaceArea;
-
-					}
-
-					const cost = TRAVERSAL_COST + TRIANGLE_INTERSECT_COST * (
-						leftProb * leftCount + rightProb * rightCount
-					);
-
-					if ( cost < bestCost ) {
-
-						axis = a;
-						bestCost = cost;
-						pos = bin.candidate;
-
-					}
-
-				}
-
-			} else {
-
-				// reset the bins
-				for ( let i = 0; i < BIN_COUNT; i ++ ) {
-
-					const bin = sahBins[ i ];
-					bin.count = 0;
-					bin.candidate = axisLeft + binWidth + i * binWidth;
-
-					const bounds = bin.bounds;
-					for ( let d = 0; d < 3; d ++ ) {
-
-						bounds[ d ] = Infinity;
-						bounds[ d + 3 ] = - Infinity;
-
-					}
-
-				}
-
-				// iterate over all center positions
-				for ( let c = cStart; c < cEnd; c += 6 ) {
-
-					const triCenter = triangleBounds[ c + 2 * a ];
-					const relativeCenter = triCenter - axisLeft;
-
-					// in the partition function if the centroid lies on the split plane then it is
-					// considered to be on the right side of the split
-					let binIndex = ~ ~ ( relativeCenter / binWidth );
-					if ( binIndex >= BIN_COUNT ) binIndex = BIN_COUNT - 1;
-
-					const bin = sahBins[ binIndex ];
-					bin.count ++;
-
-					expandByTriangleBounds( c, triangleBounds, bin.bounds );
-
-				}
-
-				// cache the unioned bounds from right to left so we don't have to regenerate them each time
-				const lastBin = sahBins[ BIN_COUNT - 1 ];
-				copyBounds( lastBin.bounds, lastBin.rightCacheBounds );
-				for ( let i = BIN_COUNT - 2; i >= 0; i -- ) {
-
-					const bin = sahBins[ i ];
-					const nextBin = sahBins[ i + 1 ];
-					unionBounds( bin.bounds, nextBin.rightCacheBounds, bin.rightCacheBounds );
-
-				}
-
-				let leftCount = 0;
-				for ( let i = 0; i < BIN_COUNT - 1; i ++ ) {
-
-					const bin = sahBins[ i ];
-					const binCount = bin.count;
-					const bounds = bin.bounds;
-
-					const nextBin = sahBins[ i + 1 ];
-					const rightBounds = nextBin.rightCacheBounds;
-
-					// dont do anything with the bounds if the new bounds have no triangles
-					if ( binCount !== 0 ) {
-
-						if ( leftCount === 0 ) {
-
-							copyBounds( bounds, leftBounds );
-
-						} else {
-
-							unionBounds( bounds, leftBounds, leftBounds );
-
-						}
-
-					}
-
-					leftCount += binCount;
-
-					// check the cost of this split
-					let leftProb = 0;
-					let rightProb = 0;
-
-					if ( leftCount !== 0 ) {
-
-						leftProb = computeSurfaceArea( leftBounds ) / rootSurfaceArea;
-
-					}
-
-					const rightCount = count - leftCount;
-					if ( rightCount !== 0 ) {
-
-						rightProb = computeSurfaceArea( rightBounds ) / rootSurfaceArea;
-
-					}
-
-					const cost = TRAVERSAL_COST + TRIANGLE_INTERSECT_COST * (
-						leftProb * leftCount + rightProb * rightCount
-					);
-
-					if ( cost < bestCost ) {
-
-						axis = a;
-						bestCost = cost;
-						pos = bin.candidate;
-
-					}
-
-				}
-
-			}
-
-		}
-
-	} else {
-
-		console.warn( `MeshBVH: Invalid build strategy value ${ strategy } used.` );
-
-	}
-
-	return { axis, pos };
-
-}
-
-// returns the average coordinate on the specified axis of the all the provided triangles
-function getAverage( triangleBounds, offset, count, axis ) {
-
-	let avg = 0;
-	for ( let i = offset, end = offset + count; i < end; i ++ ) {
-
-		avg += triangleBounds[ i * 6 + axis * 2 ];
-
-	}
-
-	return avg / count;
-
-}
-
-// precomputes the bounding box for each triangle; required for quickly calculating tree splits.
-// result is an array of size tris.length * 6 where triangle i maps to a
-// [x_center, x_delta, y_center, y_delta, z_center, z_delta] tuple starting at index i * 6,
-// representing the center and half-extent in each dimension of triangle i
-function computeTriangleBounds( geo, fullBounds ) {
-
-	const posAttr = geo.attributes.position;
-	const index = geo.index.array;
-	const triCount = index.length / 3;
-	const triangleBounds = new Float32Array( triCount * 6 );
-	const normalized = posAttr.normalized;
-
-	// used for non-normalized positions
-	const posArr = posAttr.array;
-
-	// support for an interleaved position buffer
-	const bufferOffset = posAttr.offset || 0;
-	let stride = 3;
-	if ( posAttr.isInterleavedBufferAttribute ) {
-
-		stride = posAttr.data.stride;
-
-	}
-
-	// used for normalized positions
-	const getters = [ 'getX', 'getY', 'getZ' ];
-
-	for ( let tri = 0; tri < triCount; tri ++ ) {
-
-		const tri3 = tri * 3;
-		const tri6 = tri * 6;
-
-		let ai, bi, ci;
-
-		if ( normalized ) {
-
-			ai = index[ tri3 + 0 ];
-			bi = index[ tri3 + 1 ];
-			ci = index[ tri3 + 2 ];
-
-		} else {
-
-			ai = index[ tri3 + 0 ] * stride + bufferOffset;
-			bi = index[ tri3 + 1 ] * stride + bufferOffset;
-			ci = index[ tri3 + 2 ] * stride + bufferOffset;
-
-		}
-
-		for ( let el = 0; el < 3; el ++ ) {
-
-			let a, b, c;
-
-			if ( normalized ) {
-
-				a = posAttr[ getters[ el ] ]( ai );
-				b = posAttr[ getters[ el ] ]( bi );
-				c = posAttr[ getters[ el ] ]( ci );
-
-			} else {
-
-				a = posArr[ ai + el ];
-				b = posArr[ bi + el ];
-				c = posArr[ ci + el ];
-
-			}
-
-			let min = a;
-			if ( b < min ) min = b;
-			if ( c < min ) min = c;
-
-			let max = a;
-			if ( b > max ) max = b;
-			if ( c > max ) max = c;
-
-			// Increase the bounds size by float32 epsilon to avoid precision errors when
-			// converting to 32 bit float. Scale the epsilon by the size of the numbers being
-			// worked with.
-			const halfExtents = ( max - min ) / 2;
-			const el2 = el * 2;
-			triangleBounds[ tri6 + el2 + 0 ] = min + halfExtents;
-			triangleBounds[ tri6 + el2 + 1 ] = halfExtents + ( Math.abs( min ) + halfExtents ) * FLOAT32_EPSILON;
-
-			if ( min < fullBounds[ el ] ) fullBounds[ el ] = min;
-			if ( max > fullBounds[ el + 3 ] ) fullBounds[ el + 3 ] = max;
-
-		}
-
-	}
-
-	return triangleBounds;
-
-}
-
-function buildTree( geo, options ) {
-
-	function triggerProgress( trianglesProcessed ) {
-
-		if ( onProgress ) {
-
-			onProgress( trianglesProcessed / totalTriangles );
-
-		}
-
-	}
-
-	// either recursively splits the given node, creating left and right subtrees for it, or makes it a leaf node,
-	// recording the offset and count of its triangles and writing them into the reordered geometry index.
-	function splitNode( node, offset, count, centroidBoundingData = null, depth = 0 ) {
-
-		if ( ! reachedMaxDepth && depth >= maxDepth ) {
-
-			reachedMaxDepth = true;
-			if ( verbose ) {
-
-				console.warn( `MeshBVH: Max depth of ${ maxDepth } reached when generating BVH. Consider increasing maxDepth.` );
-				console.warn( geo );
-
-			}
-
-		}
-
-		// early out if we've met our capacity
-		if ( count <= maxLeafTris || depth >= maxDepth ) {
-
-			triggerProgress( offset + count );
-			node.offset = offset;
-			node.count = count;
-			return node;
-
-		}
-
-		// Find where to split the volume
-		const split = getOptimalSplit( node.boundingData, centroidBoundingData, triangleBounds, offset, count, strategy );
-		if ( split.axis === - 1 ) {
-
-			triggerProgress( offset + count );
-			node.offset = offset;
-			node.count = count;
-			return node;
-
-		}
-
-		const splitOffset = partition( indexArray, triangleBounds, offset, count, split );
-
-		// create the two new child nodes
-		if ( splitOffset === offset || splitOffset === offset + count ) {
-
-			triggerProgress( offset + count );
-			node.offset = offset;
-			node.count = count;
-
-		} else {
-
-			node.splitAxis = split.axis;
-
-			// create the left child and compute its bounding box
-			const left = new MeshBVHNode();
-			const lstart = offset;
-			const lcount = splitOffset - offset;
-			node.left = left;
-			left.boundingData = new Float32Array( 6 );
-
-			getBounds( triangleBounds, lstart, lcount, left.boundingData, cacheCentroidBoundingData );
-			splitNode( left, lstart, lcount, cacheCentroidBoundingData, depth + 1 );
-
-			// repeat for right
-			const right = new MeshBVHNode();
-			const rstart = splitOffset;
-			const rcount = count - lcount;
-			node.right = right;
-			right.boundingData = new Float32Array( 6 );
-
-			getBounds( triangleBounds, rstart, rcount, right.boundingData, cacheCentroidBoundingData );
-			splitNode( right, rstart, rcount, cacheCentroidBoundingData, depth + 1 );
-
-		}
-
-		return node;
-
-	}
-
-	ensureIndex( geo, options );
-
-	// Compute the full bounds of the geometry at the same time as triangle bounds because
-	// we'll need it for the root bounds in the case with no groups and it should be fast here.
-	// We can't use the geometrying bounding box if it's available because it may be out of date.
-	const fullBounds = new Float32Array( 6 );
-	const cacheCentroidBoundingData = new Float32Array( 6 );
-	const triangleBounds = computeTriangleBounds( geo, fullBounds );
-	const indexArray = geo.index.array;
-	const maxDepth = options.maxDepth;
-	const verbose = options.verbose;
-	const maxLeafTris = options.maxLeafTris;
-	const strategy = options.strategy;
-	const onProgress = options.onProgress;
-	const totalTriangles = geo.index.count / 3;
-	let reachedMaxDepth = false;
-
-	const roots = [];
-	const ranges = getRootIndexRanges( geo );
-
-	if ( ranges.length === 1 ) {
-
-		const range = ranges[ 0 ];
-		const root = new MeshBVHNode();
-		root.boundingData = fullBounds;
-		getCentroidBounds( triangleBounds, range.offset, range.count, cacheCentroidBoundingData );
-
-		splitNode( root, range.offset, range.count, cacheCentroidBoundingData );
-		roots.push( root );
-
-	} else {
-
-		for ( let range of ranges ) {
-
-			const root = new MeshBVHNode();
-			root.boundingData = new Float32Array( 6 );
-			getBounds( triangleBounds, range.offset, range.count, root.boundingData, cacheCentroidBoundingData );
-
-			splitNode( root, range.offset, range.count, cacheCentroidBoundingData );
-			roots.push( root );
-
-		}
-
-	}
-
-	return roots;
-
-}
-
-function buildPackedTree( geo, options ) {
-
-	// boundingData  				: 6 float32
-	// right / offset 				: 1 uint32
-	// splitAxis / isLeaf + count 	: 1 uint32 / 2 uint16
-	const roots = buildTree( geo, options );
-
-	let float32Array;
-	let uint32Array;
-	let uint16Array;
-	const packedRoots = [];
-	const BufferConstructor = options.useSharedArrayBuffer ? SharedArrayBuffer : ArrayBuffer;
-	for ( let i = 0; i < roots.length; i ++ ) {
-
-		const root = roots[ i ];
-		let nodeCount = countNodes( root );
-
-		const buffer = new BufferConstructor( BYTES_PER_NODE * nodeCount );
-		float32Array = new Float32Array( buffer );
-		uint32Array = new Uint32Array( buffer );
-		uint16Array = new Uint16Array( buffer );
-		populateBuffer( 0, root );
-		packedRoots.push( buffer );
-
-	}
-
-	return packedRoots;
-
-	function countNodes( node ) {
-
-		if ( node.count ) {
-
-			return 1;
-
-		} else {
-
-			return 1 + countNodes( node.left ) + countNodes( node.right );
-
-		}
-
-	}
-
-	function populateBuffer( byteOffset, node ) {
-
-		const stride4Offset = byteOffset / 4;
-		const stride2Offset = byteOffset / 2;
-		const isLeaf = ! ! node.count;
-		const boundingData = node.boundingData;
-		for ( let i = 0; i < 6; i ++ ) {
-
-			float32Array[ stride4Offset + i ] = boundingData[ i ];
-
-		}
-
-		if ( isLeaf ) {
-
-			const offset = node.offset;
-			const count = node.count;
-			uint32Array[ stride4Offset + 6 ] = offset;
-			uint16Array[ stride2Offset + 14 ] = count;
-			uint16Array[ stride2Offset + 15 ] = IS_LEAFNODE_FLAG;
-			return byteOffset + BYTES_PER_NODE;
-
-		} else {
-
-			const left = node.left;
-			const right = node.right;
-			const splitAxis = node.splitAxis;
-
-			let nextUnusedPointer;
-			nextUnusedPointer = populateBuffer( byteOffset + BYTES_PER_NODE, left );
-
-			if ( ( nextUnusedPointer / 4 ) > Math.pow( 2, 32 ) ) {
-
-				throw new Error( 'MeshBVH: Cannot store child pointer greater than 32 bits.' );
-
-			}
-
-			uint32Array[ stride4Offset + 6 ] = nextUnusedPointer / 4;
-			nextUnusedPointer = populateBuffer( nextUnusedPointer, right );
-
-			uint32Array[ stride4Offset + 7 ] = splitAxis;
-			return nextUnusedPointer;
-
-		}
-
-	}
-
-}
-
-class SeparatingAxisBounds {
-
-	constructor() {
-
-		this.min = Infinity;
-		this.max = - Infinity;
-
-	}
-
-	setFromPointsField( points, field ) {
-
-		let min = Infinity;
-		let max = - Infinity;
-		for ( let i = 0, l = points.length; i < l; i ++ ) {
-
-			const p = points[ i ];
-			const val = p[ field ];
-			min = val < min ? val : min;
-			max = val > max ? val : max;
-
-		}
-
-		this.min = min;
-		this.max = max;
-
-	}
-
-	setFromPoints( axis, points ) {
-
-		let min = Infinity;
-		let max = - Infinity;
-		for ( let i = 0, l = points.length; i < l; i ++ ) {
-
-			const p = points[ i ];
-			const val = axis.dot( p );
-			min = val < min ? val : min;
-			max = val > max ? val : max;
-
-		}
-
-		this.min = min;
-		this.max = max;
-
-	}
-
-	isSeparated( other ) {
-
-		return this.min > other.max || other.min > this.max;
-
-	}
-
-}
-
-SeparatingAxisBounds.prototype.setFromBox = ( function () {
-
-	const p = new Vector3();
-	return function setFromBox( axis, box ) {
-
-		const boxMin = box.min;
-		const boxMax = box.max;
-		let min = Infinity;
-		let max = - Infinity;
-		for ( let x = 0; x <= 1; x ++ ) {
-
-			for ( let y = 0; y <= 1; y ++ ) {
-
-				for ( let z = 0; z <= 1; z ++ ) {
-
-					p.x = boxMin.x * x + boxMax.x * ( 1 - x );
-					p.y = boxMin.y * y + boxMax.y * ( 1 - y );
-					p.z = boxMin.z * z + boxMax.z * ( 1 - z );
-
-					const val = axis.dot( p );
-					min = Math.min( val, min );
-					max = Math.max( val, max );
-
-				}
-
-			}
-
-		}
-
-		this.min = min;
-		this.max = max;
-
-	};
-
-} )();
-
-( (function () {
-
-	const cacheSatBounds = new SeparatingAxisBounds();
-	return function areIntersecting( shape1, shape2 ) {
-
-		const points1 = shape1.points;
-		const satAxes1 = shape1.satAxes;
-		const satBounds1 = shape1.satBounds;
-
-		const points2 = shape2.points;
-		const satAxes2 = shape2.satAxes;
-		const satBounds2 = shape2.satBounds;
-
-		// check axes of the first shape
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const sb = satBounds1[ i ];
-			const sa = satAxes1[ i ];
-			cacheSatBounds.setFromPoints( sa, points2 );
-			if ( sb.isSeparated( cacheSatBounds ) ) return false;
-
-		}
-
-		// check axes of the second shape
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const sb = satBounds2[ i ];
-			const sa = satAxes2[ i ];
-			cacheSatBounds.setFromPoints( sa, points1 );
-			if ( sb.isSeparated( cacheSatBounds ) ) return false;
-
-		}
-
-	};
-
-}) )();
-
-const closestPointLineToLine = ( function () {
-
-	// https://github.com/juj/MathGeoLib/blob/master/src/Geometry/Line.cpp#L56
-	const dir1 = new Vector3();
-	const dir2 = new Vector3();
-	const v02 = new Vector3();
-	return function closestPointLineToLine( l1, l2, result ) {
-
-		const v0 = l1.start;
-		const v10 = dir1;
-		const v2 = l2.start;
-		const v32 = dir2;
-
-		v02.subVectors( v0, v2 );
-		dir1.subVectors( l1.end, l1.start );
-		dir2.subVectors( l2.end, l2.start );
-
-		// float d0232 = v02.Dot(v32);
-		const d0232 = v02.dot( v32 );
-
-		// float d3210 = v32.Dot(v10);
-		const d3210 = v32.dot( v10 );
-
-		// float d3232 = v32.Dot(v32);
-		const d3232 = v32.dot( v32 );
-
-		// float d0210 = v02.Dot(v10);
-		const d0210 = v02.dot( v10 );
-
-		// float d1010 = v10.Dot(v10);
-		const d1010 = v10.dot( v10 );
-
-		// float denom = d1010*d3232 - d3210*d3210;
-		const denom = d1010 * d3232 - d3210 * d3210;
-
-		let d, d2;
-		if ( denom !== 0 ) {
-
-			d = ( d0232 * d3210 - d0210 * d3232 ) / denom;
-
-		} else {
-
-			d = 0;
-
-		}
-
-		d2 = ( d0232 + d * d3210 ) / d3232;
-
-		result.x = d;
-		result.y = d2;
-
-	};
-
-} )();
-
-const closestPointsSegmentToSegment = ( function () {
-
-	// https://github.com/juj/MathGeoLib/blob/master/src/Geometry/LineSegment.cpp#L187
-	const paramResult = new Vector2();
-	const temp1 = new Vector3();
-	const temp2 = new Vector3();
-	return function closestPointsSegmentToSegment( l1, l2, target1, target2 ) {
-
-		closestPointLineToLine( l1, l2, paramResult );
-
-		let d = paramResult.x;
-		let d2 = paramResult.y;
-		if ( d >= 0 && d <= 1 && d2 >= 0 && d2 <= 1 ) {
-
-			l1.at( d, target1 );
-			l2.at( d2, target2 );
-
-			return;
-
-		} else if ( d >= 0 && d <= 1 ) {
-
-			// Only d2 is out of bounds.
-			if ( d2 < 0 ) {
-
-				l2.at( 0, target2 );
-
-			} else {
-
-				l2.at( 1, target2 );
-
-			}
-
-			l1.closestPointToPoint( target2, true, target1 );
-			return;
-
-		} else if ( d2 >= 0 && d2 <= 1 ) {
-
-			// Only d is out of bounds.
-			if ( d < 0 ) {
-
-				l1.at( 0, target1 );
-
-			} else {
-
-				l1.at( 1, target1 );
-
-			}
-
-			l2.closestPointToPoint( target1, true, target2 );
-			return;
-
-		} else {
-
-			// Both u and u2 are out of bounds.
-			let p;
-			if ( d < 0 ) {
-
-				p = l1.start;
-
-			} else {
-
-				p = l1.end;
-
-			}
-
-			let p2;
-			if ( d2 < 0 ) {
-
-				p2 = l2.start;
-
-			} else {
-
-				p2 = l2.end;
-
-			}
-
-			const closestPoint = temp1;
-			const closestPoint2 = temp2;
-			l1.closestPointToPoint( p2, true, temp1 );
-			l2.closestPointToPoint( p, true, temp2 );
-
-			if ( closestPoint.distanceToSquared( p2 ) <= closestPoint2.distanceToSquared( p ) ) {
-
-				target1.copy( closestPoint );
-				target2.copy( p2 );
-				return;
-
-			} else {
-
-				target1.copy( p );
-				target2.copy( closestPoint2 );
-				return;
-
-			}
-
-		}
-
-	};
-
-} )();
-
-
-const sphereIntersectTriangle = ( function () {
-
-	// https://stackoverflow.com/questions/34043955/detect-collision-between-sphere-and-triangle-in-three-js
-	const closestPointTemp = new Vector3();
-	const projectedPointTemp = new Vector3();
-	const planeTemp = new Plane();
-	const lineTemp = new Line3();
-	return function sphereIntersectTriangle( sphere, triangle ) {
-
-		const { radius, center } = sphere;
-		const { a, b, c } = triangle;
-
-		// phase 1
-		lineTemp.start = a;
-		lineTemp.end = b;
-		const closestPoint1 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
-		if ( closestPoint1.distanceTo( center ) <= radius ) return true;
-
-		lineTemp.start = a;
-		lineTemp.end = c;
-		const closestPoint2 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
-		if ( closestPoint2.distanceTo( center ) <= radius ) return true;
-
-		lineTemp.start = b;
-		lineTemp.end = c;
-		const closestPoint3 = lineTemp.closestPointToPoint( center, true, closestPointTemp );
-		if ( closestPoint3.distanceTo( center ) <= radius ) return true;
-
-		// phase 2
-		const plane = triangle.getPlane( planeTemp );
-		const dp = Math.abs( plane.distanceToPoint( center ) );
-		if ( dp <= radius ) {
-
-			const pp = plane.projectPoint( center, projectedPointTemp );
-			const cp = triangle.containsPoint( pp );
-			if ( cp ) return true;
-
-		}
-
-		return false;
-
-	};
-
-} )();
-
-const DIST_EPSILON = 1e-15;
-function isNearZero( value ) {
-
-	return Math.abs( value ) < DIST_EPSILON;
-
-}
-
-class ExtendedTriangle extends Triangle {
-
-	constructor( ...args ) {
-
-		super( ...args );
-
-		this.isExtendedTriangle = true;
-		this.satAxes = new Array( 4 ).fill().map( () => new Vector3() );
-		this.satBounds = new Array( 4 ).fill().map( () => new SeparatingAxisBounds() );
-		this.points = [ this.a, this.b, this.c ];
-		this.sphere = new Sphere();
-		this.plane = new Plane();
-		this.needsUpdate = true;
-
-	}
-
-	intersectsSphere( sphere ) {
-
-		return sphereIntersectTriangle( sphere, this );
-
-	}
-
-	update() {
-
-		const a = this.a;
-		const b = this.b;
-		const c = this.c;
-		const points = this.points;
-
-		const satAxes = this.satAxes;
-		const satBounds = this.satBounds;
-
-		const axis0 = satAxes[ 0 ];
-		const sab0 = satBounds[ 0 ];
-		this.getNormal( axis0 );
-		sab0.setFromPoints( axis0, points );
-
-		const axis1 = satAxes[ 1 ];
-		const sab1 = satBounds[ 1 ];
-		axis1.subVectors( a, b );
-		sab1.setFromPoints( axis1, points );
-
-		const axis2 = satAxes[ 2 ];
-		const sab2 = satBounds[ 2 ];
-		axis2.subVectors( b, c );
-		sab2.setFromPoints( axis2, points );
-
-		const axis3 = satAxes[ 3 ];
-		const sab3 = satBounds[ 3 ];
-		axis3.subVectors( c, a );
-		sab3.setFromPoints( axis3, points );
-
-		this.sphere.setFromPoints( this.points );
-		this.plane.setFromNormalAndCoplanarPoint( axis0, a );
-		this.needsUpdate = false;
-
-	}
-
-}
-
-ExtendedTriangle.prototype.closestPointToSegment = ( function () {
-
-	const point1 = new Vector3();
-	const point2 = new Vector3();
-	const edge = new Line3();
-
-	return function distanceToSegment( segment, target1 = null, target2 = null ) {
-
-		const { start, end } = segment;
-		const points = this.points;
-		let distSq;
-		let closestDistanceSq = Infinity;
-
-		// check the triangle edges
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const nexti = ( i + 1 ) % 3;
-			edge.start.copy( points[ i ] );
-			edge.end.copy( points[ nexti ] );
-
-			closestPointsSegmentToSegment( edge, segment, point1, point2 );
-
-			distSq = point1.distanceToSquared( point2 );
-			if ( distSq < closestDistanceSq ) {
-
-				closestDistanceSq = distSq;
-				if ( target1 ) target1.copy( point1 );
-				if ( target2 ) target2.copy( point2 );
-
-			}
-
-		}
-
-		// check end points
-		this.closestPointToPoint( start, point1 );
-		distSq = start.distanceToSquared( point1 );
-		if ( distSq < closestDistanceSq ) {
-
-			closestDistanceSq = distSq;
-			if ( target1 ) target1.copy( point1 );
-			if ( target2 ) target2.copy( start );
-
-		}
-
-		this.closestPointToPoint( end, point1 );
-		distSq = end.distanceToSquared( point1 );
-		if ( distSq < closestDistanceSq ) {
-
-			closestDistanceSq = distSq;
-			if ( target1 ) target1.copy( point1 );
-			if ( target2 ) target2.copy( end );
-
-		}
-
-		return Math.sqrt( closestDistanceSq );
-
-	};
-
-} )();
-
-ExtendedTriangle.prototype.intersectsTriangle = ( function () {
-
-	const saTri2 = new ExtendedTriangle();
-	const arr1 = new Array( 3 );
-	const arr2 = new Array( 3 );
-	const cachedSatBounds = new SeparatingAxisBounds();
-	const cachedSatBounds2 = new SeparatingAxisBounds();
-	const cachedAxis = new Vector3();
-	const dir1 = new Vector3();
-	const dir2 = new Vector3();
-	const tempDir = new Vector3();
-	const edge = new Line3();
-	const edge1 = new Line3();
-	const edge2 = new Line3();
-
-	// TODO: If the triangles are coplanar and intersecting the target is nonsensical. It should at least
-	// be a line contained by both triangles if not a different special case somehow represented in the return result.
-	return function intersectsTriangle( other, target = null ) {
-
-		if ( this.needsUpdate ) {
-
-			this.update();
-
-		}
-
-		if ( ! other.isExtendedTriangle ) {
-
-			saTri2.copy( other );
-			saTri2.update();
-			other = saTri2;
-
-		} else if ( other.needsUpdate ) {
-
-			other.update();
-
-		}
-
-		const plane1 = this.plane;
-		const plane2 = other.plane;
-
-		if ( Math.abs( plane1.normal.dot( plane2.normal ) ) > 1.0 - 1e-10 ) {
-
-			// perform separating axis intersection test only for coplanar triangles
-			const satBounds1 = this.satBounds;
-			const satAxes1 = this.satAxes;
-			arr2[ 0 ] = other.a;
-			arr2[ 1 ] = other.b;
-			arr2[ 2 ] = other.c;
-			for ( let i = 0; i < 4; i ++ ) {
-
-				const sb = satBounds1[ i ];
-				const sa = satAxes1[ i ];
-				cachedSatBounds.setFromPoints( sa, arr2 );
-				if ( sb.isSeparated( cachedSatBounds ) ) return false;
-
-			}
-
-			const satBounds2 = other.satBounds;
-			const satAxes2 = other.satAxes;
-			arr1[ 0 ] = this.a;
-			arr1[ 1 ] = this.b;
-			arr1[ 2 ] = this.c;
-			for ( let i = 0; i < 4; i ++ ) {
-
-				const sb = satBounds2[ i ];
-				const sa = satAxes2[ i ];
-				cachedSatBounds.setFromPoints( sa, arr1 );
-				if ( sb.isSeparated( cachedSatBounds ) ) return false;
-
-			}
-
-			// check crossed axes
-			for ( let i = 0; i < 4; i ++ ) {
-
-				const sa1 = satAxes1[ i ];
-				for ( let i2 = 0; i2 < 4; i2 ++ ) {
-
-					const sa2 = satAxes2[ i2 ];
-					cachedAxis.crossVectors( sa1, sa2 );
-					cachedSatBounds.setFromPoints( cachedAxis, arr1 );
-					cachedSatBounds2.setFromPoints( cachedAxis, arr2 );
-					if ( cachedSatBounds.isSeparated( cachedSatBounds2 ) ) return false;
-
-				}
-
-			}
-
-			if ( target ) {
-
-				// TODO find two points that intersect on the edges and make that the result
-				console.warn( 'ExtendedTriangle.intersectsTriangle: Triangles are coplanar which does not support an output edge. Setting edge to 0, 0, 0.' );
-
-				target.start.set( 0, 0, 0 );
-				target.end.set( 0, 0, 0 );
-
-			}
-
-			return true;
-
-		} else {
-
-			// find the edge that intersects the other triangle plane
-			const points1 = this.points;
-			let found1 = false;
-			let count1 = 0;
-			for ( let i = 0; i < 3; i ++ ) {
-
-				const p = points1[ i ];
-				const pNext = points1[ ( i + 1 ) % 3 ];
-
-				edge.start.copy( p );
-				edge.end.copy( pNext );
-				edge.delta( dir1 );
-
-				const targetPoint = found1 ? edge1.start : edge1.end;
-				const startIntersects = isNearZero( plane2.distanceToPoint( p ) );
-				if ( isNearZero( plane2.normal.dot( dir1 ) ) && startIntersects ) {
-
-					// if the edge lies on the plane then take the line
-					edge1.copy( edge );
-					count1 = 2;
-					break;
-
-				}
-
-				// check if the start point is near the plane because "intersectLine" is not robust to that case
-				const doesIntersect = plane2.intersectLine( edge, targetPoint ) || startIntersects;
-				if ( doesIntersect && ! isNearZero( targetPoint.distanceTo( pNext ) ) ) {
-
-					count1 ++;
-					if ( found1 ) {
-
-						break;
-
-					}
-
-					found1 = true;
-
-				}
-
-			}
-
-			if ( count1 === 1 && this.containsPoint( edge1.end ) ) {
-
-				if ( target ) {
-
-					target.start.copy( edge1.end );
-					target.end.copy( edge1.end );
-
-				}
-
-				return true;
-
-			} else if ( count1 !== 2 ) {
-
-				return false;
-
-			}
-
-			// find the other triangles edge that intersects this plane
-			const points2 = other.points;
-			let found2 = false;
-			let count2 = 0;
-			for ( let i = 0; i < 3; i ++ ) {
-
-				const p = points2[ i ];
-				const pNext = points2[ ( i + 1 ) % 3 ];
-
-				edge.start.copy( p );
-				edge.end.copy( pNext );
-				edge.delta( dir2 );
-
-				const targetPoint = found2 ? edge2.start : edge2.end;
-				const startIntersects = isNearZero( plane1.distanceToPoint( p ) );
-				if ( isNearZero( plane1.normal.dot( dir2 ) ) && startIntersects ) {
-
-					// if the edge lies on the plane then take the line
-					edge2.copy( edge );
-					count2 = 2;
-					break;
-
-				}
-
-				// check if the start point is near the plane because "intersectLine" is not robust to that case
-				const doesIntersect = plane1.intersectLine( edge, targetPoint ) || startIntersects;
-				if ( doesIntersect && ! isNearZero( targetPoint.distanceTo( pNext ) ) ) {
-
-					count2 ++;
-					if ( found2 ) {
-
-						break;
-
-					}
-
-					found2 = true;
-
-				}
-
-			}
-
-			if ( count2 === 1 && this.containsPoint( edge2.end ) ) {
-
-				if ( target ) {
-
-					target.start.copy( edge2.end );
-					target.end.copy( edge2.end );
-
-				}
-
-				return true;
-
-			} else if ( count2 !== 2 ) {
-
-				return false;
-
-			}
-
-			// find swap the second edge so both lines are running the same direction
-			edge1.delta( dir1 );
-			edge2.delta( dir2 );
-
-			if ( dir1.dot( dir2 ) < 0 ) {
-
-				let tmp = edge2.start;
-				edge2.start = edge2.end;
-				edge2.end = tmp;
-
-			}
-
-			// check if the edges are overlapping
-			const s1 = edge1.start.dot( dir1 );
-			const e1 = edge1.end.dot( dir1 );
-			const s2 = edge2.start.dot( dir1 );
-			const e2 = edge2.end.dot( dir1 );
-			const separated1 = e1 < s2;
-			const separated2 = s1 < e2;
-
-			if ( s1 !== e2 && s2 !== e1 && separated1 === separated2 ) {
-
-				return false;
-
-			}
-
-			// assign the target output
-			if ( target ) {
-
-				tempDir.subVectors( edge1.start, edge2.start );
-				if ( tempDir.dot( dir1 ) > 0 ) {
-
-					target.start.copy( edge1.start );
-
-				} else {
-
-					target.start.copy( edge2.start );
-
-				}
-
-				tempDir.subVectors( edge1.end, edge2.end );
-				if ( tempDir.dot( dir1 ) < 0 ) {
-
-					target.end.copy( edge1.end );
-
-				} else {
-
-					target.end.copy( edge2.end );
-
-				}
-
-			}
-
-			return true;
-
-		}
-
-	};
-
-} )();
-
-
-ExtendedTriangle.prototype.distanceToPoint = ( function () {
-
-	const target = new Vector3();
-	return function distanceToPoint( point ) {
-
-		this.closestPointToPoint( point, target );
-		return point.distanceTo( target );
-
-	};
-
-} )();
-
-
-ExtendedTriangle.prototype.distanceToTriangle = ( function () {
-
-	const point = new Vector3();
-	const point2 = new Vector3();
-	const cornerFields = [ 'a', 'b', 'c' ];
-	const line1 = new Line3();
-	const line2 = new Line3();
-
-	return function distanceToTriangle( other, target1 = null, target2 = null ) {
-
-		const lineTarget = target1 || target2 ? line1 : null;
-		if ( this.intersectsTriangle( other, lineTarget ) ) {
-
-			if ( target1 || target2 ) {
-
-				if ( target1 ) lineTarget.getCenter( target1 );
-				if ( target2 ) lineTarget.getCenter( target2 );
-
-			}
-
-			return 0;
-
-		}
-
-		let closestDistanceSq = Infinity;
-
-		// check all point distances
-		for ( let i = 0; i < 3; i ++ ) {
-
-			let dist;
-			const field = cornerFields[ i ];
-			const otherVec = other[ field ];
-			this.closestPointToPoint( otherVec, point );
-
-			dist = otherVec.distanceToSquared( point );
-
-			if ( dist < closestDistanceSq ) {
-
-				closestDistanceSq = dist;
-				if ( target1 ) target1.copy( point );
-				if ( target2 ) target2.copy( otherVec );
-
-			}
-
-
-			const thisVec = this[ field ];
-			other.closestPointToPoint( thisVec, point );
-
-			dist = thisVec.distanceToSquared( point );
-
-			if ( dist < closestDistanceSq ) {
-
-				closestDistanceSq = dist;
-				if ( target1 ) target1.copy( thisVec );
-				if ( target2 ) target2.copy( point );
-
-			}
-
-		}
-
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const f11 = cornerFields[ i ];
-			const f12 = cornerFields[ ( i + 1 ) % 3 ];
-			line1.set( this[ f11 ], this[ f12 ] );
-			for ( let i2 = 0; i2 < 3; i2 ++ ) {
-
-				const f21 = cornerFields[ i2 ];
-				const f22 = cornerFields[ ( i2 + 1 ) % 3 ];
-				line2.set( other[ f21 ], other[ f22 ] );
-
-				closestPointsSegmentToSegment( line1, line2, point, point2 );
-
-				const dist = point.distanceToSquared( point2 );
-				if ( dist < closestDistanceSq ) {
-
-					closestDistanceSq = dist;
-					if ( target1 ) target1.copy( point );
-					if ( target2 ) target2.copy( point2 );
-
-				}
-
-			}
-
-		}
-
-		return Math.sqrt( closestDistanceSq );
-
-	};
-
-} )();
-
-class OrientedBox extends Box3 {
-
-	constructor( ...args ) {
-
-		super( ...args );
-
-		this.isOrientedBox = true;
-		this.matrix = new Matrix4();
-		this.invMatrix = new Matrix4();
-		this.points = new Array( 8 ).fill().map( () => new Vector3() );
-		this.satAxes = new Array( 3 ).fill().map( () => new Vector3() );
-		this.satBounds = new Array( 3 ).fill().map( () => new SeparatingAxisBounds() );
-		this.alignedSatBounds = new Array( 3 ).fill().map( () => new SeparatingAxisBounds() );
-		this.needsUpdate = false;
-
-	}
-
-	set( min, max, matrix ) {
-
-		super.set( min, max );
-		this.matrix.copy( matrix );
-		this.needsUpdate = true;
-
-	}
-
-	copy( other ) {
-
-		super.copy( other );
-		this.matrix.copy( other.matrix );
-		this.needsUpdate = true;
-
-	}
-
-}
-
-OrientedBox.prototype.update = ( function () {
-
-	return function update() {
-
-		const matrix = this.matrix;
-		const min = this.min;
-		const max = this.max;
-
-		const points = this.points;
-		for ( let x = 0; x <= 1; x ++ ) {
-
-			for ( let y = 0; y <= 1; y ++ ) {
-
-				for ( let z = 0; z <= 1; z ++ ) {
-
-					const i = ( ( 1 << 0 ) * x ) | ( ( 1 << 1 ) * y ) | ( ( 1 << 2 ) * z );
-					const v = points[ i ];
-					v.x = x ? max.x : min.x;
-					v.y = y ? max.y : min.y;
-					v.z = z ? max.z : min.z;
-
-					v.applyMatrix4( matrix );
-
-				}
-
-			}
-
-		}
-
-		const satBounds = this.satBounds;
-		const satAxes = this.satAxes;
-		const minVec = points[ 0 ];
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const axis = satAxes[ i ];
-			const sb = satBounds[ i ];
-			const index = 1 << i;
-			const pi = points[ index ];
-
-			axis.subVectors( minVec, pi );
-			sb.setFromPoints( axis, points );
-
-		}
-
-		const alignedSatBounds = this.alignedSatBounds;
-		alignedSatBounds[ 0 ].setFromPointsField( points, 'x' );
-		alignedSatBounds[ 1 ].setFromPointsField( points, 'y' );
-		alignedSatBounds[ 2 ].setFromPointsField( points, 'z' );
-
-		this.invMatrix.copy( this.matrix ).invert();
-		this.needsUpdate = false;
-
-	};
-
-} )();
-
-OrientedBox.prototype.intersectsBox = ( function () {
-
-	const aabbBounds = new SeparatingAxisBounds();
-	return function intersectsBox( box ) {
-
-		// TODO: should this be doing SAT against the AABB?
-		if ( this.needsUpdate ) {
-
-			this.update();
-
-		}
-
-		const min = box.min;
-		const max = box.max;
-		const satBounds = this.satBounds;
-		const satAxes = this.satAxes;
-		const alignedSatBounds = this.alignedSatBounds;
-
-		aabbBounds.min = min.x;
-		aabbBounds.max = max.x;
-		if ( alignedSatBounds[ 0 ].isSeparated( aabbBounds ) ) return false;
-
-		aabbBounds.min = min.y;
-		aabbBounds.max = max.y;
-		if ( alignedSatBounds[ 1 ].isSeparated( aabbBounds ) ) return false;
-
-		aabbBounds.min = min.z;
-		aabbBounds.max = max.z;
-		if ( alignedSatBounds[ 2 ].isSeparated( aabbBounds ) ) return false;
-
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const axis = satAxes[ i ];
-			const sb = satBounds[ i ];
-			aabbBounds.setFromBox( axis, box );
-			if ( sb.isSeparated( aabbBounds ) ) return false;
-
-		}
-
-		return true;
-
-	};
-
-} )();
-
-OrientedBox.prototype.intersectsTriangle = ( function () {
-
-	const saTri = new ExtendedTriangle();
-	const pointsArr = new Array( 3 );
-	const cachedSatBounds = new SeparatingAxisBounds();
-	const cachedSatBounds2 = new SeparatingAxisBounds();
-	const cachedAxis = new Vector3();
-	return function intersectsTriangle( triangle ) {
-
-		if ( this.needsUpdate ) {
-
-			this.update();
-
-		}
-
-		if ( ! triangle.isExtendedTriangle ) {
-
-			saTri.copy( triangle );
-			saTri.update();
-			triangle = saTri;
-
-		} else if ( triangle.needsUpdate ) {
-
-			triangle.update();
-
-		}
-
-		const satBounds = this.satBounds;
-		const satAxes = this.satAxes;
-
-		pointsArr[ 0 ] = triangle.a;
-		pointsArr[ 1 ] = triangle.b;
-		pointsArr[ 2 ] = triangle.c;
-
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const sb = satBounds[ i ];
-			const sa = satAxes[ i ];
-			cachedSatBounds.setFromPoints( sa, pointsArr );
-			if ( sb.isSeparated( cachedSatBounds ) ) return false;
-
-		}
-
-		const triSatBounds = triangle.satBounds;
-		const triSatAxes = triangle.satAxes;
-		const points = this.points;
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const sb = triSatBounds[ i ];
-			const sa = triSatAxes[ i ];
-			cachedSatBounds.setFromPoints( sa, points );
-			if ( sb.isSeparated( cachedSatBounds ) ) return false;
-
-		}
-
-		// check crossed axes
-		for ( let i = 0; i < 3; i ++ ) {
-
-			const sa1 = satAxes[ i ];
-			for ( let i2 = 0; i2 < 4; i2 ++ ) {
-
-				const sa2 = triSatAxes[ i2 ];
-				cachedAxis.crossVectors( sa1, sa2 );
-				cachedSatBounds.setFromPoints( cachedAxis, pointsArr );
-				cachedSatBounds2.setFromPoints( cachedAxis, points );
-				if ( cachedSatBounds.isSeparated( cachedSatBounds2 ) ) return false;
-
-			}
-
-		}
-
-		return true;
-
-	};
-
-} )();
-
-OrientedBox.prototype.closestPointToPoint = ( function () {
-
-	return function closestPointToPoint( point, target1 ) {
-
-		if ( this.needsUpdate ) {
-
-			this.update();
-
-		}
-
-		target1
-			.copy( point )
-			.applyMatrix4( this.invMatrix )
-			.clamp( this.min, this.max )
-			.applyMatrix4( this.matrix );
-
-		return target1;
-
-	};
-
-} )();
-
-OrientedBox.prototype.distanceToPoint = ( function () {
-
-	const target = new Vector3();
-	return function distanceToPoint( point ) {
-
-		this.closestPointToPoint( point, target );
-		return point.distanceTo( target );
-
-	};
-
-} )();
-
-OrientedBox.prototype.distanceToBox = ( function () {
-
-	const xyzFields = [ 'x', 'y', 'z' ];
-	const segments1 = new Array( 12 ).fill().map( () => new Line3() );
-	const segments2 = new Array( 12 ).fill().map( () => new Line3() );
-
-	const point1 = new Vector3();
-	const point2 = new Vector3();
-
-	// early out if we find a value below threshold
-	return function distanceToBox( box, threshold = 0, target1 = null, target2 = null ) {
-
-		if ( this.needsUpdate ) {
-
-			this.update();
-
-		}
-
-		if ( this.intersectsBox( box ) ) {
-
-			if ( target1 || target2 ) {
-
-				box.getCenter( point2 );
-				this.closestPointToPoint( point2, point1 );
-				box.closestPointToPoint( point1, point2 );
-
-				if ( target1 ) target1.copy( point1 );
-				if ( target2 ) target2.copy( point2 );
-
-			}
-
-			return 0;
-
-		}
-
-		const threshold2 = threshold * threshold;
-		const min = box.min;
-		const max = box.max;
-		const points = this.points;
-
-
-		// iterate over every edge and compare distances
-		let closestDistanceSq = Infinity;
-
-		// check over all these points
-		for ( let i = 0; i < 8; i ++ ) {
-
-			const p = points[ i ];
-			point2.copy( p ).clamp( min, max );
-
-			const dist = p.distanceToSquared( point2 );
-			if ( dist < closestDistanceSq ) {
-
-				closestDistanceSq = dist;
-				if ( target1 ) target1.copy( p );
-				if ( target2 ) target2.copy( point2 );
-
-				if ( dist < threshold2 ) return Math.sqrt( dist );
-
-			}
-
-		}
-
-		// generate and check all line segment distances
-		let count = 0;
-		for ( let i = 0; i < 3; i ++ ) {
-
-			for ( let i1 = 0; i1 <= 1; i1 ++ ) {
-
-				for ( let i2 = 0; i2 <= 1; i2 ++ ) {
-
-					const nextIndex = ( i + 1 ) % 3;
-					const nextIndex2 = ( i + 2 ) % 3;
-
-					// get obb line segments
-					const index = i1 << nextIndex | i2 << nextIndex2;
-					const index2 = 1 << i | i1 << nextIndex | i2 << nextIndex2;
-					const p1 = points[ index ];
-					const p2 = points[ index2 ];
-					const line1 = segments1[ count ];
-					line1.set( p1, p2 );
-
-
-					// get aabb line segments
-					const f1 = xyzFields[ i ];
-					const f2 = xyzFields[ nextIndex ];
-					const f3 = xyzFields[ nextIndex2 ];
-					const line2 = segments2[ count ];
-					const start = line2.start;
-					const end = line2.end;
-
-					start[ f1 ] = min[ f1 ];
-					start[ f2 ] = i1 ? min[ f2 ] : max[ f2 ];
-					start[ f3 ] = i2 ? min[ f3 ] : max[ f2 ];
-
-					end[ f1 ] = max[ f1 ];
-					end[ f2 ] = i1 ? min[ f2 ] : max[ f2 ];
-					end[ f3 ] = i2 ? min[ f3 ] : max[ f2 ];
-
-					count ++;
-
-				}
-
-			}
-
-		}
-
-		// check all the other boxes point
-		for ( let x = 0; x <= 1; x ++ ) {
-
-			for ( let y = 0; y <= 1; y ++ ) {
-
-				for ( let z = 0; z <= 1; z ++ ) {
-
-					point2.x = x ? max.x : min.x;
-					point2.y = y ? max.y : min.y;
-					point2.z = z ? max.z : min.z;
-
-					this.closestPointToPoint( point2, point1 );
-					const dist = point2.distanceToSquared( point1 );
-					if ( dist < closestDistanceSq ) {
-
-						closestDistanceSq = dist;
-						if ( target1 ) target1.copy( point1 );
-						if ( target2 ) target2.copy( point2 );
-
-						if ( dist < threshold2 ) return Math.sqrt( dist );
-
-					}
-
-				}
-
-			}
-
-		}
-
-		for ( let i = 0; i < 12; i ++ ) {
-
-			const l1 = segments1[ i ];
-			for ( let i2 = 0; i2 < 12; i2 ++ ) {
-
-				const l2 = segments2[ i2 ];
-				closestPointsSegmentToSegment( l1, l2, point1, point2 );
-				const dist = point1.distanceToSquared( point2 );
-				if ( dist < closestDistanceSq ) {
-
-					closestDistanceSq = dist;
-					if ( target1 ) target1.copy( point1 );
-					if ( target2 ) target2.copy( point2 );
-
-					if ( dist < threshold2 ) return Math.sqrt( dist );
-
-				}
-
-			}
-
-		}
-
-		return Math.sqrt( closestDistanceSq );
-
-	};
-
-} )();
-
-// Ripped and modified From THREE.js Mesh raycast
-// https://github.com/mrdoob/three.js/blob/0aa87c999fe61e216c1133fba7a95772b503eddf/src/objects/Mesh.js#L115
-const vA = /* @__PURE__ */ new Vector3();
-const vB = /* @__PURE__ */ new Vector3();
-const vC = /* @__PURE__ */ new Vector3();
-
-const uvA = /* @__PURE__ */ new Vector2();
-const uvB = /* @__PURE__ */ new Vector2();
-const uvC = /* @__PURE__ */ new Vector2();
-
-const intersectionPoint = /* @__PURE__ */ new Vector3();
-function checkIntersection( ray, pA, pB, pC, point, side ) {
-
-	let intersect;
-	if ( side === BackSide ) {
-
-		intersect = ray.intersectTriangle( pC, pB, pA, true, point );
-
-	} else {
-
-		intersect = ray.intersectTriangle( pA, pB, pC, side !== DoubleSide, point );
-
-	}
-
-	if ( intersect === null ) return null;
-
-	const distance = ray.origin.distanceTo( point );
-
-	return {
-
-		distance: distance,
-		point: point.clone(),
-
-	};
-
-}
-
-function checkBufferGeometryIntersection( ray, position, uv, a, b, c, side ) {
-
-	vA.fromBufferAttribute( position, a );
-	vB.fromBufferAttribute( position, b );
-	vC.fromBufferAttribute( position, c );
-
-	const intersection = checkIntersection( ray, vA, vB, vC, intersectionPoint, side );
-
-	if ( intersection ) {
-
-		if ( uv ) {
-
-			uvA.fromBufferAttribute( uv, a );
-			uvB.fromBufferAttribute( uv, b );
-			uvC.fromBufferAttribute( uv, c );
-
-			intersection.uv = Triangle.getUV( intersectionPoint, vA, vB, vC, uvA, uvB, uvC, new Vector2( ) );
-
-		}
-
-		const face = {
-			a: a,
-			b: b,
-			c: c,
-			normal: new Vector3(),
-			materialIndex: 0
-		};
-
-		Triangle.getNormal( vA, vB, vC, face.normal );
-
-		intersection.face = face;
-		intersection.faceIndex = a;
-
-	}
-
-	return intersection;
-
-}
-
-// https://github.com/mrdoob/three.js/blob/0aa87c999fe61e216c1133fba7a95772b503eddf/src/objects/Mesh.js#L258
-function intersectTri( geo, side, ray, tri, intersections ) {
-
-	const triOffset = tri * 3;
-	const a = geo.index.getX( triOffset );
-	const b = geo.index.getX( triOffset + 1 );
-	const c = geo.index.getX( triOffset + 2 );
-
-	const intersection = checkBufferGeometryIntersection( ray, geo.attributes.position, geo.attributes.uv, a, b, c, side );
-
-	if ( intersection ) {
-
-		intersection.faceIndex = tri;
-		if ( intersections ) intersections.push( intersection );
-		return intersection;
-
-	}
-
-	return null;
-
-}
-
-function intersectTris( geo, side, ray, offset, count, intersections ) {
-
-	for ( let i = offset, end = offset + count; i < end; i ++ ) {
-
-		intersectTri( geo, side, ray, i, intersections );
-
-	}
-
-}
-
-function intersectClosestTri( geo, side, ray, offset, count ) {
-
-	let dist = Infinity;
-	let res = null;
-	for ( let i = offset, end = offset + count; i < end; i ++ ) {
-
-		const intersection = intersectTri( geo, side, ray, i );
-		if ( intersection && intersection.distance < dist ) {
-
-			res = intersection;
-			dist = intersection.distance;
-
-		}
-
-	}
-
-	return res;
-
-}
-
-// converts the given BVH raycast intersection to align with the three.js raycast
-// structure (include object, world space distance and point).
-function convertRaycastIntersect( hit, object, raycaster ) {
-
-	if ( hit === null ) {
-
-		return null;
-
-	}
-
-	hit.point.applyMatrix4( object.matrixWorld );
-	hit.distance = hit.point.distanceTo( raycaster.ray.origin );
-	hit.object = object;
-
-	if ( hit.distance < raycaster.near || hit.distance > raycaster.far ) {
-
-		return null;
-
-	} else {
-
-		return hit;
-
-	}
-
-}
-
-// sets the vertices of triangle `tri` with the 3 vertices after i
-function setTriangle( tri, i, index, pos ) {
-
-	const ta = tri.a;
-	const tb = tri.b;
-	const tc = tri.c;
-
-	let i0 = i;
-	let i1 = i + 1;
-	let i2 = i + 2;
-	if ( index ) {
-
-		i0 = index.getX( i );
-		i1 = index.getX( i + 1 );
-		i2 = index.getX( i + 2 );
-
-	}
-
-	ta.x = pos.getX( i0 );
-	ta.y = pos.getY( i0 );
-	ta.z = pos.getZ( i0 );
-
-	tb.x = pos.getX( i1 );
-	tb.y = pos.getY( i1 );
-	tb.z = pos.getZ( i1 );
-
-	tc.x = pos.getX( i2 );
-	tc.y = pos.getY( i2 );
-	tc.z = pos.getZ( i2 );
-
-}
-
-function iterateOverTriangles(
-	offset,
-	count,
-	geometry,
-	intersectsTriangleFunc,
-	contained,
-	depth,
-	triangle
-) {
-
-	const index = geometry.index;
-	const pos = geometry.attributes.position;
-	for ( let i = offset, l = count + offset; i < l; i ++ ) {
-
-		setTriangle( triangle, i * 3, index, pos );
-		triangle.needsUpdate = true;
-
-		if ( intersectsTriangleFunc( triangle, i, contained, depth ) ) {
-
-			return true;
-
-		}
-
-	}
-
-	return false;
-
-}
-
-class PrimitivePool {
-
-	constructor( getNewPrimitive ) {
-
-		this._getNewPrimitive = getNewPrimitive;
-		this._primitives = [];
-
-	}
-
-	getPrimitive() {
-
-		const primitives = this._primitives;
-		if ( primitives.length === 0 ) {
-
-			return this._getNewPrimitive();
-
-		} else {
-
-			return primitives.pop();
-
-		}
-
-	}
-
-	releasePrimitive( primitive ) {
-
-		this._primitives.push( primitive );
-
-	}
-
-}
-
-function IS_LEAF( n16, uint16Array ) {
-
-	return uint16Array[ n16 + 15 ] === 0xFFFF;
-
-}
-
-function OFFSET( n32, uint32Array ) {
-
-	return uint32Array[ n32 + 6 ];
-
-}
-
-function COUNT( n16, uint16Array ) {
-
-	return uint16Array[ n16 + 14 ];
-
-}
-
-function LEFT_NODE( n32 ) {
-
-	return n32 + 8;
-
-}
-
-function RIGHT_NODE( n32, uint32Array ) {
-
-	return uint32Array[ n32 + 6 ];
-
-}
-
-function SPLIT_AXIS( n32, uint32Array ) {
-
-	return uint32Array[ n32 + 7 ];
-
-}
-
-function BOUNDING_DATA_INDEX( n32 ) {
-
-	return n32;
-
-}
-
-const boundingBox = new Box3();
-const boxIntersection = new Vector3();
-const xyzFields = [ 'x', 'y', 'z' ];
-
-function raycast( nodeIndex32, geometry, side, ray, intersects ) {
-
-	let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-	const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
-	if ( isLeaf ) {
-
-		const offset = OFFSET( nodeIndex32, uint32Array );
-		const count = COUNT( nodeIndex16, uint16Array );
-
-		intersectTris( geometry, side, ray, offset, count, intersects );
-
-	} else {
-
-		const leftIndex = LEFT_NODE( nodeIndex32 );
-		if ( intersectRay( leftIndex, float32Array, ray, boxIntersection ) ) {
-
-			raycast( leftIndex, geometry, side, ray, intersects );
-
-		}
-
-		const rightIndex = RIGHT_NODE( nodeIndex32, uint32Array );
-		if ( intersectRay( rightIndex, float32Array, ray, boxIntersection ) ) {
-
-			raycast( rightIndex, geometry, side, ray, intersects );
-
-		}
-
-	}
-
-}
-
-function raycastFirst( nodeIndex32, geometry, side, ray ) {
-
-	let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-	const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
-	if ( isLeaf ) {
-
-		const offset = OFFSET( nodeIndex32, uint32Array );
-		const count = COUNT( nodeIndex16, uint16Array );
-		return intersectClosestTri( geometry, side, ray, offset, count );
-
-	} else {
-
-		// consider the position of the split plane with respect to the oncoming ray; whichever direction
-		// the ray is coming from, look for an intersection among that side of the tree first
-		const splitAxis = SPLIT_AXIS( nodeIndex32, uint32Array );
-		const xyzAxis = xyzFields[ splitAxis ];
-		const rayDir = ray.direction[ xyzAxis ];
-		const leftToRight = rayDir >= 0;
-
-		// c1 is the child to check first
-		let c1, c2;
-		if ( leftToRight ) {
-
-			c1 = LEFT_NODE( nodeIndex32 );
-			c2 = RIGHT_NODE( nodeIndex32, uint32Array );
-
-		} else {
-
-			c1 = RIGHT_NODE( nodeIndex32, uint32Array );
-			c2 = LEFT_NODE( nodeIndex32 );
-
-		}
-
-		const c1Intersection = intersectRay( c1, float32Array, ray, boxIntersection );
-		const c1Result = c1Intersection ? raycastFirst( c1, geometry, side, ray ) : null;
-
-		// if we got an intersection in the first node and it's closer than the second node's bounding
-		// box, we don't need to consider the second node because it couldn't possibly be a better result
-		if ( c1Result ) {
-
-			// check if the point is within the second bounds
-			// "point" is in the local frame of the bvh
-			const point = c1Result.point[ xyzAxis ];
-			const isOutside = leftToRight ?
-				point <= float32Array[ c2 + splitAxis ] : // min bounding data
-				point >= float32Array[ c2 + splitAxis + 3 ]; // max bounding data
-
-			if ( isOutside ) {
-
-				return c1Result;
-
-			}
-
-		}
-
-		// either there was no intersection in the first node, or there could still be a closer
-		// intersection in the second, so check the second node and then take the better of the two
-		const c2Intersection = intersectRay( c2, float32Array, ray, boxIntersection );
-		const c2Result = c2Intersection ? raycastFirst( c2, geometry, side, ray ) : null;
-
-		if ( c1Result && c2Result ) {
-
-			return c1Result.distance <= c2Result.distance ? c1Result : c2Result;
-
-		} else {
-
-			return c1Result || c2Result || null;
-
-		}
-
-	}
-
-}
-
-const shapecast = ( function () {
-
-	let _box1, _box2;
-	const boxStack = [];
-	const boxPool = new PrimitivePool( () => new Box3() );
-
-	return function shapecast( ...args ) {
-
-		_box1 = boxPool.getPrimitive();
-		_box2 = boxPool.getPrimitive();
-		boxStack.push( _box1, _box2 );
-
-		const result = shapecastTraverse( ...args );
-
-		boxPool.releasePrimitive( _box1 );
-		boxPool.releasePrimitive( _box2 );
-		boxStack.pop();
-		boxStack.pop();
-
-		const length = boxStack.length;
-		if ( length > 0 ) {
-
-			_box2 = boxStack[ length - 1 ];
-			_box1 = boxStack[ length - 2 ];
-
-		}
-
-		return result;
-
-	};
-
-	function shapecastTraverse(
-		nodeIndex32,
-		geometry,
-		intersectsBoundsFunc,
-		intersectsRangeFunc,
-		nodeScoreFunc = null,
-		nodeIndexByteOffset = 0, // offset for unique node identifier
-		depth = 0
-	) {
-
-		// Define these inside the function so it has access to the local variables needed
-		// when converting to the buffer equivalents
-		function getLeftOffset( nodeIndex32 ) {
-
-			let nodeIndex16 = nodeIndex32 * 2, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-			// traverse until we find a leaf
-			while ( ! IS_LEAF( nodeIndex16, uint16Array ) ) {
-
-				nodeIndex32 = LEFT_NODE( nodeIndex32 );
-				nodeIndex16 = nodeIndex32 * 2;
-
-			}
-
-			return OFFSET( nodeIndex32, uint32Array );
-
-		}
-
-		function getRightEndOffset( nodeIndex32 ) {
-
-			let nodeIndex16 = nodeIndex32 * 2, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-			// traverse until we find a leaf
-			while ( ! IS_LEAF( nodeIndex16, uint16Array ) ) {
-
-				// adjust offset to point to the right node
-				nodeIndex32 = RIGHT_NODE( nodeIndex32, uint32Array );
-				nodeIndex16 = nodeIndex32 * 2;
-
-			}
-
-			// return the end offset of the triangle range
-			return OFFSET( nodeIndex32, uint32Array ) + COUNT( nodeIndex16, uint16Array );
-
-		}
-
-		let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-		const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
-		if ( isLeaf ) {
-
-			const offset = OFFSET( nodeIndex32, uint32Array );
-			const count = COUNT( nodeIndex16, uint16Array );
-			arrayToBox( BOUNDING_DATA_INDEX( nodeIndex32 ), float32Array, _box1 );
-			return intersectsRangeFunc( offset, count, false, depth, nodeIndexByteOffset + nodeIndex32, _box1 );
-
-		} else {
-
-			const left = LEFT_NODE( nodeIndex32 );
-			const right = RIGHT_NODE( nodeIndex32, uint32Array );
-			let c1 = left;
-			let c2 = right;
-
-			let score1, score2;
-			let box1, box2;
-			if ( nodeScoreFunc ) {
-
-				box1 = _box1;
-				box2 = _box2;
-
-				// bounding data is not offset
-				arrayToBox( BOUNDING_DATA_INDEX( c1 ), float32Array, box1 );
-				arrayToBox( BOUNDING_DATA_INDEX( c2 ), float32Array, box2 );
-
-				score1 = nodeScoreFunc( box1 );
-				score2 = nodeScoreFunc( box2 );
-
-				if ( score2 < score1 ) {
-
-					c1 = right;
-					c2 = left;
-
-					const temp = score1;
-					score1 = score2;
-					score2 = temp;
-
-					box1 = box2;
-					// box2 is always set before use below
-
-				}
-
-			}
-
-			// Check box 1 intersection
-			if ( ! box1 ) {
-
-				box1 = _box1;
-				arrayToBox( BOUNDING_DATA_INDEX( c1 ), float32Array, box1 );
-
-			}
-
-			const isC1Leaf = IS_LEAF( c1 * 2, uint16Array );
-			const c1Intersection = intersectsBoundsFunc( box1, isC1Leaf, score1, depth + 1, nodeIndexByteOffset + c1 );
-
-			let c1StopTraversal;
-			if ( c1Intersection === CONTAINED ) {
-
-				const offset = getLeftOffset( c1 );
-				const end = getRightEndOffset( c1 );
-				const count = end - offset;
-
-				c1StopTraversal = intersectsRangeFunc( offset, count, true, depth + 1, nodeIndexByteOffset + c1, box1 );
-
-			} else {
-
-				c1StopTraversal =
-					c1Intersection &&
-					shapecastTraverse(
-						c1,
-						geometry,
-						intersectsBoundsFunc,
-						intersectsRangeFunc,
-						nodeScoreFunc,
-						nodeIndexByteOffset,
-						depth + 1
-					);
-
-			}
-
-			if ( c1StopTraversal ) return true;
-
-			// Check box 2 intersection
-			// cached box2 will have been overwritten by previous traversal
-			box2 = _box2;
-			arrayToBox( BOUNDING_DATA_INDEX( c2 ), float32Array, box2 );
-
-			const isC2Leaf = IS_LEAF( c2 * 2, uint16Array );
-			const c2Intersection = intersectsBoundsFunc( box2, isC2Leaf, score2, depth + 1, nodeIndexByteOffset + c2 );
-
-			let c2StopTraversal;
-			if ( c2Intersection === CONTAINED ) {
-
-				const offset = getLeftOffset( c2 );
-				const end = getRightEndOffset( c2 );
-				const count = end - offset;
-
-				c2StopTraversal = intersectsRangeFunc( offset, count, true, depth + 1, nodeIndexByteOffset + c2, box2 );
-
-			} else {
-
-				c2StopTraversal =
-					c2Intersection &&
-					shapecastTraverse(
-						c2,
-						geometry,
-						intersectsBoundsFunc,
-						intersectsRangeFunc,
-						nodeScoreFunc,
-						nodeIndexByteOffset,
-						depth + 1
-					);
-
-			}
-
-			if ( c2StopTraversal ) return true;
-
-			return false;
-
-		}
-
-	}
-
-} )();
-
-const intersectsGeometry = ( function () {
-
-	const triangle = new ExtendedTriangle();
-	const triangle2 = new ExtendedTriangle();
-	const invertedMat = new Matrix4();
-
-	const obb = new OrientedBox();
-	const obb2 = new OrientedBox();
-
-	return function intersectsGeometry( nodeIndex32, geometry, otherGeometry, geometryToBvh, cachedObb = null ) {
-
-		let nodeIndex16 = nodeIndex32 * 2, float32Array = _float32Array, uint16Array = _uint16Array, uint32Array = _uint32Array;
-
-		if ( cachedObb === null ) {
-
-			if ( ! otherGeometry.boundingBox ) {
-
-				otherGeometry.computeBoundingBox();
-
-			}
-
-			obb.set( otherGeometry.boundingBox.min, otherGeometry.boundingBox.max, geometryToBvh );
-			cachedObb = obb;
-
-		}
-
-		const isLeaf = IS_LEAF( nodeIndex16, uint16Array );
-		if ( isLeaf ) {
-
-			const thisGeometry = geometry;
-			const thisIndex = thisGeometry.index;
-			const thisPos = thisGeometry.attributes.position;
-
-			const index = otherGeometry.index;
-			const pos = otherGeometry.attributes.position;
-
-			const offset = OFFSET( nodeIndex32, uint32Array );
-			const count = COUNT( nodeIndex16, uint16Array );
-
-			// get the inverse of the geometry matrix so we can transform our triangles into the
-			// geometry space we're trying to test. We assume there are fewer triangles being checked
-			// here.
-			invertedMat.copy( geometryToBvh ).invert();
-
-			if ( otherGeometry.boundsTree ) {
-
-				arrayToBox( BOUNDING_DATA_INDEX( nodeIndex32 ), float32Array, obb2 );
-				obb2.matrix.copy( invertedMat );
-				obb2.needsUpdate = true;
-
-				const res = otherGeometry.boundsTree.shapecast( {
-
-					intersectsBounds: box => obb2.intersectsBox( box ),
-
-					intersectsTriangle: tri => {
-
-						tri.a.applyMatrix4( geometryToBvh );
-						tri.b.applyMatrix4( geometryToBvh );
-						tri.c.applyMatrix4( geometryToBvh );
-						tri.needsUpdate = true;
-
-						for ( let i = offset * 3, l = ( count + offset ) * 3; i < l; i += 3 ) {
-
-							// this triangle needs to be transformed into the current BVH coordinate frame
-							setTriangle( triangle2, i, thisIndex, thisPos );
-							triangle2.needsUpdate = true;
-							if ( tri.intersectsTriangle( triangle2 ) ) {
-
-								return true;
-
-							}
-
-						}
-
-						return false;
-
-					}
-
-				} );
-
-				return res;
-
-			} else {
-
-				for ( let i = offset * 3, l = ( count + offset * 3 ); i < l; i += 3 ) {
-
-					// this triangle needs to be transformed into the current BVH coordinate frame
-					setTriangle( triangle, i, thisIndex, thisPos );
-					triangle.a.applyMatrix4( invertedMat );
-					triangle.b.applyMatrix4( invertedMat );
-					triangle.c.applyMatrix4( invertedMat );
-					triangle.needsUpdate = true;
-
-					for ( let i2 = 0, l2 = index.count; i2 < l2; i2 += 3 ) {
-
-						setTriangle( triangle2, i2, index, pos );
-						triangle2.needsUpdate = true;
-
-						if ( triangle.intersectsTriangle( triangle2 ) ) {
-
-							return true;
-
-						}
-
-					}
-
-				}
-
-			}
-
-		} else {
-
-			const left = nodeIndex32 + 8;
-			const right = uint32Array[ nodeIndex32 + 6 ];
-
-			arrayToBox( BOUNDING_DATA_INDEX( left ), float32Array, boundingBox );
-			const leftIntersection =
-				cachedObb.intersectsBox( boundingBox ) &&
-				intersectsGeometry( left, geometry, otherGeometry, geometryToBvh, cachedObb );
-
-			if ( leftIntersection ) return true;
-
-			arrayToBox( BOUNDING_DATA_INDEX( right ), float32Array, boundingBox );
-			const rightIntersection =
-				cachedObb.intersectsBox( boundingBox ) &&
-				intersectsGeometry( right, geometry, otherGeometry, geometryToBvh, cachedObb );
-
-			if ( rightIntersection ) return true;
-
-			return false;
-
-		}
-
-	};
-
-} )();
-
-function intersectRay( nodeIndex32, array, ray, target ) {
-
-	arrayToBox( nodeIndex32, array, boundingBox );
-	return ray.intersectBox( boundingBox, target );
-
-}
-
-const bufferStack = [];
-let _prevBuffer;
-let _float32Array;
-let _uint16Array;
-let _uint32Array;
-function setBuffer( buffer ) {
-
-	if ( _prevBuffer ) {
-
-		bufferStack.push( _prevBuffer );
-
-	}
-
-	_prevBuffer = buffer;
-	_float32Array = new Float32Array( buffer );
-	_uint16Array = new Uint16Array( buffer );
-	_uint32Array = new Uint32Array( buffer );
-
-}
-
-function clearBuffer() {
-
-	_prevBuffer = null;
-	_float32Array = null;
-	_uint16Array = null;
-	_uint32Array = null;
-
-	if ( bufferStack.length ) {
-
-		setBuffer( bufferStack.pop() );
-
-	}
-
-}
-
-const SKIP_GENERATION = Symbol( 'skip tree generation' );
-
-const aabb = /* @__PURE__ */ new Box3();
-const aabb2 = /* @__PURE__ */ new Box3();
-const tempMatrix = /* @__PURE__ */ new Matrix4();
-const obb = /* @__PURE__ */ new OrientedBox();
-const obb2 = /* @__PURE__ */ new OrientedBox();
-const temp = /* @__PURE__ */ new Vector3();
-const temp1 = /* @__PURE__ */ new Vector3();
-const temp2 = /* @__PURE__ */ new Vector3();
-const temp3 = /* @__PURE__ */ new Vector3();
-const temp4 = /* @__PURE__ */ new Vector3();
-const tempBox = /* @__PURE__ */ new Box3();
-const trianglePool = /* @__PURE__ */ new PrimitivePool( () => new ExtendedTriangle() );
-
-class MeshBVH {
-
-	static serialize( bvh, options = {} ) {
-
-		if ( options.isBufferGeometry ) {
-
-			console.warn( 'MeshBVH.serialize: The arguments for the function have changed. See documentation for new signature.' );
-
-			return MeshBVH.serialize(
-				arguments[ 0 ],
-				{
-					cloneBuffers: arguments[ 2 ] === undefined ? true : arguments[ 2 ],
-				}
-			);
-
-		}
-
-		options = {
-			cloneBuffers: true,
-			...options,
-		};
-
-		const geometry = bvh.geometry;
-		const rootData = bvh._roots;
-		const indexAttribute = geometry.getIndex();
-		let result;
-		if ( options.cloneBuffers ) {
-
-			result = {
-				roots: rootData.map( root => root.slice() ),
-				index: indexAttribute.array.slice(),
-			};
-
-		} else {
-
-			result = {
-				roots: rootData,
-				index: indexAttribute.array,
-			};
-
-		}
-
-		return result;
-
-	}
-
-	static deserialize( data, geometry, options = {} ) {
-
-		if ( typeof options === 'boolean' ) {
-
-			console.warn( 'MeshBVH.deserialize: The arguments for the function have changed. See documentation for new signature.' );
-
-			return MeshBVH.deserialize(
-				arguments[ 0 ],
-				arguments[ 1 ],
-				{
-					setIndex: arguments[ 2 ] === undefined ? true : arguments[ 2 ],
-				}
-			);
-
-		}
-
-		options = {
-			setIndex: true,
-			...options,
-		};
-
-		const { index, roots } = data;
-		const bvh = new MeshBVH( geometry, { ...options, [ SKIP_GENERATION ]: true } );
-		bvh._roots = roots;
-
-		if ( options.setIndex ) {
-
-			const indexAttribute = geometry.getIndex();
-			if ( indexAttribute === null ) {
-
-				const newIndex = new BufferAttribute( data.index, 1, false );
-				geometry.setIndex( newIndex );
-
-			} else if ( indexAttribute.array !== index ) {
-
-				indexAttribute.array.set( index );
-				indexAttribute.needsUpdate = true;
-
-			}
-
-		}
-
-		return bvh;
-
-	}
-
-	constructor( geometry, options = {} ) {
-
-		if ( ! geometry.isBufferGeometry ) {
-
-			throw new Error( 'MeshBVH: Only BufferGeometries are supported.' );
-
-		} else if ( geometry.index && geometry.index.isInterleavedBufferAttribute ) {
-
-			throw new Error( 'MeshBVH: InterleavedBufferAttribute is not supported for the index attribute.' );
-
-		}
-
-		// default options
-		options = Object.assign( {
-
-			strategy: CENTER,
-			maxDepth: 40,
-			maxLeafTris: 10,
-			verbose: true,
-			useSharedArrayBuffer: false,
-			setBoundingBox: true,
-			onProgress: null,
-
-			// undocumented options
-
-			// Whether to skip generating the tree. Used for deserialization.
-			[ SKIP_GENERATION ]: false,
-
-		}, options );
-
-		if ( options.useSharedArrayBuffer && typeof SharedArrayBuffer === 'undefined' ) {
-
-			throw new Error( 'MeshBVH: SharedArrayBuffer is not available.' );
-
-		}
-
-		this._roots = null;
-		if ( ! options[ SKIP_GENERATION ] ) {
-
-			this._roots = buildPackedTree( geometry, options );
-
-			if ( ! geometry.boundingBox && options.setBoundingBox ) {
-
-				geometry.boundingBox = this.getBoundingBox( new Box3() );
-
-			}
-
-		}
-
-		// retain references to the geometry so we can use them it without having to
-		// take a geometry reference in every function.
-		this.geometry = geometry;
-
-	}
-
-	refit( nodeIndices = null ) {
-
-		if ( nodeIndices && Array.isArray( nodeIndices ) ) {
-
-			nodeIndices = new Set( nodeIndices );
-
-		}
-
-		const geometry = this.geometry;
-		const indexArr = geometry.index.array;
-		const posAttr = geometry.attributes.position;
-
-		let buffer, uint32Array, uint16Array, float32Array;
-		let byteOffset = 0;
-		const roots = this._roots;
-		for ( let i = 0, l = roots.length; i < l; i ++ ) {
-
-			buffer = roots[ i ];
-			uint32Array = new Uint32Array( buffer );
-			uint16Array = new Uint16Array( buffer );
-			float32Array = new Float32Array( buffer );
-
-			_traverse( 0, byteOffset );
-			byteOffset += buffer.byteLength;
-
-		}
-
-		function _traverse( node32Index, byteOffset, force = false ) {
-
-			const node16Index = node32Index * 2;
-			const isLeaf = uint16Array[ node16Index + 15 ] === IS_LEAFNODE_FLAG;
-			if ( isLeaf ) {
-
-				const offset = uint32Array[ node32Index + 6 ];
-				const count = uint16Array[ node16Index + 14 ];
-
-				let minx = Infinity;
-				let miny = Infinity;
-				let minz = Infinity;
-				let maxx = - Infinity;
-				let maxy = - Infinity;
-				let maxz = - Infinity;
-
-				for ( let i = 3 * offset, l = 3 * ( offset + count ); i < l; i ++ ) {
-
-					const index = indexArr[ i ];
-					const x = posAttr.getX( index );
-					const y = posAttr.getY( index );
-					const z = posAttr.getZ( index );
-
-					if ( x < minx ) minx = x;
-					if ( x > maxx ) maxx = x;
-
-					if ( y < miny ) miny = y;
-					if ( y > maxy ) maxy = y;
-
-					if ( z < minz ) minz = z;
-					if ( z > maxz ) maxz = z;
-
-				}
-
-				if (
-					float32Array[ node32Index + 0 ] !== minx ||
-					float32Array[ node32Index + 1 ] !== miny ||
-					float32Array[ node32Index + 2 ] !== minz ||
-
-					float32Array[ node32Index + 3 ] !== maxx ||
-					float32Array[ node32Index + 4 ] !== maxy ||
-					float32Array[ node32Index + 5 ] !== maxz
-				) {
-
-					float32Array[ node32Index + 0 ] = minx;
-					float32Array[ node32Index + 1 ] = miny;
-					float32Array[ node32Index + 2 ] = minz;
-
-					float32Array[ node32Index + 3 ] = maxx;
-					float32Array[ node32Index + 4 ] = maxy;
-					float32Array[ node32Index + 5 ] = maxz;
-
-					return true;
-
-				} else {
-
-					return false;
-
-				}
-
-			} else {
-
-				const left = node32Index + 8;
-				const right = uint32Array[ node32Index + 6 ];
-
-				// the identifying node indices provided by the shapecast function include offsets of all
-				// root buffers to guarantee they're unique between roots so offset left and right indices here.
-				const offsetLeft = left + byteOffset;
-				const offsetRight = right + byteOffset;
-				let forceChildren = force;
-				let includesLeft = false;
-				let includesRight = false;
-
-				if ( nodeIndices ) {
-
-					// if we see that neither the left or right child are included in the set that need to be updated
-					// then we assume that all children need to be updated.
-					if ( ! forceChildren ) {
-
-						includesLeft = nodeIndices.has( offsetLeft );
-						includesRight = nodeIndices.has( offsetRight );
-						forceChildren = ! includesLeft && ! includesRight;
-
-					}
-
-				} else {
-
-					includesLeft = true;
-					includesRight = true;
-
-				}
-
-				const traverseLeft = forceChildren || includesLeft;
-				const traverseRight = forceChildren || includesRight;
-
-				let leftChange = false;
-				if ( traverseLeft ) {
-
-					leftChange = _traverse( left, byteOffset, forceChildren );
-
-				}
-
-				let rightChange = false;
-				if ( traverseRight ) {
-
-					rightChange = _traverse( right, byteOffset, forceChildren );
-
-				}
-
-				const didChange = leftChange || rightChange;
-				if ( didChange ) {
-
-					for ( let i = 0; i < 3; i ++ ) {
-
-						const lefti = left + i;
-						const righti = right + i;
-						const minLeftValue = float32Array[ lefti ];
-						const maxLeftValue = float32Array[ lefti + 3 ];
-						const minRightValue = float32Array[ righti ];
-						const maxRightValue = float32Array[ righti + 3 ];
-
-						float32Array[ node32Index + i ] = minLeftValue < minRightValue ? minLeftValue : minRightValue;
-						float32Array[ node32Index + i + 3 ] = maxLeftValue > maxRightValue ? maxLeftValue : maxRightValue;
-
-					}
-
-				}
-
-				return didChange;
-
-			}
-
-		}
-
-	}
-
-	traverse( callback, rootIndex = 0 ) {
-
-		const buffer = this._roots[ rootIndex ];
-		const uint32Array = new Uint32Array( buffer );
-		const uint16Array = new Uint16Array( buffer );
-		_traverse( 0 );
-
-		function _traverse( node32Index, depth = 0 ) {
-
-			const node16Index = node32Index * 2;
-			const isLeaf = uint16Array[ node16Index + 15 ] === IS_LEAFNODE_FLAG;
-			if ( isLeaf ) {
-
-				const offset = uint32Array[ node32Index + 6 ];
-				const count = uint16Array[ node16Index + 14 ];
-				callback( depth, isLeaf, new Float32Array( buffer, node32Index * 4, 6 ), offset, count );
-
-			} else {
-
-				// TODO: use node functions here
-				const left = node32Index + BYTES_PER_NODE / 4;
-				const right = uint32Array[ node32Index + 6 ];
-				const splitAxis = uint32Array[ node32Index + 7 ];
-				const stopTraversal = callback( depth, isLeaf, new Float32Array( buffer, node32Index * 4, 6 ), splitAxis );
-
-				if ( ! stopTraversal ) {
-
-					_traverse( left, depth + 1 );
-					_traverse( right, depth + 1 );
-
-				}
-
-			}
-
-		}
-
-	}
-
-	/* Core Cast Functions */
-	raycast( ray, materialOrSide = FrontSide ) {
-
-		const roots = this._roots;
-		const geometry = this.geometry;
-		const intersects = [];
-		const isMaterial = materialOrSide.isMaterial;
-		const isArrayMaterial = Array.isArray( materialOrSide );
-
-		const groups = geometry.groups;
-		const side = isMaterial ? materialOrSide.side : materialOrSide;
-		for ( let i = 0, l = roots.length; i < l; i ++ ) {
-
-			const materialSide = isArrayMaterial ? materialOrSide[ groups[ i ].materialIndex ].side : side;
-			const startCount = intersects.length;
-
-			setBuffer( roots[ i ] );
-			raycast( 0, geometry, materialSide, ray, intersects );
-			clearBuffer();
-
-			if ( isArrayMaterial ) {
-
-				const materialIndex = groups[ i ].materialIndex;
-				for ( let j = startCount, jl = intersects.length; j < jl; j ++ ) {
-
-					intersects[ j ].face.materialIndex = materialIndex;
-
-				}
-
-			}
-
-		}
-
-		return intersects;
-
-	}
-
-	raycastFirst( ray, materialOrSide = FrontSide ) {
-
-		const roots = this._roots;
-		const geometry = this.geometry;
-		const isMaterial = materialOrSide.isMaterial;
-		const isArrayMaterial = Array.isArray( materialOrSide );
-
-		let closestResult = null;
-
-		const groups = geometry.groups;
-		const side = isMaterial ? materialOrSide.side : materialOrSide;
-		for ( let i = 0, l = roots.length; i < l; i ++ ) {
-
-			const materialSide = isArrayMaterial ? materialOrSide[ groups[ i ].materialIndex ].side : side;
-
-			setBuffer( roots[ i ] );
-			const result = raycastFirst( 0, geometry, materialSide, ray );
-			clearBuffer();
-
-			if ( result != null && ( closestResult == null || result.distance < closestResult.distance ) ) {
-
-				closestResult = result;
-				if ( isArrayMaterial ) {
-
-					result.face.materialIndex = groups[ i ].materialIndex;
-
-				}
-
-			}
-
-		}
-
-		return closestResult;
-
-	}
-
-	intersectsGeometry( otherGeometry, geomToMesh ) {
-
-		const geometry = this.geometry;
-		let result = false;
-		for ( const root of this._roots ) {
-
-			setBuffer( root );
-			result = intersectsGeometry( 0, geometry, otherGeometry, geomToMesh );
-			clearBuffer();
-
-			if ( result ) {
-
-				break;
-
-			}
-
-		}
-
-		return result;
-
-	}
-
-	shapecast( callbacks, _intersectsTriangleFunc, _orderNodesFunc ) {
-
-		const geometry = this.geometry;
-		if ( callbacks instanceof Function ) {
-
-			if ( _intersectsTriangleFunc ) {
-
-				// Support the previous function signature that provided three sequential index buffer
-				// indices here.
-				const originalTriangleFunc = _intersectsTriangleFunc;
-				_intersectsTriangleFunc = ( tri, index, contained, depth ) => {
-
-					const i3 = index * 3;
-					return originalTriangleFunc( tri, i3, i3 + 1, i3 + 2, contained, depth );
-
-				};
-
-
-			}
-
-			callbacks = {
-
-				boundsTraverseOrder: _orderNodesFunc,
-				intersectsBounds: callbacks,
-				intersectsTriangle: _intersectsTriangleFunc,
-				intersectsRange: null,
-
-			};
-
-			console.warn( 'MeshBVH: Shapecast function signature has changed and now takes an object of callbacks as a second argument. See docs for new signature.' );
-
-		}
-
-		const triangle = trianglePool.getPrimitive();
-		let {
-			boundsTraverseOrder,
-			intersectsBounds,
-			intersectsRange,
-			intersectsTriangle,
-		} = callbacks;
-
-		if ( intersectsRange && intersectsTriangle ) {
-
-			const originalIntersectsRange = intersectsRange;
-			intersectsRange = ( offset, count, contained, depth, nodeIndex ) => {
-
-				if ( ! originalIntersectsRange( offset, count, contained, depth, nodeIndex ) ) {
-
-					return iterateOverTriangles( offset, count, geometry, intersectsTriangle, contained, depth, triangle );
-
-				}
-
-				return true;
-
-			};
-
-		} else if ( ! intersectsRange ) {
-
-			if ( intersectsTriangle ) {
-
-				intersectsRange = ( offset, count, contained, depth ) => {
-
-					return iterateOverTriangles( offset, count, geometry, intersectsTriangle, contained, depth, triangle );
-
-				};
-
-			} else {
-
-				intersectsRange = ( offset, count, contained ) => {
-
-					return contained;
-
-				};
-
-			}
-
-		}
-
-		let result = false;
-		let byteOffset = 0;
-		for ( const root of this._roots ) {
-
-			setBuffer( root );
-			result = shapecast( 0, geometry, intersectsBounds, intersectsRange, boundsTraverseOrder, byteOffset );
-			clearBuffer();
-
-			if ( result ) {
-
-				break;
-
-			}
-
-			byteOffset += root.byteLength;
-
-		}
-
-		trianglePool.releasePrimitive( triangle );
-
-		return result;
-
-	}
-
-	bvhcast( otherBvh, matrixToLocal, callbacks ) {
-
-		// BVHCast function for intersecting two BVHs against each other. Ultimately just uses two recursive shapecast calls rather
-		// than an approach that walks down the tree (see bvhcast.js file for more info).
-
-		let {
-			intersectsRanges,
-			intersectsTriangles,
-		} = callbacks;
-
-		const indexAttr = this.geometry.index;
-		const positionAttr = this.geometry.attributes.position;
-
-		const otherIndexAttr = otherBvh.geometry.index;
-		const otherPositionAttr = otherBvh.geometry.attributes.position;
-
-		tempMatrix.copy( matrixToLocal ).invert();
-
-		const triangle = trianglePool.getPrimitive();
-		const triangle2 = trianglePool.getPrimitive();
-
-		if ( intersectsTriangles ) {
-
-			function iterateOverDoubleTriangles( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) {
-
-				for ( let i2 = offset2, l2 = offset2 + count2; i2 < l2; i2 ++ ) {
-
-					setTriangle( triangle2, i2 * 3, otherIndexAttr, otherPositionAttr );
-					triangle2.a.applyMatrix4( matrixToLocal );
-					triangle2.b.applyMatrix4( matrixToLocal );
-					triangle2.c.applyMatrix4( matrixToLocal );
-					triangle2.needsUpdate = true;
-
-					for ( let i1 = offset1, l1 = offset1 + count1; i1 < l1; i1 ++ ) {
-
-						setTriangle( triangle, i1 * 3, indexAttr, positionAttr );
-						triangle.needsUpdate = true;
-
-						if ( intersectsTriangles( triangle, triangle2, i1, i2, depth1, index1, depth2, index2 ) ) {
-
-							return true;
-
-						}
-
-					}
-
-				}
-
-				return false;
-
-			}
-
-			if ( intersectsRanges ) {
-
-				const originalIntersectsRanges = intersectsRanges;
-				intersectsRanges = function ( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) {
-
-					if ( ! originalIntersectsRanges( offset1, count1, offset2, count2, depth1, index1, depth2, index2 ) ) {
-
-						return iterateOverDoubleTriangles( offset1, count1, offset2, count2, depth1, index1, depth2, index2 );
-
-					}
-
-					return true;
-
-				};
-
-			} else {
-
-				intersectsRanges = iterateOverDoubleTriangles;
-
-			}
-
-		}
-
-		otherBvh.getBoundingBox( aabb2 );
-		aabb2.applyMatrix4( matrixToLocal );
-		const result = this.shapecast( {
-
-			intersectsBounds: box => aabb2.intersectsBox( box ),
-
-			intersectsRange: ( offset1, count1, contained, depth1, nodeIndex1, box ) => {
-
-				aabb.copy( box );
-				aabb.applyMatrix4( tempMatrix );
-				return otherBvh.shapecast( {
-
-					intersectsBounds: box => aabb.intersectsBox( box ),
-
-					intersectsRange: ( offset2, count2, contained, depth2, nodeIndex2 ) => {
-
-						return intersectsRanges( offset1, count1, offset2, count2, depth1, nodeIndex1, depth2, nodeIndex2 );
-
-					},
-
-				} );
-
-			}
-
-		} );
-
-		trianglePool.releasePrimitive( triangle );
-		trianglePool.releasePrimitive( triangle2 );
-		return result;
-
-	}
-
-	/* Derived Cast Functions */
-	intersectsBox( box, boxToMesh ) {
-
-		obb.set( box.min, box.max, boxToMesh );
-		obb.needsUpdate = true;
-
-		return this.shapecast(
-			{
-				intersectsBounds: box => obb.intersectsBox( box ),
-				intersectsTriangle: tri => obb.intersectsTriangle( tri )
-			}
-		);
-
-	}
-
-	intersectsSphere( sphere ) {
-
-		return this.shapecast(
-			{
-				intersectsBounds: box => sphere.intersectsBox( box ),
-				intersectsTriangle: tri => tri.intersectsSphere( sphere )
-			}
-		);
-
-	}
-
-	closestPointToGeometry( otherGeometry, geometryToBvh, target1 = { }, target2 = { }, minThreshold = 0, maxThreshold = Infinity ) {
-
-		if ( ! otherGeometry.boundingBox ) {
-
-			otherGeometry.computeBoundingBox();
-
-		}
-
-		obb.set( otherGeometry.boundingBox.min, otherGeometry.boundingBox.max, geometryToBvh );
-		obb.needsUpdate = true;
-
-		const geometry = this.geometry;
-		const pos = geometry.attributes.position;
-		const index = geometry.index;
-		const otherPos = otherGeometry.attributes.position;
-		const otherIndex = otherGeometry.index;
-		const triangle = trianglePool.getPrimitive();
-		const triangle2 = trianglePool.getPrimitive();
-
-		let tempTarget1 = temp1;
-		let tempTargetDest1 = temp2;
-		let tempTarget2 = null;
-		let tempTargetDest2 = null;
-
-		if ( target2 ) {
-
-			tempTarget2 = temp3;
-			tempTargetDest2 = temp4;
-
-		}
-
-		let closestDistance = Infinity;
-		let closestDistanceTriIndex = null;
-		let closestDistanceOtherTriIndex = null;
-		tempMatrix.copy( geometryToBvh ).invert();
-		obb2.matrix.copy( tempMatrix );
-		this.shapecast(
-			{
-
-				boundsTraverseOrder: box => {
-
-					return obb.distanceToBox( box );
-
-				},
-
-				intersectsBounds: ( box, isLeaf, score ) => {
-
-					if ( score < closestDistance && score < maxThreshold ) {
-
-						// if we know the triangles of this bounds will be intersected next then
-						// save the bounds to use during triangle checks.
-						if ( isLeaf ) {
-
-							obb2.min.copy( box.min );
-							obb2.max.copy( box.max );
-							obb2.needsUpdate = true;
-
-						}
-
-						return true;
-
-					}
-
-					return false;
-
-				},
-
-				intersectsRange: ( offset, count ) => {
-
-					if ( otherGeometry.boundsTree ) {
-
-						// if the other geometry has a bvh then use the accelerated path where we use shapecast to find
-						// the closest bounds in the other geometry to check.
-						return otherGeometry.boundsTree.shapecast( {
-							boundsTraverseOrder: box => {
-
-								return obb2.distanceToBox( box );
-
-							},
-
-							intersectsBounds: ( box, isLeaf, score ) => {
-
-								return score < closestDistance && score < maxThreshold;
-
-							},
-
-							intersectsRange: ( otherOffset, otherCount ) => {
-
-								for ( let i2 = otherOffset * 3, l2 = ( otherOffset + otherCount ) * 3; i2 < l2; i2 += 3 ) {
-
-									setTriangle( triangle2, i2, otherIndex, otherPos );
-									triangle2.a.applyMatrix4( geometryToBvh );
-									triangle2.b.applyMatrix4( geometryToBvh );
-									triangle2.c.applyMatrix4( geometryToBvh );
-									triangle2.needsUpdate = true;
-
-									for ( let i = offset * 3, l = ( offset + count ) * 3; i < l; i += 3 ) {
-
-										setTriangle( triangle, i, index, pos );
-										triangle.needsUpdate = true;
-
-										const dist = triangle.distanceToTriangle( triangle2, tempTarget1, tempTarget2 );
-										if ( dist < closestDistance ) {
-
-											tempTargetDest1.copy( tempTarget1 );
-
-											if ( tempTargetDest2 ) {
-
-												tempTargetDest2.copy( tempTarget2 );
-
-											}
-
-											closestDistance = dist;
-											closestDistanceTriIndex = i / 3;
-											closestDistanceOtherTriIndex = i2 / 3;
-
-										}
-
-										// stop traversal if we find a point that's under the given threshold
-										if ( dist < minThreshold ) {
-
-											return true;
-
-										}
-
-									}
-
-								}
-
-							},
-						} );
-
-					} else {
-
-						// If no bounds tree then we'll just check every triangle.
-						const triCount = otherIndex ? otherIndex.count : otherPos.count;
-						for ( let i2 = 0, l2 = triCount; i2 < l2; i2 += 3 ) {
-
-							setTriangle( triangle2, i2, otherIndex, otherPos );
-							triangle2.a.applyMatrix4( geometryToBvh );
-							triangle2.b.applyMatrix4( geometryToBvh );
-							triangle2.c.applyMatrix4( geometryToBvh );
-							triangle2.needsUpdate = true;
-
-							for ( let i = offset * 3, l = ( offset + count ) * 3; i < l; i += 3 ) {
-
-								setTriangle( triangle, i, index, pos );
-								triangle.needsUpdate = true;
-
-								const dist = triangle.distanceToTriangle( triangle2, tempTarget1, tempTarget2 );
-								if ( dist < closestDistance ) {
-
-									tempTargetDest1.copy( tempTarget1 );
-
-									if ( tempTargetDest2 ) {
-
-										tempTargetDest2.copy( tempTarget2 );
-
-									}
-
-									closestDistance = dist;
-									closestDistanceTriIndex = i / 3;
-									closestDistanceOtherTriIndex = i2 / 3;
-
-								}
-
-								// stop traversal if we find a point that's under the given threshold
-								if ( dist < minThreshold ) {
-
-									return true;
-
-								}
-
-							}
-
-						}
-
-					}
-
-				},
-
-			}
-
-		);
-
-		trianglePool.releasePrimitive( triangle );
-		trianglePool.releasePrimitive( triangle2 );
-
-		if ( closestDistance === Infinity ) return null;
-
-		if ( ! target1.point ) target1.point = tempTargetDest1.clone();
-		else target1.point.copy( tempTargetDest1 );
-		target1.distance = closestDistance,
-		target1.faceIndex = closestDistanceTriIndex;
-
-		if ( target2 ) {
-
-			if ( ! target2.point ) target2.point = tempTargetDest2.clone();
-			else target2.point.copy( tempTargetDest2 );
-			target2.point.applyMatrix4( tempMatrix );
-			tempTargetDest1.applyMatrix4( tempMatrix );
-			target2.distance = tempTargetDest1.sub( target2.point ).length();
-			target2.faceIndex = closestDistanceOtherTriIndex;
-
-		}
-
-		return target1;
-
-	}
-
-	closestPointToPoint( point, target = { }, minThreshold = 0, maxThreshold = Infinity ) {
-
-		// early out if under minThreshold
-		// skip checking if over maxThreshold
-		// set minThreshold = maxThreshold to quickly check if a point is within a threshold
-		// returns Infinity if no value found
-		const minThresholdSq = minThreshold * minThreshold;
-		const maxThresholdSq = maxThreshold * maxThreshold;
-		let closestDistanceSq = Infinity;
-		let closestDistanceTriIndex = null;
-		this.shapecast(
-
-			{
-
-				boundsTraverseOrder: box => {
-
-					temp.copy( point ).clamp( box.min, box.max );
-					return temp.distanceToSquared( point );
-
-				},
-
-				intersectsBounds: ( box, isLeaf, score ) => {
-
-					return score < closestDistanceSq && score < maxThresholdSq;
-
-				},
-
-				intersectsTriangle: ( tri, triIndex ) => {
-
-					tri.closestPointToPoint( point, temp );
-					const distSq = point.distanceToSquared( temp );
-					if ( distSq < closestDistanceSq ) {
-
-						temp1.copy( temp );
-						closestDistanceSq = distSq;
-						closestDistanceTriIndex = triIndex;
-
-					}
-
-					if ( distSq < minThresholdSq ) {
-
-						return true;
-
-					} else {
-
-						return false;
-
-					}
-
-				},
-
-			}
-
-		);
-
-		if ( closestDistanceSq === Infinity ) return null;
-
-		const closestDistance = Math.sqrt( closestDistanceSq );
-
-		if ( ! target.point ) target.point = temp1.clone();
-		else target.point.copy( temp1 );
-		target.distance = closestDistance,
-		target.faceIndex = closestDistanceTriIndex;
-
-		return target;
-
-	}
-
-	getBoundingBox( target ) {
-
-		target.makeEmpty();
-
-		const roots = this._roots;
-		roots.forEach( buffer => {
-
-			arrayToBox( 0, new Float32Array( buffer ), tempBox );
-			target.union( tempBox );
-
-		} );
-
-		return target;
-
-	}
-
-}
-
-const ray = /* @__PURE__ */ new Ray();
-const tmpInverseMatrix = /* @__PURE__ */ new Matrix4();
-const origMeshRaycastFunc = Mesh.prototype.raycast;
-
-function acceleratedRaycast( raycaster, intersects ) {
-
-	if ( this.geometry.boundsTree ) {
-
-		if ( this.material === undefined ) return;
-
-		tmpInverseMatrix.copy( this.matrixWorld ).invert();
-		ray.copy( raycaster.ray ).applyMatrix4( tmpInverseMatrix );
-
-		const bvh = this.geometry.boundsTree;
-		if ( raycaster.firstHitOnly === true ) {
-
-			const hit = convertRaycastIntersect( bvh.raycastFirst( ray, this.material ), this, raycaster );
-			if ( hit ) {
-
-				intersects.push( hit );
-
-			}
-
-		} else {
-
-			const hits = bvh.raycast( ray, this.material );
-			for ( let i = 0, l = hits.length; i < l; i ++ ) {
-
-				const hit = convertRaycastIntersect( hits[ i ], this, raycaster );
-				if ( hit ) {
-
-					intersects.push( hit );
-
-				}
-
-			}
-
-		}
-
-	} else {
-
-		origMeshRaycastFunc.call( this, raycaster, intersects );
-
-	}
-
-}
-
-function computeBoundsTree( options ) {
-
-	this.boundsTree = new MeshBVH( this, options );
-	return this.boundsTree;
-
-}
-
-function disposeBoundsTree() {
-
-	this.boundsTree = null;
-
-}
-
 /**
 	 * @param  {Array<BufferGeometry>} geometries
 	 * @param  {Boolean} useGroups
@@ -100615,7 +111589,7 @@ class IfcProperties {
     }
     async getBuilding(modelID) {
         const ifc = this.loader.ifcManager;
-        const allBuildingsIDs = await ifc.getAllItemsOfType(modelID, IFCBUILDING, false);
+        const allBuildingsIDs = await ifc.getAllItemsOfType(modelID, IFCBUILDING$1, false);
         const buildingID = allBuildingsIDs[0];
         return ifc.getItemProperties(modelID, buildingID, true);
     }
@@ -103354,6 +114328,8 @@ class IfcCamera extends IfcComponent {
         this.cameraControls.dollyToCursor = true;
         this.cameraControls.infinityDolly = true;
         this.cameraControls.setTarget(0, 0, 0);
+        this.cameraControls.addEventListener('controlend', () => this.onChange.trigger(this));
+        this.cameraControls.addEventListener('rest', () => this.onChange.trigger(this));
     }
 }
 
@@ -106455,7 +117431,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 /*!
- * GSAP 3.11.1
+ * GSAP 3.11.3
  * https://greensock.com
  *
  * @license Copyright 2008-2022, GreenSock. All rights reserved.
@@ -106551,7 +117527,12 @@ _unitExp = /^[+\-=e\s\d]*\d+[.\d]*([a-z]*|%)\s*$/i,
 },
     _startAtRevertConfig = {
   suppressEvents: true,
-  isStart: true
+  isStart: true,
+  kill: false
+},
+    _revertConfigNoKill = {
+  suppressEvents: true,
+  kill: false
 },
     _revertConfig = {
   suppressEvents: true
@@ -106636,7 +117617,7 @@ _parseRelative = function _parseRelative(start, value) {
 },
     _lazySafeRender = function _lazySafeRender(animation, time, suppressEvents, force) {
   _lazyTweens.length && _lazyRender();
-  animation.render(time, suppressEvents, force || _reverting$1);
+  animation.render(time, suppressEvents, force || _reverting$1 && time < 0 && (animation._initted || animation._startAt));
   _lazyTweens.length && _lazyRender(); //in case rendering caused any tweens to lazy-init, we should render them because typically when someone calls seek() or time() or progress(), they expect an immediate render.
 },
     _numericIfPossible = function _numericIfPossible(value) {
@@ -106799,7 +117780,7 @@ _parseRelative = function _parseRelative(start, value) {
   return animation;
 },
     _rewindStartAt = function _rewindStartAt(tween, totalTime, suppressEvents, force) {
-  return tween._startAt && (_reverting$1 ? tween._startAt.revert(_revertConfig) : tween.vars.immediateRender && !tween.vars.autoRevert || tween._startAt.render(totalTime, true, force));
+  return tween._startAt && (_reverting$1 ? tween._startAt.revert(_revertConfigNoKill) : tween.vars.immediateRender && !tween.vars.autoRevert || tween._startAt.render(totalTime, true, force));
 },
     _hasNoPausedAncestors = function _hasNoPausedAncestors(animation) {
   return !animation || animation._ts && _hasNoPausedAncestors(animation.parent);
@@ -106887,17 +117868,17 @@ _postAddChecks = function _postAddChecks(timeline, child) {
     _scrollTrigger = function _scrollTrigger(animation, trigger) {
   return (_globals.ScrollTrigger || _missingPlugin("scrollTrigger", trigger)) && _globals.ScrollTrigger.create(trigger, animation);
 },
-    _attemptInitTween = function _attemptInitTween(tween, totalTime, force, suppressEvents) {
-  _initTween(tween, totalTime);
+    _attemptInitTween = function _attemptInitTween(tween, time, force, suppressEvents, tTime) {
+  _initTween(tween, time, tTime);
 
   if (!tween._initted) {
     return 1;
   }
 
-  if (!force && tween._pt && (tween._dur && tween.vars.lazy !== false || !tween._dur && tween.vars.lazy) && _lastRenderedFrame !== _ticker.frame) {
+  if (!force && tween._pt && !_reverting$1 && (tween._dur && tween.vars.lazy !== false || !tween._dur && tween.vars.lazy) && _lastRenderedFrame !== _ticker.frame) {
     _lazyTweens.push(tween);
 
-    tween._lazy = [totalTime, suppressEvents];
+    tween._lazy = [tTime, suppressEvents];
     return 1;
   }
 },
@@ -106934,7 +117915,7 @@ _isFromOrFromStart = function _isFromOrFromStart(_ref2) {
   }
 
   if (ratio !== prevRatio || _reverting$1 || force || tween._zTime === _tinyNum || !totalTime && tween._zTime) {
-    if (!tween._initted && _attemptInitTween(tween, totalTime, force, suppressEvents)) {
+    if (!tween._initted && _attemptInitTween(tween, totalTime, force, suppressEvents, tTime)) {
       // if we render the very beginning (time == 0) of a fromTo(), we must force the render (normal tweens wouldn't need to render at a time of 0 when the prevTime was also 0). This is also mandatory to make sure overwriting kicks in immediately.
       return;
     }
@@ -107004,7 +117985,8 @@ _isFromOrFromStart = function _isFromOrFromStart(_ref2) {
   totalProgress && !leavePlayhead && (animation._time *= dur / animation._dur);
   animation._dur = dur;
   animation._tDur = !repeat ? dur : repeat < 0 ? 1e10 : _roundPrecise(dur * (repeat + 1) + animation._rDelay * repeat);
-  totalProgress > 0 && !leavePlayhead ? _alignPlayhead(animation, animation._tTime = animation._tDur * totalProgress) : animation.parent && _setEnd(animation);
+  totalProgress > 0 && !leavePlayhead && _alignPlayhead(animation, animation._tTime = animation._tDur * totalProgress);
+  animation.parent && _setEnd(animation);
   skipUncache || _uncache(animation.parent, animation);
   return animation;
 },
@@ -107440,7 +118422,7 @@ distribute = function distribute(v) {
     _interrupt = function _interrupt(animation) {
   _removeFromParent(animation);
 
-  animation.scrollTrigger && animation.scrollTrigger.kill(false);
+  animation.scrollTrigger && animation.scrollTrigger.kill(!!_reverting$1);
   animation.progress() < 1 && _callback(animation, "onInterrupt");
   return animation;
 },
@@ -108275,9 +119257,13 @@ var Animation = /*#__PURE__*/function () {
 
     var prevIsReverting = _reverting$1;
     _reverting$1 = config;
-    this.timeline && this.timeline.revert(config);
-    this.totalTime(-0.01, config.suppressEvents);
-    this.data !== "nested" && _removeFromParent(this);
+
+    if (this._initted || this._startAt) {
+      this.timeline && this.timeline.revert(config);
+      this.totalTime(-0.01, config.suppressEvents);
+    }
+
+    this.data !== "nested" && config.kill !== false && this.kill();
     _reverting$1 = prevIsReverting;
     return this;
   };
@@ -108701,8 +119687,6 @@ var Timeline = /*#__PURE__*/function (_Animation) {
           child = next;
         }
       } else {
-        force = force || _reverting$1; // if reverting, we should always force renders. If, for example, a .fromTo() tween with a stagger (which creates an internal timeline) gets reverted BEFORE some of its child tweens render for the first time, it may not properly trigger them to revert.
-
         child = this._last;
         var adjustedTime = totalTime < 0 ? totalTime : time; //when the playhead goes backward beyond the start of this timeline, we must pass that information down to the child animations so that zero-duration tweens know whether to render their starting or ending values.
 
@@ -108715,7 +119699,7 @@ var Timeline = /*#__PURE__*/function (_Animation) {
               return this.render(totalTime, suppressEvents, force);
             }
 
-            child.render(child._ts > 0 ? (adjustedTime - child._start) * child._ts : (child._dirty ? child.totalDuration() : child._tDur) + (adjustedTime - child._start) * child._ts, suppressEvents, force);
+            child.render(child._ts > 0 ? (adjustedTime - child._start) * child._ts : (child._dirty ? child.totalDuration() : child._tDur) + (adjustedTime - child._start) * child._ts, suppressEvents, force || _reverting$1 && (child._initted || child._startAt)); // if reverting, we should always force renders of initted tweens (but remember that .fromTo() or .from() may have a _startAt but not _initted yet). If, for example, a .fromTo() tween with a stagger (which creates an internal timeline) gets reverted BEFORE some of its child tweens render for the first time, it may not properly trigger them to revert.
 
             if (time !== this._time || !this._ts && !prevPaused) {
               //in case a tween pauses or seeks the timeline when rendering, like inside of an onUpdate/onComplete
@@ -109036,16 +120020,16 @@ var Timeline = /*#__PURE__*/function (_Animation) {
     return _uncache(this);
   };
 
-  _proto2.invalidate = function invalidate() {
+  _proto2.invalidate = function invalidate(soft) {
     var child = this._first;
     this._lock = 0;
 
     while (child) {
-      child.invalidate();
+      child.invalidate(soft);
       child = child._next;
     }
 
-    return _Animation.prototype.invalidate.call(this);
+    return _Animation.prototype.invalidate.call(this, soft);
   };
 
   _proto2.clear = function clear(includeLabels) {
@@ -109298,7 +120282,7 @@ _processVars = function _processVars(vars, index, target, targets, tween) {
     _overwritingTween,
     //store a reference temporarily so we can avoid overwriting itself.
 _forceAllPropTweens,
-    _initTween = function _initTween(tween, time) {
+    _initTween = function _initTween(tween, time, tTime) {
   var vars = tween.vars,
       ease = vars.ease,
       startAt = vars.startAt,
@@ -109352,7 +120336,9 @@ _forceAllPropTweens,
     cleanVars = _copyExcluding(vars, _reservedProps);
 
     if (prevStartAt) {
-      time < 0 && runBackwards && immediateRender && !autoRevert ? prevStartAt.render(-1, true) : prevStartAt.revert(runBackwards && dur ? _revertConfig : _startAtRevertConfig); // if it's a "startAt" (not "from()" or runBackwards: true), we only need to do a shallow revert (keep transforms cached in CSSPlugin)
+      prevStartAt._zTime < 0 && prevStartAt.progress(1); // in case it's a lazy startAt that hasn't rendered yet.
+
+      time < 0 && runBackwards && immediateRender && !autoRevert ? prevStartAt.render(-1, true) : prevStartAt.revert(runBackwards && dur ? _revertConfigNoKill : _startAtRevertConfig); // if it's a "startAt" (not "from()" or runBackwards: true), we only need to do a shallow revert (keep transforms cached in CSSPlugin)
       // don't just _removeFromParent(prevStartAt.render(-1, true)) because that'll leave inline styles. We're creating a new _startAt for "startAt" tweens that re-capture things to ensure that if the pre-tween values changed since the tween was created, they're recorded.
 
       prevStartAt._lazy = 0;
@@ -109374,10 +120360,13 @@ _forceAllPropTweens,
       }, startAt))); //copy the properties/values into a new object to avoid collisions, like var to = {x:0}, from = {x:500}; timeline.fromTo(e, from, to).fromTo(e, to, from);
 
 
-      time < 0 && (_reverting$1 || !immediateRender && !autoRevert) && tween._startAt.revert(_revertConfig); // rare edge case, like if a render is forced in the negative direction of a non-initted tween.
+      tween._startAt._dp = 0; // don't allow it to get put back into root timeline! Like when revert() is called and totalTime() gets set.
+
+      time < 0 && (_reverting$1 || !immediateRender && !autoRevert) && tween._startAt.revert(_revertConfigNoKill); // rare edge case, like if a render is forced in the negative direction of a non-initted tween.
 
       if (immediateRender) {
-        if (dur && time <= 0) {
+        if (dur && time <= 0 && tTime <= 0) {
+          // check tTime here because in the case of a yoyo tween whose playhead gets pushed to the end like tween.progress(1), we should allow it through so that the onComplete gets fired properly.
           time && (tween._zTime = time);
           return; //we skip initialization here so that overwriting doesn't occur until the tween actually begins. Otherwise, if you create several immediateRender:true tweens of the same target/properties to drop into a Timeline, the last one created would overwrite the first ones because they didn't get placed into the timeline yet before the first render occurs and kicks in overwriting.
         }
@@ -109402,11 +120391,13 @@ _forceAllPropTweens,
 
         _removeFromParent(tween._startAt = Tween.set(targets, p));
 
-        time < 0 && (_reverting$1 ? tween._startAt.revert(_revertConfig) : tween._startAt.render(-1, true));
+        tween._startAt._dp = 0; // don't allow it to get put back into root timeline!
+
+        time < 0 && (_reverting$1 ? tween._startAt.revert(_revertConfigNoKill) : tween._startAt.render(-1, true));
         tween._zTime = time;
 
         if (!immediateRender) {
-          _initTween(tween._startAt, _tinyNum); //ensures that the initial values are recorded
+          _initTween(tween._startAt, _tinyNum, _tinyNum); //ensures that the initial values are recorded
 
         } else if (!time) {
           return;
@@ -109748,7 +120739,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
     if (immediateRender || !duration && !keyframes && _this3._start === _roundPrecise(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
       _this3._tTime = -_tinyNum; //forces a render without having to set the render() "force" parameter to true because we want to allow lazying by default (using the "force" parameter always forces an immediate full render)
 
-      _this3.render(Math.max(0, -delay)); //in case delay is negative
+      _this3.render(Math.max(0, -delay) || 0); //in case delay is negative
 
     }
 
@@ -109833,7 +120824,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
       }
 
       if (!this._initted) {
-        if (_attemptInitTween(this, isNegative ? totalTime : time, force, suppressEvents)) {
+        if (_attemptInitTween(this, isNegative ? totalTime : time, force, suppressEvents, tTime)) {
           this._tTime = 0; // in constructor if immediateRender is true, we set _tTime to -_tinyNum to have the playhead cross the starting point but we can't leave _tTime as a negative number.
 
           return this;
@@ -109895,7 +120886,7 @@ var Tween = /*#__PURE__*/function (_Animation2) {
         isNegative && !this._onUpdate && _rewindStartAt(this, totalTime, true, true);
         (totalTime || !dur) && (tTime === this._tDur && this._ts > 0 || !tTime && this._ts < 0) && _removeFromParent(this, 1); // don't remove if we're rendering at exactly a time of 0, as there could be autoRevert values that should get set on the next tick (if the playhead goes backward beyond the startTime, negative totalTime). Don't remove if the timeline is reversed and the playhead isn't at 0, otherwise tl.progress(1).reverse() won't work. Only remove if the playhead is at the end and timeScale is positive, or if the playhead is at 0 and the timeScale is negative.
 
-        if (!suppressEvents && !(isNegative && !prevTime) && (tTime || prevTime)) {
+        if (!suppressEvents && !(isNegative && !prevTime) && (tTime || prevTime || isYoyo)) {
           // if prevTime and tTime are zero, we shouldn't fire the onReverseComplete. This could happen if you gsap.to(... {paused:true}).play();
           _callback(this, tTime === tDur ? "onComplete" : "onReverseComplete", true);
 
@@ -109911,11 +120902,13 @@ var Tween = /*#__PURE__*/function (_Animation2) {
     return this._targets;
   };
 
-  _proto3.invalidate = function invalidate() {
-    this._pt = this._op = this._startAt = this._onUpdate = this._lazy = this.ratio = 0;
+  _proto3.invalidate = function invalidate(soft) {
+    // "soft" gives us a way to clear out everything EXCEPT the recorded pre-"from" portion of from() tweens. Otherwise, for example, if you tween.progress(1).render(0, true true).invalidate(), the "from" values would persist and then on the next render, the from() tweens would initialize and the current value would match the "from" values, thus animate from the same value to the same value (no animation). We tap into this in ScrollTrigger's refresh() where we must push a tween to completion and then back again but honor its init state in case the tween is dependent on another tween further up on the page.
+    (!soft || !this.vars.runBackwards) && (this._startAt = 0);
+    this._pt = this._op = this._onUpdate = this._lazy = this.ratio = 0;
     this._ptLookup = [];
-    this.timeline && this.timeline.invalidate();
-    return _Animation2.prototype.invalidate.call(this);
+    this.timeline && this.timeline.invalidate(soft);
+    return _Animation2.prototype.invalidate.call(this, soft);
   };
 
   _proto3.resetTo = function resetTo(property, value, start, startIsRelative) {
@@ -110372,7 +121365,7 @@ var Context = /*#__PURE__*/function () {
   _proto5.getTweens = function getTweens() {
     var a = [];
     this.data.forEach(function (e) {
-      return e instanceof Context ? a.push.apply(a, e.getTweens()) : e instanceof Tween && a.push(e);
+      return e instanceof Context ? a.push.apply(a, e.getTweens()) : e instanceof Tween && !(e.parent && e.parent.data === "nested") && a.push(e);
     });
     return a;
   };
@@ -110385,8 +121378,18 @@ var Context = /*#__PURE__*/function () {
     var _this4 = this;
 
     if (revert) {
-      // save as an object so that we can cache the globalTime for each tween to optimize performance during the sort
-      this.getTweens().map(function (t) {
+      var tweens = this.getTweens();
+      this.data.forEach(function (t) {
+        // Flip plugin tweens are very different in that they should actually be pushed to their end. The plugin replaces the timeline's .revert() method to do exactly that. But we also need to remove any of those nested tweens inside the flip timeline so that they don't get individually reverted.
+        if (t.data === "isFlip") {
+          t.revert();
+          t.getChildren(true, true, false).forEach(function (tween) {
+            return tweens.splice(tweens.indexOf(tween), 1);
+          });
+        }
+      }); // save as an object so that we can cache the globalTime for each tween to optimize performance during the sort
+
+      tweens.map(function (t) {
         return {
           g: t.globalTime(0),
           t: t
@@ -110833,7 +121836,7 @@ var gsap = _gsap.registerPlugin({
   }
 }, _buildModifierPlugin("roundProps", _roundModifier), _buildModifierPlugin("modifiers"), _buildModifierPlugin("snap", snap)) || _gsap; //to prevent the core plugins from being dropped via aggressive tree shaking, we must include them in the variable declaration in this way.
 
-Tween.version = Timeline.version = gsap.version = "3.11.1";
+Tween.version = Timeline.version = gsap.version = "3.11.3";
 _coreReady = 1;
 _windowExists$1() && _wake();
 _easeMap.Power0;
@@ -110856,7 +121859,7 @@ _easeMap.Power0;
     _easeMap.Circ;
 
 /*!
- * CSSPlugin 3.11.1
+ * CSSPlugin 3.11.3
  * https://greensock.com
  *
  * Copyright 2008-2022, GreenSock. All rights reserved.
@@ -110932,7 +121935,7 @@ _renderRoundedCSSProp = function _renderRoundedCSSProp(ratio, data) {
 },
     _transformProp = "transform",
     _transformOriginProp = _transformProp + "Origin",
-    _saveStyle = function _saveStyle(property) {
+    _saveStyle = function _saveStyle(property, isNotCSS) {
   var _this = this;
 
   var target = this.target,
@@ -110954,13 +121957,13 @@ _renderRoundedCSSProp = function _renderRoundedCSSProp(ratio, data) {
 
     if (target._gsap.svg) {
       this.svgo = target.getAttribute("data-svg-origin");
-      this.props.push(_transformOriginProp, "");
+      this.props.push(_transformOriginProp, isNotCSS, "");
     }
 
     property = _transformProp;
   }
 
-  style && this.props.push(property, style[property]);
+  (style || isNotCSS) && this.props.push(property, isNotCSS, style[property]);
 },
     _removeIndependentTransforms = function _removeIndependentTransforms(style) {
   if (style.translate) {
@@ -110977,8 +121980,9 @@ _renderRoundedCSSProp = function _renderRoundedCSSProp(ratio, data) {
       i,
       p;
 
-  for (i = 0; i < props.length; i += 2) {
-    props[i + 1] ? style[props[i]] = props[i + 1] : style.removeProperty(props[i].replace(_capsExp, "-$1").toLowerCase());
+  for (i = 0; i < props.length; i += 3) {
+    // stored like this: property, isNotCSS, value
+    props[i + 1] ? target[props[i]] = props[i + 2] : props[i + 2] ? style[props[i]] = props[i + 2] : style.removeProperty(props[i].replace(_capsExp, "-$1").toLowerCase());
   }
 
   if (this.tfm) {
@@ -111676,7 +122680,7 @@ _identity2DMatrix = [1, 0, 0, 1, 0, 0],
   if (cs.translate) {
     // accommodate independent transforms by combining them into normal ones.
     if (cs.translate !== "none" || cs.scale !== "none" || cs.rotate !== "none") {
-      style[_transformProp] = (cs.translate !== "none" ? "translate3d(" + (cs.translate + " 0 0").split(" ").slice(0, 3).join(", ") + ") " : "") + (cs.rotate !== "none" ? "rotate(" + cs.rotate + ") " : "") + (cs.scale !== "none" ? "scale(" + cs.scale.split(" ").join(",") + ") " : "") + cs[_transformProp];
+      style[_transformProp] = (cs.translate !== "none" ? "translate3d(" + (cs.translate + " 0 0").split(" ").slice(0, 3).join(", ") + ") " : "") + (cs.rotate !== "none" ? "rotate(" + cs.rotate + ") " : "") + (cs.scale !== "none" ? "scale(" + cs.scale.split(" ").join(",") + ") " : "") + (cs[_transformProp] !== "none" ? cs[_transformProp] : "");
     }
 
     style.scale = style.rotate = style.translate = "none";
@@ -112213,7 +123217,7 @@ var CSSPlugin = {
         endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit);
         this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p);
         props.push(p);
-        inlineProps.push(p, style[p]);
+        inlineProps.push(p, 0, style[p]);
       } else if (type !== "undefined") {
         if (startAt && p in startAt) {
           // in case someone hard-codes a complex value as the start, like top: "calc(2vh / 2)". Without this, it'd use the computed value (always in px)
@@ -112239,7 +123243,7 @@ var CSSPlugin = {
               startNum = 0;
             }
 
-            inlineProps.push("visibility", style.visibility);
+            inlineProps.push("visibility", 0, style.visibility);
 
             _addNonTweeningPT(this, style, "visibility", startNum ? "inherit" : "hidden", endNum ? "inherit" : "hidden", !endNum);
           }
@@ -112266,12 +123270,12 @@ var CSSPlugin = {
           }
 
           if (p === "scale") {
-            this._pt = new PropTween(this._pt, cache, "scaleY", cache.scaleY, (relative ? _parseRelative(cache.scaleY, relative + endNum) : endNum) - cache.scaleY || 0, _renderCSSProp);
+            this._pt = new PropTween(this._pt, cache, "scaleY", startNum, (relative ? _parseRelative(startNum, relative + endNum) : endNum) - startNum || 0, _renderCSSProp);
             this._pt.u = 0;
             props.push("scaleY", p);
             p += "X";
           } else if (p === "transformOrigin") {
-            inlineProps.push(_transformOriginProp, style[_transformOriginProp]);
+            inlineProps.push(_transformOriginProp, 0, style[_transformOriginProp]);
             endValue = _convertKeywordsToPercentages(endValue); //in case something like "left top" or "bottom right" is passed in. Convert to percentages.
 
             if (cache.svg) {
@@ -112336,7 +123340,7 @@ var CSSPlugin = {
           _tweenComplexCSSString.call(this, target, p, startValue, relative ? relative + endValue : endValue);
         }
 
-        isTransformRelated || inlineProps.push(p, style[p]);
+        isTransformRelated || (p in style ? inlineProps.push(p, 0, style[p]) : inlineProps.push(p, 1, startValue || target[p]));
         props.push(p);
       }
     }
@@ -119541,7 +130545,7 @@ class StoreyManager {
     }
     async getCurrentStoreys(modelID) {
         if (!this.list[modelID]) {
-            this.list[modelID] = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCBUILDINGSTOREY, true);
+            this.list[modelID] = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCBUILDINGSTOREY$1, true);
         }
     }
     async getSiteCoords(modelID) {
@@ -119555,7 +130559,7 @@ class StoreyManager {
         }
     }
     async getBuilding(modelID) {
-        const allBuildingsIDs = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCBUILDING, false);
+        const allBuildingsIDs = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCBUILDING$1, false);
         const buildingID = allBuildingsIDs[0];
         return this.loader.ifcManager.getItemProperties(modelID, buildingID, true);
     }
@@ -119574,7 +130578,7 @@ class StoreyManager {
     // Might need to fix this in the future
     async getUnitsFactor(modelID) {
         var _a;
-        const allUnitsIDs = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCUNITASSIGNMENT, false);
+        const allUnitsIDs = await this.loader.ifcManager.getAllItemsOfType(modelID, IFCUNITASSIGNMENT$1, false);
         const unitsID = allUnitsIDs[0];
         const unitsProps = await this.loader.ifcManager.getItemProperties(modelID, unitsID);
         const lengthUnitID = unitsProps.Units[0].value;
@@ -119683,7 +130687,7 @@ class GLTFManager extends IfcComponent {
             id: '',
             coordinationMatrix: []
         };
-        const projects = await manager.getAllItemsOfType(model.modelID, IFCPROJECT, true);
+        const projects = await manager.getAllItemsOfType(model.modelID, IFCPROJECT$1, true);
         if (!projects.length)
             throw new Error('No IfcProject instances were found in the IFC.');
         const GUID = projects[0].GlobalId;
@@ -121626,7 +132630,7 @@ class IfcViewerAPI {
             throw new Error('Could not get container element!');
         this.context = new IfcContext(options);
         this.IFC = new IfcManager(this.context);
-        this.grid = new IfcGrid(this.context);
+        this.grid = new IfcGrid$1(this.context);
         this.axes = new IfcAxes(this.context);
         this.clipper = new IfcClipper(this.context, this.IFC);
         this.plans = new PlanManager(this.IFC, this.context, this.clipper);
@@ -121782,108 +132786,133 @@ class IfcViewerAPI {
 }
 
 const container = document.getElementById('viewer-container');
-const viewer = new IfcViewerAPI({container, backgroundColor: new Color(0xffffff)});
+const viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
+
+// Create grid and axes
 viewer.grid.setGrid();
 viewer.axes.setAxes();
 
-const input = document.getElementById("file-input");
-const selection = document.getElementById("btn-selection");
-const dimension = document.getElementById("btn-dimension");
+// Get all buttons
+const loadIfcButton = document.getElementById('load-ifc');
+const loadRequirements = document.getElementById('load-json');
+const checkIfc = document.getElementById('check');
 
-selection.addEventListener(
-    "click",
-    async (clicked) => {
-        viewer.dimensions.active= false;
-        viewer.dimensions.previewActive = false;
-        dimension.className="btn btn-light";
-        selection.className="btn btn-dark";
-        window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
-        window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
-    },
-    );
+const inputIfc = document.getElementById('file-input-ifc');
+const inputRequirements = document.getElementById('file-input-json');
 
-dimension.addEventListener(
-    "click", 
-    async (clicked) => {
-        viewer.IFC.selector.unHighlightIfcItems();
-        selection.className="btn btn-light";
-        dimension.className="btn btn-dark";
-        viewer.dimensions.active= true;
-        viewer.dimensions.previewActive = true;
+let model;
+let reqPar;
+let scene;
 
-        window.ondblclick = () => {
-            viewer.dimensions.create();
-        };
+// Set up the button logic
+inputRequirements.onchange = () => loadJson();
+inputIfc.onchange = () => loadIfc();
 
-        window.onkeydown = (event) => {
-            if(event.code === 'Delete'){
-                viewer.dimensions.delete();
-            }
-        };
-}, false
- );
+loadIfcButton.onclick = () => inputIfc.click();
+loadRequirements.onclick = () => inputRequirements.click();
+checkIfc.onclick = () => checkModel();
 
-input.addEventListener(
-    "change",
-    async (changed) => {
-        const ifcURL = URL.createObjectURL(changed.target.files[0]);
-        const model = await viewer.IFC.loadIfcUrl(ifcURL);
-        await viewer.shadowDropper.renderShadow(model.modelID);
-        //window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
-        window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+async function loadJson(){
+  //Load the Requirements
+  const requirements = inputRequirements.files[0];
+  const urlRequirements = URL.createObjectURL(requirements);
 
-        window.ondblclick = async () => {
-            const result = await viewer.IFC.selector.highlightIfcItem();
-            if (!result) return;
-            const { modelID, id } = result;
-            const props = await viewer.IFC.getProperties(modelID, id, true, false);
-            createPropertiesMenu(props);
-        };
-        },
-    false
-);
-
-
-const propsGUI = document.getElementById("ifc-property-menu-root");
-
-function createPropertiesMenu(properties) {
-    console.log(properties);
-
-    removeAllChildren(propsGUI);
-
-    delete properties.psets;
-    delete properties.mats;
-    delete properties.type;
-
-    for (let key in properties) {
-        createPropertyEntry(key, properties[key]);
-    }
-
+  const rawRequirements = await fetch(urlRequirements);
+  reqPar = await rawRequirements.json();
 }
 
+async function loadIfc() {
+		// Load thpropprope model
+    const file = inputIfc.files[0];
+    const url = URL.createObjectURL(file);
+    model = await viewer.IFC.loadIfcUrl(url);
 
-
-function createPropertyEntry(key, value) {
-    const propContainer = document.createElement("div");
-    propContainer.classList.add("ifc-property-item");
-
-    if(value === null || value === undefined) value = "undefined";
-    else if(value.value) value = value.value;
-
-    const keyElement = document.createElement("div");
-    keyElement.textContent = key;
-    propContainer.appendChild(keyElement);
-
-    const valueElement = document.createElement("div");
-    valueElement.classList.add("ifc-property-value");
-    valueElement.textContent = value;
-    propContainer.appendChild(valueElement);
-
-    propsGUI.appendChild(propContainer);
+		// Add dropped shadow and post-processing efect
+    await viewer.shadowDropper.renderShadow(model.modelID);   
 }
 
-function removeAllChildren(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
+async function checkModel(){
+
+  scene = viewer.context.getScene();
+
+  //Serialize properties
+  const result = await viewer.IFC.properties.serializeAllProperties(model);
+  const fileResults = new File(result, 'properties');
+  const urlResults = URL.createObjectURL(fileResults);
+  const rawProperties = await fetch(urlResults);
+  const prop = await rawProperties.json();
+  const fail = [];
+  let ifc_entity;
+  let property_set;
+  let property_value;
+  let flag_propriedade = 0;
+
+  const filteredParameters = reqPar.filter(item => item.PropertySet != 'Identification');
+
+  for(value in filteredParameters){
+    ifc_entity = filteredParameters[value].IFCEntity;
+    property_set = filteredParameters[value].PropertySet;
+    property_value = filteredParameters[value].Property;
+
+    for (var key in prop) {
+      if ((prop[key].type) == ifc_entity) {
+          //console.log(prop[key].expressID);
+          const propertyValues = Object.values(prop);
+          const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
+          const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
+          const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+          for (let pset of psets) {
+              for (parameter in pset.HasProperties) {
+                  let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+                  for (let pr of propriedade) {
+                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                          flag_propriedade = 1;
+                      }
+                  }
+              }
+              for (parameter in pset.Quantities) {
+                  let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
+                  for (let pr of propriedade) {
+                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                          flag_propriedade = 1;
+                      }
+                  }
+              }
+          }
+          if (flag_propriedade == 0) {
+              fail.push(prop[key].expressID);
+          } else if (flag_propriedade == 1) {                
+              flag_propriedade = 0;
+          }
+      }
     }
+  }
+  let fail_set = [...new Set(fail)];
+  console.log(fail_set);
+
+  model.removeFromParent();
+  const subset = await newSubsetOfType(fail_set);
+  scene.add(subset);
+}
+
+function decodeIFCString(ifcString) {
+  const ifcUnicodeRegEx = /\\X2\\(.*?)\\X0\\/uig;
+  let propString = ifcString;
+  let match = ifcUnicodeRegEx.exec(ifcString);
+  while (match) {
+      const unicodeChar = String.fromCharCode(parseInt(match[1], 16));
+      propString = propString.replace(match[0], unicodeChar);
+      match = ifcUnicodeRegEx.exec(ifcString);
+  }
+  return propString;
+}
+
+async function newSubsetOfType(list_ids){
+  const ids = list_ids;
+  return viewer.IFC.loader.ifcManager.createSubset({
+    modelID: 0,
+    scene,
+    ids,
+    removePrevious: true,
+  });
 }

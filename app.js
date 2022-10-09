@@ -1,109 +1,134 @@
-import { Color, Scene } from "three";
-import { IfcViewerAPI } from "web-ifc-viewer";
+import { Color } from 'three';
+import { IfcViewerAPI } from 'web-ifc-viewer';
 
 const container = document.getElementById('viewer-container');
-const viewer = new IfcViewerAPI({container, backgroundColor: new Color(0xffffff)});
+const viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
+
+// Create grid and axes
 viewer.grid.setGrid();
 viewer.axes.setAxes();
 
-const input = document.getElementById("file-input");
-const selection = document.getElementById("btn-selection");
-const dimension = document.getElementById("btn-dimension");
+// Get all buttons
+const loadIfcButton = document.getElementById('load-ifc');
+const loadRequirements = document.getElementById('load-json');
+const checkIfc = document.getElementById('check');
 
-selection.addEventListener(
-    "click",
-    async (clicked) => {
-        viewer.dimensions.active= false;
-        viewer.dimensions.previewActive = false;
-        dimension.className="btn btn-light";
-        selection.className="btn btn-dark";
-        window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
-        window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
-    },
-    )
+const inputIfc = document.getElementById('file-input-ifc');
+const inputRequirements = document.getElementById('file-input-json');
 
-dimension.addEventListener(
-    "click", 
-    async (clicked) => {
-        viewer.IFC.selector.unHighlightIfcItems();
-        selection.className="btn btn-light";
-        dimension.className="btn btn-dark";
-        viewer.dimensions.active= true;
-        viewer.dimensions.previewActive = true;
+let model;
+let reqPar;
+let scene;
 
-        window.ondblclick = () => {
-            viewer.dimensions.create();
-        }
+// Set up the button logic
+inputRequirements.onchange = () => loadJson();
+inputIfc.onchange = () => loadIfc();
 
-        window.onkeydown = (event) => {
-            if(event.code === 'Delete'){
-                viewer.dimensions.delete();
-            }
-        }
-}, false
- );
+loadIfcButton.onclick = () => inputIfc.click();
+loadRequirements.onclick = () => inputRequirements.click();
+checkIfc.onclick = () => checkModel();
 
-input.addEventListener(
-    "change",
-    async (changed) => {
-        const ifcURL = URL.createObjectURL(changed.target.files[0]);
-        const model = await viewer.IFC.loadIfcUrl(ifcURL);
-        await viewer.shadowDropper.renderShadow(model.modelID);
-        //window.ondblclick = () => viewer.IFC.selector.pickIfcItem();
-        window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+async function loadJson(){
+  //Load the Requirements
+  const requirements = inputRequirements.files[0];
+  const urlRequirements = URL.createObjectURL(requirements);
 
-        window.ondblclick = async () => {
-            const result = await viewer.IFC.selector.highlightIfcItem();
-            if (!result) return;
-            const { modelID, id } = result;
-            const props = await viewer.IFC.getProperties(modelID, id, true, false);
-            createPropertiesMenu(props);
-        };
-        },
-    false
-);
-
-
-const propsGUI = document.getElementById("ifc-property-menu-root");
-
-function createPropertiesMenu(properties) {
-    console.log(properties);
-
-    removeAllChildren(propsGUI);
-
-    delete properties.psets;
-    delete properties.mats;
-    delete properties.type;
-
-    for (let key in properties) {
-        createPropertyEntry(key, properties[key]);
-    }
-
+  const rawRequirements = await fetch(urlRequirements);
+  reqPar = await rawRequirements.json();
 }
 
+async function loadIfc() {
+		// Load thpropprope model
+    const file = inputIfc.files[0];
+    const url = URL.createObjectURL(file);
+    model = await viewer.IFC.loadIfcUrl(url);
 
-
-function createPropertyEntry(key, value) {
-    const propContainer = document.createElement("div");
-    propContainer.classList.add("ifc-property-item");
-
-    if(value === null || value === undefined) value = "undefined";
-    else if(value.value) value = value.value;
-
-    const keyElement = document.createElement("div");
-    keyElement.textContent = key;
-    propContainer.appendChild(keyElement);
-
-    const valueElement = document.createElement("div");
-    valueElement.classList.add("ifc-property-value");
-    valueElement.textContent = value;
-    propContainer.appendChild(valueElement);
-
-    propsGUI.appendChild(propContainer);
+		// Add dropped shadow and post-processing efect
+    await viewer.shadowDropper.renderShadow(model.modelID);   
 }
 
-function removeAllChildren(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
+async function checkModel(){
+
+  scene = viewer.context.getScene();
+
+  //Serialize properties
+  const result = await viewer.IFC.properties.serializeAllProperties(model);
+  const fileResults = new File(result, 'properties');
+  const urlResults = URL.createObjectURL(fileResults);
+  const rawProperties = await fetch(urlResults);
+  const prop = await rawProperties.json();
+  const fail = [];
+  let ifc_entity;
+  let property_set;
+  let property_value;
+  let flag_propriedade = 0;
+
+  const filteredParameters = reqPar.filter(item => item.PropertySet != 'Identification');
+
+  for(value in filteredParameters){
+    ifc_entity = filteredParameters[value].IFCEntity;
+    property_set = filteredParameters[value].PropertySet;
+    property_value = filteredParameters[value].Property;
+
+    for (var key in prop) {
+      if ((prop[key].type) == ifc_entity) {
+          //console.log(prop[key].expressID);
+          const propertyValues = Object.values(prop);
+          const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
+          const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
+          const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+          for (let pset of psets) {
+              for (parameter in pset.HasProperties) {
+                  let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+                  for (let pr of propriedade) {
+                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                          flag_propriedade = 1
+                      }
+                  }
+              }
+              for (parameter in pset.Quantities) {
+                  let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
+                  for (let pr of propriedade) {
+                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                          flag_propriedade = 1
+                      }
+                  }
+              }
+          }
+          if (flag_propriedade == 0) {
+              fail.push(prop[key].expressID);
+          } else if (flag_propriedade == 1) {                
+              flag_propriedade = 0;
+          }
+      }
     }
+  }
+  let fail_set = [...new Set(fail)];
+  console.log(fail_set);
+
+  model.removeFromParent();
+  const subset = await newSubsetOfType(fail_set);
+  scene.add(subset);
+}
+
+function decodeIFCString(ifcString) {
+  const ifcUnicodeRegEx = /\\X2\\(.*?)\\X0\\/uig;
+  let propString = ifcString;
+  let match = ifcUnicodeRegEx.exec(ifcString);
+  while (match) {
+      const unicodeChar = String.fromCharCode(parseInt(match[1], 16));
+      propString = propString.replace(match[0], unicodeChar);
+      match = ifcUnicodeRegEx.exec(ifcString);
+  }
+  return propString;
+}
+
+async function newSubsetOfType(list_ids){
+  const ids = list_ids;
+  return viewer.IFC.loader.ifcManager.createSubset({
+    modelID: 0,
+    scene,
+    ids,
+    removePrevious: true,
+  });
 }

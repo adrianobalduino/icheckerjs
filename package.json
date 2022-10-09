@@ -6,23 +6,15 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adrianobalduino/icheckerjs.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adrianobalduino/icheckerjs/issues"
-  },
-  "homepage": "https://github.com/adrianobalduino/icheckerjs#readme",
   "devDependencies": {
-    "rollup": "^2.79.0"
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "rollup": "^2.79.1"
   },
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^14.1.0",
     "three": "^0.135.0",
-    "web-ifc-viewer": "^1.0.211"
+    "web-ifc": "^0.0.36",
+    "web-ifc-viewer": "^1.0.213"
   }
 }
