@@ -19,6 +19,9 @@ const inputRequirements = document.getElementById('file-input-json');
 let model;
 let reqPar;
 let scene;
+const fail = [];
+const fail_property = [];
+let missingProp = [];
 
 const pickable = viewer.context.items.pickableIfcModels;
 const index = pickable.indexOf(model);
@@ -87,7 +90,7 @@ async function checkModel(){
   const urlResults = URL.createObjectURL(fileResults);
   const rawProperties = await fetch(urlResults);
   const prop = await rawProperties.json();
-  const fail = [];
+
   let ifc_entity;
   let property_set;
   let property_value;
@@ -127,6 +130,7 @@ async function checkModel(){
           }
           if (flag_propriedade == 0) {
               fail.push(prop[key].expressID);
+              fail_property.push(property_set + "." + property_value);
           } else if (flag_propriedade == 1) {                
               flag_propriedade = 0;
           }
@@ -134,7 +138,9 @@ async function checkModel(){
     }
   }
   let fail_set = [...new Set(fail)];
-
+  console.log(fail);
+  console.log(fail_property);
+  
   model.removeFromParent();
   pickable.splice(index, 1);
   const subset = await newSubsetOfType(fail_set);
@@ -179,7 +185,7 @@ function loadingEnd(){
 }
 
 function createPropertiesMenu(properties) {
-  // console.log(properties);
+  //console.log(properties);
 
   removeAllChildren(propsGUI);
 
@@ -187,11 +193,26 @@ function createPropertiesMenu(properties) {
   delete properties.mats;
   delete properties.type;
 
-
   for (let key in properties) {
       createPropertyEntry(key, properties[key]);
   }
 
+  createPropertyEntry("Missing Properties", missingProperties(properties.expressID));
+
+}
+
+function missingProperties(expressID){
+  missingProp = [];
+  for (var i = 0; i < fail.length ; i++){
+    if(fail[i] == expressID){
+      missingProp.push(fail_property[i]);
+    }
+  }
+  if(missingProp){
+    return missingProp;
+  } else {
+    return;
+  }
 }
 
 function createPropertyEntry(key, value) {
