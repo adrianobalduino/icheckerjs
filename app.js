@@ -94,22 +94,30 @@ async function checkModel(){
   let ifc_entity;
   let property_set;
   let property_value;
+  let all_ifc_classes = [];
   let flag_propriedade = 0;
 
   const filteredParameters = reqPar.filter(item => item.PropertySet != 'Identification');
   const propertyValues = Object.values(prop);
   const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
 
-  for(value in filteredParameters){
-    ifc_entity = filteredParameters[value].IFCEntity;
-    property_set = filteredParameters[value].PropertySet;
-    property_value = filteredParameters[value].Property;
+  for (value in filteredParameters){
+    property_value = filteredParameters[value].IFCEntity;
+    all_ifc_classes.push(property_value);
 
-    for (var key in prop) {
-      if ((prop[key].type) == ifc_entity) {
-        const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
-        const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
-        outer_loop:
+  }
+  const set_ifc_classes = [...new Set(all_ifc_classes)]; 
+
+  for(var key in prop){
+    if(set_ifc_classes.includes(prop[key].type)){
+      for(value in filteredParameters){
+        ifc_entity = filteredParameters[value].IFCEntity;
+        property_set = filteredParameters[value].PropertySet;
+        property_value = filteredParameters[value].Property;
+        if(prop[key].type == ifc_entity){
+          const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
+          const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+          outer_loop:
           for (let pset of psets) {
             if(decodeIFCString(pset.Name == property_set)){
               for (parameter in pset.HasProperties) {
@@ -122,28 +130,29 @@ async function checkModel(){
                 }
               }
               for (parameter in pset.Quantities) {
-                let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
-                for (let pr of propriedade) {
-                  if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                    flag_propriedade = 1;
-                    break outer_loop;
+                  let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
+                  for (let pr of propriedade) {
+                    if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                      flag_propriedade = 1;
+                      break outer_loop;
+                    }
                   }
                 }
               }
             }
-          }
-        if (flag_propriedade == 0) {
+      if (flag_propriedade == 0) {
           fail.push(prop[key].expressID);
           fail_property.push(property_set + "." + property_value);
-        } else if (flag_propriedade == 1) {                
+          } else if (flag_propriedade == 1) {                
           flag_propriedade = 0;
+          }
         }
-      }
+        }
     }
-  }
-  let fail_set = [...new Set(fail)];
-  // console.log(fail);
-  // console.log(fail_property);
+    }
+  let fail_set = [...new Set(fail)]
+
+
 
   model.removeFromParent();
   pickable.splice(index, 1);
