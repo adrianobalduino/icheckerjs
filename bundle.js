@@ -121911,6 +121911,8 @@ async function checkModel(){
   let flag_propriedade = 0;
 
   const filteredParameters = reqPar.filter(item => item.PropertySet != 'Identification');
+  const propertyValues = Object.values(prop);
+  const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
 
   for(value in filteredParameters){
     ifc_entity = filteredParameters[value].IFCEntity;
@@ -121919,42 +121921,42 @@ async function checkModel(){
 
     for (var key in prop) {
       if ((prop[key].type) == ifc_entity) {
-          //console.log(prop[key].expressID);
-          const propertyValues = Object.values(prop);
-          const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
-          const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
-          const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+        const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
+        const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+        outer_loop:
           for (let pset of psets) {
-              for (parameter in pset.HasProperties) {
-                  let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
-                  for (let pr of propriedade) {
-                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                          flag_propriedade = 1;
-                      }
-                  }
+            for (parameter in pset.HasProperties) {
+              let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+              for (let pr of propriedade) {
+                if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                  flag_propriedade = 1;
+                  break outer_loop;
+                }
               }
-              for (parameter in pset.Quantities) {
-                  let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
-                  for (let pr of propriedade) {
-                      if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                          flag_propriedade = 1;
-                      }
-                  }
+            }
+            for (parameter in pset.Quantities) {
+              let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
+              for (let pr of propriedade) {
+                if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                  flag_propriedade = 1;
+                  break outer_loop;
+                }
               }
+            }
           }
-          if (flag_propriedade == 0) {
-              fail.push(prop[key].expressID);
-              fail_property.push(property_set + "." + property_value);
-          } else if (flag_propriedade == 1) {                
-              flag_propriedade = 0;
-          }
+        if (flag_propriedade == 0) {
+          fail.push(prop[key].expressID);
+          fail_property.push(property_set + "." + property_value);
+        } else if (flag_propriedade == 1) {                
+          flag_propriedade = 0;
+        }
       }
     }
   }
   let fail_set = [...new Set(fail)];
-  console.log(fail);
-  console.log(fail_property);
-  
+  // console.log(fail);
+  // console.log(fail_property);
+
   model.removeFromParent();
   pickable.splice(index, 1);
   const subset = await newSubsetOfType(fail_set);
@@ -122008,11 +122010,11 @@ function createPropertiesMenu(properties) {
   delete properties.type;
 
   for (let key in properties) {
-      createPropertyEntry(key, properties[key]);
+    if(key == 'expressID' || key == 'GlobalId' || key == 'Name' || key == 'Description'){
+      createPropertyEntry(key, decodeIFCString(properties[key]));
+    }
   }
-
   createPropertyEntry("Missing Properties", missingProperties(properties.expressID));
-
 }
 
 function missingProperties(expressID){
