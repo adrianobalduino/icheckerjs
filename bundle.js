@@ -121925,21 +121925,23 @@ async function checkModel(){
         const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
         outer_loop:
           for (let pset of psets) {
-            for (parameter in pset.HasProperties) {
-              let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
-              for (let pr of propriedade) {
-                if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                  flag_propriedade = 1;
-                  break outer_loop;
+            if(decodeIFCString(pset.Name == property_set)){
+              for (parameter in pset.HasProperties) {
+                let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+                for (let pr of propriedade) {
+                  if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                    flag_propriedade = 1;
+                    break outer_loop;
+                  }
                 }
               }
-            }
-            for (parameter in pset.Quantities) {
-              let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
-              for (let pr of propriedade) {
-                if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                  flag_propriedade = 1;
-                  break outer_loop;
+              for (parameter in pset.Quantities) {
+                let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
+                for (let pr of propriedade) {
+                  if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                    flag_propriedade = 1;
+                    break outer_loop;
+                  }
                 }
               }
             }
