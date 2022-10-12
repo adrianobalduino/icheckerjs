@@ -121816,7 +121816,7 @@ class IfcViewerAPI {
 }
 
 const container = document.getElementById('viewer-container');
-const viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
+let viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
 
 // Create grid and axes
 viewer.grid.setGrid();
@@ -121839,8 +121839,6 @@ let missingProp = [];
 
 const pickable = viewer.context.items.pickableIfcModels;
 const index = pickable.indexOf(model);
-
-const propsGUI = document.getElementById("ifc-property-menu-root");
 
 // Set up the button logic
 inputRequirements.onchange = () => loadJson();
@@ -121871,11 +121869,14 @@ async function loadIfc() {
   // Load thpropprope model
   const file = inputIfc.files[0];
   const url = URL.createObjectURL(file);
+  const table = document.getElementById('info-table');
+
   model = await viewer.IFC.loadIfcUrl(url);
 
   // Add dropped shadow and post-processing efect
   await viewer.shadowDropper.renderShadow(model.modelID);   
   window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
+  viewer.clipper.active = true;
 
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
@@ -121887,13 +121888,21 @@ async function loadIfc() {
     if (!result) return;
     const { modelID, id } = result;
     const props = await viewer.IFC.getProperties(modelID, id, true, false);
-    createPropertiesMenu(props);
+    addPropertyEntry(table, props);
   };
 }
 
+window.onkeydown = (event) => {
+  if (event.code === "KeyP") {
+    viewer.clipper.createPlane();
+  } else if (event.code === "KeyO") {
+    viewer.clipper.deletePlane();
+  }
+};
 
 async function checkModel(){
 
+  viewer.IFC.selector.unpickIfcItems();
   loadingStart();
 
   scene = viewer.context.getScene();
@@ -121918,24 +121927,33 @@ async function checkModel(){
   for (value in filteredParameters){
     property_value = filteredParameters[value].IFCEntity;
     all_ifc_classes.push(property_value);
-
   }
-  const set_ifc_classes = [...new Set(all_ifc_classes)]; 
+  const set_ifc_classes = [...new Set(all_ifc_classes)];
 
-  for(var key in prop){
-    if(set_ifc_classes.includes(prop[key].type)){
-      for(value in filteredParameters){
-        ifc_entity = filteredParameters[value].IFCEntity;
-        property_set = filteredParameters[value].PropertySet;
-        property_value = filteredParameters[value].Property;
-        if(prop[key].type == ifc_entity){
-          const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(prop[key].expressID));
-          const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
-          outer_loop:
-          for (let pset of psets) {
-            if(decodeIFCString(pset.Name == property_set)){
-              for (parameter in pset.HasProperties) {
-                let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+  const filteredValues = propertyValues.filter(item => set_ifc_classes.includes(item.type));
+
+  for(var key in filteredValues){
+    for(value in filteredParameters){
+      ifc_entity = filteredParameters[value].IFCEntity;
+      property_set = filteredParameters[value].PropertySet;
+      property_value = filteredParameters[value].Property;
+      if(filteredValues[key].type == ifc_entity){
+        const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(filteredValues[key].expressID));
+        const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
+        outer_loop:
+        for (let pset of psets) {
+          if(decodeIFCString(pset.Name == property_set)){
+            for (parameter in pset.HasProperties) {
+              let propriedade = propertyValues.filter(item => item.expressID === pset.HasProperties[parameter]);
+              for (let pr of propriedade) {
+                if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
+                  flag_propriedade = 1;
+                  break outer_loop;
+                }
+              }
+            }
+            for (parameter in pset.Quantities) {
+                let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
                 for (let pr of propriedade) {
                   if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
                     flag_propriedade = 1;
@@ -121943,19 +121961,10 @@ async function checkModel(){
                   }
                 }
               }
-              for (parameter in pset.Quantities) {
-                  let propriedade = propertyValues.filter(item => item.expressID == pset.Quantities[parameter]);
-                  for (let pr of propriedade) {
-                    if (property_set == decodeIFCString(pset.Name) && property_value == decodeIFCString(pr.Name)) {
-                      flag_propriedade = 1;
-                      break outer_loop;
-                    }
-                  }
-                }
-              }
             }
+          }
       if (flag_propriedade == 0) {
-          fail.push(prop[key].expressID);
+          fail.push(filteredValues[key].expressID);
           fail_property.push(property_set + "." + property_value);
           } else if (flag_propriedade == 1) {                
           flag_propriedade = 0;
@@ -121963,12 +121972,7 @@ async function checkModel(){
         }
         }
     }
-
- 
-    }
   let fail_set = [...new Set(fail)];
-
-
 
   model.removeFromParent();
   pickable.splice(index, 1);
@@ -122013,21 +122017,49 @@ function loadingEnd(){
   document.getElementById("loading").classList.add("invisible");
 }
 
-function createPropertiesMenu(properties) {
-  //console.log(properties);
+function addPropertyEntry(table, properties){
 
-  removeAllChildren(propsGUI);
+  const body = table.querySelector('tbody');
+  while (body.firstChild){
+    body.removeChild(body.firstChild);
+  }
 
   delete properties.psets;
   delete properties.mats;
   delete properties.type;
+  
+  for(let key in properties){
+    if (key == 'expressID' || key == 'GlobalId' || key == 'Name' || key == 'Description'){
+      let row = document.createElement('tr');
+      body.appendChild(row);
+      const propertyName = document.createElement('td');
+      propertyName.textContent = key;
+      row.appendChild(propertyName);
 
-  for (let key in properties) {
-    if(key == 'expressID' || key == 'GlobalId' || key == 'Name' || key == 'Description'){
-      createPropertyEntry(key, decodeIFCString(properties[key]));
+      let value;
+
+      if(decodeIFCString(properties[key] == null || decodeIFCString(properties[key]) === undefined)){
+        value = "Unknown";
+      } else if(decodeIFCString(properties[key]) && key == 'expressID') {
+        value = decodeIFCString(properties[key]);
+      } else {
+        value = decodeIFCString(properties[key]).value;
+      }
+      let propertyValue = document.createElement('td');
+      propertyValue.textContent = value;
+      row.appendChild(propertyValue);
     }
   }
-  createPropertyEntry("Missing Properties", missingProperties(properties.expressID));
+
+  row = document.createElement('tr');
+  body.appendChild(row);
+  propertyName = document.createElement('td');
+  propertyName.textContent = 'Missing Properties';
+  row.appendChild(propertyName);
+
+  propertyValue = document.createElement('td');
+  propertyValue.textContent = missingProperties(properties.expressID);
+  row.appendChild(propertyValue);
 }
 
 function missingProperties(expressID){
@@ -122041,30 +122073,5 @@ function missingProperties(expressID){
     return missingProp;
   } else {
     return;
-  }
-}
-
-function createPropertyEntry(key, value) {
-  const propContainer = document.createElement("div");
-  propContainer.classList.add("ifc-property-item");
-
-  if(value === null || value === undefined) value = "undefined";
-  else if(value.value) value = value.value;
-
-  const keyElement = document.createElement("div");
-  keyElement.textContent = key;
-  propContainer.appendChild(keyElement);
-
-  const valueElement = document.createElement("div");
-  valueElement.classList.add("ifc-property-value");
-  valueElement.textContent = value;
-  propContainer.appendChild(valueElement);
-
-  propsGUI.appendChild(propContainer);
-}
-
-function removeAllChildren(element) {
-  while (element.firstChild) {
-      element.removeChild(element.firstChild);
   }
 }

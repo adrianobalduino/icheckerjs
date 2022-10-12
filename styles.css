@@ -19,7 +19,7 @@ html, body {
 }
 
 #viewer-container {
-    position: fixed;
+    /* position: absolute; */
     top: 0;
     left: 0;
     outline: none;
@@ -27,12 +27,12 @@ html, body {
     height: 100%;
 }
 
-#file-input{
+/* #file-input{
     position: absolute;
-}
+} */
 
 .button-container {
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     flex-direction: column;
 }
@@ -40,13 +40,16 @@ html, body {
 .button-container button{
     margin: 0.5rem;
     margin-right: 0.5rem;
-    padding: 8px;
+    padding: 10px;
+}
+
+#check {
+    margin-bottom: 15rem;;
 }
 
 input {
     visibility: collapse;
 }
-
 
 .ifc-property-menu {
     border: 1px solid gray;
@@ -68,4 +71,12 @@ input {
 .ifc-property-value {
     width: 100%;
     text-align: right;
+}
+
+.table-container {
+    /* position: absolute; */
+    /* max-height: 100vh;
+    max-width: 30vw; */
+    background-color: white;
+    overflow-y: scroll;
 }
