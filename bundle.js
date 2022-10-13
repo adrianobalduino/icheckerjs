@@ -122043,7 +122043,7 @@ function addPropertyEntry(table, properties){
       } else if(decodeIFCString(properties[key]) && key == 'expressID') {
         value = decodeIFCString(properties[key]);
       } else {
-        value = decodeIFCString(properties[key]).value;
+        value = decodeIFCString(properties[key].value);
       }
       let propertyValue = document.createElement('td');
       propertyValue.textContent = value;
