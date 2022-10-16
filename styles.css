@@ -27,10 +27,6 @@ html, body {
     height: 100%;
 }
 
-/* #file-input{
-    position: absolute;
-} */
-
 .button-container {
     /* position: absolute; */
     display: flex;
@@ -40,43 +36,33 @@ html, body {
 .button-container button{
     margin: 0.5rem;
     margin-right: 0.5rem;
-    padding: 10px;
+    padding: 8px;
 }
 
-#check {
-    margin-bottom: 20rem;;
+#measure {
+    margin-bottom: 15rem;
 }
 
 input {
     visibility: collapse;
 }
 
-.ifc-property-menu {
-    border: 1px solid gray;
-    width: 20rem;
-    position: relative;
-    background-color: white;
-    margin: 1.5rem;
-    padding: 8px;
+.table-container{
+    height: 350px;
+    overflow-y: auto;
 }
 
-.ifc-property-item {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 0.5rem;
-    border-bottom: solid 1px gray;
+.ifcjs-dimension-preview {
+    width: 1rem;
+    height: 1rem;
+    background-color: #FFA50F;
+    border-radius: 1rem;
+    opacity: 0.5;
 }
 
-.ifc-property-value {
-    width: 100%;
-    text-align: right;
-}
-
-.table-container {
-    /* position: absolute; */
-    /* max-height: 100vh;
-    max-width: 30vw; */
-    background-color: white;
-    overflow-y: scroll;
+.ifcjs-dimension-label {
+    background-color: black;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
 }
