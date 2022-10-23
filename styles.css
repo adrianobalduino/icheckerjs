@@ -28,7 +28,7 @@ html, body {
 }
 
 #measure {
-    margin-bottom: 10rem;
+    margin-bottom: 8rem;
 }
 
 .button-container {
@@ -52,7 +52,7 @@ input {
 }
 
 .table-container{
-    height: 350px;
+    height: 300px;
     overflow-y: auto;
 }
 
