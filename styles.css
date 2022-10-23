@@ -35,12 +35,18 @@ html, body {
 
 .button-container button{
     margin: 0.5rem;
-    margin-right: 0.5rem;
+    /* margin-right: 0.5rem; */
+    padding: 8px;
+}
+
+.button-container select{
+    /* margin: 0.5rem; */
+    /* margin-right: 0.5rem; */
     padding: 8px;
 }
 
 #measure {
-    margin-bottom: 15rem;
+    margin-bottom: 12rem;
 }
 
 input {
@@ -65,4 +71,9 @@ input {
     color: white;
     padding: 4px;
     border-radius: 4px;
+}
+
+.disabled{
+    opacity: 50%;
+    pointer-events: none;
 }

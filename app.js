@@ -1,6 +1,5 @@
-import { Color } from 'three';
+import { Color, Matrix3 } from 'three';
 import { IfcViewerAPI } from 'web-ifc-viewer';
-import { IFCSPACE } from 'web-ifc';
 
 const container = document.getElementById('viewer-container');
 let viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) });
@@ -17,11 +16,12 @@ const measure = document.getElementById('measure');
 const table = document.getElementById('info-table');
 const selection = document.getElementById('selection');
 const ulSelector = document.getElementById('ulItem');
+const form = document.getElementById("storeyForm");
 
 const inputIfc = document.getElementById('file-input-ifc');
 const inputRequirements = document.getElementById('file-input-json');
-let checked = false;
 
+let checked = false;
 let result;
 let model;
 let reqPar;
@@ -66,6 +66,9 @@ async function loadJson(){
 
   const rawRequirements = await fetch(urlRequirements);
   reqPar = await rawRequirements.json();
+
+  loadIfcButton.classList.remove('disabled');
+
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
   setTimeout(function(){
@@ -78,6 +81,8 @@ async function loadIfc() {
   // Load thpropprope model
   const file = inputIfc.files[0];
   const url = URL.createObjectURL(file);
+
+  const buildingStoreys =[];
   
   model = await viewer.IFC.loadIfcUrl(url);
 
@@ -85,17 +90,49 @@ async function loadIfc() {
   await viewer.shadowDropper.renderShadow(model.modelID);   
   viewer.clipper.active = true;
 
+  selectionMode();
+  scene = viewer.context.getScene();
+
+  const project = await viewer.IFC.getSpatialStructure(model.modelID);
+  
+  for(const site of project.children){
+    for(const building of site.children){
+      for(const buildingStorey of building.children){
+        const buildingStoreyId = buildingStorey.expressID;
+        const buildingStoreyElement = await viewer.IFC.loader.ifcManager.getItemProperties(model.modelID, buildingStoreyId);
+        buildingStoreys.push(decodeIFCString(buildingStoreyElement.Name.value));
+      }
+    }
+  }
+
+  fillStoreyForm(buildingStoreys);
+  checkIfc.classList.remove('disabled');
+  form.classList.remove('disabled');
+
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
   setTimeout(function(){
     document.getElementById("save-success-message").classList.add("invisible")},2000);
-
-  selectionMode();
-  scene = viewer.context.getScene();
 }
 
 async function clearSelection(){
   viewer.IFC.selector.unpickIfcItems();
+}
+
+function fillStoreyForm(storeys){
+
+  let option;
+
+  while(form.firstChild){
+    form.removeChild(form.firstChild);
+  }
+
+  for(const storey of storeys){
+    option = document.createElement('option');
+    option.textContent = storey;
+    form.appendChild(option);
+  }
+
 }
 
 async function selectionMode(){
@@ -218,15 +255,44 @@ async function checkModel(){
   const rawProperties = await fetch(urlResults);
   const prop = await rawProperties.json();
 
+  const selectedStorey = document.getElementById("storeyForm").value;
+  let storeyId;
+  let relatedElements;
+
   let ifc_entity;
   let property_set;
   let property_value;
   let all_ifc_classes = [];
   let flag_propriedade = 0;
+  let decomposedElements = [];
 
   const filteredParameters = reqPar.filter(item => item.PropertySet != 'Identification');
   const propertyValues = Object.values(prop);
   const allPsetsRels = propertyValues.filter(item => item.type === 'IFCRELDEFINESBYPROPERTIES');
+  const allRelAgg = propertyValues.filter(item => item.type === 'IFCRELAGGREGATES');
+  const allStoreys = propertyValues.filter(item => item.type === 'IFCBUILDINGSTOREY');
+  const allRelContained = propertyValues.filter(item => item.type === 'IFCRELCONTAINEDINSPATIALSTRUCTURE');
+
+  for(const storey of allStoreys){
+    if(decodeIFCString(storey.Name) == selectedStorey){
+      storeyId = storey.expressID;
+    }
+  }
+
+  const specificRelContained= allRelContained.filter(item => item.RelatingStructure == storeyId);
+
+  for(const specificRel of specificRelContained){
+    // for(const relElement of filteredBy.RelatedElements)
+    relatedElements = specificRel.RelatedElements;
+  }
+
+  for(const eachRelAgg of allRelAgg){
+    if(relatedElements.includes(eachRelAgg.RelatingObject)){
+      decomposedElements.push(eachRelAgg.RelatedObjects);
+    }
+  }
+  
+  const allElements = relatedElements.concat(decomposedElements.flat());
 
   for (value in filteredParameters){
     property_value = filteredParameters[value].IFCEntity;
@@ -236,13 +302,15 @@ async function checkModel(){
 
   const filteredValues = propertyValues.filter(item => set_ifc_classes.includes(item.type));
 
-  for(var key in filteredValues){
+  const filteredByFloor = propertyValues.filter(item => allElements.includes(item.expressID));
+
+  for(var key in filteredByFloor){
     for(value in filteredParameters){
       ifc_entity = filteredParameters[value].IFCEntity;
       property_set = filteredParameters[value].PropertySet;
       property_value = filteredParameters[value].Property;
-      if(filteredValues[key].type == ifc_entity){
-        const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(filteredValues[key].expressID));
+      if(filteredByFloor[key].type == ifc_entity){
+        const relatedPsetsRels = allPsetsRels.filter(item => item.RelatedObjects.includes(filteredByFloor[key].expressID));
         const psets = relatedPsetsRels.map(item => prop[item.RelatingPropertyDefinition]);
         outer_loop:
         for (let pset of psets) {
@@ -268,7 +336,7 @@ async function checkModel(){
             }
           }
       if (flag_propriedade == 0) {
-          fail.push(filteredValues[key].expressID);
+          fail.push(filteredByFloor[key].expressID);
           fail_property.push(property_set + "." + property_value);
           } else if (flag_propriedade == 1) {                
           flag_propriedade = 0;
@@ -306,8 +374,26 @@ function decodeIFCString(ifcString) {
   const ifcUnicodeRegEx = /\\X2\\(.*?)\\X0\\/uig;
   let propString = ifcString;
   let match = ifcUnicodeRegEx.exec(ifcString);
+  let unicodeChar;
   while (match) {
-      const unicodeChar = String.fromCharCode(parseInt(match[1], 16));
+      if(match[1].length == 4){
+        unicodeChar = String.fromCharCode(parseInt(match[1], 16));
+      } else {
+        const numCaracteres = match[1].length/4;
+        console.log(numCaracteres);
+        const arrayCaracteres = [];
+        let j;
+
+        for(let i=0; i<numCaracteres;i++){
+          if(i == 0){
+            j=4;
+          } else {
+            j=4*(i+1);
+          }
+          arrayCaracteres.push(String.fromCharCode(parseInt(match[1].slice(i*4,j),16)));
+        }
+        unicodeChar = arrayCaracteres.join("");
+      }
       propString = propString.replace(match[0], unicodeChar);
       match = ifcUnicodeRegEx.exec(ifcString);
   }
@@ -369,7 +455,6 @@ async function addPropertyEntry(table, properties){
   for(const element of properties.mats){
     if(element.Materials){
       for(const material of element.Materials){
-        console.log(material);
         if(materialDescription){
           materialDescription = materialDescription + ", " + decodeIFCString(material.Name.value);
         } else{
@@ -382,6 +467,7 @@ async function addPropertyEntry(table, properties){
   delete properties.psets;
   delete properties.mats;
   delete properties.type;
+
   
   for(let key in properties){
     let row = document.createElement('tr');
@@ -421,7 +507,7 @@ async function addPropertyEntry(table, properties){
   row.appendChild(propertyName);
 
   propertyValue = document.createElement('td');
-  propertyValue.textContent = materialDescription;
+  propertyValue.textContent = decodeIFCString(materialDescription);
   row.appendChild(propertyValue);
 
   if(checked){
@@ -557,7 +643,7 @@ async function loadTable(pset){
             value = "Unknown";
           }
           let propertyValue = document.createElement('td');
-          propertyValue.textContent = value;
+          propertyValue.textContent = decodeIFCString(value);
           row.appendChild(propertyValue);
           }
         }

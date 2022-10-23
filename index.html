@@ -26,8 +26,11 @@
                     <input type="file" name ="" id="file-input-ifc" accept=".ifc, .ifcXML, .ifcZIP">
                     <input type="file" name ="" id="file-input-json" accept=".json">
                     <button id="load-json" class="btn btn-dark"><i class="bi bi-list-check"></i></button>
-                    <button id="load-ifc" class="btn btn-dark"><i class="bi bi-building"></i></button>
-                    <button id="check" class="btn btn-success"><i class="bi bi-check-circle-fill"></i></button>
+                    <button id="load-ifc" class="btn btn-dark disabled"><i class="bi bi-building"></i></button>
+                    <select class="form-select disabled bg-dark text-white" aria-label="Default select example" id="storeyForm">
+                        <option selected>Storey</option>
+                      </select>
+                    <button id="check" class="btn btn-success disabled"><i class="bi bi-check-circle-fill"></i></button>
                     <button id="selection" class="btn btn-dark"><i class="bi bi-cursor"></i></button>
                     <button id="measure" class="btn btn-light"><i class="bi bi-rulers"></i></button>
                 </div>
@@ -40,27 +43,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table-container">
-                    <nav class="navbar navbar-dark bg-dark" id="navigation">
+                    <nav class="navbar navbar-dark bg-dark nav-pills" id="navigation">
                         <div class="container-fluid">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">   
                                 <ul class="navbar-nav main-nav ml-auto mb-2 lg-0" id="ulItem">
-                                    <!-- <li class="nav-item">
-                                        <div class="nav-link active">Identification</div>
-                                    </li> -->
                                 </ul>
                             </div>
                         </div>
                     </nav>
                     <table class="table table-hover table-striped" id="info-table">
-                        <!-- <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Key</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead> -->
                         <tbody>
                         </tbody>
                     </table>
