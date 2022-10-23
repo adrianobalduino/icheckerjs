@@ -27,26 +27,24 @@ html, body {
     height: 100%;
 }
 
+#measure {
+    margin-bottom: 10rem;
+}
+
 .button-container {
-    /* position: absolute; */
     display: flex;
     flex-direction: column;
 }
 
 .button-container button{
     margin: 0.5rem;
-    /* margin-right: 0.5rem; */
     padding: 8px;
 }
 
 .button-container select{
-    /* margin: 0.5rem; */
-    /* margin-right: 0.5rem; */
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
     padding: 8px;
-}
-
-#measure {
-    margin-bottom: 12rem;
 }
 
 input {

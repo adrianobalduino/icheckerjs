@@ -121822,53 +121822,50 @@ let viewer = new IfcViewerAPI({ container, backgroundColor: new Color(0xffffff) 
 viewer.grid.setGrid();
 viewer.axes.setAxes();
 
-// Get all buttons
+// Get all elements
 const loadIfcButton = document.getElementById('load-ifc');
 const loadRequirements = document.getElementById('load-json');
 const checkIfc = document.getElementById('check');
 const measure = document.getElementById('measure');
 const table = document.getElementById('info-table');
+const body = table.querySelector('tbody');
 const selection = document.getElementById('selection');
 const ulSelector = document.getElementById('ulItem');
 const form = document.getElementById("storeyForm");
-
 const inputIfc = document.getElementById('file-input-ifc');
 const inputRequirements = document.getElementById('file-input-json');
 
+// Set up the button logic
+inputRequirements.onchange = () => loadJson();
+inputIfc.onchange = () => loadIfc();
+loadIfcButton.onclick = () => inputIfc.click();
+loadRequirements.onclick = () => inputRequirements.click();
+checkIfc.onclick = () => checkModel();
+measure.onclick = () => measureModel();
+selection.onclick = () => selectionMode();
+document.getElementById("navigation").addEventListener("click",clickEventHandler);
+
+// Set global parameters
 let checked = false;
 let result;
 let model;
 let reqPar;
 let scene;
 let subset;
-const fail = [];
-const fail_property = [];
 let missingProp = [];
-
 const pickable = viewer.context.items.pickableIfcModels;
 const index = pickable.indexOf(model);
-
-// Set up the button logic
-inputRequirements.onchange = () => loadJson();
-inputIfc.onchange = () => loadIfc();
-
-loadIfcButton.onclick = () => inputIfc.click();
-loadRequirements.onclick = () => inputRequirements.click();
-checkIfc.onclick = () => checkModel();
-measure.onclick = () => measureModel();
-selection.onclick = () => selectionMode();
+const fail = [];
+const fail_property = [];
 
 async function clickEventHandler(e){
   if(e.target.matches(".nav-link")){
     loadTable(e.target.dataset.elementId);
   }
-
   let navLinks = document.querySelectorAll(".nav-link");
-
   navLinks.forEach(function(linkEl){
     linkEl.classList.remove("active");
   });
-
   e.target.classList.add("active");
 }
 
@@ -121877,12 +121874,9 @@ async function loadJson(){
   //Load the Requirements
   const requirements = inputRequirements.files[0];
   const urlRequirements = URL.createObjectURL(requirements);
-
   const rawRequirements = await fetch(urlRequirements);
   reqPar = await rawRequirements.json();
-
   loadIfcButton.classList.remove('disabled');
-
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
   setTimeout(function(){
@@ -121895,20 +121889,14 @@ async function loadIfc() {
   // Load thpropprope model
   const file = inputIfc.files[0];
   const url = URL.createObjectURL(file);
-
   const buildingStoreys =[];
-  
   model = await viewer.IFC.loadIfcUrl(url);
-
   // Add dropped shadow and post-processing efect
   await viewer.shadowDropper.renderShadow(model.modelID);   
   viewer.clipper.active = true;
-
   selectionMode();
   scene = viewer.context.getScene();
-
   const project = await viewer.IFC.getSpatialStructure(model.modelID);
-  
   for(const site of project.children){
     for(const building of site.children){
       for(const buildingStorey of building.children){
@@ -121918,11 +121906,9 @@ async function loadIfc() {
       }
     }
   }
-
   fillStoreyForm(buildingStoreys);
   checkIfc.classList.remove('disabled');
   form.classList.remove('disabled');
-
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
   setTimeout(function(){
@@ -121946,7 +121932,6 @@ function fillStoreyForm(storeys){
     option.textContent = storey;
     form.appendChild(option);
   }
-
 }
 
 async function selectionMode(){
@@ -121954,9 +121939,7 @@ async function selectionMode(){
   clearSelection();
   viewer.dimensions.active = false;
   viewer.dimensions.previewActive = false;
-
   window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
-
   window.ondblclick = async () => {
     result = await viewer.IFC.selector.pickIfcItem();
     if (!result) return;
@@ -121982,42 +121965,38 @@ async function selectionMode(){
           const value = await viewer.IFC.loader.ifcManager.getItemProperties(modelID, id);
           realValues.push(value);
           }
-
         propertySet.Quantities = realValues;
       }
     }
+    clearNavBar();
 
-    while (ulSelector.firstChild){
-      ulSelector.removeChild(ulSelector.firstChild);
-    }
+    // let ulItem = document.createElement('li');
+    // ulItem.classList.add("nav-item");
+    // ulSelector.appendChild(ulItem);
 
-    let ulItem = document.createElement('li');
-    ulItem.classList.add("nav-item");
-    ulSelector.appendChild(ulItem);
+    // let propertySetName = document.createElement('div');
+    // propertySetName.classList.add("nav-link");
+    // propertySetName.classList.add("active");
+    // propertySetName.textContent = decodeIFCString('Identification');
+    // propertySetName.dataset.elementId = 0;
+    // ulItem.appendChild(propertySetName);
 
-    let propertySetName = document.createElement('div');
-    propertySetName.classList.add("nav-link");
-    propertySetName.classList.add("active");
-    propertySetName.textContent = decodeIFCString('Identification');
-    propertySetName.dataset.elementId = 0;
-    ulItem.appendChild(propertySetName);
-
+    createNavItem('Identification',0);
 
     for(const propertySet of propertySets){
+      // let ulItem = document.createElement('li');
+      // ulItem.classList.add("nav-item");
+      // ulSelector.appendChild(ulItem);
+      // let propertySetName = document.createElement('div');
+      // propertySetName.classList.add("nav-link");
+      // propertySetName.textContent = decodeIFCString(propertySet.Name.value);
+      // propertySetName.dataset.elementId = propertySet.expressID;
+      // ulItem.appendChild(propertySetName);
 
-      let ulItem = document.createElement('li');
-      ulItem.classList.add("nav-item");
-      ulSelector.appendChild(ulItem);
+      createNavItem(propertySet.Name.value,propertySet.expressID);
 
-      let propertySetName = document.createElement('div');
-      propertySetName.classList.add("nav-link");
-      propertySetName.textContent = decodeIFCString(propertySet.Name.value);
-      propertySetName.dataset.elementId = propertySet.expressID;
-      ulItem.appendChild(propertySetName);
-      
     }
-
-    addPropertyEntry(table, props);
+    loadTableIdentification(table, props);
   };
 
   window.onkeydown = (event) => {
@@ -122072,7 +122051,6 @@ async function checkModel(){
   const selectedStorey = document.getElementById("storeyForm").value;
   let storeyId;
   let relatedElements;
-
   let ifc_entity;
   let property_set;
   let property_value;
@@ -122096,7 +122074,6 @@ async function checkModel(){
   const specificRelContained= allRelContained.filter(item => item.RelatingStructure == storeyId);
 
   for(const specificRel of specificRelContained){
-    // for(const relElement of filteredBy.RelatedElements)
     relatedElements = specificRel.RelatedElements;
   }
 
@@ -122113,10 +122090,8 @@ async function checkModel(){
     all_ifc_classes.push(property_value);
   }
   const set_ifc_classes = [...new Set(all_ifc_classes)];
-
-  propertyValues.filter(item => set_ifc_classes.includes(item.type));
-
-  const filteredByFloor = propertyValues.filter(item => allElements.includes(item.expressID));
+  const filteredValues = propertyValues.filter(item => set_ifc_classes.includes(item.type));
+  const filteredByFloor = filteredValues.filter(item => allElements.includes(item.expressID));
 
   for(var key in filteredByFloor){
     for(value in filteredParameters){
@@ -122166,22 +122141,15 @@ async function checkModel(){
   scene.add(subset);
   pickable.push(subset);
 
+  clearTable();
   loadingEnd();
   document.getElementById("save-success-message").classList.remove("invisible");
   setTimeout(function(){
     document.getElementById("save-success-message").classList.add("invisible");},2000);
 
   checked = true;
-
-  while (ulSelector.firstChild){
-    ulSelector.removeChild(ulSelector.firstChild);
-  }
-
-  const body = table.querySelector('tbody');
-  while (body.firstChild){
-    body.removeChild(body.firstChild);
-  }
-
+  clearNavBar();
+  
 }
 
 function decodeIFCString(ifcString) {
@@ -122194,7 +122162,6 @@ function decodeIFCString(ifcString) {
         unicodeChar = String.fromCharCode(parseInt(match[1], 16));
       } else {
         const numCaracteres = match[1].length/4;
-        console.log(numCaracteres);
         const arrayCaracteres = [];
         let j;
 
@@ -122232,27 +122199,19 @@ function loadingEnd(){
   document.getElementById("loading").classList.add("invisible");
 }
 
-async function addPropertyEntry(table, properties){
+async function loadTableIdentification(table, properties){
 
   const { modelID, id } = result;
-
-  const body = table.querySelector('tbody');
-  while (body.firstChild){
-    body.removeChild(body.firstChild);
-  }
+  clearTable();
 
   let typeDescription;
   let materialDescription;
-  let propertyName;
-  let propertyValue;
   let realValues = [];
-
   for(const element of properties.type){
     if(element.Name){
       typeDescription = element.Name.value;
     } 
   }
-
   for(const element of properties.mats){
     if(element.Materials){
       for(const material of element.Materials){
@@ -122265,7 +122224,6 @@ async function addPropertyEntry(table, properties){
       materialDescription = element.Name.value;
     }
   }
-
   for(const element of properties.mats){
     if(element.Materials){
       for(const material of element.Materials){
@@ -122282,16 +122240,8 @@ async function addPropertyEntry(table, properties){
   delete properties.mats;
   delete properties.type;
 
-  
   for(let key in properties){
-    let row = document.createElement('tr');
-    body.appendChild(row);
-    propertyName = document.createElement('td');
-    propertyName.textContent = key;
-    row.appendChild(propertyName);
-
     let value;
-
     if(decodeIFCString(properties[key] == null || decodeIFCString(properties[key]) === undefined)){
       value = "Unknown";
     } else if(decodeIFCString(properties[key]) && key == 'expressID') {
@@ -122299,59 +122249,27 @@ async function addPropertyEntry(table, properties){
     } else {
       value = decodeIFCString(properties[key].value);
     }
-    propertyValue = document.createElement('td');
-    propertyValue.textContent = value;
-    row.appendChild(propertyValue);
+    createRow(key, value);
   }
 
-  row = document.createElement('tr');
-  body.appendChild(row);
-  propertyName = document.createElement('td');
-  propertyName.textContent = 'Type Name';
-  row.appendChild(propertyName);
-
-  propertyValue = document.createElement('td');
-  propertyValue.textContent = decodeIFCString(typeDescription);
-  row.appendChild(propertyValue);
-
-  row = document.createElement('tr');
-  body.appendChild(row);
-  propertyName = document.createElement('td');
-  propertyName.textContent = 'Material';
-  row.appendChild(propertyName);
-
-  propertyValue = document.createElement('td');
-  propertyValue.textContent = decodeIFCString(materialDescription);
-  row.appendChild(propertyValue);
+  createRow('Material',materialDescription);
+  createRow('Type Name', typeDescription);
 
   if(checked){
-    row = document.createElement('tr');
-    body.appendChild(row);
-    propertyName = document.createElement('td');
-    propertyName.textContent = 'Missing Properties';
-    row.appendChild(propertyName);
-  
-    propertyValue = document.createElement('td');
-    propertyValue.textContent = missingProperties(properties.expressID);
-    row.appendChild(propertyValue);
+    createRow('Missing Properties', missingProperties(properties.expressID));
   }  
 }
 
 async function loadTable(pset){
-
   if(pset == 0){
     const { modelID, id } = result;
     const props = await viewer.IFC.getProperties(modelID, id, true, false);
-    addPropertyEntry(table, props);
-
+    loadTableIdentification(table, props);
   } else {
     const { modelID, id } = result;
-
     const propertySet = await viewer.IFC.loader.ifcManager.getItemProperties(modelID, parseInt(pset));
-  
     const realValues = [];
     const complexValues = [];
-  
     if(propertySet.HasProperties){
       for(const propriedade of propertySet.HasProperties){
         const id = propriedade.value;
@@ -122360,7 +122278,6 @@ async function loadTable(pset){
       }
       propertySet.HasProperties = realValues;
     }
-  
     if(propertySet.Quantities){
       for(const propriedade of propertySet.Quantities){
         const id = propriedade.value;
@@ -122369,37 +122286,20 @@ async function loadTable(pset){
       propertySet.Quantities = realValues;
      }
     }
-  
-    const body = table.querySelector('tbody');
-    while (body.firstChild){
-      body.removeChild(body.firstChild);
-    }
-  
+    clearTable();
     if(propertySet.HasProperties){
       for(let key of propertySet.HasProperties){
-  
-        let row = document.createElement('tr');
-        body.appendChild(row);
-        const propertyName = document.createElement('td');
-        propertyName.textContent = decodeIFCString(key.Name.value); 
-        row.appendChild(propertyName);
-    
         let value;
-    
-        if(decodeIFCString(key.NominalValue.value == null || decodeIFCString(key.NominalValue.value) === undefined)){
+        if(key.NominalValue.value == null || key.NominalValue.value === undefined){
           value = "Unknown";
         } else {
-          value = decodeIFCString(key.NominalValue.value);
+          value = key.NominalValue.value;
         }
-        let propertyValue = document.createElement('td');
-        propertyValue.textContent = value;
-        row.appendChild(propertyValue);
+        createRow(key.Name.value,value);
       }
     }
-  
     if(propertySet.Quantities){
       for(let key of propertySet.Quantities){
-  
         if(key.HasQuantities){
           for(const propComplex of key.HasQuantities){
             const complexId = propComplex.value;
@@ -122408,17 +122308,8 @@ async function loadTable(pset){
           }
           key.HasQuantities = complexValues;
         }
-  
         if(key.HasQuantities){
-  
           for(const propComplex of key.HasQuantities){
-  
-            let row = document.createElement('tr');
-            body.appendChild(row);
-            const propertyName = document.createElement('td');
-            propertyName.textContent = decodeIFCString(key.Name.value + "." + propComplex.Name.value); 
-            row.appendChild(propertyName);
-            
             let value;
             if(propComplex.LengthValue){
               value = propComplex.LengthValue.value;
@@ -122431,20 +122322,10 @@ async function loadTable(pset){
             } else {
               value = "Unknown";
             }
-            let propertyValue = document.createElement('td');
-            propertyValue.textContent = value;
-            row.appendChild(propertyValue);
+            createRow(key.Name.value + "." + propComplex.Name.value,value);
           }
         } else {
-  
-          let row = document.createElement('tr');
-          body.appendChild(row);
-          const propertyName = document.createElement('td');
-          propertyName.textContent = decodeIFCString(key.Name.value); 
-          row.appendChild(propertyName);
-  
           let value;
-  
           if(key.LengthValue){
             value = key.LengthValue.value;
           } else if(key.AreaValue){
@@ -122456,9 +122337,7 @@ async function loadTable(pset){
           } else {
             value = "Unknown";
           }
-          let propertyValue = document.createElement('td');
-          propertyValue.textContent = decodeIFCString(value);
-          row.appendChild(propertyValue);
+          createRow(key.Name.value,value);
           }
         }
       }
@@ -122479,4 +122358,42 @@ function missingProperties(expressID){
   }
 }
 
-document.getElementById("navigation").addEventListener("click",clickEventHandler);
+function clearTable(){
+  while (body.firstChild){
+    body.removeChild(body.firstChild);
+  }
+}
+
+function clearNavBar(){
+  while (ulSelector.firstChild){
+    ulSelector.removeChild(ulSelector.firstChild);
+  }
+}
+
+function createRow(key,value){
+  row = document.createElement('tr');
+  body.appendChild(row);
+  propertyName = document.createElement('td');
+  propertyName.textContent = decodeIFCString(key);
+  row.appendChild(propertyName);
+
+  propertyValue = document.createElement('td');
+  propertyValue.textContent = decodeIFCString(value);
+  row.appendChild(propertyValue);
+}
+
+function createNavItem(name, id){
+  let ulItem = document.createElement('li');
+  ulItem.classList.add("nav-item");
+  ulSelector.appendChild(ulItem);
+
+  let propertySetName = document.createElement('div');
+  propertySetName.classList.add("nav-link");
+  propertySetName.textContent = decodeIFCString(name);
+  if(name == 'Identification'){
+    propertySetName.classList.add("active");
+  }
+  propertySetName.dataset.elementId = id;
+  ulItem.appendChild(propertySetName);
+
+}
