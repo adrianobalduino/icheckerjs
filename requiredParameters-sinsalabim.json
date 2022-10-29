@@ -1,0 +1,92 @@
+[
+    {
+        "IFCEntity": "IFCWALL",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCWALL",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Area"
+    },
+    {
+        "IFCEntity": "IFCBUILDINGELEMENTPART",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCBUILDINGELEMENTPART",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Area"
+    },
+    {
+        "IFCEntity": "IFCFLOWTERMINAL",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCFLOWTERMINAL",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Prumada"
+    },
+    {
+        "IFCEntity": "IFCFLOWSEGMENT",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCFLOWSEGMENT",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Prumada"
+    },
+    {
+        "IFCEntity": "IFCFLOWSEGMENT",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Comprimento"
+    },
+    {
+        "IFCEntity": "IFCFLOWFITTING",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCFLOWFITTING",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Comprimento"
+    },
+    {
+        "IFCEntity": "IFCFLOWFITTING",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Prumada"
+    },
+    {
+        "IFCEntity": "IFCDOOR",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCDOOR",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Largura para vergas"
+    },
+    {
+        "IFCEntity": "IFCDOOR",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Fechadura Externa"
+    },
+    {
+        "IFCEntity": "IFCDOOR",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Fechadura Interna"
+    },
+    {
+        "IFCEntity": "IFCCOLUMN",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Descricao"
+    },
+    {
+        "IFCEntity": "IFCCOLUMN",
+        "PropertySet": "sinsalabim",
+        "Property": "SSB - Volume"
+    }
+]
